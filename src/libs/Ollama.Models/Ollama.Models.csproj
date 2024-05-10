@@ -4,31 +4,33 @@
     <TargetFrameworks>netstandard2.0;net4.6.2;net6.0;net8.0</TargetFrameworks>
     <NoWarn>$(NoWarn);CA2016</NoWarn>
   </PropertyGroup>
-  
-  <ItemGroup>
-    <Using Include="System.Text.Json" />
-    <Using Include="System.Net.Http" />
-  </ItemGroup>
 
   <PropertyGroup Label="Nuget">
     <Description>Generated C# SDK based on Ollama OpenAPI specification.</Description>
     <PackageTags>api;client;sdk;dotnet;swagger;openapi;specification;ollama;generated</PackageTags>
   </PropertyGroup>
+
+  <PropertyGroup Label="OpenApiGenerator">
+    <OpenApiGenerator_Namespace>Ollama</OpenApiGenerator_Namespace>
+    <OpenApiGenerator_ClassName>OllamaApi</OpenApiGenerator_ClassName>
+    <OpenApiGenerator_GenerateModels>true</OpenApiGenerator_GenerateModels>
+    <OpenApiGenerator_GenerateSdk>false</OpenApiGenerator_GenerateSdk>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <AdditionalFiles Include="$(MSBuildThisFileDirectory)../../../docs/openapi.yaml" />
+  </ItemGroup>
   
   <ItemGroup>
     <PackageReference Include="PolySharp" Version="1.14.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="OpenApiGenerator" Version="0.1.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="System.Text.Json" Version="8.0.3" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net4.6.2'">
-    <Reference Include="System.Net.Http" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Ollama.Models\Ollama.Models.csproj" />
   </ItemGroup>
 
 </Project>

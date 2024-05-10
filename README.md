@@ -1,43 +1,44 @@
-# Ollama SDK for .NET
+# Ollama SDK for .NET 🦙
 
-[![Nuget package](https://img.shields.io/nuget/vpre/Ollama)](https://www.nuget.org/packages/Ollama/)
-[![dotnet](https://github.com/tryAGI/Ollama/actions/workflows/dotnet.yml/badge.svg?branch=main)](https://github.com/tryAGI/Ollama/actions/workflows/dotnet.yml)
-[![License: MIT](https://img.shields.io/github/license/tryAGI/Ollama)](https://github.com/tryAGI/Ollama/blob/main/LICENSE.txt)
-[![Discord](https://img.shields.io/discord/1115206893015662663?label=Discord&logo=discord&logoColor=white&color=d82679)](https://discord.gg/Ca2xhfBf3v)
+Generated C# SDK based on Ollama OpenAPI specification and [official docs](https://github.com/jmorganca/ollama/blob/main/docs/api.md) using OpenApiGenerator.  
 
-Generated C# SDK based on Ollama OpenAPI specification using NSwag.  
+## Features 🔥
 
-### Usage
+- Intuitive API client: Set up and interact with Ollama in just a few lines of code.
+- API endpoint coverage: Support for all Ollama API endpoints including chats, embeddings, listing models, pulling and creating new models, and more.
+- Real-time streaming: Stream responses directly to your application.
+- Progress reporting: Get real-time progress feedback on tasks like model pulling.
+
+## Usage
+
+### Initializing
+
 ```csharp
-using Ollama;
+var ollama = new OllamaApiClient();
 
-using var client = new HttpClient();
-var api = new OllamaApi(apiKey, client);
-var response = await api.CompleteAsync(new CreateCompletionRequest
+var models = await ollama.ListModelsAsync();
+
+// Pulling a model and reporting progress
+await ollama.PullModelAsync("mistral", status => Console.WriteLine($"({status.Percent}%) {status.Status}"));
+
+// Streaming a completion directly into the console
+// keep reusing the context to keep the chat topic going
+ConversationContext context = null;
+context = await ollama.StreamCompletionAsync("mistral", "How are you today?", context, stream => Console.Write(stream.Response));
+
+// uses the /chat api from Ollama 0.1.14
+// messages including their roles will automatically be tracked within the chat object
+var chat = ollama.Chat("mistral", stream => Console.WriteLine(stream.Message?.Content ?? ""));
+while (true)
 {
-    Model = ModelIds.ClaudeInstant,
-    Prompt = "Once upon a time".AsPrompt(),
-    Max_tokens_to_sample = 250,
-});
-Console.WriteLine(response.Completion);
-
-// or use history syntax
-
-var response = await api.CompleteAsync(new CreateCompletionRequest
-{
-    Model = ModelIds.ClaudeInstant,
-    Prompt = new[]
-    {
-        "What's the weather like today?".AsHumanMessage(),
-        "Sure! Could you please provide me with your location?".AsAssistantMessage(),
-        "Dubai, UAE".AsHumanMessage(),
-    }.AsPrompt(),
-    Max_tokens_to_sample = 300,
-});
+    var message = Console.ReadLine();
+    await chat.Send(message);
+}
 ```
 
-## Support
+## Credits
 
-Priority place for bugs: https://github.com/tryAGI/Ollama/issues  
-Priority place for ideas and general questions: https://github.com/tryAGI/Ollama/discussions  
-Discord: https://discord.gg/Ca2xhfBf3v  
+Icon and name were reused from the amazing [Ollama project](https://github.com/jmorganca/ollama).
+The project was forked from [this repository](https://github.com/awaescher/OllamaSharp), 
+after which automatic code generation was applied based on [this OpenAPI specification](https://github.com/davidmigloz/langchain_dart/blob/main/packages/ollama_dart/oas/ollama-curated.yaml) 
+(in the future it will be replaced by the official one, if one appears)
