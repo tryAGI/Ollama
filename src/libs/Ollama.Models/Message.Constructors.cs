@@ -17,7 +17,7 @@ public partial class Message
 	/// <param name="role"></param>
 	/// <param name="content"></param>
 	[SetsRequiredMembers]
-	public Message(MessageRole role, string content)
+	public Message(string role, string content)
 	{
 		Role = role;
 		Content = content;

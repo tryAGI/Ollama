@@ -404,7 +404,7 @@ public class OllamaApiClient
 		using var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
 		using var reader = new StreamReader(stream);
 
-		MessageRole? responseRole = null;
+		string? responseRole = null;
 		var responseContent = new StringBuilder();
 
 		while (!reader.EndOfStream && !cancellationToken.IsCancellationRequested)

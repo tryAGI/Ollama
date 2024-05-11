@@ -39,6 +39,9 @@ public partial class Tests
         using var client = new HttpClient();
         var api = new OllamaApiClient(client);
         
-        await api.PullModelAsync("nomic-embed-text", modelResponse => {});
+        await api.PullModelAsync("nomic-embed-text", modelResponse =>
+        {
+            Console.WriteLine($"{modelResponse.Status}. Progress: {modelResponse.Completed}/{modelResponse.Total}");
+        });
     }
 }
