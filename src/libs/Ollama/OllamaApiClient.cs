@@ -54,16 +54,21 @@ public class OllamaApiClient
 	/// </summary>
 	/// <param name="request">The parameters for the model to create</param>
 	/// <param name="cancellationToken">The token to cancel the operation with</param>
-	public ConfiguredCancelableAsyncEnumerable<CreateModelResponse> CreateModelAsync(
+	public async IAsyncEnumerable<CreateModelResponse> CreateModelAsync(
 		CreateModelRequest request,
-		CancellationToken cancellationToken = default)
+		[EnumeratorCancellation] CancellationToken cancellationToken = default)
 	{
-		return StreamPostAsync(
+		var enumerable = StreamPostAsync(
 			"api/create",
 			request,
 			SourceGenerationContext.Default.CreateModelRequest,
 			SourceGenerationContext.Default.CreateModelResponse,
 			cancellationToken).ConfigureAwait(false);
+		
+		await foreach (var response in enumerable)
+		{
+			yield return response;
+		}
 	}
 
 	/// <summary>
@@ -142,16 +147,21 @@ public class OllamaApiClient
 	/// </summary>
 	/// <param name="request">The request parameters</param>
 	/// <param name="cancellationToken">The token to cancel the operation with</param>
-	public ConfiguredCancelableAsyncEnumerable<PullModelResponse> PullModelAsync(
+	public async IAsyncEnumerable<PullModelResponse> PullModelAsync(
 		PullModelRequest request,
-		CancellationToken cancellationToken = default)
+		[EnumeratorCancellation] CancellationToken cancellationToken = default)
 	{
-		return StreamPostAsync(
+		var enumerable = StreamPostAsync(
 			"api/pull",
 			request,
 			SourceGenerationContext.Default.PullModelRequest,
 			SourceGenerationContext.Default.PullModelResponse,
 			cancellationToken).ConfigureAwait(false);
+		
+		await foreach (var response in enumerable)
+		{
+			yield return response;
+		}
 	}
 
 	/// <summary>
@@ -159,16 +169,21 @@ public class OllamaApiClient
 	/// </summary>
 	/// <param name="request">The request parameters</param>
 	/// <param name="cancellationToken">The token to cancel the operation with</param>
-	public ConfiguredCancelableAsyncEnumerable<PushModelResponse> PushModelAsync(
+	public async IAsyncEnumerable<PushModelResponse> PushModelAsync(
 		PushModelRequest request,
-		CancellationToken cancellationToken = default)
+		[EnumeratorCancellation] CancellationToken cancellationToken = default)
 	{
-		return StreamPostAsync(
+		var enumerable = StreamPostAsync(
 			"api/push",
 			request,
 			SourceGenerationContext.Default.PushModelRequest,
 			SourceGenerationContext.Default.PushModelResponse,
 			cancellationToken).ConfigureAwait(false);
+		
+		await foreach (var response in enumerable)
+		{
+			yield return response;
+		}
 	}
 
 	/// <summary>

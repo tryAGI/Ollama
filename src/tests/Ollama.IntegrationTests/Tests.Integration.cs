@@ -10,7 +10,7 @@ public partial class Tests
         {
             case EnvironmentType.Local:
             {
-                using var client = new HttpClient();
+                var client = new HttpClient();
                 client.BaseAddress = new Uri("http://172.16.50.107:11434/");
                 var apiClient = new OllamaApiClient(client);
                 

@@ -31,14 +31,19 @@ public static class OllamaApiClientExtensions
 	/// <param name="chatRequest">The request to send to Ollama</param>
 	/// <param name="cancellationToken">The token to cancel the operation with</param>
 	/// <returns>List of the returned messages including the previous context</returns>
-	public static ConfiguredCancelableAsyncEnumerable<GenerateChatCompletionResponse> SendChatAsync(
+	public static async IAsyncEnumerable<GenerateChatCompletionResponse> SendChatAsync(
 		this OllamaApiClient client,
 		GenerateChatCompletionRequest chatRequest,
-		CancellationToken cancellationToken = default)
+		[EnumeratorCancellation] CancellationToken cancellationToken = default)
 	{
 		client = client ?? throw new ArgumentNullException(nameof(client));
 
-		return client.SendChatAsync(chatRequest, cancellationToken).ConfigureAwait(false);
+		var enumerable = client.SendChatAsync(chatRequest, cancellationToken).ConfigureAwait(false);
+		
+		await foreach (var response in enumerable)
+		{
+			yield return response;
+		}
 	}
 
 	/// <summary>
@@ -74,22 +79,27 @@ public static class OllamaApiClientExtensions
 	/// </param>
 	/// <param name="path">The name path to the model file</param>
 	/// <param name="cancellationToken">The token to cancel the operation with</param>
-	public static ConfiguredCancelableAsyncEnumerable<CreateModelResponse> CreateModelAsync(
+	public static async IAsyncEnumerable<CreateModelResponse> CreateModelAsync(
 		this OllamaApiClient client,
 		string name,
 		string modelFileContent,
 		string? path = null,
-		CancellationToken cancellationToken = default)
+		[EnumeratorCancellation] CancellationToken cancellationToken = default)
 	{
 		client = client ?? throw new ArgumentNullException(nameof(client));
 
-		return client.CreateModelAsync(new CreateModelRequest
+		var enumerable = client.CreateModelAsync(new CreateModelRequest
 		{
 			Name = name,
 			Modelfile = modelFileContent,
 			Path = path,
 			Stream = true,
 		}, cancellationToken).ConfigureAwait(false);
+		
+		await foreach (var response in enumerable)
+		{
+			yield return response;
+		}
 	}
 
 	/// <summary>
@@ -98,17 +108,22 @@ public static class OllamaApiClientExtensions
 	/// <param name="client"></param>
 	/// <param name="model">The name of the model to pull</param>
 	/// <param name="cancellationToken">The token to cancel the operation with</param>
-	public static ConfiguredCancelableAsyncEnumerable<PullModelResponse> PullModelAsync(
+	public static async IAsyncEnumerable<PullModelResponse> PullModelAsync(
 		this OllamaApiClient client,
 		string model,
-		CancellationToken cancellationToken = default)
+		[EnumeratorCancellation] CancellationToken cancellationToken = default)
 	{
 		client = client ?? throw new ArgumentNullException(nameof(client));
 
-		return client.PullModelAsync(new PullModelRequest
+		var enumerable = client.PullModelAsync(new PullModelRequest
 		{
 			Name = model,
 		}, cancellationToken).ConfigureAwait(false);
+		
+		await foreach (var response in enumerable)
+		{
+			yield return response;
+		}
 	}
 
 	/// <summary>
@@ -117,18 +132,23 @@ public static class OllamaApiClientExtensions
 	/// <param name="client"></param>
 	/// <param name="name">The name of the model to push</param>
 	/// <param name="cancellationToken">The token to cancel the operation with</param>
-	public static ConfiguredCancelableAsyncEnumerable<PushModelResponse> PushModelAsync(
+	public static async IAsyncEnumerable<PushModelResponse> PushModelAsync(
 		this OllamaApiClient client,
 		string name,
-		CancellationToken cancellationToken = default)
+		[EnumeratorCancellation] CancellationToken cancellationToken = default)
 	{
 		client = client ?? throw new ArgumentNullException(nameof(client));
 
-		return client.PushModelAsync(new PushModelRequest
+		var enumerable = client.PushModelAsync(new PushModelRequest
 		{
 			Name = name,
 			Stream = true,
 		}, cancellationToken).ConfigureAwait(false);
+		
+		await foreach (var response in enumerable)
+		{
+			yield return response;
+		}
 	}
 
 	/// <summary>
@@ -163,25 +183,28 @@ public static class OllamaApiClientExtensions
 	/// </param>
 	/// <param name="stream"></param>
 	/// <param name="cancellationToken">The token to cancel the operation with</param>
-	public static ConfiguredCancelableAsyncEnumerable<GenerateCompletionResponse> GetCompletionAsync(
+	public static async IAsyncEnumerable<GenerateCompletionResponse> GetCompletionAsync(
 		this OllamaApiClient client,
 		string model,
 		string prompt,
 		bool stream = true,
 		IList<long>? context = null,
-		CancellationToken cancellationToken = default)
+		[EnumeratorCancellation] CancellationToken cancellationToken = default)
 	{
 		client = client ?? throw new ArgumentNullException(nameof(client));
 
-		var request = new GenerateCompletionRequest
+		var enumerable = client.GetCompletionAsync(new GenerateCompletionRequest
 		{
 			Prompt = prompt,
 			Model = model,
 			Stream = stream,
 			Context = context ?? [],
-		};
-
-		return client.GetCompletionAsync(request, cancellationToken).ConfigureAwait(false);
+		}, cancellationToken).ConfigureAwait(false);
+		
+		await foreach (var response in enumerable)
+		{
+			yield return response;
+		}
 	}
 
 	/// <summary>
@@ -190,8 +213,10 @@ public static class OllamaApiClientExtensions
 	/// <param name="enumerable"></param>
 	/// <returns></returns>
 	public static async Task<GenerateCompletionResponse> WaitAsync(
-		this ConfiguredCancelableAsyncEnumerable<GenerateCompletionResponse> enumerable)
+		this IAsyncEnumerable<GenerateCompletionResponse> enumerable)
 	{
+		enumerable = enumerable ?? throw new ArgumentNullException(nameof(enumerable));
+		
 		var text = string.Empty;
 		var currentResponse = new GenerateCompletionResponse();
 		await foreach (var response in enumerable)
@@ -242,8 +267,10 @@ public static class OllamaApiClientExtensions
 	/// <param name="enumerable"></param>
 	/// <returns></returns>
 	public static async Task<T> WaitAsync<T>(
-		this ConfiguredCancelableAsyncEnumerable<T> enumerable) where T : new()
+		this IAsyncEnumerable<T> enumerable) where T : new()
 	{
+		enumerable = enumerable ?? throw new ArgumentNullException(nameof(enumerable));
+		
 		var currentResponse = new T();
 		await foreach (var response in enumerable)
 		{
