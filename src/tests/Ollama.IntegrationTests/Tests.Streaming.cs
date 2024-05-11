@@ -25,8 +25,8 @@ public partial class Tests
         await writer.FinishCompletionStreamResponse("blue.", context: new int[] { 1, 2, 3 });
         stream.Seek(0, SeekOrigin.Begin);
 
-        var context = await client.GetCompletionAsync(string.Empty, "prompt", null, CancellationToken.None);
-
+        var context = await client.GetCompletionAsync(string.Empty, "prompt").WaitAsync();
+        
         context.Response.Should().Be("The sky is blue.");
         context.Context.Should().BeEquivalentTo(new int[] { 1, 2, 3 });
     }
@@ -51,11 +51,17 @@ public partial class Tests
         stream.Seek(0, SeekOrigin.Begin);
 
         var builder = new StringBuilder();
-        var context =
-            await client.StreamCompletionAsync(string.Empty, "prompt", null, s => builder.Append(s.Response), CancellationToken.None);
-
+        var enumerable = client.GetCompletionAsync("llama3", "prompt");
+        IList<long>? context = null;
+        await foreach (var s in enumerable)
+        {
+            builder.Append(s.Response);
+            
+            context = s.Context;
+        }
+        
         builder.ToString().Should().Be("The sky is blue.");
-        context.Context.Should().BeEquivalentTo(new int[] { 1, 2, 3 });
+        context.Should().BeEquivalentTo(new int[] { 1, 2, 3 });
     }
 
     //[TestMethod]
@@ -76,22 +82,22 @@ public partial class Tests
         await writer.FinishChatStreamResponse("alone.", MessageRole.Assistant);
         stream.Seek(0, SeekOrigin.Begin);
 
-        var builder = new StringBuilder();
-
+        var messages = new Message[]
+        {
+            new(MessageRole.User, "Why?"),
+            new(MessageRole.Assistant, "Because!"),
+            new(MessageRole.User, "And where?"),
+        }.ToList();
         var chat = new GenerateChatCompletionRequest
         {
             Model = "model",
-            Messages = new Message[]
-            {
-                new(MessageRole.User, "Why?"),
-                new(MessageRole.Assistant, "Because!"),
-                new(MessageRole.User, "And where?"),
-            }
+            Messages = messages,
         };
 
-        var messages = (await client.SendChatAsync(chat, s => builder.Append(s.Message), CancellationToken.None)).ToArray();
-
-        messages.Length.Should().Be(4);
+        var response = await client.SendChatAsync(chat).WaitAsync();
+        messages.Add(response.Message!);
+        
+        messages.Count.Should().Be(4);
 
         messages[0].Role.Should().Be(MessageRole.User);
         messages[0].Content.Should().Be("Why?");

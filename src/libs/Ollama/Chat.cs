@@ -5,12 +5,10 @@
 /// </summary>
 public class Chat
 {
-	private List<Message> _messages = new();
-
 	/// <summary>
 	/// 
 	/// </summary>
-	public IReadOnlyCollection<Message> Messages => _messages.AsReadOnly();
+	public IList<Message> History { get; } = new List<Message>();
 
 	/// <summary>
 	/// 
@@ -21,11 +19,6 @@ public class Chat
 	/// 
 	/// </summary>
 	public string Model { get; set; }
-
-	/// <summary>
-	/// 
-	/// </summary>
-	public IResponseStreamer<GenerateChatCompletionResponse>? Streamer { get; set; }
 
 	/// <summary>
 	/// 
@@ -44,7 +37,7 @@ public class Chat
 	/// </summary>
 	/// <param name="message">The message to send</param>
 	/// <param name="cancellationToken">The token to cancel the operation with</param>
-	public Task<IEnumerable<Message>> SendAsync(
+	public Task<Message> SendAsync(
 		string message,
 		CancellationToken cancellationToken = default)
 	{
@@ -57,7 +50,7 @@ public class Chat
 	/// <param name="message">The message to send</param>
 	/// <param name="imagesAsBase64">Base64 encoded images to send to the model</param>
 	/// <param name="cancellationToken">The token to cancel the operation with</param>
-	public Task<IEnumerable<Message>> SendAsync(
+	public Task<Message> SendAsync(
 		string message,
 		IEnumerable<string>? imagesAsBase64,
 		CancellationToken cancellationToken = default)
@@ -71,7 +64,7 @@ public class Chat
 	/// <param name="role">The role in which the message should be sent</param>
 	/// <param name="message">The message to send</param>
 	/// <param name="cancellationToken">The token to cancel the operation with</param>
-	public Task<IEnumerable<Message>> SendAsAsync(
+	public Task<Message> SendAsAsync(
 		string role,
 		string message,
 		CancellationToken cancellationToken = default)
@@ -86,13 +79,13 @@ public class Chat
 	/// <param name="message">The message to send</param>
 	/// <param name="imagesAsBase64">Base64 encoded images to send to the model</param>
 	/// <param name="cancellationToken">The token to cancel the operation with</param>
-	public async Task<IEnumerable<Message>> SendAsAsync(
+	public async Task<Message> SendAsAsync(
 		string role,
 		string message,
 		IEnumerable<string?>? imagesAsBase64,
 		CancellationToken cancellationToken = default)
 	{
-		_messages.Add(new Message
+		History.Add(new Message
 		{
 			Content = message,
 			Role = role,
@@ -101,13 +94,19 @@ public class Chat
 
 		var request = new GenerateChatCompletionRequest
 		{
-			Messages = Messages.ToList(),
+			Messages = History.ToList(),
 			Model = Model,
-			Stream = true
+			Stream = true,
 		};
 
-		var answer = await Client.SendChatAsync(request, Streamer, cancellationToken).ConfigureAwait(false);
-		_messages = answer.ToList();
-		return Messages;
+		var answer = await Client.SendChatAsync(request, cancellationToken).WaitAsync().ConfigureAwait(false);
+		if (answer.Message == null)
+		{
+			throw new InvalidOperationException("Response message was null.");
+		}
+		
+		History.Add(answer.Message);
+		
+		return answer.Message;
 	}
 }

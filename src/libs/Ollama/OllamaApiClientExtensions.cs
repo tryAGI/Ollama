@@ -1,4 +1,7 @@
-﻿namespace Ollama;
+﻿using System.Runtime.CompilerServices;
+using System.Text;
+
+namespace Ollama;
 
 /// <summary>
 /// 
@@ -10,46 +13,15 @@ public static class OllamaApiClientExtensions
 	/// </summary>
 	/// <param name="client">The client to start the chat with</param>
 	/// <param name="model"></param>
-	/// <param name="streamer">
-	/// The streamer that receives parts of the answer as they are streamed by the Ollama endpoint.
-	/// Can be used to update the user interface while the answer is still being generated.
-	/// </param>
 	/// <returns>
 	/// A chat instance that can be used to receive and send messages from and to
 	/// the Ollama endpoint while maintaining the message history.
 	/// </returns>
 	public static Chat Chat(
 		this OllamaApiClient client,
-		string model,
-		Action<GenerateChatCompletionResponse>? streamer = null)
+		string model)
 	{
-		return client.Chat(model, streamer != null
-			? new ActionResponseStreamer<GenerateChatCompletionResponse>(streamer)
-			: null);
-	}
-
-	/// <summary>
-	/// Starts a new chat with the currently selected model.
-	/// </summary>
-	/// <param name="client">The client to start the chat with</param>
-	/// <param name="model"></param>
-	/// <param name="streamer">
-	/// The streamer that receives parts of the answer as they are streamed by the Ollama endpoint.
-	/// Can be used to update the user interface while the answer is still being generated.
-	/// </param>
-	/// <returns>
-	/// A chat instance that can be used to receive and send messages from and to
-	/// the Ollama endpoint while maintaining the message history.
-	/// </returns>
-	public static Chat Chat(
-		this OllamaApiClient client,
-		string model,
-		IResponseStreamer<GenerateChatCompletionResponse>? streamer = null)
-	{
-		return new Chat(client, model)
-		{
-			Streamer = streamer,
-		};
+		return new Chat(client, model);
 	}
 
 	/// <summary>
@@ -57,21 +29,16 @@ public static class OllamaApiClientExtensions
 	/// </summary>
 	/// <param name="client"></param>
 	/// <param name="chatRequest">The request to send to Ollama</param>
-	/// <param name="streamer">
-	/// The streamer that receives parts of the answer as they are streamed by the Ollama endpoint.
-	/// Can be used to update the user interface while the answer is still being generated.
-	/// </param>
 	/// <param name="cancellationToken">The token to cancel the operation with</param>
 	/// <returns>List of the returned messages including the previous context</returns>
-	public static async Task<IEnumerable<Message>> SendChatAsync(
+	public static ConfiguredCancelableAsyncEnumerable<GenerateChatCompletionResponse> SendChatAsync(
 		this OllamaApiClient client,
 		GenerateChatCompletionRequest chatRequest,
-		Action<GenerateChatCompletionResponse> streamer,
 		CancellationToken cancellationToken = default)
 	{
 		client = client ?? throw new ArgumentNullException(nameof(client));
 
-		return await client.SendChatAsync(chatRequest, new ActionResponseStreamer<GenerateChatCompletionResponse>(streamer), cancellationToken).ConfigureAwait(false);
+		return client.SendChatAsync(chatRequest, cancellationToken).ConfigureAwait(false);
 	}
 
 	/// <summary>
@@ -89,57 +56,11 @@ public static class OllamaApiClientExtensions
 	{
 		client = client ?? throw new ArgumentNullException(nameof(client));
 
-		await client.CopyModelAsync(new CopyModelRequest { Source = source, Destination = destination }, cancellationToken).ConfigureAwait(false);
-	}
-
-	/// <summary>
-	/// Sends a request to the /api/create endpoint to create a model
-	/// </summary>
-	/// <param name="client"></param>
-	/// <param name="name">The name for the new model</param>
-	/// <param name="modelFileContent">
-	/// The file content for the model file the new model should be built with.
-	/// See https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md
-	/// </param>
-	/// <param name="streamer">
-	/// The streamer that receives status updates as they are streamed by the Ollama endpoint.
-	/// Can be used to update the user interface while the operation is running.
-	/// </param>
-	/// <param name="cancellationToken">The token to cancel the operation with</param>
-	public static async Task CreateModelAsync(
-		this OllamaApiClient client,
-		string name,
-		string modelFileContent,
-		Action<CreateModelResponse> streamer,
-		CancellationToken cancellationToken = default)
-	{
-		await client.CreateModelAsync(name, modelFileContent, new ActionResponseStreamer<CreateModelResponse>(streamer), cancellationToken).ConfigureAwait(false);
-	}
-
-	/// <summary>
-	/// Sends a request to the /api/create endpoint to create a model
-	/// </summary>
-	/// <param name="client"></param>
-	/// <param name="name">The name for the new model</param>
-	/// <param name="modelFileContent">
-	/// The file content for the model file the new model should be built with.
-	/// See https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md
-	/// </param>
-	/// <param name="streamer">
-	/// The streamer that receives status updates as they are streamed by the Ollama endpoint.
-	/// Can be used to update the user interface while the operation is running.
-	/// </param>
-	/// <param name="cancellationToken">The token to cancel the operation with</param>
-	public static async Task CreateModelAsync(
-		this OllamaApiClient client,
-		string name,
-		string modelFileContent,
-		IResponseStreamer<CreateModelResponse> streamer,
-		CancellationToken cancellationToken = default)
-	{
-		client = client ?? throw new ArgumentNullException(nameof(client));
-
-		await client.CreateModelAsync(new CreateModelRequest { Name = name, Modelfile = modelFileContent, Stream = true }, streamer, cancellationToken).ConfigureAwait(false);
+		await client.CopyModelAsync(new CopyModelRequest
+		{
+			Source = source,
+			Destination = destination,
+		}, cancellationToken).ConfigureAwait(false);
 	}
 
 	/// <summary>
@@ -152,56 +73,23 @@ public static class OllamaApiClientExtensions
 	/// See https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md
 	/// </param>
 	/// <param name="path">The name path to the model file</param>
-	/// <param name="streamer">
-	/// The streamer that receives status updates as they are streamed by the Ollama endpoint.
-	/// Can be used to update the user interface while the operation is running.
-	/// </param>
 	/// <param name="cancellationToken">The token to cancel the operation with</param>
-	public static async Task CreateModelAsync(
+	public static ConfiguredCancelableAsyncEnumerable<CreateModelResponse> CreateModelAsync(
 		this OllamaApiClient client,
 		string name,
 		string modelFileContent,
-		string path,
-		Action<CreateModelResponse> streamer,
+		string? path = null,
 		CancellationToken cancellationToken = default)
 	{
 		client = client ?? throw new ArgumentNullException(nameof(client));
 
-		await client.CreateModelAsync(new CreateModelRequest
+		return client.CreateModelAsync(new CreateModelRequest
 		{
 			Name = name,
 			Modelfile = modelFileContent,
 			Path = path,
-			Stream = true
-		}, new ActionResponseStreamer<CreateModelResponse>(streamer), cancellationToken).ConfigureAwait(false);
-	}
-
-	/// <summary>
-	/// Sends a request to the /api/create endpoint to create a model
-	/// </summary>
-	/// <param name="client"></param>
-	/// <param name="name">The name for the new model</param>
-	/// <param name="modelFileContent">
-	/// The file content for the model file the new model should be built with.
-	/// See https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md
-	/// </param>
-	/// <param name="path">The name path to the model file</param>
-	/// <param name="streamer">
-	/// The streamer that receives status updates as they are streamed by the Ollama endpoint.
-	/// Can be used to update the user interface while the operation is running.
-	/// </param>
-	/// <param name="cancellationToken">The token to cancel the operation with</param>
-	public static async Task CreateModelAsync(
-		this OllamaApiClient client,
-		string name,
-		string modelFileContent,
-		string path,
-		IResponseStreamer<CreateModelResponse> streamer,
-		CancellationToken cancellationToken = default)
-	{
-		client = client ?? throw new ArgumentNullException(nameof(client));
-
-		await client.CreateModelAsync(new CreateModelRequest { Name = name, Modelfile = modelFileContent, Path = path, Stream = true }, streamer, cancellationToken).ConfigureAwait(false);
+			Stream = true,
+		}, cancellationToken).ConfigureAwait(false);
 	}
 
 	/// <summary>
@@ -209,44 +97,18 @@ public static class OllamaApiClientExtensions
 	/// </summary>
 	/// <param name="client"></param>
 	/// <param name="model">The name of the model to pull</param>
-	/// <param name="streamer">
-	/// The streamer that receives status updates as they are streamed by the Ollama endpoint.
-	/// Can be used to update the user interface while the operation is running.
-	/// </param>
 	/// <param name="cancellationToken">The token to cancel the operation with</param>
-	public static async Task PullModelAsync(
+	public static ConfiguredCancelableAsyncEnumerable<PullModelResponse> PullModelAsync(
 		this OllamaApiClient client,
 		string model,
-		Action<PullModelResponse>? streamer = null,
-		CancellationToken cancellationToken = default)
-	{
-		await client.PullModelAsync(
-			model,
-			streamer != null
-				? new ActionResponseStreamer<PullModelResponse>(streamer)
-				: null,
-			cancellationToken).ConfigureAwait(false);
-	}
-
-	/// <summary>
-	/// Sends a request to the /api/pull endpoint to pull a new model
-	/// </summary>
-	/// <param name="client"></param>
-	/// <param name="model">The name of the model to pull</param>
-	/// <param name="streamer">
-	/// The streamer that receives status updates as they are streamed by the Ollama endpoint.
-	/// Can be used to update the user interface while the operation is running.
-	/// </param>
-	/// <param name="cancellationToken">The token to cancel the operation with</param>
-	public static async Task PullModelAsync(
-		this OllamaApiClient client,
-		string model,
-		IResponseStreamer<PullModelResponse>? streamer = null,
 		CancellationToken cancellationToken = default)
 	{
 		client = client ?? throw new ArgumentNullException(nameof(client));
 
-		await client.PullModelAsync(new PullModelRequest { Name = model }, streamer, cancellationToken).ConfigureAwait(false);
+		return client.PullModelAsync(new PullModelRequest
+		{
+			Name = model,
+		}, cancellationToken).ConfigureAwait(false);
 	}
 
 	/// <summary>
@@ -254,39 +116,19 @@ public static class OllamaApiClientExtensions
 	/// </summary>
 	/// <param name="client"></param>
 	/// <param name="name">The name of the model to push</param>
-	/// <param name="streamer">
-	/// The streamer that receives status updates as they are streamed by the Ollama endpoint.
-	/// Can be used to update the user interface while the operation is running.
-	/// </param>
 	/// <param name="cancellationToken">The token to cancel the operation with</param>
-	public static async Task PushModelAsync(
+	public static ConfiguredCancelableAsyncEnumerable<PushModelResponse> PushModelAsync(
 		this OllamaApiClient client,
 		string name,
-		Action<PushModelResponse> streamer,
-		CancellationToken cancellationToken = default)
-	{
-		await client.PushModelAsync(name, new ActionResponseStreamer<PushModelResponse>(streamer), cancellationToken).ConfigureAwait(false);
-	}
-
-	/// <summary>
-	/// Sends a request to the /api/push endpoint to push a new model
-	/// </summary>
-	/// <param name="client"></param>
-	/// <param name="name">The name of the model to push</param>
-	/// <param name="streamer">
-	/// The streamer that receives status updates as they are streamed by the Ollama endpoint.
-	/// Can be used to update the user interface while the operation is running.
-	/// </param>
-	/// <param name="cancellationToken">The token to cancel the operation with</param>
-	public static async Task PushModelAsync(
-		this OllamaApiClient client,
-		string name,
-		IResponseStreamer<PushModelResponse> streamer,
 		CancellationToken cancellationToken = default)
 	{
 		client = client ?? throw new ArgumentNullException(nameof(client));
 
-		await client.PushModelAsync(new PushModelRequest { Name = name, Stream = true }, streamer, cancellationToken).ConfigureAwait(false);
+		return client.PushModelAsync(new PushModelRequest
+		{
+			Name = name,
+			Stream = true,
+		}, cancellationToken).ConfigureAwait(false);
 	}
 
 	/// <summary>
@@ -311,9 +153,7 @@ public static class OllamaApiClientExtensions
 		}, cancellationToken).ConfigureAwait(false);
 	}
 
-	/// <summary>
-	/// Sends a request to the /api/generate endpoint to get a completion
-	/// </summary>
+	/// <inheritdoc cref="OllamaApiClient.GetCompletionAsync"/>
 	/// <param name="client"></param>
 	/// <param name="model"></param>
 	/// <param name="prompt">The prompt to generate a completion for</param>
@@ -321,16 +161,14 @@ public static class OllamaApiClientExtensions
 	/// The context that keeps the conversation for a chat-like history.
 	/// Should reuse the result from earlier calls if these calls belong together. Can be null initially.
 	/// </param>
+	/// <param name="stream"></param>
 	/// <param name="cancellationToken">The token to cancel the operation with</param>
-	/// <returns>
-	/// A context object that holds the conversation history.
-	/// Should be reused for further calls to this method to keep a chat going.
-	/// </returns>
-	public static async Task<ConversationContextWithResponse> GetCompletionAsync(
+	public static ConfiguredCancelableAsyncEnumerable<GenerateCompletionResponse> GetCompletionAsync(
 		this OllamaApiClient client,
 		string model,
 		string prompt,
-		ConversationContext? context = null,
+		bool stream = true,
+		IList<long>? context = null,
 		CancellationToken cancellationToken = default)
 	{
 		client = client ?? throw new ArgumentNullException(nameof(client));
@@ -339,51 +177,79 @@ public static class OllamaApiClientExtensions
 		{
 			Prompt = prompt,
 			Model = model,
-			Stream = false,
-			Context = context?.Context ?? []
+			Stream = stream,
+			Context = context ?? [],
 		};
 
-		return await client.GetCompletionAsync(request, cancellationToken).ConfigureAwait(false);
+		return client.GetCompletionAsync(request, cancellationToken).ConfigureAwait(false);
 	}
 
 	/// <summary>
-	/// Sends a request to the /api/generate endpoint to get a completion and streams the returned chunks to a given streamer
-	/// that can be used to update the user interface in real-time.
+	/// Waits for the enumerable to complete and combines the responses into a single response.
 	/// </summary>
-	/// <param name="client"></param>
-	/// <param name="model"></param>
-	/// <param name="prompt">The prompt to generate a completion for</param>
-	/// <param name="context">
-	/// The context that keeps the conversation for a chat-like history.
-	/// Should reuse the result from earlier calls if these calls belong together. Can be null initially.
-	/// </param>
-	/// <param name="streamer">
-	/// The streamer that receives parts of the answer as they are streamed by the Ollama endpoint.
-	/// Can be used to update the user interface while the answer is still being generated.
-	/// </param>
-	/// <param name="cancellationToken">The token to cancel the operation with</param>
-	/// <returns>
-	/// A context object that holds the conversation history.
-	/// Should be reused for further calls to this method to keep a chat going.
-	/// </returns>
-	public static async Task<ConversationContext> StreamCompletionAsync(
-		this OllamaApiClient client,
-		string model,
-		string prompt,
-		ConversationContext? context,
-		Action<GenerateCompletionResponse> streamer,
-		CancellationToken cancellationToken = default)
+	/// <param name="enumerable"></param>
+	/// <returns></returns>
+	public static async Task<GenerateCompletionResponse> WaitAsync(
+		this ConfiguredCancelableAsyncEnumerable<GenerateCompletionResponse> enumerable)
 	{
-		client = client ?? throw new ArgumentNullException(nameof(client));
-
-		var request = new GenerateCompletionRequest
+		var text = string.Empty;
+		var currentResponse = new GenerateCompletionResponse();
+		await foreach (var response in enumerable)
 		{
-			Prompt = prompt,
-			Model = model,
-			Stream = true,
-			Context = context?.Context ?? []
+			text += response.Response;
+			currentResponse = response;
+		}
+		
+		currentResponse.Response = text;
+
+		return currentResponse;
+	}
+
+	/// <summary>
+	/// Waits for the enumerable to complete and combines the responses into a single response.
+	/// </summary>
+	/// <param name="enumerable"></param>
+	/// <returns></returns>
+	public static async Task<GenerateChatCompletionResponse> WaitAsync(
+		this IAsyncEnumerable<GenerateChatCompletionResponse> enumerable)
+	{
+		enumerable = enumerable ?? throw new ArgumentNullException(nameof(enumerable));
+		
+		string? responseRole = null;
+		var responseContent = new StringBuilder();
+		
+		var currentResponse = new GenerateChatCompletionResponse();
+		await foreach (var response in enumerable)
+		{
+			responseRole ??= response.Message?.Role;
+			responseContent.Append(response.Message?.Content);
+			
+			currentResponse = response;
+		}
+		
+		currentResponse.Message = new Message
+		{
+			Role = responseRole ?? MessageRole.User,
+			Content = responseContent.ToString()
 		};
 
-		return await client.StreamCompletionAsync(request, new ActionResponseStreamer<GenerateCompletionResponse>(streamer), cancellationToken).ConfigureAwait(false);
+		return currentResponse;
+	}
+
+	/// <summary>
+	/// Waits for the enumerable to complete and combines the responses into a single response.
+	/// </summary>
+	/// <param name="enumerable"></param>
+	/// <returns></returns>
+	public static async Task<T> WaitAsync<T>(
+		this ConfiguredCancelableAsyncEnumerable<T> enumerable) where T : new()
+	{
+		var currentResponse = new T();
+		await foreach (var response in enumerable)
+		{
+			currentResponse = response;
+		}
+
+		return currentResponse;
 	}
 }

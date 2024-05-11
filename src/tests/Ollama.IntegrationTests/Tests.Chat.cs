@@ -1,11 +1,7 @@
-using System.Net;
-using JsonSerializer = System.Text.Json.JsonSerializer;
-
 namespace Ollama.IntegrationTests;
 
 public partial class Tests
 {
-	
 	[TestMethod]
 	public async Task Sends_Assistant_Answer_To_Streamer()
 	{
@@ -13,17 +9,12 @@ public partial class Tests
 
 		var client = MockApiClient(MessageRole.Assistant, "hi!");
 
-		GenerateChatCompletionResponse? answerFromAssistant = null;
-		var chat = new Chat(client, string.Empty)
-		{
-			Streamer = new ActionResponseStreamer<GenerateChatCompletionResponse>(answer => answerFromAssistant = answer)
-		};
-		await chat.SendAsync( "henlo", CancellationToken.None);
+		var chat = new Chat(client, string.Empty);
+		var message = await chat.SendAsync( "henlo");
 
-		answerFromAssistant.Should().NotBeNull();
-		answerFromAssistant!.Message.Should().NotBeNull();
-		answerFromAssistant!.Message!.Role.Should().Be(MessageRole.Assistant);
-		answerFromAssistant.Message.Content.Should().Be("hi!");
+		message.Should().NotBeNull();
+		message.Role.Should().Be(MessageRole.Assistant);
+		message.Content.Should().Be("hi!");
 	}
 
 	[TestMethod]
@@ -32,10 +23,10 @@ public partial class Tests
 		var ollama = MockApiClient(MessageRole.Assistant, "hi!");
 
 		var chat = new Chat(ollama, string.Empty);
-		var history = (await chat.SendAsync("henlo", CancellationToken.None)).ToArray();
+		var message = await chat.SendAsync("henlo");
 
-		history[0].Role.Should().Be(MessageRole.User);
-		history[0].Content.Should().Be("henlo");
+		chat.History[0].Role.Should().Be(MessageRole.User);
+		chat.History[0].Content.Should().Be("henlo");
 	}
 
 	[TestMethod]
@@ -44,13 +35,15 @@ public partial class Tests
 		var ollama = MockApiClient(MessageRole.Assistant, "hi!");
 
 		var chat = new Chat(ollama, string.Empty);
-		var history = (await chat.SendAsync("henlo", CancellationToken.None)).ToArray();
+		var message = await chat.SendAsync("henlo");
+		var history = chat.History;
 
-		history.Length.Should().Be(2);
+		history.Count.Should().Be(2);
 		history[0].Role.Should().Be(MessageRole.User);
 		history[0].Content.Should().Be("henlo");
 		history[1].Role.Should().Be(MessageRole.Assistant);
 		history[1].Content.Should().Be("hi!");
+		history[1].Should().BeEquivalentTo(message);
 	}
 
 	[TestMethod]
@@ -59,12 +52,13 @@ public partial class Tests
 		var ollama = MockApiClient(MessageRole.Assistant, "hi system!");
 
 		var chat = new Chat(ollama, string.Empty);
-		var history = (await chat.SendAsAsync(MessageRole.System, "henlo hooman", CancellationToken.None)).ToArray();
+		var message = await chat.SendAsAsync(MessageRole.System, "henlo hooman");
 
-		history.Length.Should().Be(2);
-		history[0].Role.Should().Be(MessageRole.System);
-		history[0].Content.Should().Be("henlo hooman");
-		history[1].Role.Should().Be(MessageRole.Assistant);
-		history[1].Content.Should().Be("hi system!");
+		chat.History.Count.Should().Be(2);
+		chat.History[0].Role.Should().Be(MessageRole.System);
+		chat.History[0].Content.Should().Be("henlo hooman");
+		chat.History[1].Role.Should().Be(MessageRole.Assistant);
+		chat.History[1].Content.Should().Be("hi system!");
+		chat.History[1].Should().BeEquivalentTo(message);
 	}
 }

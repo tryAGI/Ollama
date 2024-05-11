@@ -23,16 +23,28 @@ await ollama.PullModelAsync("mistral", status => Console.WriteLine($"({status.Pe
 
 // Streaming a completion directly into the console
 // keep reusing the context to keep the chat topic going
-ConversationContext context = null;
-context = await ollama.StreamCompletionAsync("mistral", "How are you today?", context, stream => Console.Write(stream.Response));
+IList<long>? context = null;
+var enumerable = api.GetCompletionAsync("mistral", "How are you today?");
+await foreach (var response in enumerable)
+{
+    Console.Write(response.Response);
+    
+    context = response.Context;
+}
 
-// uses the /chat api from Ollama 0.1.14
-// messages including their roles will automatically be tracked within the chat object
-var chat = ollama.Chat("mistral", stream => Console.WriteLine(stream.Message?.Content ?? ""));
+var lastResponse = await api.GetCompletionAsync("mistral", "How are you today?", stream: false).WaitAsync();
+context = response.lastResponse;
+Console.WriteLine(lastResponse.Response);
+
+var chat = container.ApiClient.Chat("mistral");
 while (true)
 {
-    var message = Console.ReadLine();
-    await chat.Send(message);
+    var message = await chat.SendAsync("answer 123");
+    
+    Console.WriteLine(message.Content);
+    
+    var newMessage = Console.ReadLine();
+    await chat.Send(newMessage);
 }
 ```
 

@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Runtime.CompilerServices;
+using System.Text;
 using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
 
@@ -52,20 +53,14 @@ public class OllamaApiClient
 	/// Sends a request to the /api/create endpoint to create a model
 	/// </summary>
 	/// <param name="request">The parameters for the model to create</param>
-	/// <param name="streamer">
-	/// The streamer that receives status updates as they are streamed by the Ollama endpoint.
-	/// Can be used to update the user interface while the operation is running.
-	/// </param>
 	/// <param name="cancellationToken">The token to cancel the operation with</param>
-	public async Task CreateModelAsync(
+	public ConfiguredCancelableAsyncEnumerable<CreateModelResponse> CreateModelAsync(
 		CreateModelRequest request,
-		IResponseStreamer<CreateModelResponse> streamer,
 		CancellationToken cancellationToken = default)
 	{
-		await StreamPostAsync(
+		return StreamPostAsync(
 			"api/create",
 			request,
-			streamer,
 			SourceGenerationContext.Default.CreateModelRequest,
 			SourceGenerationContext.Default.CreateModelResponse,
 			cancellationToken).ConfigureAwait(false);
@@ -146,20 +141,14 @@ public class OllamaApiClient
 	/// Sends a request to the /api/pull endpoint to pull a new model
 	/// </summary>
 	/// <param name="request">The request parameters</param>
-	/// <param name="streamer">
-	/// The streamer that receives status updates as they are streamed by the Ollama endpoint.
-	/// Can be used to update the user interface while the operation is running.
-	/// </param>
 	/// <param name="cancellationToken">The token to cancel the operation with</param>
-	public async Task PullModelAsync(
+	public ConfiguredCancelableAsyncEnumerable<PullModelResponse> PullModelAsync(
 		PullModelRequest request,
-		IResponseStreamer<PullModelResponse>? streamer = null,
 		CancellationToken cancellationToken = default)
 	{
-		await StreamPostAsync(
+		return StreamPostAsync(
 			"api/pull",
 			request,
-			streamer,
 			SourceGenerationContext.Default.PullModelRequest,
 			SourceGenerationContext.Default.PullModelResponse,
 			cancellationToken).ConfigureAwait(false);
@@ -169,20 +158,14 @@ public class OllamaApiClient
 	/// Sends a request to the /api/push endpoint to push a new model
 	/// </summary>
 	/// <param name="request">The request parameters</param>
-	/// <param name="streamer">
-	/// The streamer that receives status updates as they are streamed by the Ollama endpoint.
-	/// Can be used to update the user interface while the operation is running.
-	/// </param>
 	/// <param name="cancellationToken">The token to cancel the operation with</param>
-	public async Task PushModelAsync(
+	public ConfiguredCancelableAsyncEnumerable<PushModelResponse> PushModelAsync(
 		PushModelRequest request,
-		IResponseStreamer<PushModelResponse> streamer,
 		CancellationToken cancellationToken = default)
 	{
-		await StreamPostAsync(
+		return StreamPostAsync(
 			"api/push",
 			request,
-			streamer,
 			SourceGenerationContext.Default.PushModelRequest,
 			SourceGenerationContext.Default.PushModelResponse,
 			cancellationToken).ConfigureAwait(false);
@@ -206,63 +189,14 @@ public class OllamaApiClient
 	}
 
 	/// <summary>
-	/// Sends a request to the /api/generate endpoint to get a completion and streams the returned chunks to a given streamer
-	/// that can be used to update the user interface in real-time.
-	/// </summary>
-	/// <param name="request">The parameters to generate a completion for</param>
-	/// <param name="streamer">
-	/// The streamer that receives parts of the answer as they are streamed by the Ollama endpoint.
-	/// Can be used to update the user interface while the answer is still being generated.
-	/// </param>
-	/// <param name="cancellationToken">The token to cancel the operation with</param>
-	/// <returns>
-	/// A context object that holds the conversation history.
-	/// Should be reused for further calls to this method to keep a chat going.
-	/// </returns>
-	public async Task<ConversationContext> StreamCompletionAsync(
-		GenerateCompletionRequest request,
-		IResponseStreamer<GenerateCompletionResponse> streamer,
-		CancellationToken cancellationToken = default)
-	{
-		request = request ?? throw new ArgumentNullException(nameof(request));
-		
-		return await GenerateCompletionAsync(request, streamer, cancellationToken).ConfigureAwait(false);
-	}
-
-	/// <summary>
-	/// Sends a request to the /api/generate endpoint to get a completion
-	/// </summary>
-	/// <param name="request">The parameters to generate a completion</param>
-	/// <param name="cancellationToken">The token to cancel the operation with</param>
-	/// <returns>
-	/// A context object that holds the conversation history.
-	/// Should be reused for further calls to this method to keep a chat going.
-	/// </returns>
-	public async Task<ConversationContextWithResponse> GetCompletionAsync(
-		GenerateCompletionRequest request,
-		CancellationToken cancellationToken = default)
-	{
-		request = request ?? throw new ArgumentNullException(nameof(request));
-
-		var builder = new StringBuilder();
-		var result = await GenerateCompletionAsync(request, new ActionResponseStreamer<GenerateCompletionResponse>(status => builder.Append(status.Response)), cancellationToken).ConfigureAwait(false);
-		return new ConversationContextWithResponse(builder.ToString(), result.Context);
-	}
-
-	/// <summary>
 	/// Sends a request to the /api/chat endpoint
 	/// </summary>
 	/// <param name="chatRequest">The request to send to Ollama</param>
-	/// <param name="streamer">
-	/// The streamer that receives parts of the answer as they are streamed by the Ollama endpoint.
-	/// Can be used to update the user interface while the answer is still being generated.
-	/// </param>
 	/// <param name="cancellationToken">The token to cancel the operation with</param>
 	/// <returns>List of the returned messages including the previous context</returns>
-	public async Task<IEnumerable<Message>> SendChatAsync(
+	public async IAsyncEnumerable<GenerateChatCompletionResponse> SendChatAsync(
 		GenerateChatCompletionRequest chatRequest,
-		IResponseStreamer<GenerateChatCompletionResponse>? streamer = null,
-		CancellationToken cancellationToken = default)
+		[EnumeratorCancellation] CancellationToken cancellationToken = default)
 	{
 		chatRequest = chatRequest ?? throw new ArgumentNullException(nameof(chatRequest));
 
@@ -274,23 +208,54 @@ public class OllamaApiClient
 		using var response = await _client.SendAsync(request, completion, cancellationToken).ConfigureAwait(false);
 		response.EnsureSuccessStatusCode();
 
-		return await ProcessStreamedChatResponseAsync(chatRequest, response, streamer, cancellationToken).ConfigureAwait(false);
+		using var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+		using var reader = new StreamReader(stream);
+
+		while (!reader.EndOfStream && !cancellationToken.IsCancellationRequested)
+		{
+			var line = await reader.ReadLineAsync().ConfigureAwait(false) ?? string.Empty;
+
+			var streamedResponse = JsonSerializer.Deserialize(line, SourceGenerationContext.Default.GenerateChatCompletionResponse) ??
+			                       throw new InvalidOperationException("Response deserialization failed.");
+
+			yield return streamedResponse;
+		}
 	}
 
-	private async Task<ConversationContext> GenerateCompletionAsync(
-		GenerateCompletionRequest generateRequest,
-		IResponseStreamer<GenerateCompletionResponse> streamer,
-		CancellationToken cancellationToken = default)
+	/// <summary>
+	/// Sends a request to the /api/generate endpoint to get a completion and streams the returned chunks to a given streamer
+	/// that can be used to update the user interface in real-time.
+	/// </summary>
+	/// <param name="request">The parameters to generate a completion for</param>
+	/// <param name="cancellationToken">The token to cancel the operation with</param>
+	/// <returns>
+	/// A stream of completion responses that can be used to update the user interface in real-time.
+	/// </returns>
+	public async IAsyncEnumerable<GenerateCompletionResponse> GetCompletionAsync(
+		GenerateCompletionRequest request,
+		[EnumeratorCancellation] CancellationToken cancellationToken = default)
 	{
-		using var request = new HttpRequestMessage(HttpMethod.Post, "api/generate");
-		request.Content = new StringContent(JsonSerializer.Serialize(generateRequest, SourceGenerationContext.Default.GenerateCompletionRequest), Encoding.UTF8, "application/json");
+		request = request ?? throw new ArgumentNullException(nameof(request));
+		
+		using var httpRequest = new HttpRequestMessage(HttpMethod.Post, "api/generate");
+		httpRequest.Content = new StringContent(JsonSerializer.Serialize(request, SourceGenerationContext.Default.GenerateCompletionRequest), Encoding.UTF8, "application/json");
 
-		var completion = generateRequest.Stream ? HttpCompletionOption.ResponseHeadersRead : HttpCompletionOption.ResponseContentRead;
+		var completion = request.Stream ? HttpCompletionOption.ResponseHeadersRead : HttpCompletionOption.ResponseContentRead;
 
-		using var response = await _client.SendAsync(request, completion, cancellationToken).ConfigureAwait(false);
+		using var response = await _client.SendAsync(httpRequest, completion, cancellationToken).ConfigureAwait(false);
 		response.EnsureSuccessStatusCode();
 
-		return await ProcessStreamedCompletionResponseAsync(response, streamer, cancellationToken).ConfigureAwait(false);
+		using var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+		using var reader = new StreamReader(stream);
+
+		while (!reader.EndOfStream && !cancellationToken.IsCancellationRequested)
+		{
+			var line = await reader.ReadLineAsync().ConfigureAwait(false) ?? string.Empty;
+			var streamedResponse = JsonSerializer.Deserialize(line, SourceGenerationContext.Default.GenerateCompletionResponse) ??
+			                       throw new InvalidOperationException("Response deserialization failed.");
+
+			yield return streamedResponse;
+		}
 	}
 
 	private async Task<TResponse> GetAsync<TResponse>(
@@ -334,13 +299,12 @@ public class OllamaApiClient
 		       throw new InvalidOperationException("Response deserialization failed.");
 	}
 
-	private async Task StreamPostAsync<TRequest, TResponse>(
+	private async IAsyncEnumerable<TResponse> StreamPostAsync<TRequest, TResponse>(
 		string endpoint,
 		TRequest requestModel,
-		IResponseStreamer<TResponse>? streamer,
 		JsonTypeInfo<TRequest> requestJsonTypeInfo,
 		JsonTypeInfo<TResponse> responseJsonTypeInfo,
-		CancellationToken cancellationToken = default)
+		[EnumeratorCancellation] CancellationToken cancellationToken = default)
 	{
 		using var request = new HttpRequestMessage(HttpMethod.Post, endpoint);
 		request.Content = new StringContent(JsonSerializer.Serialize(requestModel, requestJsonTypeInfo), Encoding.UTF8, "application/json");
@@ -348,109 +312,19 @@ public class OllamaApiClient
 		using var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 		response.EnsureSuccessStatusCode();
 
-		await ProcessStreamedResponseAsync(response, streamer, responseJsonTypeInfo, cancellationToken).ConfigureAwait(false);
-	}
-
-	private static async Task ProcessStreamedResponseAsync<TLine>(
-		HttpResponseMessage response,
-		IResponseStreamer<TLine>? streamer,
-		JsonTypeInfo<TLine> jsonTypeInfo,
-		CancellationToken cancellationToken = default)
-	{
 		using var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
 		using var reader = new StreamReader(stream);
 
 		while (!reader.EndOfStream && !cancellationToken.IsCancellationRequested)
 		{
 			string line = await reader.ReadLineAsync().ConfigureAwait(false) ?? string.Empty;
-			var streamedResponse = JsonSerializer.Deserialize(line, jsonTypeInfo) ??
+			var streamedResponse = JsonSerializer.Deserialize(line, responseJsonTypeInfo) ??
 			                       throw new InvalidOperationException("Response deserialization failed.");
-			streamer?.Stream(streamedResponse);
+			
+			yield return streamedResponse;
 		}
-	}
-
-	private static async Task<ConversationContext> ProcessStreamedCompletionResponseAsync(
-		HttpResponseMessage response,
-		IResponseStreamer<GenerateCompletionResponse> streamer,
-		CancellationToken cancellationToken = default)
-	{
-		using var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
-		using var reader = new StreamReader(stream);
-
-		while (!reader.EndOfStream && !cancellationToken.IsCancellationRequested)
-		{
-			string line = await reader.ReadLineAsync().ConfigureAwait(false) ?? string.Empty;
-			var streamedResponse = JsonSerializer.Deserialize(line, SourceGenerationContext.Default.GenerateCompletionResponse) ??
-			                       throw new InvalidOperationException("Response deserialization failed.");
-			streamer.Stream(streamedResponse);
-
-			if (streamedResponse.Done)
-			{
-				var doneResponse = JsonSerializer.Deserialize(line, SourceGenerationContext.Default.GenerateCompletionResponse) ??
-				                   throw new InvalidOperationException("Response deserialization failed.");
-				return new ConversationContext(doneResponse.Context?.ToArray() ?? []);
-			}
-		}
-
-		return new ConversationContext(Array.Empty<long>());
-	}
-
-	private static async Task<IEnumerable<Message>> ProcessStreamedChatResponseAsync(
-		GenerateChatCompletionRequest chatRequest,
-		HttpResponseMessage response,
-		IResponseStreamer<GenerateChatCompletionResponse>? streamer = null,
-		CancellationToken cancellationToken = default)
-	{
-		using var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
-		using var reader = new StreamReader(stream);
-
-		string? responseRole = null;
-		var responseContent = new StringBuilder();
-
-		while (!reader.EndOfStream && !cancellationToken.IsCancellationRequested)
-		{
-			string line = await reader.ReadLineAsync().ConfigureAwait(false) ?? string.Empty;
-
-			var streamedResponse = JsonSerializer.Deserialize(line, SourceGenerationContext.Default.GenerateChatCompletionResponse) ??
-			                       throw new InvalidOperationException("Response deserialization failed.");
-
-			// keep the streamed content to build the last message
-			// to return the list of messages
-			responseRole ??= streamedResponse.Message?.Role;
-			responseContent.Append(streamedResponse.Message?.Content);
-
-			streamer?.Stream(streamedResponse);
-
-			if (streamedResponse.Done)
-			{
-				var doneResponse = JsonSerializer.Deserialize(line, SourceGenerationContext.Default.GenerateChatCompletionResponse) ??
-				                   throw new InvalidOperationException("Response deserialization failed.");
-				var messages = chatRequest.Messages.ToList();
-				messages.Add(new Message
-				{
-					Role = responseRole ?? MessageRole.User,
-					Content = responseContent.ToString()
-				});
-				return messages;
-			}
-		}
-
-		return Array.Empty<Message>();
 	}
 }
-
-/// <summary>
-/// 
-/// </summary>
-/// <param name="Context"></param>
-public record ConversationContext(IList<long> Context);
-
-/// <summary>
-/// 
-/// </summary>
-/// <param name="Response"></param>
-/// <param name="Context"></param>
-public record ConversationContextWithResponse(string Response, IList<long> Context) : ConversationContext(Context);
 
 [JsonSerializable(typeof(DeleteModelRequest))]
 [JsonSerializable(typeof(GenerateCompletionRequest))]
