@@ -1,6 +1,6 @@
 # Ollama SDK for .NET 🦙
 
-Generated C# SDK based on Ollama OpenAPI specification and [official docs](https://github.com/jmorganca/ollama/blob/main/docs/api.md) using OpenApiGenerator.  
+Generated C# SDK based on Ollama OpenAPI specification and [official docs](https://github.com/jmorganca/ollama/blob/main/docs/api.md) using [OpenApiGenerator](https://github.com/HavenDV/OpenApiGenerator).
 
 ## Features 🔥
 
