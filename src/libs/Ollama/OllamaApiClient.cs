@@ -341,6 +341,7 @@ public class OllamaApiClient
 	}
 }
 
+[JsonSourceGenerationOptions(DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull)]
 [JsonSerializable(typeof(DeleteModelRequest))]
 [JsonSerializable(typeof(GenerateCompletionRequest))]
 [JsonSerializable(typeof(GenerateCompletionResponse))]
