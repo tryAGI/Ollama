@@ -82,7 +82,7 @@ public class OllamaApiClient
 	{
 		using var request = new HttpRequestMessage(HttpMethod.Delete, "api/delete");
 		request.Content = new StringContent(
-			JsonSerializer.Serialize(new DeleteModelRequest { Name = model }, SourceGenerationContext.Default.DeleteModelRequest),
+			JsonSerializer.Serialize(new DeleteModelRequest { Model = model }, SourceGenerationContext.Default.DeleteModelRequest),
 			Encoding.UTF8,
 			"application/json");
 
@@ -94,7 +94,7 @@ public class OllamaApiClient
 	/// Sends a request to the /api/tags endpoint to get all models that are available locally
 	/// </summary>
 	/// <param name="cancellationToken">The token to cancel the operation with</param>
-	public async Task<IReadOnlyList<Model>> ListModelsAsync(
+	public async Task<IReadOnlyList<LocalModel>> ListLocalModelsAsync(
 		CancellationToken cancellationToken = default)
 	{
 		var data = await GetAsync(
@@ -120,7 +120,7 @@ public class OllamaApiClient
 	{
 		return await PostAsync(
 			"api/show",
-			new ModelInfoRequest { Name = model },
+			new ModelInfoRequest { Model = model },
 			SourceGenerationContext.Default.ModelInfoRequest,
 			SourceGenerationContext.Default.ModelInfo,
 			cancellationToken).ConfigureAwait(false);

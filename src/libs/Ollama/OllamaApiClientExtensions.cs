@@ -90,7 +90,7 @@ public static class OllamaApiClientExtensions
 
 		var enumerable = client.CreateModelAsync(new CreateModelRequest
 		{
-			Name = name,
+			Model = name,
 			Modelfile = modelFileContent,
 			Path = path,
 			Stream = true,
@@ -101,7 +101,24 @@ public static class OllamaApiClientExtensions
 			yield return response;
 		}
 	}
+	
+	/// <summary>
+	/// Throws an InvalidOperationException if the response is not successful.
+	/// </summary>
+	/// <param name="response"></param>
+	/// <exception cref="ArgumentNullException"></exception>
+	/// <exception cref="InvalidOperationException"></exception>
+	public static void EnsureSuccess(
+		this PullModelResponse response)
+	{
+		response = response ?? throw new ArgumentNullException(nameof(response));
 
+		if (response.Status != "success")
+		{
+			throw new InvalidOperationException($"Failed to pull model with status {response.Status}");
+		}
+	}
+	
 	/// <summary>
 	/// Sends a request to the /api/pull endpoint to pull a new model
 	/// </summary>
@@ -117,7 +134,7 @@ public static class OllamaApiClientExtensions
 
 		var enumerable = client.PullModelAsync(new PullModelRequest
 		{
-			Name = model,
+			Model = model,
 		}, cancellationToken).ConfigureAwait(false);
 		
 		await foreach (var response in enumerable)
@@ -141,7 +158,7 @@ public static class OllamaApiClientExtensions
 
 		var enumerable = client.PushModelAsync(new PushModelRequest
 		{
-			Name = name,
+			Model = name,
 			Stream = true,
 		}, cancellationToken).ConfigureAwait(false);
 		

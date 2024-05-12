@@ -60,9 +60,15 @@ public partial class Tests
     {
         await using var container = await PrepareEnvironmentAsync(EnvironmentType.Container);
         
-        var models = await container.ApiClient.ListModelsAsync();
+        var models = await container.ApiClient.ListLocalModelsAsync();
         models.Should().NotBeNull();
         models.Should().BeEmpty();
+        
+        await container.ApiClient.PullModelAsync("nomic-embed-text").WaitAsync();
+        
+        models = await container.ApiClient.ListLocalModelsAsync();
+        models.Should().HaveCount(1);
+        models[0].Model.Should().Be("nomic-embed-text:latest");
     }
     
     [TestMethod]
@@ -76,6 +82,23 @@ public partial class Tests
         }
         
         await container.ApiClient.PullModelAsync("nomic-embed-text").WaitAsync();
+    }
+    
+    [TestMethod]
+    public async Task Embeddings()
+    {
+        await using var container = await PrepareEnvironmentAsync(EnvironmentType.Container);
+        
+        var pullResponse = await container.ApiClient.PullModelAsync("nomic-embed-text").WaitAsync();
+        pullResponse.EnsureSuccess();
+        
+        var embeddingResponse = await container.ApiClient.GenerateEmbeddingsAsync(new GenerateEmbeddingRequest
+        {
+            Model = "nomic-embed-text",
+            Prompt = "hello",
+        });
+        
+        embeddingResponse.Embedding.Should().NotBeNullOrEmpty();
     }
     
     [TestMethod]

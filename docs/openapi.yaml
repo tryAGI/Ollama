@@ -710,8 +710,8 @@ components:
           type: array
           description: List of models available locally.
           items:
-            $ref: '#/components/schemas/Model'
-    Model:
+            $ref: '#/components/schemas/LocalModel'
+    LocalModel:
       type: object
       description: A model available locally.
       properties:
