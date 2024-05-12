@@ -390,6 +390,7 @@ components:
         penalize_newline:
           type: boolean
           default: false
+          nullable: true
           description: |
             Penalize newlines in the output. (Default: false)
         stop:
@@ -399,7 +400,7 @@ components:
             type: string
         numa:
           type: boolean
-          default: false
+          nullable: true
           description: |
             Enable NUMA support. (Default: false)
         num_ctx:
@@ -429,37 +430,37 @@ components:
             The GPU to use for the main model. Default is 0.
         low_vram:
           type: boolean
-          default: false
+          nullable: true
           description: |
             Enable low VRAM mode. (Default: false)
         f16_kv:
           type: boolean
-          default: false
+          nullable: true
           description: |
             Enable f16 key/value. (Default: false)
         logits_all:
           type: boolean
-          default: false
+          nullable: true
           description: |
             Enable logits all. (Default: false)
         vocab_only:
           type: boolean
-          default: false
+          nullable: true
           description: |
             Enable vocab only. (Default: false)
         use_mmap:
           type: boolean
-          default: false
+          nullable: true
           description: |
             Enable mmap. (Default: false)
         use_mlock:
           type: boolean
-          default: false
+          nullable: true
           description: |
             Enable mlock. (Default: false)
         embedding_only:
           type: boolean
-          default: false
+          nullable: true
           description: |
             Enable embedding only. (Default: false)
         rope_frequency_base:
