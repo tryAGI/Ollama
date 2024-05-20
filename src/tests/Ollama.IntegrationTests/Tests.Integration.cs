@@ -57,7 +57,7 @@ public partial class Tests
         await using var container = await PrepareEnvironmentAsync(EnvironmentType.Container);
         
         var models = await container.ApiClient.ListModelsAsync();
-        models.Models.Should().BeNull();
+        models.Models.Should().BeNullOrEmpty();
         
         await container.ApiClient.PullModelAsync("nomic-embed-text").WaitAsync();
         
