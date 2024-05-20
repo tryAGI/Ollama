@@ -99,7 +99,7 @@ public class Chat
 			Stream = true,
 		};
 
-		var answer = await Client.SendChatAsync(request, cancellationToken).WaitAsync().ConfigureAwait(false);
+		var answer = await Client.GenerateChatCompletionAsync(request, cancellationToken).WaitAsync().ConfigureAwait(false);
 		if (answer.Message == null)
 		{
 			throw new InvalidOperationException("Response message was null.");

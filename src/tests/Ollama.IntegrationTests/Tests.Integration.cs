@@ -10,9 +10,9 @@ public partial class Tests
         {
             case EnvironmentType.Local:
             {
-                var client = new HttpClient();
-                client.BaseAddress = new Uri("http://172.16.50.107:11434/");
-                var apiClient = new OllamaApiClient(client);
+                // set OLLAMA_HOST=172.16.50.107:11434
+                // ollama serve
+                var apiClient = new OllamaApiClient(baseUri: new Uri("http://172.16.50.107:11434/api"));
                 
                 if (!string.IsNullOrEmpty(model))
                 {
@@ -21,7 +21,6 @@ public partial class Tests
 
                 return new Environment
                 {
-                    HttpClient = client,
                     ApiClient = apiClient,
                 };
             }
@@ -35,9 +34,7 @@ public partial class Tests
         
                 await container.StartAsync();
         
-                var client = new HttpClient();
-                var apiClient = new OllamaApiClient(client);
-                
+                var apiClient = new OllamaApiClient();
                 if (!string.IsNullOrEmpty(model))
                 {
                     await apiClient.PullModelAsync(model).WaitAsync();
@@ -46,7 +43,6 @@ public partial class Tests
                 return new Environment
                 {
                     Container = container,
-                    HttpClient = client,
                     ApiClient = apiClient,
                 };
             }
@@ -60,15 +56,15 @@ public partial class Tests
     {
         await using var container = await PrepareEnvironmentAsync(EnvironmentType.Container);
         
-        var models = await container.ApiClient.ListLocalModelsAsync();
-        models.Should().NotBeNull();
-        models.Should().BeEmpty();
+        var models = await container.ApiClient.ListModelsAsync();
+        models.Models.Should().BeNull();
         
         await container.ApiClient.PullModelAsync("nomic-embed-text").WaitAsync();
         
-        models = await container.ApiClient.ListLocalModelsAsync();
-        models.Should().HaveCount(1);
-        models[0].Model.Should().Be("nomic-embed-text:latest");
+        models = await container.ApiClient.ListModelsAsync();
+        models.Models.Should().NotBeNull();
+        models.Models.Should().HaveCount(1);
+        models.Models![0].Model.Should().Be("nomic-embed-text:latest");
     }
     
     [TestMethod]
@@ -92,7 +88,7 @@ public partial class Tests
         var pullResponse = await container.ApiClient.PullModelAsync("nomic-embed-text").WaitAsync();
         pullResponse.EnsureSuccess();
         
-        var embeddingResponse = await container.ApiClient.GenerateEmbeddingsAsync(new GenerateEmbeddingRequest
+        var embeddingResponse = await container.ApiClient.GenerateEmbeddingAsync(new GenerateEmbeddingRequest
         {
             Model = "nomic-embed-text",
             Prompt = "hello",
@@ -110,7 +106,7 @@ public partial class Tests
         await using var container = await PrepareEnvironmentAsync(EnvironmentType.Container, "llama3");
 #endif
 
-        var response = await container.ApiClient.GetCompletionAsync(new GenerateCompletionRequest
+        var response = await container.ApiClient.GenerateCompletionAsync(new GenerateCompletionRequest
         {
             Model = "llama3",
             Prompt = "answer me just \"123\"",
@@ -133,15 +129,15 @@ public partial class Tests
 #endif
 
         IList<long>? context = null;
-        var enumerable = container.ApiClient.GetCompletionAsync("llama3", "answer 123", stream: false);
+        var enumerable = container.ApiClient.GenerateCompletionAsync("llama3", "answer 5 random words", stream: true);
         await foreach (var response in enumerable)
         {
-            Console.WriteLine(response.Response);
+            Console.WriteLine($"> {response.Response}");
             
             context = response.Context;
         }
         
-        var lastResponse = await container.ApiClient.GetCompletionAsync("llama3", "answer 123", stream: false, context: context).WaitAsync();
+        var lastResponse = await container.ApiClient.GenerateCompletionAsync("llama3", "answer 123", stream: false, context: context).WaitAsync();
         Console.WriteLine(lastResponse.Response);
     }
     
@@ -155,7 +151,7 @@ public partial class Tests
 #endif
         
         var chat = container.ApiClient.Chat("llama3");
-        var message = await chat.SendAsync("answer 123");
+        var message = await chat.SendAsync("answer in 5 words");
         
         Console.WriteLine(message.Content);
     }

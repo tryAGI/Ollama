@@ -171,7 +171,7 @@ paths:
         '200':
           description: Successful operation.
           content:
-            application/json:
+            application/x-ndjson:
               schema:
                 $ref: '#/components/schemas/PullModelResponse'
   /push:
@@ -190,7 +190,7 @@ paths:
         '200':
           description: Successful operation.
           content:
-            application/json:
+            application/x-ndjson:
               schema:
                 $ref: '#/components/schemas/PushModelResponse'
   /blobs/{digest}:
@@ -200,8 +200,8 @@ paths:
         - Models
       summary: Check to see if a blob exists on the Ollama server which is useful when creating models.
       parameters:
-        - in: query
-          name: name
+        - in: path
+          name: digest
           schema:
             type: string
           required: true
@@ -218,8 +218,8 @@ paths:
         - Models
       summary: Create a blob from a file. Returns the server file path.
       parameters:
-        - in: query
-          name: name
+        - in: path
+          name: digest
           schema:
             type: string
           required: true
