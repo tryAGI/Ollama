@@ -16,7 +16,7 @@ public partial class Tests
                 
                 if (!string.IsNullOrEmpty(model))
                 {
-                    await apiClient.PullModelAsync(model).WaitAsync();
+                    await apiClient.PullModelAndEnsureSuccessAsync(model);
                 }
 
                 return new Environment
@@ -37,7 +37,7 @@ public partial class Tests
                 var apiClient = new OllamaApiClient();
                 if (!string.IsNullOrEmpty(model))
                 {
-                    await apiClient.PullModelAsync(model).WaitAsync();
+                    await apiClient.PullModelAndEnsureSuccessAsync(model);
                 }
                 
                 return new Environment
@@ -59,12 +59,12 @@ public partial class Tests
         var models = await container.ApiClient.ListModelsAsync();
         models.Models.Should().BeNullOrEmpty();
         
-        await container.ApiClient.PullModelAsync("nomic-embed-text").WaitAsync();
+        await container.ApiClient.PullModelAndEnsureSuccessAsync("all-minilm");
         
         models = await container.ApiClient.ListModelsAsync();
         models.Models.Should().NotBeNull();
         models.Models.Should().HaveCount(1);
-        models.Models![0].Model.Should().Be("nomic-embed-text:latest");
+        models.Models![0].Model.Should().Be("all-minilm:latest");
     }
     
     [TestMethod]
@@ -72,12 +72,15 @@ public partial class Tests
     {
         await using var container = await PrepareEnvironmentAsync(EnvironmentType.Container);
         
-        await foreach (var response in container.ApiClient.PullModelAsync("nomic-embed-text"))
+        await foreach (var response in container.ApiClient.PullModelAsync("all-minilm", stream: true))
         {
             Console.WriteLine($"{response.Status}. Progress: {response.Completed}/{response.Total}");
         }
         
-        await container.ApiClient.PullModelAsync("nomic-embed-text").WaitAsync();
+        var response2 = await container.ApiClient.PullModelAsync("all-minilm").WaitAsync();
+        response2.EnsureSuccess();
+        
+        await container.ApiClient.PullModelAndEnsureSuccessAsync("all-minilm");
     }
     
     [TestMethod]
@@ -85,14 +88,11 @@ public partial class Tests
     {
         await using var container = await PrepareEnvironmentAsync(EnvironmentType.Container);
         
-        var pullResponse = await container.ApiClient.PullModelAsync("nomic-embed-text").WaitAsync();
-        pullResponse.EnsureSuccess();
+        await container.ApiClient.PullModelAndEnsureSuccessAsync("all-minilm");
         
-        var embeddingResponse = await container.ApiClient.GenerateEmbeddingAsync(new GenerateEmbeddingRequest
-        {
-            Model = "nomic-embed-text",
-            Prompt = "hello",
-        });
+        var embeddingResponse = await container.ApiClient.GenerateEmbeddingAsync(
+            model:"all-minilm",
+            prompt: "hello");
         
         embeddingResponse.Embedding.Should().NotBeNullOrEmpty();
     }
