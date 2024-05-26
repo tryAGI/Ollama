@@ -16,7 +16,7 @@ Generated C# SDK based on Ollama OpenAPI specification and [official docs](https
 ```csharp
 using var ollama = new OllamaApiClient();
 
-var models = await ollama.ListModelsAsync();
+var models = await ollama.Models.ListModelsAsync();
 
 // Pulling a model and reporting progress
 await foreach (var response in ollama.PullModelAsync("all-minilm", stream: true))
@@ -24,17 +24,17 @@ await foreach (var response in ollama.PullModelAsync("all-minilm", stream: true)
     Console.WriteLine($"{response.Status}. Progress: {response.Completed}/{response.Total}");
 }
 // or just pull the model and wait for it to finish
-await ollama.PullModelAndEnsureSuccessAsync("all-minilm");
+await ollama.Models.PullModelAndEnsureSuccessAsync("all-minilm");
 
 // Generating an embedding
-var embedding = await ollama.GenerateEmbeddingAsync(
+var embedding = await ollama.Embeddings.GenerateEmbeddingAsync(
     model: "all-minilm",
     prompt: "hello");
 
 // Streaming a completion directly into the console
 // keep reusing the context to keep the chat topic going
 IList<long>? context = null;
-var enumerable = ollama.GenerateCompletionAsync("llama3", "answer 5 random words", stream: true);
+var enumerable = ollama.Completions.GenerateCompletionAsync("llama3", "answer 5 random words", stream: true);
 await foreach (var response in enumerable)
 {
     Console.WriteLine($"> {response.Response}");
@@ -42,7 +42,7 @@ await foreach (var response in enumerable)
     context = response.Context;
 }
 
-var lastResponse = await ollama.GenerateCompletionAsync("llama3", "answer 123", stream: false, context: context).WaitAsync();
+var lastResponse = await ollama.Completions.GenerateCompletionAsync("llama3", "answer 123", stream: false, context: context).WaitAsync();
 Console.WriteLine(lastResponse.Response);
 
 var chat = ollama.Chat("mistral");

@@ -16,7 +16,7 @@ public partial class Tests
                 
                 if (!string.IsNullOrEmpty(model))
                 {
-                    await apiClient.PullModelAndEnsureSuccessAsync(model);
+                    await apiClient.Models.PullModelAndEnsureSuccessAsync(model);
                 }
 
                 return new Environment
@@ -37,7 +37,7 @@ public partial class Tests
                 var apiClient = new OllamaApiClient();
                 if (!string.IsNullOrEmpty(model))
                 {
-                    await apiClient.PullModelAndEnsureSuccessAsync(model);
+                    await apiClient.Models.PullModelAndEnsureSuccessAsync(model);
                 }
                 
                 return new Environment
@@ -56,12 +56,12 @@ public partial class Tests
     {
         await using var container = await PrepareEnvironmentAsync(EnvironmentType.Container);
         
-        var models = await container.ApiClient.ListModelsAsync();
+        var models = await container.ApiClient.Models.ListModelsAsync();
         models.Models.Should().BeNullOrEmpty();
         
-        await container.ApiClient.PullModelAndEnsureSuccessAsync("all-minilm");
+        await container.ApiClient.Models.PullModelAndEnsureSuccessAsync("all-minilm");
         
-        models = await container.ApiClient.ListModelsAsync();
+        models = await container.ApiClient.Models.ListModelsAsync();
         models.Models.Should().NotBeNull();
         models.Models.Should().HaveCount(1);
         models.Models![0].Model.Should().Be("all-minilm:latest");
@@ -72,15 +72,15 @@ public partial class Tests
     {
         await using var container = await PrepareEnvironmentAsync(EnvironmentType.Container);
         
-        await foreach (var response in container.ApiClient.PullModelAsync("all-minilm", stream: true))
+        await foreach (var response in container.ApiClient.Models.PullModelAsync("all-minilm", stream: true))
         {
             Console.WriteLine($"{response.Status}. Progress: {response.Completed}/{response.Total}");
         }
         
-        var response2 = await container.ApiClient.PullModelAsync("all-minilm").WaitAsync();
+        var response2 = await container.ApiClient.Models.PullModelAsync("all-minilm").WaitAsync();
         response2.EnsureSuccess();
         
-        await container.ApiClient.PullModelAndEnsureSuccessAsync("all-minilm");
+        await container.ApiClient.Models.PullModelAndEnsureSuccessAsync("all-minilm");
     }
     
     [TestMethod]
@@ -88,9 +88,9 @@ public partial class Tests
     {
         await using var container = await PrepareEnvironmentAsync(EnvironmentType.Container);
         
-        await container.ApiClient.PullModelAndEnsureSuccessAsync("all-minilm");
+        await container.ApiClient.Models.PullModelAndEnsureSuccessAsync("all-minilm");
         
-        var embeddingResponse = await container.ApiClient.GenerateEmbeddingAsync(
+        var embeddingResponse = await container.ApiClient.Embeddings.GenerateEmbeddingAsync(
             model:"all-minilm",
             prompt: "hello");
         
@@ -106,7 +106,7 @@ public partial class Tests
         await using var container = await PrepareEnvironmentAsync(EnvironmentType.Container, "llama3");
 #endif
 
-        var response = await container.ApiClient.GenerateCompletionAsync(new GenerateCompletionRequest
+        var response = await container.ApiClient.Completions.GenerateCompletionAsync(new GenerateCompletionRequest
         {
             Model = "llama3",
             Prompt = "answer me just \"123\"",
@@ -129,7 +129,7 @@ public partial class Tests
 #endif
 
         IList<long>? context = null;
-        var enumerable = container.ApiClient.GenerateCompletionAsync("llama3", "answer 5 random words", stream: true);
+        var enumerable = container.ApiClient.Completions.GenerateCompletionAsync("llama3", "answer 5 random words", stream: true);
         await foreach (var response in enumerable)
         {
             Console.WriteLine($"> {response.Response}");
@@ -137,7 +137,7 @@ public partial class Tests
             context = response.Context;
         }
         
-        var lastResponse = await container.ApiClient.GenerateCompletionAsync("llama3", "answer 123", stream: false, context: context).WaitAsync();
+        var lastResponse = await container.ApiClient.Completions.GenerateCompletionAsync("llama3", "answer 123", stream: false, context: context).WaitAsync();
         Console.WriteLine(lastResponse.Response);
     }
     

@@ -36,7 +36,7 @@ public static class OllamaApiClientExtensions
 	/// <exception cref="ArgumentNullException">Thrown when the client or model is null.</exception>
 	/// <exception cref="InvalidOperationException">Thrown when the response status is not "success".</exception>
 	public static async Task PullModelAndEnsureSuccessAsync(
-		this OllamaApiClient client,
+		this ModelsClient client,
 		string model,
 		bool insecure = false,
 		string? username = null,
