@@ -14,7 +14,7 @@
     <OpenApiGenerator_Namespace>Ollama</OpenApiGenerator_Namespace>
     <OpenApiGenerator_GenerateSdk>false</OpenApiGenerator_GenerateSdk>
     <OpenApiGenerator_GenerateModels>true</OpenApiGenerator_GenerateModels>
-    <OpenApiGenerator_GenerateSuperTypeForJsonSerializerContext>true</OpenApiGenerator_GenerateSuperTypeForJsonSerializerContext>
+    <OpenApiGenerator_GenerateJsonSerializerContextTypes>true</OpenApiGenerator_GenerateJsonSerializerContextTypes>
   </PropertyGroup>
   
   <ItemGroup>
@@ -26,7 +26,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="OpenApiGenerator" Version="0.8.6">
+    <PackageReference Include="OpenApiGenerator" Version="0.9.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

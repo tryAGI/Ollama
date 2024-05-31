@@ -65,7 +65,7 @@ public class Chat
 	/// <param name="message">The message to send</param>
 	/// <param name="cancellationToken">The token to cancel the operation with</param>
 	public Task<Message> SendAsAsync(
-		string role,
+		MessageRole role,
 		string message,
 		CancellationToken cancellationToken = default)
 	{
@@ -80,7 +80,7 @@ public class Chat
 	/// <param name="imagesAsBase64">Base64 encoded images to send to the model</param>
 	/// <param name="cancellationToken">The token to cancel the operation with</param>
 	public async Task<Message> SendAsAsync(
-		string role,
+		MessageRole role,
 		string message,
 		IEnumerable<string?>? imagesAsBase64,
 		CancellationToken cancellationToken = default)

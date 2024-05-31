@@ -67,7 +67,7 @@ public static class OllamaApiClientExtensions
 	{
 		response = response ?? throw new ArgumentNullException(nameof(response));
 
-		if (response.Status != "success")
+		if (response.Status != PullModelResponseStatus.Success)
 		{
 			throw new InvalidOperationException($"Failed to pull model with status {response.Status}");
 		}
@@ -106,7 +106,7 @@ public static class OllamaApiClientExtensions
 	{
 		enumerable = enumerable ?? throw new ArgumentNullException(nameof(enumerable));
 		
-		string? responseRole = null;
+		MessageRole? responseRole = null;
 		var responseContent = new StringBuilder();
 		
 		var currentResponse = new GenerateChatCompletionResponse();
