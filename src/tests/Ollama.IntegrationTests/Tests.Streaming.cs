@@ -186,13 +186,13 @@ public static class WriterExtensions
         await writer.WriteLineAsync(JsonSerializer.Serialize(json));
     }
 
-    public static async Task WriteChatStreamResponse(this StreamWriter writer, string content, string role)
+    public static async Task WriteChatStreamResponse(this StreamWriter writer, string content, MessageRole role)
     {
         var json = new { message = new { content, role }, role, done = false };
         await writer.WriteLineAsync(JsonSerializer.Serialize(json));
     }
 
-    public static async Task FinishChatStreamResponse(this StreamWriter writer, string content, string role)
+    public static async Task FinishChatStreamResponse(this StreamWriter writer, string content, MessageRole role)
     {
         var json = new { message = new { content, role = role.ToString() }, role = role.ToString(), done = true };
         await writer.WriteLineAsync(JsonSerializer.Serialize(json));

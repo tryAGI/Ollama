@@ -8,7 +8,7 @@ namespace Ollama.IntegrationTests;
 [TestClass]
 public partial class Tests
 {
-    public static OllamaApiClient MockApiClient(string role, string answer)
+    public static OllamaApiClient MockApiClient(MessageRole role, string answer)
     {
         return MockApiClient(new HttpResponseMessage
         {
