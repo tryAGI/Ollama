@@ -16,6 +16,7 @@ public partial class Tests
             Content = new StringContent(JsonSerializer.Serialize(new GenerateChatCompletionResponse
             {
                 Done = true,
+                DoneReason = GenerateChatCompletionResponseDoneReason.Stop,
                 Message = new Message
                 {
                     Role = role,
