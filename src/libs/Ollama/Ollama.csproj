@@ -24,6 +24,16 @@
     <OpenApiGenerator_JsonSerializerContext>Ollama.SourceGenerationContext</OpenApiGenerator_JsonSerializerContext>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+    <CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Generated/**/*.*" />
+    <None Include="Generated/**/*.*" />
+  </ItemGroup>
+
   <ItemGroup>
     <AdditionalFiles Include="$(MSBuildThisFileDirectory)../../../docs/openapi.yaml" />
   </ItemGroup>

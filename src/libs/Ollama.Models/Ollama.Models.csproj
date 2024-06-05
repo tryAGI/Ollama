@@ -16,6 +16,16 @@
     <OpenApiGenerator_GenerateModels>true</OpenApiGenerator_GenerateModels>
     <OpenApiGenerator_GenerateJsonSerializerContextTypes>true</OpenApiGenerator_GenerateJsonSerializerContextTypes>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+    <CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Generated/**/*.*" />
+    <None Include="Generated/**/*.*" />
+  </ItemGroup>
   
   <ItemGroup>
     <AdditionalFiles Include="$(MSBuildThisFileDirectory)../../../docs/openapi.yaml" />
