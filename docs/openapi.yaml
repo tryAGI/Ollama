@@ -211,7 +211,8 @@ paths:
       operationId: checkBlob
       tags:
         - Models
-      summary: Check to see if a blob exists on the Ollama server which is useful when creating models.
+      summary: Ensures that the file blob used for a FROM or ADAPTER field exists on the server.
+      description: This is checking your Ollama server and not Ollama.ai.
       parameters:
         - in: path
           name: digest
@@ -259,8 +260,8 @@ components:
           description: &model_name |
             The model name. 
             
-            Model names follow a `model:tag` format. Some examples are `orca-mini:3b-q4_1` and `llama2:70b`. The tag is optional and, if not provided, will default to `latest`. The tag is used to identify a specific version.
-          example: llama2:7b
+            Model names follow a `model:tag` format. Some examples are `orca-mini:3b-q4_1` and `llama3:70b`. The tag is optional and, if not provided, will default to `latest`. The tag is used to identify a specific version.
+          example: llama3:8b
         prompt:
           type: string
           description: The prompt to generate a response.
@@ -430,7 +431,7 @@ components:
           type: integer
           nullable: true
           description: |
-            The number of GQA groups in the transformer layer. Required for some models, for example it is 8 for `llama2:70b`.
+            The number of GQA groups in the transformer layer. Required for some models, for example it is 8 for `llama3:70b`.
         num_gpu:
           type: integer
           nullable: true
@@ -493,7 +494,7 @@ components:
         model:
           type: string
           description: *model_name
-          example: llama2:7b
+          example: llama3:8b
         created_at:
           type: string
           format: date-time
@@ -550,7 +551,7 @@ components:
         model:
           type: string
           description: *model_name
-          example: llama2:7b
+          example: llama3:8b
         messages:
           type: array
           description: The messages of the chat, this can be used to keep a chat memory
@@ -580,7 +581,7 @@ components:
         model:
           type: string
           description: *model_name
-          example: llama2:7b
+          example: llama3:8b
         created_at:
           type: string
           format: date-time
@@ -591,9 +592,7 @@ components:
           description: Whether the response has completed.
           example: true
         done_reason:
-          type: string
-          nullable: true
-          description: Reason the response is done.
+          $ref: '#/components/schemas/DoneReason'
         total_duration:
           type: integer
           format: int64
@@ -622,6 +621,15 @@ components:
           format: int64
           description: Time in nanoseconds spent generating the response.
           example: 1325948000
+    DoneReason:
+      description: Reason why the model is done generating a response.
+      anyOf:
+        - type: string
+        - type: string
+          enum:
+            - stop # The generation hit a stop token.
+            - length # The maximum num_tokens was reached.
+            - load # The request was sent with an empty body to load the model.
     Message:
       type: object
       description: A message in the chat endpoint
@@ -651,7 +659,7 @@ components:
         model:
           type: string
           description: *model_name
-          example: llama2:7b
+          example: llama3:8b
         prompt:
           type: string
           description: Text to generate embeddings for.
@@ -687,7 +695,7 @@ components:
         modelfile:
           type: string
           description: The contents of the Modelfile.
-          example: FROM llama2\nSYSTEM You are mario from Super Mario Bros.
+          example: FROM llama3\nSYSTEM You are mario from Super Mario Bros.
         path:
           type: string
           description: Path to the Modelfile (optional)
@@ -742,7 +750,7 @@ components:
         model:
           type: string
           description: *model_name
-          example: llama2:7b
+          example: llama3:8b
         modified_at:
           type: string
           format: date-time
@@ -763,14 +771,10 @@ components:
       type: object
       description: A model available locally.
       properties:
-        name:
-          type: string
-          description: *model_name
-          example: llama2:7b
         model:
           type: string
           description: *model_name
-          example: llama2:7b
+          example: llama3:8b
         modified_at:
           type: string
           format: date-time
@@ -827,7 +831,7 @@ components:
         model:
           type: string
           description: *model_name
-          example: llama2:7b
+          example: llama3:8b
       required:
         - model
     ModelInfo:
@@ -843,7 +847,7 @@ components:
           type: string
           nullable: true
           description: The modelfile associated with the model.
-          example: 'Modelfile generated by \"ollama show\"\n# To build a new Modelfile based on this one, replace the FROM line with:\n# FROM llama2:latest\n\nFROM /Users/username/.ollama/models/blobs/sha256:8daa9615cce30c259a9555b1cc250d461d1bc69980a274b44d7eda0be78076d8\nTEMPLATE \"\"\"[INST] {{ if and .First .System }}<<SYS>>{{ .System }}<</SYS>>\n\n{{ end }}{{ .Prompt }} [/INST] \"\"\"\nSYSTEM \"\"\"\"\"\"\nPARAMETER stop [INST]\nPARAMETER stop [/INST]\nPARAMETER stop <<SYS>>\nPARAMETER stop <</SYS>>\n"'
+          example: 'Modelfile generated by \"ollama show\"\n# To build a new Modelfile based on this one, replace the FROM line with:\n# FROM llama3:latest\n\nFROM /Users/username/.ollama/models/blobs/sha256:8daa9615cce30c259a9555b1cc250d461d1bc69980a274b44d7eda0be78076d8\nTEMPLATE \"\"\"[INST] {{ if and .First .System }}<<SYS>>{{ .System }}<</SYS>>\n\n{{ end }}{{ .Prompt }} [/INST] \"\"\"\nSYSTEM \"\"\"\"\"\"\nPARAMETER stop [INST]\nPARAMETER stop [/INST]\nPARAMETER stop <<SYS>>\nPARAMETER stop <</SYS>>\n"'
         parameters:
           type: string
           nullable: true
@@ -873,11 +877,11 @@ components:
         source:
           type: string
           description: Name of the model to copy.
-          example: llama2:7b
+          example: llama3:8b
         destination:
           type: string
           description: Name of the new model.
-          example: llama2-backup
+          example: llama3-backup
       required:
         - source
         - destination
@@ -888,7 +892,7 @@ components:
         model:
           type: string
           description: *model_name
-          example: llama2:13b
+          example: llama3:13b
       required:
         - model
     PullModelRequest:
@@ -898,7 +902,7 @@ components:
         model:
           type: string
           description: *model_name
-          example: llama2:7b
+          example: llama3:8b
         insecure:
           type: boolean
           description: |

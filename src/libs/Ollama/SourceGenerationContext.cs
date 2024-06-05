@@ -14,6 +14,8 @@ namespace Ollama;
         typeof(PullModelResponseStatusNullableJsonConverter),
         typeof(PushModelResponseStatusJsonConverter),
         typeof(PushModelResponseStatusNullableJsonConverter),
+        typeof(GenerateChatCompletionResponseDoneReasonJsonConverter),
+        typeof(GenerateChatCompletionResponseDoneReasonNullableJsonConverter),
     ])]
 [JsonSerializable(typeof(JsonSerializerContextTypes))]
 internal sealed partial class SourceGenerationContext : JsonSerializerContext;

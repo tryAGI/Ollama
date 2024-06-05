@@ -12,7 +12,12 @@ public partial class Tests
             {
                 // set OLLAMA_HOST=172.16.50.107:11434
                 // ollama serve
-                var apiClient = new OllamaApiClient(baseUri: new Uri("http://172.16.50.107:11434/api"));
+                var apiClient = new OllamaApiClient(
+                    httpClient: new HttpClient
+                    {
+                        Timeout = TimeSpan.FromMinutes(10),
+                    },
+                    baseUri: new Uri("http://172.16.50.107:11434/api"));
                 
                 if (!string.IsNullOrEmpty(model))
                 {
@@ -166,7 +171,7 @@ public partial class Tests
 #endif
         
         var chat = container.ApiClient.Chat("llama3");
-        var message = await chat.SendAsync("answer in 5 words");
+        var message = await chat.SendAsync("answer 5 random words");
         
         Console.WriteLine(message.Content);
     }
