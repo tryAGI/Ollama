@@ -1,6 +1,6 @@
 # Ollama SDK for .NET 🦙
 
-Generated C# SDK based on Ollama OpenAPI specification and [official docs](https://github.com/jmorganca/ollama/blob/main/docs/api.md) using [OpenApiGenerator](https://github.com/HavenDV/OpenApiGenerator).
+Generated C# SDK based on Ollama [OpenAPI specification](https://github.com/davidmigloz/langchain_dart/blob/main/packages/ollama_dart/oas/ollama-curated.yaml) and [official docs](https://github.com/jmorganca/ollama/blob/main/docs/api.md) using [OpenApiGenerator](https://github.com/HavenDV/OpenApiGenerator).
 
 ## Features 🔥
 
@@ -59,7 +59,7 @@ while (true)
 
 ## Credits
 
-Icon and name were reused from the amazing [Ollama project](https://github.com/jmorganca/ollama).
+Icon and name were reused from the amazing [Ollama project](https://github.com/jmorganca/ollama).  
 The project was forked from [this repository](https://github.com/awaescher/OllamaSharp), 
 after which automatic code generation was applied based on [this OpenAPI specification](https://github.com/davidmigloz/langchain_dart/blob/main/packages/ollama_dart/oas/ollama-curated.yaml) 
 (in the future it will be replaced by the official one, if one appears)
