@@ -30,8 +30,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Generated/**/*.*" />
-    <None Include="Generated/**/*.*" />
+    <Compile Remove="$(CompilerGeneratedFilesOutputPath)/**/*.*" />
+    <None Include="$(CompilerGeneratedFilesOutputPath)/**/*.*" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,7 +43,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="OpenApiGenerator" Version="0.9.9">
+    <PackageReference Include="OpenApiGenerator" Version="0.9.10">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
