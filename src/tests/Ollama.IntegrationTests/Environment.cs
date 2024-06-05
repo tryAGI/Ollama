@@ -4,6 +4,7 @@ namespace Ollama.IntegrationTests;
 
 public sealed class Environment : IAsyncDisposable
 {
+    public required EnvironmentType Type { get; init; }
     public IContainer? Container { get; init; }
     public required OllamaApiClient ApiClient { get; init; }
 

@@ -21,6 +21,7 @@ public partial class Tests
 
                 return new Environment
                 {
+                    Type = environmentType,
                     ApiClient = apiClient,
                 };
             }
@@ -42,6 +43,7 @@ public partial class Tests
                 
                 return new Environment
                 {
+                    Type = environmentType,
                     Container = container,
                     ApiClient = apiClient,
                 };
@@ -74,7 +76,7 @@ public partial class Tests
         
         await foreach (var response in container.ApiClient.Models.PullModelAsync("all-minilm", stream: true))
         {
-            Console.WriteLine($"{response.Status}. Progress: {response.Completed}/{response.Total}");
+            Console.WriteLine($"{response.Status.Object}. Progress: {response.Completed}/{response.Total}");
         }
         
         var response2 = await container.ApiClient.Models.PullModelAsync("all-minilm").WaitAsync();
@@ -88,6 +90,12 @@ public partial class Tests
     {
         await using var container = await PrepareEnvironmentAsync(EnvironmentType.Container);
         
+        if (container.Type == EnvironmentType.Local)
+        {
+            var models = await container.ApiClient.Models.ListRunningModelsAsync();
+            models.Models.Should().BeNullOrEmpty();
+        }
+        
         await container.ApiClient.Models.PullModelAndEnsureSuccessAsync("all-minilm");
         
         var embeddingResponse = await container.ApiClient.Embeddings.GenerateEmbeddingAsync(
@@ -95,6 +103,13 @@ public partial class Tests
             prompt: "hello");
         
         embeddingResponse.Embedding.Should().NotBeNullOrEmpty();
+        
+        if (container.Type == EnvironmentType.Local)
+        {
+            var models2 = await container.ApiClient.Models.ListRunningModelsAsync();
+            models2.Models.Should().NotBeNullOrEmpty();
+        }
+
     }
     
     [TestMethod]
