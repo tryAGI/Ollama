@@ -399,7 +399,5 @@ FodyWeavers.xsd
 /.idea/
 
 # Expose generated OpenApiGenerator code
-src/libs/Ollama/Generated/**/*.*
-!src/libs/Ollama/Generated/OpenApiGenerator/**/*.*
-src/libs/Ollama.Models/Generated/**/*.*
-!src/libs/Ollama.Models/Generated/OpenApiGenerator/**/*.*
+src/libs/*/Generated/**/*.*
+!src/libs/*/Generated/OpenApiGenerator/**/*.*
