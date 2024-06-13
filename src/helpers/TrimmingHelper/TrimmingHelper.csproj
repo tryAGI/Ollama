@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    
+    <PublishTrimmed>true</PublishTrimmed>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\libs\Ollama.Models\Ollama.Models.csproj" />
+    <ProjectReference Include="..\..\libs\Ollama\Ollama.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TrimmerRootAssembly Include="Ollama" />
+    <TrimmerRootAssembly Include="Ollama.Models" />
+  </ItemGroup>
+
+  <PropertyGroup Label="Publish">
+    <RuntimeIdentifier Condition="$([MSBuild]::IsOSPlatform('windows'))">win-x64</RuntimeIdentifier>
+    <RuntimeIdentifier Condition="!$([MSBuild]::IsOSPlatform('windows'))">osx-arm64</RuntimeIdentifier>
+
+    <SelfContained>true</SelfContained>
+  </PropertyGroup>
+
+  <Target Name="ProduceTrimmingWarnings" AfterTargets="Build">
+    <CallTarget Targets="Publish"/>
+  </Target>
+
+</Project>
