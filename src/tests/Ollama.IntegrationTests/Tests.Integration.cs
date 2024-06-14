@@ -71,7 +71,7 @@ public partial class Tests
         models = await container.ApiClient.Models.ListModelsAsync();
         models.Models.Should().NotBeNull();
         models.Models.Should().HaveCount(1);
-        models.Models![0].Model.Should().Be("all-minilm:latest");
+        models.Models![0].Model1.Should().Be("all-minilm:latest");
     }
     
     [TestMethod]

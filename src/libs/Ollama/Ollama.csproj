@@ -26,13 +26,17 @@
 
   <PropertyGroup>
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
-    <CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
+    <CompilerGeneratedFilesOutputPath>Generated\$(TargetFramework)</CompilerGeneratedFilesOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="$(CompilerGeneratedFilesOutputPath)/**/*.*" />
-    <None Include="$(CompilerGeneratedFilesOutputPath)/**/*.*" />
+    <Compile Remove="Generated/**/*.*" />
+    <None Include="Generated/**/*.*" />
   </ItemGroup>
+
+  <Target Name="CleanSourceGeneratedFiles" BeforeTargets="BeforeBuild" DependsOnTargets="$(BeforeBuildDependsOn)">
+    <RemoveDir Directories="Generated\$(TargetFramework)" />
+  </Target>
 
   <ItemGroup>
     <AdditionalFiles Include="$(MSBuildThisFileDirectory)../../../docs/openapi.yaml" />
@@ -43,7 +47,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="OpenApiGenerator" Version="0.9.12">
+    <PackageReference Include="OpenApiGenerator" Version="0.10.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

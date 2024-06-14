@@ -127,7 +127,7 @@ public partial class Tests
         models.Models!.Count.Should().Be(4);
 
         var first = models.Models.First();
-        first.Model.Should().Be("codellama:latest");
+        first.Model1.Should().Be("codellama:latest");
         first.ModifiedAt.Date.Should().Be(new DateTime(2023, 10, 12));
         first.Size.Should().Be(3791811617);
         first.Digest.Should().StartWith("36893bf9bc7ff7ace5655");

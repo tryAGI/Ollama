@@ -386,7 +386,6 @@ FodyWeavers.xsd
 
 # Local History for Visual Studio Code
 .history/
-
 # Windows Installer files from build outputs
 *.cab
 *.msi
@@ -398,6 +397,9 @@ FodyWeavers.xsd
 *.sln.iml
 /.idea/
 
-# Expose generated OpenApiGenerator code
-src/libs/*/Generated/**/*.*
-!src/libs/*/Generated/OpenApiGenerator/**/*.*
+# Include only Generated/net8.0/OpenApiGenerator folder and its contents
+/src/libs/**/Generated/net4.6.2
+/src/libs/**/Generated/net6.0
+/src/libs/**/Generated/netstandard2.0
+/src/libs/**/Generated/net8.0/PolySharp.SourceGenerators
+/src/libs/**/Generated/net8.0/System.Text.Json.SourceGeneration
