@@ -14,40 +14,9 @@
     <Description>Generated C# SDK based on Ollama OpenAPI specification.</Description>
     <PackageTags>api;client;sdk;dotnet;swagger;openapi;specification;ollama;generated</PackageTags>
   </PropertyGroup>
-
-  <PropertyGroup Label="OpenApiGenerator">
-    <OpenApiGenerator_Namespace>Ollama</OpenApiGenerator_Namespace>
-    <OpenApiGenerator_ClassName>OllamaApiClient</OpenApiGenerator_ClassName>
-    <OpenApiGenerator_GenerateSdk>false</OpenApiGenerator_GenerateSdk>
-    <OpenApiGenerator_GenerateMethods>true</OpenApiGenerator_GenerateMethods>
-    <OpenApiGenerator_GenerateConstructors>true</OpenApiGenerator_GenerateConstructors>
-    <OpenApiGenerator_JsonSerializerContext>Ollama.SourceGenerationContext</OpenApiGenerator_JsonSerializerContext>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
-    <CompilerGeneratedFilesOutputPath>Generated\$(TargetFramework)</CompilerGeneratedFilesOutputPath>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Generated/**/*.*" />
-    <None Include="Generated/**/*.*" />
-  </ItemGroup>
-
-  <Target Name="CleanSourceGeneratedFiles" BeforeTargets="BeforeBuild" DependsOnTargets="$(BeforeBuildDependsOn)">
-    <RemoveDir Directories="Generated\$(TargetFramework)" />
-  </Target>
-
-  <ItemGroup>
-    <AdditionalFiles Include="$(MSBuildThisFileDirectory)../../../docs/openapi.yaml" />
-  </ItemGroup>
   
   <ItemGroup>
     <PackageReference Include="PolySharp" Version="1.14.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="OpenApiGenerator" Version="0.12.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -56,10 +25,6 @@
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net4.6.2'">
     <Reference Include="System.Net.Http" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Ollama.Models\Ollama.Models.csproj" />
   </ItemGroup>
 
 </Project>

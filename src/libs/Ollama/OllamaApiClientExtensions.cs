@@ -67,9 +67,9 @@ public static class OllamaApiClientExtensions
 	{
 		response = response ?? throw new ArgumentNullException(nameof(response));
 
-		if (response.Status.Value2 != PullModelResponseStatus.Success)
+		if (response.Status?.Value2 != PullModelResponseStatus.Success)
 		{
-			throw new InvalidOperationException($"Failed to pull model with status {response.Status.Object}");
+			throw new InvalidOperationException($"Failed to pull model with status {response.Status?.Object}");
 		}
 	}
 	
@@ -85,7 +85,7 @@ public static class OllamaApiClientExtensions
 		
 		var text = string.Empty;
 		var currentResponse = new GenerateCompletionResponse();
-		await foreach (var response in enumerable)
+		await foreach (var response in enumerable.ConfigureAwait(false))
 		{
 			text += response.Response;
 			currentResponse = response;
@@ -110,7 +110,7 @@ public static class OllamaApiClientExtensions
 		var responseContent = new StringBuilder();
 		
 		var currentResponse = new GenerateChatCompletionResponse();
-		await foreach (var response in enumerable)
+		await foreach (var response in enumerable.ConfigureAwait(false))
 		{
 			responseRole ??= response.Message?.Role;
 			responseContent.Append(response.Message?.Content);
@@ -138,7 +138,7 @@ public static class OllamaApiClientExtensions
 		enumerable = enumerable ?? throw new ArgumentNullException(nameof(enumerable));
 		
 		var currentResponse = new T();
-		await foreach (var response in enumerable)
+		await foreach (var response in enumerable.ConfigureAwait(false))
 		{
 			currentResponse = response;
 		}

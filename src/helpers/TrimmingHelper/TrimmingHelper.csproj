@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\libs\Ollama.Models\Ollama.Models.csproj" />
     <ProjectReference Include="..\..\libs\Ollama\Ollama.csproj" />
   </ItemGroup>
 

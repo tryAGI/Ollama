@@ -10,14 +10,14 @@ public partial class Tests
         {
             case EnvironmentType.Local:
             {
-                // set OLLAMA_HOST=172.16.50.107:11434
+                // set OLLAMA_HOST=10.10.0.125:11434
                 // ollama serve
                 var apiClient = new OllamaApiClient(
                     httpClient: new HttpClient
                     {
                         Timeout = TimeSpan.FromMinutes(10),
                     },
-                    baseUri: new Uri("http://172.16.50.107:11434/api"));
+                    baseUri: new Uri("http://10.10.0.125:11434/api"));
                 
                 if (!string.IsNullOrEmpty(model))
                 {
@@ -81,7 +81,7 @@ public partial class Tests
         
         await foreach (var response in container.ApiClient.Models.PullModelAsync("all-minilm", stream: true))
         {
-            Console.WriteLine($"{response.Status.Object}. Progress: {response.Completed}/{response.Total}");
+            Console.WriteLine($"{response.Status?.Object}. Progress: {response.Completed}/{response.Total}");
         }
         
         var response2 = await container.ApiClient.Models.PullModelAsync("all-minilm").WaitAsync();

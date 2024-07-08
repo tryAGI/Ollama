@@ -14,7 +14,7 @@
   </ItemGroup>
   
   <PropertyGroup Label="Nuget">
-    <Version>1.4.0</Version>
+    <Version>1.4.1</Version>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Authors>tryAGI and contributors</Authors>
@@ -42,7 +42,7 @@
   </PropertyGroup>
 
   <PropertyGroup Label="Trimmable" Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net6.0'))">
-    <IsAotCompatible>true</IsAotCompatible>
+    <IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net7.0'))">true</IsAotCompatible>
     <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
     <IsTrimmable>true</IsTrimmable>
     <SuppressTrimAnalysisWarnings>false</SuppressTrimAnalysisWarnings>
