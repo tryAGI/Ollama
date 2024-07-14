@@ -68,8 +68,14 @@ namespace Ollama
         /// <summary>
         /// Creates a model with another name from an existing model.
         /// </summary>
-        /// <param name="source"></param>
-        /// <param name="destination"></param>
+        /// <param name="source">
+        /// Name of the model to copy.<br/>
+        /// Example: llama3:8b
+        /// </param>
+        /// <param name="destination">
+        /// Name of the new model.<br/>
+        /// Example: llama3-backup
+        /// </param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         public async global::System.Threading.Tasks.Task CopyModelAsync(
