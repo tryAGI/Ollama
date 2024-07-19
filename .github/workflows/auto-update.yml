@@ -1,0 +1,63 @@
+name: Opens a new PR if there are OpenAPI updates
+on:
+  schedule:
+    - cron: '0 */3 * * *'
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+jobs:
+  check-openapi-updates:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Git user
+        run: |
+          git config --local user.email "bot@openai.com"
+          git config --local user.name "github-actions[bot]"
+
+      - name: Generate branch name
+        id: branch
+        run: echo "branch_name=bot/update-openapi_$(date +'%Y%m%d%H%M')" >> $GITHUB_OUTPUT
+
+      - name: Create branch
+        run: |
+          git checkout -b ${{ steps.branch.outputs.branch_name }} origin/main
+          git rebase main
+
+      - name: Generate code
+        run: |
+          cd src/libs/Ollama
+          chmod +x ./generate.sh
+          ./generate.sh
+
+      - name: Check for changes
+        id: changes
+        run: |
+          CHANGED=$(git diff --name-only)
+          if [ -z "$CHANGED" ]; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Push changes
+        if: steps.changes.outputs.has_changes == 'true'
+        run: |
+          git add .
+          git commit -m "feat: Updated OpenAPI spec"
+          git push --force-with-lease -u origin ${{ steps.branch.outputs.branch_name }}
+
+      - name: Wait for 15 seconds
+        if: steps.changes.outputs.has_changes == 'true'
+        run: sleep 15
+      
+      - name: Create pull request
+        if: steps.changes.outputs.has_changes == 'true'
+        run: gh pr create -B main -H ${{ steps.branch.outputs.branch_name }} --title 'feat:Updated OpenAPI spec' --body 'Created by Github Actions'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
