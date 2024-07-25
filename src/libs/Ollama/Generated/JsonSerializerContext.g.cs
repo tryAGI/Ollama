@@ -18,6 +18,8 @@ namespace Ollama
             typeof(global::OpenApiGenerator.JsonConverters.DoneReasonVariant2NullableJsonConverter),
             typeof(global::OpenApiGenerator.JsonConverters.MessageRoleJsonConverter),
             typeof(global::OpenApiGenerator.JsonConverters.MessageRoleNullableJsonConverter),
+            typeof(global::OpenApiGenerator.JsonConverters.ToolTypeJsonConverter),
+            typeof(global::OpenApiGenerator.JsonConverters.ToolTypeNullableJsonConverter),
             typeof(global::OpenApiGenerator.JsonConverters.CreateModelResponseStatusJsonConverter),
             typeof(global::OpenApiGenerator.JsonConverters.CreateModelResponseStatusNullableJsonConverter),
             typeof(global::OpenApiGenerator.JsonConverters.CreateModelStatusVariant2JsonConverter),

@@ -91,6 +91,9 @@ namespace Ollama
         /// The prompt to generate a response.<br/>
         /// Example: Why is the sky blue?
         /// </param>
+        /// <param name="suffix">
+        /// The text that comes after the inserted text.
+        /// </param>
         /// <param name="images">
         /// (optional) a list of Base64-encoded images to include in the message (for multimodal models such as llava)
         /// </param>
@@ -131,6 +134,7 @@ namespace Ollama
         public async global::System.Collections.Generic.IAsyncEnumerable<global::Ollama.GenerateCompletionResponse> GenerateCompletionAsync(
             string model,
             string prompt,
+            string? suffix = default,
             global::System.Collections.Generic.IList<string?>? images = default,
             string? system = default,
             string? template = default,
@@ -146,6 +150,7 @@ namespace Ollama
             {
                 Model = model,
                 Prompt = prompt,
+                Suffix = suffix,
                 Images = images,
                 System = system,
                 Template = template,

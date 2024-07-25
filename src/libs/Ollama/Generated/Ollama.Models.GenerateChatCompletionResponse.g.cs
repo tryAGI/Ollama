@@ -14,7 +14,8 @@ namespace Ollama
         /// A message in the chat endpoint
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("message")]
-        public global::Ollama.Message? Message { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required global::Ollama.Message Message { get; set; }
 
         /// <summary>
         /// The model name. <br/>
@@ -22,20 +23,23 @@ namespace Ollama
         /// Example: llama3:8b
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("model")]
-        public string? Model { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string Model { get; set; }
 
         /// <summary>
         /// Date on which a model was created.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("created_at")]
-        public global::System.DateTime CreatedAt { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required global::System.DateTime CreatedAt { get; set; }
 
         /// <summary>
         /// Whether the response has completed.<br/>
         /// Example: true
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("done")]
-        public bool Done { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required bool Done { get; set; }
 
         /// <summary>
         /// Reason why the model is done generating a response.

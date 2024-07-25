@@ -4,15 +4,15 @@
 namespace Ollama
 {
     /// <summary>
-    /// The response class for the version endpoint.
+    /// The tool the model wants to call.
     /// </summary>
-    public sealed partial class VersionResponse
+    public sealed partial class ToolCall
     {
         /// <summary>
-        /// The version of the Ollama server.
+        /// The function the model wants to call.
         /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("version")]
-        public string? Version { get; set; }
+        [global::System.Text.Json.Serialization.JsonPropertyName("function")]
+        public global::Ollama.ToolCallFunction? Function { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema

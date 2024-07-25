@@ -26,6 +26,12 @@ namespace Ollama
         public required string Prompt { get; set; }
 
         /// <summary>
+        /// The text that comes after the inserted text.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("suffix")]
+        public string? Suffix { get; set; }
+
+        /// <summary>
         /// (optional) a list of Base64-encoded images to include in the message (for multimodal models such as llava)
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("images")]

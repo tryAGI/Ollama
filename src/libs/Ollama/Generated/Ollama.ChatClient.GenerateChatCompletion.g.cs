@@ -109,6 +109,9 @@ namespace Ollama
         /// - If set to 0, the model will be unloaded immediately once finished.<br/>
         /// - If not set, the model will stay loaded for 5 minutes by default
         /// </param>
+        /// <param name="tools">
+        /// A list of tools the model may call.
+        /// </param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         public async global::System.Collections.Generic.IAsyncEnumerable<global::Ollama.GenerateChatCompletionResponse> GenerateChatCompletionAsync(
@@ -118,6 +121,7 @@ namespace Ollama
             global::Ollama.RequestOptions? options = default,
             bool stream = true,
             int? keepAlive = default,
+            global::System.Collections.Generic.IList<global::Ollama.Tool>? tools = default,
             [global::System.Runtime.CompilerServices.EnumeratorCancellation] global::System.Threading.CancellationToken cancellationToken = default)
         {
             var request = new global::Ollama.GenerateChatCompletionRequest
@@ -128,6 +132,7 @@ namespace Ollama
                 Options = options,
                 Stream = stream,
                 KeepAlive = keepAlive,
+                Tools = tools,
             };
 
             var enumerable = GenerateChatCompletionAsync(

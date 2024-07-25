@@ -20,6 +20,10 @@ namespace Ollama
         /// 
         /// </summary>
         Assistant,
+        /// <summary>
+        /// 
+        /// </summary>
+        Tool,
     }
 
     /// <summary>
@@ -37,6 +41,7 @@ namespace Ollama
                 MessageRole.System => "system",
                 MessageRole.User => "user",
                 MessageRole.Assistant => "assistant",
+                MessageRole.Tool => "tool",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -50,6 +55,7 @@ namespace Ollama
                 "system" => MessageRole.System,
                 "user" => MessageRole.User,
                 "assistant" => MessageRole.Assistant,
+                "tool" => MessageRole.Tool,
                 _ => null,
             };
         }
