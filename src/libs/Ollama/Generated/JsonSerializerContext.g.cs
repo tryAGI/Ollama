@@ -30,13 +30,10 @@ namespace Ollama
             typeof(global::OpenApiGenerator.JsonConverters.PullModelStatusVariant2NullableJsonConverter),
             typeof(global::OpenApiGenerator.JsonConverters.PushModelResponseStatusJsonConverter),
             typeof(global::OpenApiGenerator.JsonConverters.PushModelResponseStatusNullableJsonConverter),
-            typeof(global::OpenApiGenerator.JsonConverters.PushModelStatusVariant2JsonConverter),
-            typeof(global::OpenApiGenerator.JsonConverters.PushModelStatusVariant2NullableJsonConverter),
             typeof(global::OpenApiGenerator.JsonConverters.AnyOfJsonConverterFactory2),
             typeof(global::OpenApiGenerator.JsonConverters.DoneReasonJsonConverter),
             typeof(global::OpenApiGenerator.JsonConverters.CreateModelStatusJsonConverter),
             typeof(global::OpenApiGenerator.JsonConverters.PullModelStatusJsonConverter),
-            typeof(global::OpenApiGenerator.JsonConverters.PushModelStatusJsonConverter),
         })]
 
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.JsonSerializerContextTypes))]

@@ -163,7 +163,7 @@ namespace Ollama
         public bool? LowVram { get; set; }
 
         /// <summary>
-        /// Enable f16 key/value. (Default: false)
+        /// Enable f16 key/value. (Default: true)
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("f16_kv")]
         public bool? F16Kv { get; set; }
