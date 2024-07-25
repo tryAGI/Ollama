@@ -109,11 +109,21 @@ public static class OllamaApiClientExtensions
 		MessageRole? responseRole = null;
 		var responseContent = new StringBuilder();
 		
-		var currentResponse = new GenerateChatCompletionResponse();
+		var currentResponse = new GenerateChatCompletionResponse
+		{
+			Message = new Message
+			{
+				Role = MessageRole.User,
+				Content = string.Empty,
+			},
+			Model = string.Empty,
+			CreatedAt = DateTime.UtcNow,
+			Done = true,
+		};
 		await foreach (var response in enumerable.ConfigureAwait(false))
 		{
-			responseRole ??= response.Message?.Role;
-			responseContent.Append(response.Message?.Content);
+			responseRole ??= response.Message.Role;
+			responseContent.Append(response.Message.Content);
 			
 			currentResponse = response;
 		}

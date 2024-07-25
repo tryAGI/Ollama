@@ -57,6 +57,12 @@ namespace Ollama
         public int? KeepAlive { get; set; }
 
         /// <summary>
+        /// A list of tools the model may call.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("tools")]
+        public global::System.Collections.Generic.IList<global::Ollama.Tool>? Tools { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
