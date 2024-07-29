@@ -1,13 +1,12 @@
 # Ollama SDK for .NET 🦙
 
-Generated C# SDK based on Ollama [OpenAPI specification](https://github.com/davidmigloz/langchain_dart/blob/main/packages/ollama_dart/oas/ollama-curated.yaml) and [official docs](https://github.com/jmorganca/ollama/blob/main/docs/api.md) using [OpenApiGenerator](https://github.com/HavenDV/OpenApiGenerator).
-
 ## Features 🔥
-
-- Intuitive API client: Set up and interact with Ollama in just a few lines of code.
-- API endpoint coverage: Support for all Ollama API endpoints including chats, embeddings, listing models, pulling and creating new models, and more.
-- Real-time streaming: Stream responses directly to your application.
-- Progress reporting: Get real-time progress feedback on tasks like model pulling.
+- Fully generated C# SDK based on [OpenAPI specification](https://github.com/davidmigloz/langchain_dart/blob/main/packages/ollama_dart/oas/ollama-curated.yaml) using [OpenApiGenerator](https://github.com/HavenDV/OpenApiGenerator)
+- Automatic releases of new preview versions if there was an update to the OpenAPI specification
+- Source generator to define tools natively through C# interfaces
+- All modern .NET features - nullability, trimming, NativeAOT, etc.
+- Support .Net Framework/.Net Standard 2.0
+- Support for all Ollama API endpoints including chats, embeddings, listing models, pulling and creating new models, and more.
 
 ## Usage
 
