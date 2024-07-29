@@ -36,11 +36,20 @@ namespace Ollama
         public int? TopK { get; set; }
 
         /// <summary>
-        /// Works together with top-k. A higher value (e.g., 0.95) will lead to more diverse text, while a lower value <br/>
+        /// Works together with top_k. A higher value (e.g., 0.95) will lead to more diverse text, while a lower value <br/>
         /// (e.g., 0.5) will generate more focused and conservative text. (Default: 0.9)
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("top_p")]
         public float? TopP { get; set; }
+
+        /// <summary>
+        /// Alternative to the top_p, and aims to ensure a balance of quality and variety. min_p represents the minimum <br/>
+        /// probability for a token to be considered, relative to the probability of the most likely token. For <br/>
+        /// example, with min_p=0.05 and the most likely token having a probability of 0.9, logits with a value less <br/>
+        /// than 0.05*0.9=0.045 are filtered out. (Default: 0.0)
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("min_p")]
+        public float? MinP { get; set; }
 
         /// <summary>
         /// Tail free sampling is used to reduce the impact of less probable tokens from the output. A higher value <br/>
