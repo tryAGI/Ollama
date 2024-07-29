@@ -62,3 +62,9 @@ Icon and name were reused from the amazing [Ollama project](https://github.com/j
 The project was forked from [this repository](https://github.com/awaescher/OllamaSharp), 
 after which automatic code generation was applied based on [this OpenAPI specification](https://github.com/davidmigloz/langchain_dart/blob/main/packages/ollama_dart/oas/ollama-curated.yaml) 
 (in the future it will be replaced by the official one, if one appears)
+
+## Support
+
+Priority place for bugs: https://github.com/tryAGI/Ollama/issues  
+Priority place for ideas and general questions: https://github.com/tryAGI/Ollama/discussions  
+Discord: https://discord.gg/Ca2xhfBf3v  
