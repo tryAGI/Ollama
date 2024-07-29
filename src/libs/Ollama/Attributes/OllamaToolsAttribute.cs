@@ -6,4 +6,4 @@ namespace Ollama;
 /// </summary>
 [AttributeUsage(AttributeTargets.Interface)]
 [System.Diagnostics.Conditional("OLLAMA_FUNCTIONS_ATTRIBUTES")]
-public sealed class OllamaFunctionsAttribute : Attribute;
+public sealed class OllamaToolsAttribute : Attribute;

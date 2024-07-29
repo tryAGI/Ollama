@@ -18,7 +18,7 @@ public class Weather
     public string Description { get; set; } = string.Empty;
 }
 
-[OllamaFunctions]
+[OllamaTools]
 public interface IWeatherFunctions
 {
     [Description("Get the current weather in a given location")]

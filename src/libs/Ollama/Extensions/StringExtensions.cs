@@ -61,4 +61,14 @@ public static class StringExtensions
             Content = content,
         };
     }
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    public static string AsJson(this ToolCallFunctionArgs args)
+    {
+        return JsonSerializer.Serialize(args, SourceGenerationContext.Default.ToolCallFunctionArgs);
+    }
 }

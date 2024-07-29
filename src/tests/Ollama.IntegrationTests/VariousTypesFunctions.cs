@@ -3,7 +3,7 @@ using DescriptionAttribute = System.ComponentModel.DescriptionAttribute;
 
 namespace Ollama.IntegrationTests;
 
-[OllamaFunctions]
+[OllamaTools]
 public interface IVariousTypesFunctions
 {
     [Description("Get the current weather in a given location")]

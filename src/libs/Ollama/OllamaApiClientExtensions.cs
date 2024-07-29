@@ -107,6 +107,7 @@ public static class OllamaApiClientExtensions
 		enumerable = enumerable ?? throw new ArgumentNullException(nameof(enumerable));
 		
 		MessageRole? responseRole = null;
+		IList<ToolCall>? toolCalls = null;
 		var responseContent = new StringBuilder();
 		
 		var currentResponse = new GenerateChatCompletionResponse
@@ -123,6 +124,7 @@ public static class OllamaApiClientExtensions
 		await foreach (var response in enumerable.ConfigureAwait(false))
 		{
 			responseRole ??= response.Message.Role;
+			toolCalls ??= response.Message.ToolCalls;
 			responseContent.Append(response.Message.Content);
 			
 			currentResponse = response;
@@ -131,7 +133,8 @@ public static class OllamaApiClientExtensions
 		currentResponse.Message = new Message
 		{
 			Role = responseRole ?? MessageRole.User,
-			Content = responseContent.ToString()
+			Content = responseContent.ToString(),
+			ToolCalls = toolCalls,
 		};
 
 		return currentResponse;

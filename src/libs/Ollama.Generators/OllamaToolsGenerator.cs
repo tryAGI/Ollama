@@ -7,11 +7,11 @@ using OpenAI.Generators.Core.Conversion;
 namespace Ollama.Generators;
 
 [Generator]
-public class OllamaFunctionsGenerator : IIncrementalGenerator
+public class OllamaToolsGenerator : IIncrementalGenerator
 {
     #region Constants
 
-    public const string Name = nameof(OllamaFunctionsGenerator);
+    public const string Name = nameof(OllamaToolsGenerator);
     public const string Id = "OAFG";
 
     #endregion
@@ -22,7 +22,7 @@ public class OllamaFunctionsGenerator : IIncrementalGenerator
     {
         var attributes =
             context.SyntaxProvider
-                .ForAttributeWithMetadataName("Ollama.OllamaFunctionsAttribute")
+                .ForAttributeWithMetadataName("Ollama.OllamaToolsAttribute")
                 .SelectManyAllAttributesOfCurrentInterfaceSyntax()
                 .SelectAndReportExceptions(PrepareData, context, Id);
         
