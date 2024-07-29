@@ -16,11 +16,11 @@ namespace Ollama
         public required string Name { get; set; }
 
         /// <summary>
-        /// The arguments to pass to the function.
+        /// 
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("arguments")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required global::Ollama.ToolCallFunctionArgs Arguments { get; set; }
+        public required string Arguments { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema

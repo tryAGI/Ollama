@@ -93,118 +93,114 @@ namespace Ollama
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.ToolCallFunctionArgs? Type20 { get; set; }
+        public global::System.Collections.Generic.IList<double>? Type20 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<double>? Type21 { get; set; }
+        public global::System.AnyOf<string?, global::Ollama.CreateModelResponseStatus?>? Type21 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.AnyOf<string?, global::Ollama.CreateModelResponseStatus?>? Type22 { get; set; }
+        public global::System.Collections.Generic.IList<global::Ollama.Model>? Type22 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Ollama.Model>? Type23 { get; set; }
+        public global::Ollama.ModelDetails? Type23 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.ModelDetails? Type24 { get; set; }
+        public global::System.Collections.Generic.IList<global::Ollama.ProcessModel>? Type24 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Ollama.ProcessModel>? Type25 { get; set; }
+        public global::Ollama.ModelInformation? Type25 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.ModelInformation? Type26 { get; set; }
+        public global::System.AnyOf<string?, global::Ollama.PullModelResponseStatus?>? Type26 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.AnyOf<string?, global::Ollama.PullModelResponseStatus?>? Type27 { get; set; }
+        public global::System.AnyOf<string?, global::Ollama.PushModelResponseStatus?>? Type27 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.AnyOf<string?, global::Ollama.PushModelResponseStatus?>? Type28 { get; set; }
+        public global::Ollama.VersionResponse? Type28 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.VersionResponse? Type29 { get; set; }
+        public global::Ollama.GenerateCompletionRequest? Type29 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.GenerateCompletionRequest? Type30 { get; set; }
+        public global::Ollama.GenerateCompletionResponse? Type30 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.GenerateCompletionResponse? Type31 { get; set; }
+        public global::Ollama.GenerateChatCompletionRequest? Type31 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.GenerateChatCompletionRequest? Type32 { get; set; }
+        public global::Ollama.GenerateChatCompletionResponse? Type32 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.GenerateChatCompletionResponse? Type33 { get; set; }
+        public global::Ollama.GenerateEmbeddingRequest? Type33 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.GenerateEmbeddingRequest? Type34 { get; set; }
+        public global::Ollama.GenerateEmbeddingResponse? Type34 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.GenerateEmbeddingResponse? Type35 { get; set; }
+        public global::Ollama.CreateModelRequest? Type35 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.CreateModelRequest? Type36 { get; set; }
+        public global::Ollama.CreateModelResponse? Type36 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.CreateModelResponse? Type37 { get; set; }
+        public global::Ollama.ModelsResponse? Type37 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.ModelsResponse? Type38 { get; set; }
+        public global::Ollama.ProcessResponse? Type38 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.ProcessResponse? Type39 { get; set; }
+        public global::Ollama.ModelInfoRequest? Type39 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.ModelInfoRequest? Type40 { get; set; }
+        public global::Ollama.ModelInfo? Type40 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.ModelInfo? Type41 { get; set; }
+        public global::Ollama.CopyModelRequest? Type41 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.CopyModelRequest? Type42 { get; set; }
+        public global::Ollama.DeleteModelRequest? Type42 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.DeleteModelRequest? Type43 { get; set; }
+        public global::Ollama.PullModelRequest? Type43 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.PullModelRequest? Type44 { get; set; }
+        public global::Ollama.PullModelResponse? Type44 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.PullModelResponse? Type45 { get; set; }
+        public global::Ollama.PushModelRequest? Type45 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.PushModelRequest? Type46 { get; set; }
+        public global::Ollama.PushModelResponse? Type46 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.PushModelResponse? Type47 { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public byte[]? Type48 { get; set; }
+        public byte[]? Type47 { get; set; }
     }
 }

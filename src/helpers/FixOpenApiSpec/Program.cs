@@ -40,6 +40,10 @@ openApiDocument.Components.Schemas["PushModelResponse"]!.Properties["status"] = 
         },
     },
 };
+openApiDocument.Components.Schemas["ToolCallFunction"]!.Properties["arguments"] = new OpenApiSchema
+{
+    Type = "string",
+};
 
 
 text = openApiDocument.SerializeAsYaml(OpenApiSpecVersion.OpenApi3_0);

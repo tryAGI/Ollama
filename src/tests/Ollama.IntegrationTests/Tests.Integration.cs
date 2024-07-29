@@ -175,4 +175,81 @@ public partial class Tests
         
         Console.WriteLine(message.Content);
     }
+    
+//     [TestMethod]
+//     public async Task Tools()
+//     {
+// #if DEBUG
+//         await using var container = await PrepareEnvironmentAsync(EnvironmentType.Local, "llama3.1");
+// #else
+//         await using var container = await PrepareEnvironmentAsync(EnvironmentType.Container, "llama3.1");
+// #endif
+//         
+//         var messages = new List<Message>
+//         {
+//             "You are a helpful weather assistant.".AsSystemMessage(),
+//             "What is the current temperature in Dubai, UAE in Celsius?".AsUserMessage(),
+//         };
+//         const string model = "llama3.1";
+//
+//         try
+//         {
+//             var service = new WeatherService();
+//             var tools = service.AsTools();
+//             var response = container.ApiClient.Chat.GenerateChatCompletionAsync(
+//                 model,
+//                 messages,
+//                 tools: tools);
+//             var doneResponse = await response.WaitAsync();
+//         
+//             Console.WriteLine(doneResponse.Message.Content);
+//
+//             var resultMessage = doneResponse.Message;
+//             messages.Add(resultMessage);
+//
+//             if (resultMessage.ToolCalls == null ||
+//                 resultMessage.ToolCalls.Count == 0)
+//             {
+//                 throw new InvalidOperationException("Expected a function call.");
+//             }
+//
+//             foreach (var call in resultMessage.ToolCalls)
+//             {
+//                 var json = await service.CallAsync(
+//                     functionName: call.Function?.Name ?? string.Empty,
+//                     argumentsAsJson: call.Function?.Arguments ?? string.Empty);
+//                 messages.Add(json.AsToolMessage());
+//             }
+//
+//             response = container.ApiClient.Chat.GenerateChatCompletionAsync(
+//                 model,
+//                 messages,
+//                 tools: tools);
+//             doneResponse = await response.WaitAsync();
+//             messages.Add(resultMessage);
+//             
+//             Console.WriteLine(doneResponse.Message.Content);
+//         }
+//         finally
+//         {
+//             PrintMessages(messages);
+//         }
+//     }
+    
+    private static void PrintMessages(List<Message> messages)
+    {
+        foreach (var message in messages)
+        {
+            Console.WriteLine($"> {message.Role}:");
+            Console.WriteLine($"{message.Content}");
+            if (message.ToolCalls?.Count > 0)
+            {
+                Console.WriteLine("Tool calls:");
+                foreach (var call in message.ToolCalls)
+                {
+                    Console.WriteLine($"> {call.Function?.Name}({call.Function?.Arguments})");
+                }
+            }
+        }
+    }
 }
