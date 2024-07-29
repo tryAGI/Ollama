@@ -322,7 +322,12 @@ components:
           nullable: true
         top_p:
           type: number
-          description: "Works together with top-k. A higher value (e.g., 0.95) will lead to more diverse text, while a lower value \n(e.g., 0.5) will generate more focused and conservative text. (Default: 0.9)\n"
+          description: "Works together with top_k. A higher value (e.g., 0.95) will lead to more diverse text, while a lower value \n(e.g., 0.5) will generate more focused and conservative text. (Default: 0.9)\n"
+          format: float
+          nullable: true
+        min_p:
+          type: number
+          description: "Alternative to the top_p, and aims to ensure a balance of quality and variety. min_p represents the minimum \nprobability for a token to be considered, relative to the probability of the most likely token. For \nexample, with min_p=0.05 and the most likely token having a probability of 0.9, logits with a value less \nthan 0.05*0.9=0.045 are filtered out. (Default: 0.0)\n"
           format: float
           nullable: true
         tfs_z:
