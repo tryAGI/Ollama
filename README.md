@@ -61,6 +61,79 @@ while (true)
 }
 ```
 
+### Tools
+```csharp
+using var ollama = new OllamaApiClient();
+var chat = ollama.Chat(
+    model: "llama3.1",
+    systemMessage: "You are a helpful weather assistant.",
+    autoCallTools: true);
+
+var service = new WeatherService();
+chat.AddToolService(service.AsTools(), service.AsCalls());
+
+try
+{
+    _ = await chat.SendAsync("What is the current temperature in Dubai, UAE in Celsius?");
+}
+finally
+{
+    Console.WriteLine(chat.PrintMessages());
+}
+```
+```
+> System:
+You are a helpful weather assistant.
+> User:
+What is the current temperature in Dubai, UAE in Celsius?
+> Assistant:
+Tool calls:
+GetCurrentWeather({"location":"Dubai, UAE","unit":"celsius"})
+> Tool:
+{"location":"Dubai, UAE","temperature":22,"unit":"celsius","description":"Sunny"}
+> Assistant:
+The current temperature in Dubai, UAE is 22°C.
+```
+```csharp
+public enum Unit
+{
+    Celsius,
+    Fahrenheit,
+}
+
+public class Weather
+{
+    public string Location { get; set; } = string.Empty;
+    public double Temperature { get; set; }
+    public Unit Unit { get; set; }
+    public string Description { get; set; } = string.Empty;
+}
+
+[OllamaTools]
+public interface IWeatherFunctions
+{
+    [Description("Get the current weather in a given location")]
+    public Task<Weather> GetCurrentWeatherAsync(
+        [Description("The city and state, e.g. San Francisco, CA")] string location,
+        Unit unit = Unit.Celsius,
+        CancellationToken cancellationToken = default);
+}
+
+public class WeatherService : IWeatherFunctions
+{
+    public Task<Weather> GetCurrentWeatherAsync(string location, Unit unit = Unit.Celsius, CancellationToken cancellationToken = default)
+    {
+        return Task.FromResult(new Weather
+        {
+            Location = location,
+            Temperature = 22.0,
+            Unit = unit,
+            Description = "Sunny",
+        });
+    }
+}
+```
+
 ## Credits
 
 Icon and name were reused from the amazing [Ollama project](https://github.com/jmorganca/ollama).  

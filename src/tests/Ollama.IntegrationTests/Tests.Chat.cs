@@ -52,7 +52,7 @@ public partial class Tests
 		var ollama = MockApiClient(MessageRole.Assistant, "hi system!");
 
 		var chat = new Chat(ollama, string.Empty);
-		var message = await chat.SendAsAsync(MessageRole.System, "henlo hooman");
+		var message = await chat.SendAsync("henlo hooman", MessageRole.System);
 
 		chat.History.Count.Should().Be(2);
 		chat.History[0].Role.Should().Be(MessageRole.System);

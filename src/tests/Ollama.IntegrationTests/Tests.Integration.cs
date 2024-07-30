@@ -196,25 +196,17 @@ public partial class Tests
         {
             var service = new WeatherService();
             var tools = service.AsTools();
-            var response = container.ApiClient.Chat.GenerateChatCompletionAsync(
+            var response = await container.ApiClient.Chat.GenerateChatCompletionAsync(
                 model,
                 messages,
                 stream: false,
-                tools: tools);
-            var doneResponse = await response.WaitAsync();
-        
-            Console.WriteLine(doneResponse.Message.Content);
+                tools: tools).WaitAsync();
 
-            var resultMessage = doneResponse.Message;
-            messages.Add(resultMessage);
+            messages.Add(response.Message);
 
-            if (resultMessage.ToolCalls == null ||
-                resultMessage.ToolCalls.Count == 0)
-            {
-                throw new InvalidOperationException("Expected a function call.");
-            }
+            response.Message.ToolCalls.Should().NotBeNullOrEmpty(because: "Expected a function call.");
 
-            foreach (var call in resultMessage.ToolCalls)
+            foreach (var call in response.Message.ToolCalls!)
             {
                 var json = await service.CallAsync(
                     functionName: call.Function?.Name ?? string.Empty,
@@ -222,35 +214,44 @@ public partial class Tests
                 messages.Add(json.AsToolMessage());
             }
 
-            response = container.ApiClient.Chat.GenerateChatCompletionAsync(
+            response = await container.ApiClient.Chat.GenerateChatCompletionAsync(
                 model,
                 messages,
-                tools: tools);
-            doneResponse = await response.WaitAsync();
-            messages.Add(resultMessage);
-            
-            Console.WriteLine(doneResponse.Message.Content);
+                stream: false,
+                tools: tools).WaitAsync();
+            messages.Add(response.Message);
         }
         finally
         {
-            PrintMessages(messages);
+            Console.WriteLine(Chat.PrintMessages(messages));
         }
     }
     
-    private static void PrintMessages(List<Message> messages)
+    
+    [TestMethod]
+    public async Task ToolsInChat()
     {
-        foreach (var message in messages)
+#if DEBUG
+        await using var container = await PrepareEnvironmentAsync(EnvironmentType.Local, "llama3.1");
+#else
+        await using var container = await PrepareEnvironmentAsync(EnvironmentType.Container, "llama3.1");
+#endif
+        
+        var chat = container.ApiClient.Chat(
+            model: "llama3.1",
+            systemMessage: "You are a helpful weather assistant.",
+            autoCallTools: true);
+        
+        var service = new WeatherService();
+        chat.AddToolService(service.AsTools(), service.AsCalls());
+        
+        try
         {
-            Console.WriteLine($"> {message.Role}:");
-            Console.WriteLine($"{message.Content}");
-            if (message.ToolCalls?.Count > 0)
-            {
-                Console.WriteLine("Tool calls:");
-                foreach (var call in message.ToolCalls)
-                {
-                    Console.WriteLine($"{call.Function?.Name}({call.Function?.Arguments.AsJson()})");
-                }
-            }
+            _ = await chat.SendAsync("What is the current temperature in Dubai, UAE in Celsius?");
+        }
+        finally
+        {
+            Console.WriteLine(chat.PrintMessages());
         }
     }
 }

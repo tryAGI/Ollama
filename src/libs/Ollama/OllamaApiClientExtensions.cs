@@ -11,16 +11,23 @@ public static class OllamaApiClientExtensions
 	/// Starts a new chat with the currently selected model.
 	/// </summary>
 	/// <param name="client">The client to start the chat with</param>
-	/// <param name="model"></param>
+	/// <param name="model">The model to chat with</param>
+	/// <param name="systemMessage">Optional. A system message to send to the model</param>
+	/// <param name="autoCallTools">Optional. If set to true, the client will automatically call tools.</param>
 	/// <returns>
 	/// A chat instance that can be used to receive and send messages from and to
 	/// the Ollama endpoint while maintaining the message history.
 	/// </returns>
 	public static Chat Chat(
 		this OllamaApiClient client,
-		string model)
+		string model,
+		string? systemMessage = null,
+		bool autoCallTools = true)
 	{
-		return new Chat(client, model);
+		return new Chat(client, model, systemMessage)
+		{
+			AutoCallTools = autoCallTools,
+		};
 	}
 	
 	/// <summary>
