@@ -28,7 +28,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.SourceGenerators.Testing.MSTest" Version="1.1.2" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.10.0" />
-    <PackageReference Include="Verify.MSTest" Version="26.1.5" />
+    <PackageReference Include="Verify.MSTest" Version="26.1.6" />
     <PackageReference Include="Verify.SourceGenerators" Version="2.3.0" />
   </ItemGroup>
 
