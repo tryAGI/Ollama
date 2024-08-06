@@ -8,7 +8,7 @@ namespace Ollama
     /// <summary>
     /// Reason why the model is done generating a response.
     /// </summary>
-    public readonly struct DoneReason : global::System.IEquatable<DoneReason>
+    public readonly partial struct DoneReason : global::System.IEquatable<DoneReason>
     {
         /// <summary>
         /// 

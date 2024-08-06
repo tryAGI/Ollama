@@ -8,7 +8,7 @@ namespace Ollama
     /// <summary>
     /// Status creating the model
     /// </summary>
-    public readonly struct CreateModelStatus : global::System.IEquatable<CreateModelStatus>
+    public readonly partial struct CreateModelStatus : global::System.IEquatable<CreateModelStatus>
     {
         /// <summary>
         /// 
