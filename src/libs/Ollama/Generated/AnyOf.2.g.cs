@@ -7,7 +7,7 @@ namespace System
     /// <summary>
     /// 
     /// </summary>
-    public readonly struct AnyOf<T1, T2> : global::System.IEquatable<AnyOf<T1, T2>>
+    public readonly partial struct AnyOf<T1, T2> : global::System.IEquatable<AnyOf<T1, T2>>
     {
         /// <summary>
         /// 
