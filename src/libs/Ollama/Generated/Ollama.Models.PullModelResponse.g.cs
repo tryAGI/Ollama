@@ -1,6 +1,4 @@
 
-#pragma warning disable CS0618 // Type or member is obsolete
-
 #nullable enable
 
 namespace Ollama
@@ -17,8 +15,8 @@ namespace Ollama
         /// Example: pulling manifest
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("status")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::OpenApiGenerator.JsonConverters.AnyOfJsonConverterFactory2))]
-        public global::System.AnyOf<string?, global::Ollama.PullModelResponseStatus?>? Status { get; set; }
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::OpenApiGenerator.JsonConverters.PullModelStatusJsonConverter))]
+        public global::Ollama.PullModelStatus? Status { get; set; }
 
         /// <summary>
         /// The model's digest.<br/>
