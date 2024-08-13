@@ -132,7 +132,7 @@ namespace Ollama
         /// sequence.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("stop")]
-        public global::System.Collections.Generic.IList<string?>? Stop { get; set; }
+        public global::System.Collections.Generic.IList<string>? Stop { get; set; }
 
         /// <summary>
         /// Enable NUMA support. (Default: false)

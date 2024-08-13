@@ -135,7 +135,7 @@ namespace Ollama
             string model,
             string prompt,
             string? suffix = default,
-            global::System.Collections.Generic.IList<string?>? images = default,
+            global::System.Collections.Generic.IList<string>? images = default,
             string? system = default,
             string? template = default,
             global::System.Collections.Generic.IList<long>? context = default,
