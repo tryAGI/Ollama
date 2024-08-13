@@ -24,10 +24,10 @@ namespace Ollama
             typeof(global::OpenApiGenerator.JsonConverters.PullModelStatusEnumNullableJsonConverter),
             typeof(global::OpenApiGenerator.JsonConverters.PushModelResponseStatusJsonConverter),
             typeof(global::OpenApiGenerator.JsonConverters.PushModelResponseStatusNullableJsonConverter),
-            typeof(global::OpenApiGenerator.JsonConverters.AnyOfJsonConverterFactory2),
             typeof(global::OpenApiGenerator.JsonConverters.DoneReasonJsonConverter),
             typeof(global::OpenApiGenerator.JsonConverters.CreateModelStatusJsonConverter),
             typeof(global::OpenApiGenerator.JsonConverters.PullModelStatusJsonConverter),
+            typeof(global::OpenApiGenerator.JsonConverters.AnyOfJsonConverterFactory2),
         })]
 
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.JsonSerializerContextTypes))]
