@@ -1,6 +1,4 @@
 
-#pragma warning disable CS0618 // Type or member is obsolete
-
 #nullable enable
 
 namespace Ollama
@@ -45,8 +43,8 @@ namespace Ollama
         /// Reason why the model is done generating a response.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("done_reason")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::OpenApiGenerator.JsonConverters.AnyOfJsonConverterFactory2))]
-        public global::System.AnyOf<string?, global::Ollama.GenerateChatCompletionResponseDoneReason?>? DoneReason { get; set; }
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::OpenApiGenerator.JsonConverters.DoneReasonJsonConverter))]
+        public global::Ollama.DoneReason? DoneReason { get; set; }
 
         /// <summary>
         /// Time spent generating the response.<br/>

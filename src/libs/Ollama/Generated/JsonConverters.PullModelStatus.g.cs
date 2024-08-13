@@ -29,11 +29,11 @@ namespace OpenApiGenerator.JsonConverters
             }
 
             readerCopy = reader;
-            global::Ollama.PullModelStatusVariant2? value2 = default;
+            global::Ollama.PullModelStatusEnum? value2 = default;
             try
             {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Ollama.PullModelStatusVariant2), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Ollama.PullModelStatusVariant2> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Ollama.PullModelStatusVariant2).Name}");
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Ollama.PullModelStatusEnum), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Ollama.PullModelStatusEnum> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Ollama.PullModelStatusEnum).Name}");
                 value2 = global::System.Text.Json.JsonSerializer.Deserialize(ref readerCopy, typeInfo);
             }
             catch (global::System.Text.Json.JsonException)
@@ -46,7 +46,7 @@ namespace OpenApiGenerator.JsonConverters
                 );
             if (!result.Validate())
             {
-                throw new global::System.Text.Json.JsonException($"Invalid JSON format for AnyOf<{typeof(string).Name}, {typeof(global::Ollama.PullModelStatusVariant2).Name}>");
+                throw new global::System.Text.Json.JsonException($"Invalid JSON format for AnyOf<{typeof(string).Name}, {typeof(global::Ollama.PullModelStatusEnum).Name}>");
             }
 
             if (value1 != null)
@@ -58,8 +58,8 @@ namespace OpenApiGenerator.JsonConverters
 
             else if (value2 != null)
             {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Ollama.PullModelStatusVariant2), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Ollama.PullModelStatusVariant2> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Ollama.PullModelStatusVariant2).Name}");
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Ollama.PullModelStatusEnum), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Ollama.PullModelStatusEnum> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Ollama.PullModelStatusEnum).Name}");
                 _ = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
             return result;
@@ -76,7 +76,7 @@ namespace OpenApiGenerator.JsonConverters
 
             if (!value.Validate())
             {
-                throw new global::System.Text.Json.JsonException($"Invalid AnyOf<{typeof(string).Name}, {typeof(global::Ollama.PullModelStatusVariant2).Name}> object.");
+                throw new global::System.Text.Json.JsonException($"Invalid AnyOf<{typeof(string).Name}, {typeof(global::Ollama.PullModelStatusEnum).Name}> object.");
             }
 
             if (value.IsValue1)
@@ -88,8 +88,8 @@ namespace OpenApiGenerator.JsonConverters
 
             else if (value.IsValue2)
             {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Ollama.PullModelStatusVariant2), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Ollama.PullModelStatusVariant2?> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Ollama.PullModelStatusVariant2).Name}");
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Ollama.PullModelStatusEnum), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Ollama.PullModelStatusEnum?> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Ollama.PullModelStatusEnum).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.Value2, typeInfo);
             }
         }

@@ -3,10 +3,10 @@
 namespace OpenApiGenerator.JsonConverters
 {
     /// <inheritdoc />
-    public sealed class GenerateChatCompletionResponseDoneReasonJsonConverter : global::System.Text.Json.Serialization.JsonConverter<global::Ollama.GenerateChatCompletionResponseDoneReason>
+    public sealed class CreateModelStatusEnumNullableJsonConverter : global::System.Text.Json.Serialization.JsonConverter<global::Ollama.CreateModelStatusEnum?>
     {
         /// <inheritdoc />
-        public override global::Ollama.GenerateChatCompletionResponseDoneReason Read(
+        public override global::Ollama.CreateModelStatusEnum? Read(
             ref global::System.Text.Json.Utf8JsonReader reader,
             global::System.Type typeToConvert,
             global::System.Text.Json.JsonSerializerOptions options)
@@ -18,7 +18,7 @@ namespace OpenApiGenerator.JsonConverters
                     var stringValue = reader.GetString();
                     if (stringValue != null)
                     {
-                        return global::Ollama.GenerateChatCompletionResponseDoneReasonExtensions.ToEnum(stringValue) ?? default;
+                        return global::Ollama.CreateModelStatusEnumExtensions.ToEnum(stringValue);
                     }
                     
                     break;
@@ -26,7 +26,7 @@ namespace OpenApiGenerator.JsonConverters
                 case global::System.Text.Json.JsonTokenType.Number:
                 {
                     var numValue = reader.GetInt32();
-                    return (global::Ollama.GenerateChatCompletionResponseDoneReason)numValue;
+                    return (global::Ollama.CreateModelStatusEnum)numValue;
                 }
                 default:
                     throw new global::System.ArgumentOutOfRangeException(nameof(reader));
@@ -38,12 +38,19 @@ namespace OpenApiGenerator.JsonConverters
         /// <inheritdoc />
         public override void Write(
             global::System.Text.Json.Utf8JsonWriter writer,
-            global::Ollama.GenerateChatCompletionResponseDoneReason value,
+            global::Ollama.CreateModelStatusEnum? value,
             global::System.Text.Json.JsonSerializerOptions options)
         {
             writer = writer ?? throw new global::System.ArgumentNullException(nameof(writer));
 
-            writer.WriteStringValue(global::Ollama.GenerateChatCompletionResponseDoneReasonExtensions.ToValueString(value));
+            if (value == null)
+            {
+                writer.WriteNullValue();
+            }
+            else
+            {
+                writer.WriteStringValue(global::Ollama.CreateModelStatusEnumExtensions.ToValueString(value.Value));
+            }
         }
     }
 }

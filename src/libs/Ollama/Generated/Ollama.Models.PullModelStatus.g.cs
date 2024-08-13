@@ -50,9 +50,9 @@ namespace Ollama
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::Ollama.PullModelStatusVariant2? Value2 { get; init; }
+        public global::Ollama.PullModelStatusEnum? Value2 { get; init; }
 #else
-        public global::Ollama.PullModelStatusVariant2? Value2 { get; }
+        public global::Ollama.PullModelStatusEnum? Value2 { get; }
 #endif
 
         /// <summary>
@@ -66,17 +66,17 @@ namespace Ollama
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator PullModelStatus(global::Ollama.PullModelStatusVariant2 value) => new PullModelStatus(value);
+        public static implicit operator PullModelStatus(global::Ollama.PullModelStatusEnum value) => new PullModelStatus(value);
 
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator global::Ollama.PullModelStatusVariant2?(PullModelStatus @this) => @this.Value2;
+        public static implicit operator global::Ollama.PullModelStatusEnum?(PullModelStatus @this) => @this.Value2;
 
         /// <summary>
         /// 
         /// </summary>
-        public PullModelStatus(global::Ollama.PullModelStatusVariant2? value)
+        public PullModelStatus(global::Ollama.PullModelStatusEnum? value)
         {
             Value2 = value;
         }
@@ -86,7 +86,7 @@ namespace Ollama
         /// </summary>
         public PullModelStatus(
             string? value1,
-            global::Ollama.PullModelStatusVariant2? value2
+            global::Ollama.PullModelStatusEnum? value2
             )
         {
             Value1 = value1;
@@ -119,7 +119,7 @@ namespace Ollama
                 Value1,
                 typeof(string),
                 Value2,
-                typeof(global::Ollama.PullModelStatusVariant2),
+                typeof(global::Ollama.PullModelStatusEnum),
             };
             const int offset = unchecked((int)2166136261);
             const int prime = 16777619;
@@ -136,7 +136,7 @@ namespace Ollama
         {
             return
                 global::System.Collections.Generic.EqualityComparer<string?>.Default.Equals(Value1, other.Value1) &&
-                global::System.Collections.Generic.EqualityComparer<global::Ollama.PullModelStatusVariant2?>.Default.Equals(Value2, other.Value2) 
+                global::System.Collections.Generic.EqualityComparer<global::Ollama.PullModelStatusEnum?>.Default.Equals(Value2, other.Value2) 
                 ;
         }
 

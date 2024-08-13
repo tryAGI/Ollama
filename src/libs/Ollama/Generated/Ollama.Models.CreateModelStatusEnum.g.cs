@@ -6,7 +6,7 @@ namespace Ollama
     /// <summary>
     /// 
     /// </summary>
-    public enum CreateModelStatusVariant2
+    public enum CreateModelStatusEnum
     {
         /// <summary>
         /// 
@@ -25,31 +25,31 @@ namespace Ollama
     /// <summary>
     /// Enum extensions to do fast conversions without the reflection.
     /// </summary>
-    public static class CreateModelStatusVariant2Extensions
+    public static class CreateModelStatusEnumExtensions
     {
         /// <summary>
         /// Converts an enum to a string.
         /// </summary>
-        public static string ToValueString(this CreateModelStatusVariant2 value)
+        public static string ToValueString(this CreateModelStatusEnum value)
         {
             return value switch
             {
-                CreateModelStatusVariant2.CreatingSystemLayer => "creating system layer",
-                CreateModelStatusVariant2.ParsingModelfile => "parsing modelfile",
-                CreateModelStatusVariant2.Success => "success",
+                CreateModelStatusEnum.CreatingSystemLayer => "creating system layer",
+                CreateModelStatusEnum.ParsingModelfile => "parsing modelfile",
+                CreateModelStatusEnum.Success => "success",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
         /// <summary>
         /// Converts an string to a enum.
         /// </summary>
-        public static CreateModelStatusVariant2? ToEnum(string value)
+        public static CreateModelStatusEnum? ToEnum(string value)
         {
             return value switch
             {
-                "creating system layer" => CreateModelStatusVariant2.CreatingSystemLayer,
-                "parsing modelfile" => CreateModelStatusVariant2.ParsingModelfile,
-                "success" => CreateModelStatusVariant2.Success,
+                "creating system layer" => CreateModelStatusEnum.CreatingSystemLayer,
+                "parsing modelfile" => CreateModelStatusEnum.ParsingModelfile,
+                "success" => CreateModelStatusEnum.Success,
                 _ => null,
             };
         }

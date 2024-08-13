@@ -91,7 +91,7 @@ public class Chat
 	public async Task<Message> SendAsync(
 		string? message = null,
 		MessageRole role = MessageRole.User,
-		IEnumerable<string?>? imagesAsBase64 = null,
+		IEnumerable<string>? imagesAsBase64 = null,
 		CancellationToken cancellationToken = default)
 	{
 		if (message != null)

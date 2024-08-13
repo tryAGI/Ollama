@@ -3,10 +3,10 @@
 namespace OpenApiGenerator.JsonConverters
 {
     /// <inheritdoc />
-    public sealed class CreateModelStatusVariant2NullableJsonConverter : global::System.Text.Json.Serialization.JsonConverter<global::Ollama.CreateModelStatusVariant2?>
+    public sealed class PullModelStatusEnumNullableJsonConverter : global::System.Text.Json.Serialization.JsonConverter<global::Ollama.PullModelStatusEnum?>
     {
         /// <inheritdoc />
-        public override global::Ollama.CreateModelStatusVariant2? Read(
+        public override global::Ollama.PullModelStatusEnum? Read(
             ref global::System.Text.Json.Utf8JsonReader reader,
             global::System.Type typeToConvert,
             global::System.Text.Json.JsonSerializerOptions options)
@@ -18,7 +18,7 @@ namespace OpenApiGenerator.JsonConverters
                     var stringValue = reader.GetString();
                     if (stringValue != null)
                     {
-                        return global::Ollama.CreateModelStatusVariant2Extensions.ToEnum(stringValue);
+                        return global::Ollama.PullModelStatusEnumExtensions.ToEnum(stringValue);
                     }
                     
                     break;
@@ -26,7 +26,7 @@ namespace OpenApiGenerator.JsonConverters
                 case global::System.Text.Json.JsonTokenType.Number:
                 {
                     var numValue = reader.GetInt32();
-                    return (global::Ollama.CreateModelStatusVariant2)numValue;
+                    return (global::Ollama.PullModelStatusEnum)numValue;
                 }
                 default:
                     throw new global::System.ArgumentOutOfRangeException(nameof(reader));
@@ -38,7 +38,7 @@ namespace OpenApiGenerator.JsonConverters
         /// <inheritdoc />
         public override void Write(
             global::System.Text.Json.Utf8JsonWriter writer,
-            global::Ollama.CreateModelStatusVariant2? value,
+            global::Ollama.PullModelStatusEnum? value,
             global::System.Text.Json.JsonSerializerOptions options)
         {
             writer = writer ?? throw new global::System.ArgumentNullException(nameof(writer));
@@ -49,7 +49,7 @@ namespace OpenApiGenerator.JsonConverters
             }
             else
             {
-                writer.WriteStringValue(global::Ollama.CreateModelStatusVariant2Extensions.ToValueString(value.Value));
+                writer.WriteStringValue(global::Ollama.PullModelStatusEnumExtensions.ToValueString(value.Value));
             }
         }
     }

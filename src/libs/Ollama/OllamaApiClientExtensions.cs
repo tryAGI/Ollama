@@ -74,7 +74,7 @@ public static class OllamaApiClientExtensions
 	{
 		response = response ?? throw new ArgumentNullException(nameof(response));
 
-		if (response.Status?.Value2 != PullModelResponseStatus.Success)
+		if (response.Status?.Value2 != PullModelStatusEnum.Success)
 		{
 			throw new InvalidOperationException($"Failed to pull model with status {response.Status?.Object}");
 		}

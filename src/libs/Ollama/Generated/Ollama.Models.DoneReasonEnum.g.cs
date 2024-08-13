@@ -6,7 +6,7 @@ namespace Ollama
     /// <summary>
     /// 
     /// </summary>
-    public enum GenerateChatCompletionResponseDoneReason
+    public enum DoneReasonEnum
     {
         /// <summary>
         /// 
@@ -25,31 +25,31 @@ namespace Ollama
     /// <summary>
     /// Enum extensions to do fast conversions without the reflection.
     /// </summary>
-    public static class GenerateChatCompletionResponseDoneReasonExtensions
+    public static class DoneReasonEnumExtensions
     {
         /// <summary>
         /// Converts an enum to a string.
         /// </summary>
-        public static string ToValueString(this GenerateChatCompletionResponseDoneReason value)
+        public static string ToValueString(this DoneReasonEnum value)
         {
             return value switch
             {
-                GenerateChatCompletionResponseDoneReason.Stop => "stop",
-                GenerateChatCompletionResponseDoneReason.Length => "length",
-                GenerateChatCompletionResponseDoneReason.Load => "load",
+                DoneReasonEnum.Stop => "stop",
+                DoneReasonEnum.Length => "length",
+                DoneReasonEnum.Load => "load",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
         /// <summary>
         /// Converts an string to a enum.
         /// </summary>
-        public static GenerateChatCompletionResponseDoneReason? ToEnum(string value)
+        public static DoneReasonEnum? ToEnum(string value)
         {
             return value switch
             {
-                "stop" => GenerateChatCompletionResponseDoneReason.Stop,
-                "length" => GenerateChatCompletionResponseDoneReason.Length,
-                "load" => GenerateChatCompletionResponseDoneReason.Load,
+                "stop" => DoneReasonEnum.Stop,
+                "length" => DoneReasonEnum.Length,
+                "load" => DoneReasonEnum.Load,
                 _ => null,
             };
         }

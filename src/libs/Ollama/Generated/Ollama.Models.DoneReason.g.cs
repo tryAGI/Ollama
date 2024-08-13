@@ -49,9 +49,9 @@ namespace Ollama
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::Ollama.DoneReasonVariant2? Value2 { get; init; }
+        public global::Ollama.DoneReasonEnum? Value2 { get; init; }
 #else
-        public global::Ollama.DoneReasonVariant2? Value2 { get; }
+        public global::Ollama.DoneReasonEnum? Value2 { get; }
 #endif
 
         /// <summary>
@@ -65,17 +65,17 @@ namespace Ollama
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator DoneReason(global::Ollama.DoneReasonVariant2 value) => new DoneReason(value);
+        public static implicit operator DoneReason(global::Ollama.DoneReasonEnum value) => new DoneReason(value);
 
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator global::Ollama.DoneReasonVariant2?(DoneReason @this) => @this.Value2;
+        public static implicit operator global::Ollama.DoneReasonEnum?(DoneReason @this) => @this.Value2;
 
         /// <summary>
         /// 
         /// </summary>
-        public DoneReason(global::Ollama.DoneReasonVariant2? value)
+        public DoneReason(global::Ollama.DoneReasonEnum? value)
         {
             Value2 = value;
         }
@@ -85,7 +85,7 @@ namespace Ollama
         /// </summary>
         public DoneReason(
             string? value1,
-            global::Ollama.DoneReasonVariant2? value2
+            global::Ollama.DoneReasonEnum? value2
             )
         {
             Value1 = value1;
@@ -118,7 +118,7 @@ namespace Ollama
                 Value1,
                 typeof(string),
                 Value2,
-                typeof(global::Ollama.DoneReasonVariant2),
+                typeof(global::Ollama.DoneReasonEnum),
             };
             const int offset = unchecked((int)2166136261);
             const int prime = 16777619;
@@ -135,7 +135,7 @@ namespace Ollama
         {
             return
                 global::System.Collections.Generic.EqualityComparer<string?>.Default.Equals(Value1, other.Value1) &&
-                global::System.Collections.Generic.EqualityComparer<global::Ollama.DoneReasonVariant2?>.Default.Equals(Value2, other.Value2) 
+                global::System.Collections.Generic.EqualityComparer<global::Ollama.DoneReasonEnum?>.Default.Equals(Value2, other.Value2) 
                 ;
         }
 
