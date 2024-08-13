@@ -7,12 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 		src\Directory.Build.props = src\Directory.Build.props
-		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
 		LICENSE = LICENSE
 		README.md = README.md
-		.github\workflows\pull-request.yml = .github\workflows\pull-request.yml
-		.github\workflows\auto-merge.yml = .github\workflows\auto-merge.yml
-		.github\workflows\auto-update.yml = .github\workflows\auto-update.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{61E7E11E-4558-434C-ACE8-06316A3097B3}"
@@ -37,6 +33,15 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ollama.Generators", "src\libs\Ollama.Generators\Ollama.Generators.csproj", "{824E0F5F-0272-4EAE-BCC3-CB6F4E88EC12}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ollama.SnapshotTests", "src\tests\Ollama.SnapshotTests\Ollama.SnapshotTests.csproj", "{8198FC7A-4DCA-4E18-B812-BE953985BF7E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{95FEBA37-963B-4E42-A49C-33905341480C}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\auto-update.yml = .github\workflows\auto-update.yml
+		.github\workflows\auto-merge.yml = .github\workflows\auto-merge.yml
+		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
+		.github\workflows\pull-request.yml = .github\workflows\pull-request.yml
+		.github\dependabot.yml = .github\dependabot.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -84,6 +89,7 @@ Global
 		{7B390811-DEC9-4C1B-A0E7-77A7AEC170C2} = {61E7E11E-4558-434C-ACE8-06316A3097B3}
 		{824E0F5F-0272-4EAE-BCC3-CB6F4E88EC12} = {61E7E11E-4558-434C-ACE8-06316A3097B3}
 		{8198FC7A-4DCA-4E18-B812-BE953985BF7E} = {AAA11B78-2764-4520-A97E-46AA7089A588}
+		{95FEBA37-963B-4E42-A49C-33905341480C} = {E793AF18-4371-4EBD-96FC-195EB1798855}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CED9A020-DBA5-4BE6-8096-75E528648EC1}
