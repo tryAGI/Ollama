@@ -10,7 +10,7 @@ public class Chat
 	/// <summary>
 	/// 
 	/// </summary>
-	public List<Message> History { get; } = new();
+	public List<Message> History { get; set; } = new();
 	
 	/// <summary>
 	/// 
