@@ -124,11 +124,10 @@ public class Chat
 		{
 			foreach (var call in answer.Message.ToolCalls)
 			{
-				var func = Calls[call.Function?.Name ?? string.Empty];
-
-				var json = await func(
-					call.Function?.Arguments.AsJson() ?? string.Empty,
-					cancellationToken).ConfigureAwait(false);
+				string funcName = call.Function?.Name ?? string.Empty;
+				if (string.IsNullOrEmpty(funcName)) continue;
+				if (!Calls.TryGetValue(funcName, out var func)) continue;
+				var json = await func(call.Function?.Arguments.AsJson() ?? string.Empty, cancellationToken).ConfigureAwait(false);
 				History.Add(json.AsToolMessage());
 			}
 
