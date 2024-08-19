@@ -5,7 +5,6 @@ namespace Ollama.IntegrationTests;
 [TestClass]
 public partial class Tests
 {
-    
     private static async Task<Environment> PrepareEnvironmentAsync(EnvironmentType environmentType, string model = "")
     {
         switch (environmentType)
@@ -59,6 +58,5 @@ public partial class Tests
                 throw new ArgumentOutOfRangeException(nameof(environmentType), environmentType, null);
         }
     }
-
 }
     
