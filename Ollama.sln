@@ -41,6 +41,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
 		.github\workflows\pull-request.yml = .github\workflows\pull-request.yml
 		.github\dependabot.yml = .github\dependabot.yml
+		.github\workflows\mkdocs.yml = .github\workflows\mkdocs.yml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateDocs", "src\helpers\GenerateDocs\GenerateDocs.csproj", "{E1D4D0DA-5A4C-4253-B690-C581FB23EA03}"
