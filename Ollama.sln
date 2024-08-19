@@ -43,6 +43,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\dependabot.yml = .github\dependabot.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateDocs", "src\helpers\GenerateDocs\GenerateDocs.csproj", "{E1D4D0DA-5A4C-4253-B690-C581FB23EA03}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{8198FC7A-4DCA-4E18-B812-BE953985BF7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8198FC7A-4DCA-4E18-B812-BE953985BF7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8198FC7A-4DCA-4E18-B812-BE953985BF7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1D4D0DA-5A4C-4253-B690-C581FB23EA03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1D4D0DA-5A4C-4253-B690-C581FB23EA03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1D4D0DA-5A4C-4253-B690-C581FB23EA03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1D4D0DA-5A4C-4253-B690-C581FB23EA03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,6 +96,7 @@ Global
 		{824E0F5F-0272-4EAE-BCC3-CB6F4E88EC12} = {61E7E11E-4558-434C-ACE8-06316A3097B3}
 		{8198FC7A-4DCA-4E18-B812-BE953985BF7E} = {AAA11B78-2764-4520-A97E-46AA7089A588}
 		{95FEBA37-963B-4E42-A49C-33905341480C} = {E793AF18-4371-4EBD-96FC-195EB1798855}
+		{E1D4D0DA-5A4C-4253-B690-C581FB23EA03} = {C612F166-61F7-4552-A52B-2494F45DB431}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CED9A020-DBA5-4BE6-8096-75E528648EC1}
