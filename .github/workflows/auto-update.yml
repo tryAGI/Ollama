@@ -58,6 +58,6 @@ jobs:
       
       - name: Create pull request
         if: steps.changes.outputs.has_changes == 'true'
-        run: gh pr create -B main -H ${{ steps.branch.outputs.branch_name }} --title 'feat:Updated OpenAPI spec' --body 'Created by Github Actions'
+        run: gh pr create -B main -H ${{ steps.branch.outputs.branch_name }} --title 'feat:@coderabbitai' --body 'Created by Github Actions'
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
