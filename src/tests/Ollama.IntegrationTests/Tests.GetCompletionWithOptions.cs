@@ -20,7 +20,7 @@ public partial class Tests
             {
                 Temperature = 0,
             },
-        }).WaitAsync();
+        });
         Console.WriteLine(response.Response);
     }
 }

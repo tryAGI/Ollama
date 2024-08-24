@@ -10,7 +10,8 @@ oag generate openapi.yaml \
   --namespace Ollama \
   --clientClassName OllamaApiClient \
   --targetFramework net8.0 \
-  --output Generated
+  --output Generated \
+  --exclude-deprecated-operations
 #openapi-generator generate \
 #  -i openapi.yaml \
 #  -g csharp \

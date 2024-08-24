@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace Ollama;
 
@@ -164,5 +165,18 @@ public static class OllamaApiClientExtensions
 		}
 
 		return currentResponse;
+	}
+
+	/// <summary>
+	/// Waits for the enumerable to complete and combines the responses into a single response.
+	/// </summary>
+	/// <param name="enumerable"></param>
+	/// <returns></returns>
+	public static TaskAwaiter<T> GetAwaiter<T>(
+		this IAsyncEnumerable<T> enumerable) where T : new()
+	{
+		enumerable = enumerable ?? throw new ArgumentNullException(nameof(enumerable));
+		
+		return enumerable.WaitAsync().GetAwaiter();
 	}
 }
