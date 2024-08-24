@@ -22,7 +22,7 @@ public partial class Tests
                 
                 if (!string.IsNullOrEmpty(model))
                 {
-                    await apiClient.Models.PullModelAndEnsureSuccessAsync(model);
+                    await apiClient.Models.PullModelAsync(model).EnsureSuccessAsync();
                 }
 
                 return new Environment
@@ -44,7 +44,7 @@ public partial class Tests
                 var apiClient = new OllamaApiClient();
                 if (!string.IsNullOrEmpty(model))
                 {
-                    await apiClient.Models.PullModelAndEnsureSuccessAsync(model);
+                    await apiClient.Models.PullModelAsync(model).EnsureSuccessAsync();
                 }
                 
                 return new Environment

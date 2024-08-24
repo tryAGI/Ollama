@@ -13,7 +13,7 @@ public partial class Tests
             models.Models.Should().BeNullOrEmpty();
         }
         
-        await container.ApiClient.Models.PullModelAndEnsureSuccessAsync("all-minilm");
+        await container.ApiClient.Models.PullModelAsync("all-minilm").EnsureSuccessAsync();
         
         var embeddingResponse = await container.ApiClient.Embeddings.GenerateEmbeddingAsync(
             model:"all-minilm",

@@ -10,7 +10,7 @@ public partial class Tests
         var models = await container.ApiClient.Models.ListModelsAsync();
         models.Models.Should().BeNullOrEmpty();
         
-        await container.ApiClient.Models.PullModelAndEnsureSuccessAsync("all-minilm");
+        await container.ApiClient.Models.PullModelAsync("all-minilm").EnsureSuccessAsync();
         
         models = await container.ApiClient.Models.ListModelsAsync();
         models.Models.Should().NotBeNull();

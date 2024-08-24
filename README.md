@@ -28,7 +28,7 @@ await foreach (var response in ollama.PullModelAsync("all-minilm", stream: true)
     Console.WriteLine($"{response.Status}. Progress: {response.Completed}/{response.Total}");
 }
 // or just pull the model and wait for it to finish
-await ollama.Models.PullModelAndEnsureSuccessAsync("all-minilm");
+await ollama.Models.PullModelAsync("all-minilm").EnsureSuccessAsync();
 
 // Generating an embedding
 var embedding = await ollama.Embeddings.GenerateEmbeddingAsync(
@@ -38,7 +38,7 @@ var embedding = await ollama.Embeddings.GenerateEmbeddingAsync(
 // Streaming a completion directly into the console
 // keep reusing the context to keep the chat topic going
 IList<long>? context = null;
-var enumerable = ollama.Completions.GenerateCompletionAsync("llama3", "answer 5 random words", stream: true);
+var enumerable = ollama.Completions.GenerateCompletionAsync("llama3", "answer 5 random words");
 await foreach (var response in enumerable)
 {
     Console.WriteLine($"> {response.Response}");

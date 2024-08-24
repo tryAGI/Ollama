@@ -35,32 +35,14 @@ public static class OllamaApiClientExtensions
 	/// Pulls the specified model from the server and ensures the operation was successful. <br/>
 	/// Safe to call if model already exists. <br/>
 	/// </summary>
-	/// <param name="client">The client to pull the model with.</param>
-	/// <param name="model">The model to pull.</param>
-	/// <param name="insecure">Optional. If set to true, the client will not validate the server's SSL certificate.</param>
-	/// <param name="username">Optional. The username to use for authentication.</param>
-	/// <param name="password">Optional. The password to use for authentication.</param>
-	/// <param name="cancellationToken">Optional. A token to cancel the operation.</param>
-	/// <exception cref="ArgumentNullException">Thrown when the client or model is null.</exception>
+	/// <exception cref="ArgumentNullException">Thrown when the enumerable is null.</exception>
 	/// <exception cref="InvalidOperationException">Thrown when the response status is not "success".</exception>
-	public static async Task PullModelAndEnsureSuccessAsync(
-		this ModelsClient client,
-		string model,
-		bool insecure = false,
-		string? username = null,
-		string? password = null,
-		CancellationToken cancellationToken = default)
+	public static async Task EnsureSuccessAsync(
+		this IAsyncEnumerable<PullModelResponse> enumerable)
 	{
-		client = client ?? throw new ArgumentNullException(nameof(client));
-		model = model ?? throw new ArgumentNullException(nameof(model));
+		enumerable = enumerable ?? throw new ArgumentNullException(nameof(enumerable));
 		
-		var response = await client.PullModelAsync(
-			model: model,
-			insecure: insecure,
-			username: username,
-			password: password,
-			stream: false,
-			cancellationToken: cancellationToken).WaitAsync().ConfigureAwait(false);
+		var response = await enumerable.WaitAsync().ConfigureAwait(false);
 		response.EnsureSuccess();
 	}
 	
@@ -102,6 +84,15 @@ public static class OllamaApiClientExtensions
 		currentResponse.Response = text;
 
 		return currentResponse;
+	}
+
+	/// <inheritdoc cref="WaitAsync(IAsyncEnumerable{GenerateCompletionResponse})"/>
+	public static TaskAwaiter<GenerateCompletionResponse> GetAwaiter(
+		this IAsyncEnumerable<GenerateCompletionResponse> enumerable)
+	{
+		enumerable = enumerable ?? throw new ArgumentNullException(nameof(enumerable));
+		
+		return enumerable.WaitAsync().GetAwaiter();
 	}
 
 	/// <summary>
@@ -148,6 +139,15 @@ public static class OllamaApiClientExtensions
 		return currentResponse;
 	}
 
+	/// <inheritdoc cref="WaitAsync(IAsyncEnumerable{GenerateChatCompletionResponse})"/>
+	public static TaskAwaiter<GenerateChatCompletionResponse> GetAwaiter(
+		this IAsyncEnumerable<GenerateChatCompletionResponse> enumerable)
+	{
+		enumerable = enumerable ?? throw new ArgumentNullException(nameof(enumerable));
+		
+		return enumerable.WaitAsync().GetAwaiter();
+	}
+
 	/// <summary>
 	/// Waits for the enumerable to complete and combines the responses into a single response.
 	/// </summary>
@@ -167,11 +167,7 @@ public static class OllamaApiClientExtensions
 		return currentResponse;
 	}
 
-	/// <summary>
-	/// Waits for the enumerable to complete and combines the responses into a single response.
-	/// </summary>
-	/// <param name="enumerable"></param>
-	/// <returns></returns>
+	/// <inheritdoc cref="WaitAsync{T}(IAsyncEnumerable{T})"/>
 	public static TaskAwaiter<T> GetAwaiter<T>(
 		this IAsyncEnumerable<T> enumerable) where T : new()
 	{

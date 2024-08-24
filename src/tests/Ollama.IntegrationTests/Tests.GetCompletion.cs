@@ -12,7 +12,7 @@ public partial class Tests
 #endif
 
         IList<long>? context = null;
-        var enumerable = container.ApiClient.Completions.GenerateCompletionAsync("llama3", "answer 5 random words", stream: true);
+        var enumerable = container.ApiClient.Completions.GenerateCompletionAsync("llama3", "answer 5 random words");
         await foreach (var response in enumerable)
         {
             Console.WriteLine($"> {response.Response}");
