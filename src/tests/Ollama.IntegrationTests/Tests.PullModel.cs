@@ -12,8 +12,8 @@ public partial class Tests
             Console.WriteLine($"{response.Status?.Object}. Progress: {response.Completed}/{response.Total}");
         }
         
-        var response2 = await container.ApiClient.Models.PullModelAsync("all-minilm");
-        response2.EnsureSuccess();
+        var responses = await container.ApiClient.Models.PullModelAsync("all-minilm");
+        responses[^1].EnsureSuccess();
         
         await container.ApiClient.Models.PullModelAsync("all-minilm").EnsureSuccessAsync();
     }

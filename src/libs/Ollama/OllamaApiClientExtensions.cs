@@ -42,8 +42,13 @@ public static class OllamaApiClientExtensions
 	{
 		enumerable = enumerable ?? throw new ArgumentNullException(nameof(enumerable));
 		
-		var response = await enumerable.WaitAsync().ConfigureAwait(false);
-		response.EnsureSuccess();
+		var responses = await enumerable.WaitAsync().ConfigureAwait(false);
+		if (responses.Count == 0)
+		{
+			throw new InvalidOperationException("No responses received.");
+		}
+		
+		responses[^1].EnsureSuccess();
 	}
 	
 	/// <summary>
@@ -73,15 +78,15 @@ public static class OllamaApiClientExtensions
 	{
 		enumerable = enumerable ?? throw new ArgumentNullException(nameof(enumerable));
 		
-		var text = string.Empty;
+		var content = new StringBuilder();
 		var currentResponse = new GenerateCompletionResponse();
 		await foreach (var response in enumerable.ConfigureAwait(false))
 		{
-			text += response.Response;
+			content.Append(response.Response);
 			currentResponse = response;
 		}
 		
-		currentResponse.Response = text;
+		currentResponse.Response = content.ToString();
 
 		return currentResponse;
 	}
@@ -149,27 +154,27 @@ public static class OllamaApiClientExtensions
 	}
 
 	/// <summary>
-	/// Waits for the enumerable to complete and combines the responses into a single response.
+	/// Waits for the enumerable to complete and returns the responses.
 	/// </summary>
 	/// <param name="enumerable"></param>
 	/// <returns></returns>
-	public static async Task<T> WaitAsync<T>(
-		this IAsyncEnumerable<T> enumerable) where T : new()
+	public static async Task<IReadOnlyList<T>> WaitAsync<T>(
+		this IAsyncEnumerable<T> enumerable)
 	{
 		enumerable = enumerable ?? throw new ArgumentNullException(nameof(enumerable));
 		
-		var currentResponse = new T();
+		var responses = new List<T>();
 		await foreach (var response in enumerable.ConfigureAwait(false))
 		{
-			currentResponse = response;
+			responses.Add(response);
 		}
 
-		return currentResponse;
+		return responses;
 	}
 
 	/// <inheritdoc cref="WaitAsync{T}(IAsyncEnumerable{T})"/>
-	public static TaskAwaiter<T> GetAwaiter<T>(
-		this IAsyncEnumerable<T> enumerable) where T : new()
+	public static TaskAwaiter<IReadOnlyList<T>> GetAwaiter<T>(
+		this IAsyncEnumerable<T> enumerable)
 	{
 		enumerable = enumerable ?? throw new ArgumentNullException(nameof(enumerable));
 		
