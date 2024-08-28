@@ -26,14 +26,14 @@ namespace Ollama
 
         /// <summary>
         /// total size of the model<br/>
-        /// Example: 2142590208
+        /// Example: 2142590208L
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("total")]
         public long Total { get; set; }
 
         /// <summary>
         /// Total bytes transferred.<br/>
-        /// Example: 2142590208
+        /// Example: 2142590208L
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("completed")]
         public long Completed { get; set; }

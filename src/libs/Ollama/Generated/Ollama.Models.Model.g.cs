@@ -24,7 +24,7 @@ namespace Ollama
 
         /// <summary>
         /// Size of the model on disk.<br/>
-        /// Example: 7323310500
+        /// Example: 7323310500L
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("size")]
         public long Size { get; set; }
