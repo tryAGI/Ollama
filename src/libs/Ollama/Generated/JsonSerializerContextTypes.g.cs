@@ -233,7 +233,7 @@ namespace Ollama
         /// <summary>
         /// 
         /// </summary>
-        public global::System.AnyOf<string?, global::Ollama.PushModelResponseStatus?>? Type55 { get; set; }
+        public global::System.AnyOf<string, global::Ollama.PushModelResponseStatus?>? Type55 { get; set; }
         /// <summary>
         /// 
         /// </summary>
