@@ -12,9 +12,7 @@ public class Chat
 	/// </summary>
 	public List<Message> History { get; set; } = new();
 	
-	/// <summary>
-	/// 
-	/// </summary>
+	/// <inheritdoc cref="GenerateChatCompletionRequest.Tools"/>
 	public List<Tool> Tools { get; } = new();
 	
 	/// <summary>
@@ -27,15 +25,22 @@ public class Chat
 	/// </summary>
 	public OllamaApiClient Client { get; }
 	
-	/// <summary>
-	/// 
-	/// </summary>
+	/// <inheritdoc cref="GenerateChatCompletionRequest.Model"/>
 	public string Model { get; set; }
 	
 	/// <summary>
 	/// 
 	/// </summary>
 	public bool AutoCallTools { get; set; } = true;
+	
+	/// <inheritdoc cref="GenerateChatCompletionRequest.Format"/>
+	public ResponseFormat? ResponseFormat { get; set; }
+	
+	/// <inheritdoc cref="GenerateChatCompletionRequest.Options"/>
+	public RequestOptions? RequestOptions { get; set; }
+	
+	/// <inheritdoc cref="GenerateChatCompletionRequest.KeepAlive"/>
+	public int? KeepAlive { get; set; }
 
 	/// <summary>
 	/// 
@@ -43,14 +48,36 @@ public class Chat
 	/// <param name="client"></param>
 	/// <param name="model"></param>
 	/// <param name="systemMessage"></param>
+	/// <param name="format">
+	/// The format to return a response in. Currently the only accepted value is json.<br/>
+	/// Enable JSON mode by setting the format parameter to json. This will structure the response as valid JSON.<br/>
+	/// Note: it's important to instruct the model to use JSON in the prompt. Otherwise, the model may generate large amounts whitespace.
+	/// </param>
+	/// <param name="options">
+	/// Additional model parameters listed in the documentation for the Modelfile such as `temperature`.
+	/// </param>
+	/// <param name="keepAlive">
+	/// How long (in minutes) to keep the model loaded in memory.<br/>
+	/// - If set to a positive duration (e.g. 20), the model will stay loaded for the provided duration.<br/>
+	/// - If set to a negative duration (e.g. -1), the model will stay loaded indefinitely.<br/>
+	/// - If set to 0, the model will be unloaded immediately once finished.<br/>
+	/// - If not set, the model will stay loaded for 5 minutes by default
+	/// </param>
 	/// <exception cref="ArgumentNullException"></exception>
 	public Chat(
 		OllamaApiClient client,
 		string model,
-		string? systemMessage = null)
+		string? systemMessage = null,
+		ResponseFormat? format = default,
+		RequestOptions? options = default,
+		int? keepAlive = default)
 	{
 		Client = client ?? throw new ArgumentNullException(nameof(client));
 		Model = model ?? throw new ArgumentNullException(nameof(model));
+		
+		ResponseFormat = format;
+		RequestOptions = options;
+		KeepAlive = keepAlive;
 		
 		if (systemMessage != null)
 		{
@@ -104,15 +131,15 @@ public class Chat
 			});
 		}
 
-		var request = new GenerateChatCompletionRequest
-		{
-			Messages = History,
-			Model = Model,
-			Stream = false,
-			Tools = Tools.Count == 0 ? null : Tools,
-		};
-
-		var answer = await Client.Chat.GenerateChatCompletionAsync(request, cancellationToken).WaitAsync().ConfigureAwait(false);
+		var answer = await Client.Chat.GenerateChatCompletionAsync(
+			model: Model,
+			messages: History,
+			format: ResponseFormat,
+			options: RequestOptions,
+			stream: false,
+			keepAlive: KeepAlive,
+			tools: Tools.Count == 0 ? null : Tools,
+			cancellationToken: cancellationToken).WaitAsync().ConfigureAwait(false);
 		if (answer.Message == null)
 		{
 			throw new InvalidOperationException("Response message was null.");
