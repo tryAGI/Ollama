@@ -1,6 +1,6 @@
 #nullable enable
 
-namespace OpenApiGenerator.JsonConverters
+namespace Ollama.JsonConverters
 {
     /// <inheritdoc />
     public sealed class AnyOfJsonConverterFactory2 : global::System.Text.Json.Serialization.JsonConverterFactory
@@ -8,7 +8,7 @@ namespace OpenApiGenerator.JsonConverters
         /// <inheritdoc />
         public override bool CanConvert(global::System.Type? typeToConvert)
         {
-            return typeToConvert is { IsGenericType: true } && typeToConvert.GetGenericTypeDefinition() == typeof(global::System.AnyOf<,>);
+            return typeToConvert is { IsGenericType: true } && typeToConvert.GetGenericTypeDefinition() == typeof(global::Ollama.AnyOf<,>);
         }
 
         /// <inheritdoc />

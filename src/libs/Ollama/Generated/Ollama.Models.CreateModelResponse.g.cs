@@ -12,7 +12,7 @@ namespace Ollama
         /// Status creating the model
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("status")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::OpenApiGenerator.JsonConverters.CreateModelStatusJsonConverter))]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Ollama.JsonConverters.CreateModelStatusJsonConverter))]
         public global::Ollama.CreateModelStatus? Status { get; set; }
 
         /// <summary>

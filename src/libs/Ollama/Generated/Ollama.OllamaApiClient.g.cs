@@ -8,7 +8,7 @@ namespace Ollama
     /// If no httpClient is provided, a new one will be created.<br/>
     /// If no baseUri is provided, the default baseUri from OpenAPI spec will be used.
     /// </summary>
-    public sealed partial class OllamaApiClient : global::System.IDisposable
+    public sealed partial class OllamaApiClient : global::Ollama.IOllamaApiClient, global::System.IDisposable
     {
         /// <summary>
         /// Ollama server URL
@@ -17,26 +17,43 @@ namespace Ollama
 
         private readonly global::System.Net.Http.HttpClient _httpClient;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::System.Text.Json.Serialization.JsonSerializerContext JsonSerializerContext { get; set; } = global::Ollama.SourceGenerationContext.Default;
+
 
         /// <summary>
         /// Given a prompt, the model will generate a completion.
         /// </summary>
-        public CompletionsClient Completions => new CompletionsClient(_httpClient);
+        public CompletionsClient Completions => new CompletionsClient(_httpClient)
+        {
+            JsonSerializerContext = JsonSerializerContext,
+        };
 
         /// <summary>
         /// Given a list of messages comprising a conversation, the model will return a response.
         /// </summary>
-        public ChatClient Chat => new ChatClient(_httpClient);
+        public ChatClient Chat => new ChatClient(_httpClient)
+        {
+            JsonSerializerContext = JsonSerializerContext,
+        };
 
         /// <summary>
         /// Get a vector representation of a given input.
         /// </summary>
-        public EmbeddingsClient Embeddings => new EmbeddingsClient(_httpClient);
+        public EmbeddingsClient Embeddings => new EmbeddingsClient(_httpClient)
+        {
+            JsonSerializerContext = JsonSerializerContext,
+        };
 
         /// <summary>
         /// List and describe the various models available.
         /// </summary>
-        public ModelsClient Models => new ModelsClient(_httpClient);
+        public ModelsClient Models => new ModelsClient(_httpClient)
+        {
+            JsonSerializerContext = JsonSerializerContext,
+        };
 
         /// <summary>
         /// Creates a new instance of the OllamaApiClient.
@@ -47,8 +64,7 @@ namespace Ollama
         /// <param name="baseUri"></param> 
         public OllamaApiClient(
             global::System.Net.Http.HttpClient? httpClient = null,
-            global::System.Uri? baseUri = null 
-            )
+            global::System.Uri? baseUri = null)
         {
             _httpClient = httpClient ?? new global::System.Net.Http.HttpClient();
             _httpClient.BaseAddress ??= baseUri ?? new global::System.Uri(BaseUrl);

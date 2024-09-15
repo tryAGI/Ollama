@@ -77,7 +77,7 @@ namespace Ollama
             }
 
             return
-                global::System.Text.Json.JsonSerializer.Deserialize(__content, global::Ollama.SourceGenerationContext.Default.VersionResponse) ??
+                global::System.Text.Json.JsonSerializer.Deserialize(__content, typeof(global::Ollama.VersionResponse), JsonSerializerContext) as global::Ollama.VersionResponse ??
                 throw new global::System.InvalidOperationException($"Response deserialization failed for \"{__content}\" ");
         }
     }

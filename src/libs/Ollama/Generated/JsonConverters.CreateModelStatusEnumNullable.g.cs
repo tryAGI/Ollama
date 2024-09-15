@@ -1,6 +1,6 @@
 #nullable enable
 
-namespace OpenApiGenerator.JsonConverters
+namespace Ollama.JsonConverters
 {
     /// <inheritdoc />
     public sealed class CreateModelStatusEnumNullableJsonConverter : global::System.Text.Json.Serialization.JsonConverter<global::Ollama.CreateModelStatusEnum?>

@@ -1,7 +1,7 @@
 #nullable enable
 #pragma warning disable CS0618 // Type or member is obsolete
 
-namespace OpenApiGenerator.JsonConverters
+namespace Ollama.JsonConverters
 {
     /// <inheritdoc />
     public class CreateModelStatusJsonConverter : global::System.Text.Json.Serialization.JsonConverter<global::Ollama.CreateModelStatus>

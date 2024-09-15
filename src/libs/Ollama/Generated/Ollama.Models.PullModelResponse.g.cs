@@ -15,7 +15,7 @@ namespace Ollama
         /// Example: pulling manifest
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("status")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::OpenApiGenerator.JsonConverters.PullModelStatusJsonConverter))]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Ollama.JsonConverters.PullModelStatusJsonConverter))]
         public global::Ollama.PullModelStatus? Status { get; set; }
 
         /// <summary>

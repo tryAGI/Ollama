@@ -43,7 +43,7 @@ namespace Ollama
         /// Reason why the model is done generating a response.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("done_reason")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::OpenApiGenerator.JsonConverters.DoneReasonJsonConverter))]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Ollama.JsonConverters.DoneReasonJsonConverter))]
         public global::Ollama.DoneReason? DoneReason { get; set; }
 
         /// <summary>

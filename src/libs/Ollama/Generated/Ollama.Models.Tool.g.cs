@@ -13,7 +13,7 @@ namespace Ollama
         /// Default Value: function
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::OpenApiGenerator.JsonConverters.ToolTypeJsonConverter))]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Ollama.JsonConverters.ToolTypeJsonConverter))]
         public global::Ollama.ToolType? Type { get; set; } = global::Ollama.ToolType.Function;
 
         /// <summary>

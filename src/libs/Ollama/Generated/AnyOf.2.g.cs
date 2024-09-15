@@ -2,7 +2,7 @@ using System.Linq;
 
 #nullable enable
 
-namespace System
+namespace Ollama
 {
     /// <summary>
     /// 
