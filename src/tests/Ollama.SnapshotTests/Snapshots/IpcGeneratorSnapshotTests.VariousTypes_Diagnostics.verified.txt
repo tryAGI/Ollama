@@ -4,7 +4,7 @@
     Title: Unnecessary using directive,
     Severity: Hidden,
     WarningLevel: 1,
-    Location: Ollama.Generators/Ollama.Generators.OllamaToolsGenerator/IVariousTypesFunctions.Calls.generated.cs: (1,0)-(1,33),
+    Location: Ollama.Generators\Ollama.Generators.OllamaToolsGenerator\IVariousTypesFunctions.Calls.generated.cs: (1,0)-(1,33),
     HelpLink: https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8019),
     MessageFormat: Unnecessary using directive.,
     Message: Unnecessary using directive.,
