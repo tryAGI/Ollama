@@ -33,10 +33,12 @@ public static class TestHelper
         await Task.WhenAll(
             verifier
                 .Verify(diagnostics)
+                //.AutoVerify()
                 .UseDirectory("Snapshots")
                 .UseTextForParameters("Diagnostics"),
             verifier
                 .Verify(driver)
+                //.AutoVerify()
                 .UseDirectory("Snapshots"));
     }
 }

@@ -14,9 +14,14 @@ public static class PullModelResponseExtensions
 	public static double GetPercent(this PullModelResponse response)
 	{
 		response = response ?? throw new ArgumentNullException(nameof(response));
+
+		if (response.Total == null || response.Completed == null)
+		{
+			return 0;
+		}
 		
-		return response.Total == 0
+		return response.Total.Value == 0
 			? 100.0
-			: response.Completed * 100.0 / response.Total;
+			: response.Completed.Value * 100.0 / response.Total.Value;
 	}
 }
