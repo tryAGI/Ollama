@@ -75,14 +75,14 @@ namespace Ollama
         /// You may choose to use the `raw` parameter if you are specifying a full templated prompt in your request to the API, and are managing history yourself.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("raw")]
-        public bool Raw { get; set; }
+        public bool? Raw { get; set; }
 
         /// <summary>
         /// If `false` the response will be returned as a single response object, otherwise the response will be streamed as a series of objects.<br/>
         /// Default Value: true
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("stream")]
-        public bool Stream { get; set; } = true;
+        public bool? Stream { get; set; } = true;
 
         /// <summary>
         /// How long (in minutes) to keep the model loaded in memory.<br/>

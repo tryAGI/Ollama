@@ -109,7 +109,7 @@ namespace Ollama
             string modelfile,
             string? path = default,
             string? quantize = default,
-            bool stream = true,
+            bool? stream = true,
             [global::System.Runtime.CompilerServices.EnumeratorCancellation] global::System.Threading.CancellationToken cancellationToken = default)
         {
             var request = new global::Ollama.CreateModelRequest

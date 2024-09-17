@@ -142,8 +142,8 @@ namespace Ollama
             global::System.Collections.Generic.IList<long>? context = default,
             global::Ollama.RequestOptions? options = default,
             global::Ollama.ResponseFormat? format = default,
-            bool raw = default,
-            bool stream = true,
+            bool? raw = default,
+            bool? stream = true,
             int? keepAlive = default,
             [global::System.Runtime.CompilerServices.EnumeratorCancellation] global::System.Threading.CancellationToken cancellationToken = default)
         {
