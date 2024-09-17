@@ -20,14 +20,14 @@ namespace Ollama
         /// Model modification date.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("modified_at")]
-        public global::System.DateTime ModifiedAt { get; set; }
+        public global::System.DateTime? ModifiedAt { get; set; }
 
         /// <summary>
         /// Size of the model on disk.<br/>
         /// Example: 7323310500L
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("size")]
-        public long Size { get; set; }
+        public long? Size { get; set; }
 
         /// <summary>
         /// The model's digest.<br/>
