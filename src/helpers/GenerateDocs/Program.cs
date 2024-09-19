@@ -29,6 +29,22 @@ foreach (var path in Directory.EnumerateFiles(sampleDirectory, "Tests.*.cs", Sea
             "await using var container = await PrepareEnvironmentAsync(EnvironmentType.Container);",
             "using var api = new OllamaApiClient();")
         .Replace(
+            "await using var container = await PrepareEnvironmentAsync(EnvironmentType.Local, \"llama3.1\");",
+            string.Empty)
+        .Replace(
+            "await using var container = await PrepareEnvironmentAsync(EnvironmentType.Container, \"llama3.1\");",
+            @"using var api = new OllamaApiClient();
+
+await apiClient.Models.PullModelAsync(""llama3.1"").EnsureSuccessAsync();")
+        .Replace(
+            "await using var container = await PrepareEnvironmentAsync(EnvironmentType.Local, \"reader-lm:latest\");",
+            string.Empty)
+        .Replace(
+            "await using var container = await PrepareEnvironmentAsync(EnvironmentType.Container, \"reader-lm:latest\");",
+            @"using var api = new OllamaApiClient();
+
+await apiClient.Models.PullModelAsync(""reader-lm:latest"").EnsureSuccessAsync();")
+        .Replace(
             "container.ApiClient",
             "api")
         ;
