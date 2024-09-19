@@ -1,4 +1,4 @@
-site_name: OpenAI .NET Documentation
+site_name: Ollama .NET Documentation
 nav:
 - Overview: index.md
 # EXAMPLES #
