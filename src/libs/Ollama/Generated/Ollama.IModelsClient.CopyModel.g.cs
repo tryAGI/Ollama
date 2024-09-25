@@ -19,7 +19,7 @@ namespace Ollama
         /// </summary>
         /// <param name="source">
         /// Name of the model to copy.<br/>
-        /// Example: llama3.1
+        /// Example: llama3.2
         /// </param>
         /// <param name="destination">
         /// Name of the new model.<br/>

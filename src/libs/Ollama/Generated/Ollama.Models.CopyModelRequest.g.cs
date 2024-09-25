@@ -10,7 +10,7 @@ namespace Ollama
     {
         /// <summary>
         /// Name of the model to copy.<br/>
-        /// Example: llama3.1
+        /// Example: llama3.2
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("source")]
         [global::System.Text.Json.Serialization.JsonRequired]
