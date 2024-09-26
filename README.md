@@ -38,7 +38,7 @@ var embedding = await ollama.Embeddings.GenerateEmbeddingAsync(
 // Streaming a completion directly into the console
 // keep reusing the context to keep the chat topic going
 IList<long>? context = null;
-var enumerable = ollama.Completions.GenerateCompletionAsync("llama3.1", "answer 5 random words");
+var enumerable = ollama.Completions.GenerateCompletionAsync("llama3.2", "answer 5 random words");
 await foreach (var response in enumerable)
 {
     Console.WriteLine($"> {response.Response}");
@@ -46,7 +46,7 @@ await foreach (var response in enumerable)
     context = response.Context;
 }
 
-var lastResponse = await ollama.Completions.GenerateCompletionAsync("llama3.1", "answer 123", stream: false, context: context).WaitAsync();
+var lastResponse = await ollama.Completions.GenerateCompletionAsync("llama3.2", "answer 123", stream: false, context: context).WaitAsync();
 Console.WriteLine(lastResponse.Response);
 
 var chat = ollama.Chat("mistral");
@@ -65,7 +65,7 @@ while (true)
 ```csharp
 using var ollama = new OllamaApiClient();
 var chat = ollama.Chat(
-    model: "llama3.1",
+    model: "llama3.2",
     systemMessage: "You are a helpful weather assistant.",
     autoCallTools: true);
 

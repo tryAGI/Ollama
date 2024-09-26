@@ -6,9 +6,9 @@ public partial class Tests
     public async Task Tools()
     {
 #if DEBUG
-        await using var container = await PrepareEnvironmentAsync(EnvironmentType.Local, "llama3.1");
+        await using var container = await PrepareEnvironmentAsync(EnvironmentType.Local, "llama3.2");
 #else
-        await using var container = await PrepareEnvironmentAsync(EnvironmentType.Container, "llama3.1");
+        await using var container = await PrepareEnvironmentAsync(EnvironmentType.Container, "llama3.2");
 #endif
         
         var messages = new List<Message>
@@ -16,7 +16,7 @@ public partial class Tests
             "You are a helpful weather assistant.".AsSystemMessage(),
             "What is the current temperature in Dubai, UAE in Celsius?".AsUserMessage(),
         };
-        const string model = "llama3.1";
+        const string model = "llama3.2";
 
         try
         {

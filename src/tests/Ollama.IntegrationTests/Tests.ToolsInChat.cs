@@ -6,13 +6,13 @@ public partial class Tests
     public async Task ToolsInChat()
     {
 #if DEBUG
-        await using var container = await PrepareEnvironmentAsync(EnvironmentType.Local, "llama3.1");
+        await using var container = await PrepareEnvironmentAsync(EnvironmentType.Local, "llama3.2");
 #else
-        await using var container = await PrepareEnvironmentAsync(EnvironmentType.Container, "llama3.1");
+        await using var container = await PrepareEnvironmentAsync(EnvironmentType.Container, "llama3.2");
 #endif
         
         var chat = container.ApiClient.Chat(
-            model: "llama3.1",
+            model: "llama3.2",
             systemMessage: "You are a helpful weather assistant.",
             autoCallTools: true);
         

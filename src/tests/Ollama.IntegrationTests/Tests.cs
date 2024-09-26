@@ -11,14 +11,14 @@ public partial class Tests
         {
             case EnvironmentType.Local:
             {
-                // set OLLAMA_HOST=10.10.0.125:11434
+                // set OLLAMA_HOST=10.10.5.85:11434
                 // ollama serve
                 var apiClient = new OllamaApiClient(
                     httpClient: new HttpClient
                     {
                         Timeout = TimeSpan.FromMinutes(10),
                     },
-                    baseUri: new Uri("http://10.10.0.125:11434/api"));
+                    baseUri: new Uri("http://10.10.5.85:11434/api"));
                 
                 if (!string.IsNullOrEmpty(model))
                 {
