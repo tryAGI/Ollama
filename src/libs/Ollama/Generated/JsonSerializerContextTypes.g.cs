@@ -13,6 +13,11 @@ namespace Ollama
         /// <summary>
         /// 
         /// </summary>
+        public global::System.Collections.Generic.Dictionary<string, string>? StringStringDictionary { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public global::Ollama.GenerateCompletionRequest? Type0 { get; set; }
         /// <summary>
         /// 
