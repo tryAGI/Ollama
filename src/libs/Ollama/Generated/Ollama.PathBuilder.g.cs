@@ -224,4 +224,20 @@ namespace Ollama
         /// <returns>The constructed URL.</returns>
         public override string ToString() => _stringBuilder.ToString();
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class EndPointAuthorization
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Name { get; set; } = string.Empty;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Value { get; set; } = string.Empty;
+    }
 }

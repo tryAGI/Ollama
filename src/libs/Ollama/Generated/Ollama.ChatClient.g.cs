@@ -16,6 +16,7 @@ namespace Ollama
         public const string BaseUrl = "http://localhost:11434/api";
 
         private readonly global::System.Net.Http.HttpClient _httpClient;
+        private global::Ollama.EndPointAuthorization? _authorization;
 
         /// <summary>
         /// 
@@ -29,13 +30,16 @@ namespace Ollama
         /// If no baseUri is provided, the default baseUri from OpenAPI spec will be used.
         /// </summary>
         /// <param name="httpClient"></param>
-        /// <param name="baseUri"></param> 
+        /// <param name="baseUri"></param>
+        /// <param name="authorization"></param>
         public ChatClient(
             global::System.Net.Http.HttpClient? httpClient = null,
-            global::System.Uri? baseUri = null)
+            global::System.Uri? baseUri = null,
+            global::Ollama.EndPointAuthorization? authorization = null)
         {
             _httpClient = httpClient ?? new global::System.Net.Http.HttpClient();
             _httpClient.BaseAddress ??= baseUri ?? new global::System.Uri(BaseUrl);
+            _authorization = authorization;
 
             Initialized(_httpClient);
         }
