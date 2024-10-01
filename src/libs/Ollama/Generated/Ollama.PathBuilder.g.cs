@@ -233,6 +233,16 @@ namespace Ollama
         /// <summary>
         /// 
         /// </summary>
+        public string Type { get; set; } = string.Empty;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Location { get; set; } = string.Empty;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string Name { get; set; } = string.Empty;
 
         /// <summary>
