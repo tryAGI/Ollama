@@ -20,7 +20,7 @@ namespace Ollama
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("arguments")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required global::Ollama.ToolCallFunctionArgs Arguments { get; set; }
+        public required object Arguments { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
