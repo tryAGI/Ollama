@@ -21,7 +21,7 @@ public partial class Tests
         try
         {
             var service = new WeatherService();
-            var tools = service.AsTools();
+            var tools = service.AsTools().AsOllamaTools();
             var response = await container.ApiClient.Chat.GenerateChatCompletionAsync(
                 model,
                 messages,

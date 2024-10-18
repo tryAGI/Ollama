@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using CSharpToJsonSchema;
 using DescriptionAttribute = System.ComponentModel.DescriptionAttribute;
 
 namespace Ollama.IntegrationTests;
@@ -18,7 +19,7 @@ public class Weather
     public string Description { get; set; } = string.Empty;
 }
 
-[OllamaTools]
+[GenerateJsonSchema]
 public interface IWeatherFunctions
 {
     [Description("Get the current weather in a given location")]

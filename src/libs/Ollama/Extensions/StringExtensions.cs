@@ -67,8 +67,30 @@ public static class StringExtensions
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>
-    public static string AsJson(this ToolCallFunctionArgs args)
+    public static string AsJson(this object args)
     {
-        return JsonSerializer.Serialize(args, SourceGenerationContext.Default.ToolCallFunctionArgs);
+        return JsonSerializer.Serialize<object>(args, SourceGenerationContext.Default.Object);
+    }
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="tools"></param>
+    /// <returns></returns>
+    public static IList<Tool> AsOllamaTools(
+        this IList<CSharpToJsonSchema.Tool> tools)
+    {
+        return tools
+            .Select(x => new Tool
+            {
+                Type = ToolType.Function,
+                Function = new ToolFunction
+                {
+                    Name = x.Name!,
+                    Description = x.Description ?? string.Empty,
+                    Parameters = x.Parameters ?? new ToolFunctionParams(),
+                },
+            })
+            .ToList();
     }
 }

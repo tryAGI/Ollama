@@ -17,7 +17,7 @@ public partial class Tests
             autoCallTools: true);
         
         var service = new WeatherService();
-        chat.AddToolService(service.AsTools(), service.AsCalls());
+        chat.AddToolService(service.AsTools().AsOllamaTools(), service.AsCalls());
         
         try
         {

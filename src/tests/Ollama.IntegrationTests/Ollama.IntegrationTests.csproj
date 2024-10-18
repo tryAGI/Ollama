@@ -24,8 +24,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\libs\Ollama\Ollama.csproj" />
-    <ProjectReference Include="..\..\libs\Ollama.Generators.Core\Ollama.Generators.Core.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-    <ProjectReference Include="..\..\libs\Ollama.Generators\Ollama.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
 </Project>

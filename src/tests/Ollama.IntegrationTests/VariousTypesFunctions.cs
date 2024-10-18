@@ -1,9 +1,10 @@
 ﻿using System;
+using CSharpToJsonSchema;
 using DescriptionAttribute = System.ComponentModel.DescriptionAttribute;
 
 namespace Ollama.IntegrationTests;
 
-[OllamaTools]
+[GenerateJsonSchema]
 public interface IVariousTypesFunctions
 {
     [Description("Get the current weather in a given location")]
