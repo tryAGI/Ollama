@@ -95,6 +95,8 @@ GetCurrentWeather({"location":"Dubai, UAE","unit":"celsius"})
 The current temperature in Dubai, UAE is 22°C.
 ```
 ```csharp
+using CSharpToJsonSchema;
+
 public enum Unit
 {
     Celsius,
@@ -109,7 +111,7 @@ public class Weather
     public string Description { get; set; } = string.Empty;
 }
 
-[OllamaTools]
+[GenerateJsonSchema]
 public interface IWeatherFunctions
 {
     [Description("Get the current weather in a given location")]

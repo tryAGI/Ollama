@@ -5,7 +5,7 @@ public partial class Tests
     [TestMethod]
     public async Task ListModels()
     {
-        await using var container = await PrepareEnvironmentAsync(EnvironmentType.Container);
+        await using var container = await Environment.PrepareAsync(EnvironmentType.Container);
         
         var models = await container.ApiClient.Models.ListModelsAsync();
         models.Models.Should().BeNullOrEmpty();

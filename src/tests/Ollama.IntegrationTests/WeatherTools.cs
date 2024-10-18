@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using CSharpToJsonSchema;
+﻿using CSharpToJsonSchema;
 using DescriptionAttribute = System.ComponentModel.DescriptionAttribute;
 
 namespace Ollama.IntegrationTests;
@@ -20,7 +18,7 @@ public class Weather
 }
 
 [GenerateJsonSchema]
-public interface IWeatherFunctions
+public interface IWeatherTools
 {
     [Description("Get the current weather in a given location")]
     public Weather GetCurrentWeather(
@@ -34,7 +32,7 @@ public interface IWeatherFunctions
         CancellationToken cancellationToken = default);
 }
 
-public class WeatherService : IWeatherFunctions
+public class WeatherService : IWeatherTools
 {
     public Weather GetCurrentWeather(string location, Unit unit = Unit.Celsius)
     {

@@ -1,14 +1,15 @@
 namespace Ollama.IntegrationTests;
 
+[TestClass]
 public partial class Tests
 {
     [TestMethod]
     public async Task Chat()
     {
 #if DEBUG
-        await using var container = await PrepareEnvironmentAsync(EnvironmentType.Local, "llama3.2");
+        await using var container = await Environment.PrepareAsync(EnvironmentType.Local, "llama3.2");
 #else
-        await using var container = await PrepareEnvironmentAsync(EnvironmentType.Container, "llama3.2");
+        await using var container = await Environment.PrepareAsync(EnvironmentType.Container, "llama3.2");
 #endif
         
         var chat = container.ApiClient.Chat("llama3.2");

@@ -6,9 +6,9 @@ public partial class Tests
     public async Task Tools()
     {
 #if DEBUG
-        await using var container = await PrepareEnvironmentAsync(EnvironmentType.Local, "llama3.2");
+        await using var container = await Environment.PrepareAsync(EnvironmentType.Local, "llama3.2");
 #else
-        await using var container = await PrepareEnvironmentAsync(EnvironmentType.Container, "llama3.2");
+        await using var container = await Environment.PrepareAsync(EnvironmentType.Container, "llama3.2");
 #endif
         
         var messages = new List<Message>

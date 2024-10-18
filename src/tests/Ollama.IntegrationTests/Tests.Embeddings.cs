@@ -5,7 +5,7 @@ public partial class Tests
     [TestMethod]
     public async Task Embeddings()
     {
-        await using var container = await PrepareEnvironmentAsync(EnvironmentType.Container);
+        await using var container = await Environment.PrepareAsync(EnvironmentType.Container);
         
         if (container.Type == EnvironmentType.Local)
         {
