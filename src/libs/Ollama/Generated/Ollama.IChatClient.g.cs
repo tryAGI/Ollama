@@ -11,6 +11,21 @@ namespace Ollama
     public partial interface IChatClient : global::System.IDisposable
     {
         /// <summary>
+        /// The HttpClient instance.
+        /// </summary>
+        public global::System.Net.Http.HttpClient HttpClient { get; }
+
+        /// <summary>
+        /// The base URL for the API.
+        /// </summary>
+        public System.Uri? BaseUri { get; }
+
+        /// <summary>
+        /// The authorizations to use for the requests.
+        /// </summary>
+        public global::System.Collections.Generic.List<global::Ollama.EndPointAuthorization> Authorizations { get; }
+
+        /// <summary>
         /// 
         /// </summary>
         global::System.Text.Json.Serialization.JsonSerializerContext JsonSerializerContext { get; set; }

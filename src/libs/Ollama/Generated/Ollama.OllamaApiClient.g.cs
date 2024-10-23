@@ -13,10 +13,18 @@ namespace Ollama
         /// <summary>
         /// Ollama server URL
         /// </summary>
-        public const string BaseUrl = "http://localhost:11434/api";
+        public const string DefaultBaseUrl = "http://localhost:11434/api";
 
-        private readonly global::System.Net.Http.HttpClient _httpClient;
-        private global::System.Collections.Generic.List<global::Ollama.EndPointAuthorization> _authorizations;
+        private bool _disposeHttpClient = true;
+
+        /// <inheritdoc/>
+        public global::System.Net.Http.HttpClient HttpClient { get; }
+
+        /// <inheritdoc/>
+        public System.Uri? BaseUri => HttpClient.BaseAddress;
+
+        /// <inheritdoc/>
+        public global::System.Collections.Generic.List<global::Ollama.EndPointAuthorization> Authorizations { get; }
 
         /// <summary>
         /// 
@@ -27,7 +35,7 @@ namespace Ollama
         /// <summary>
         /// Given a prompt, the model will generate a completion.
         /// </summary>
-        public CompletionsClient Completions => new CompletionsClient(_httpClient, authorizations: _authorizations)
+        public CompletionsClient Completions => new CompletionsClient(HttpClient, authorizations: Authorizations)
         {
             JsonSerializerContext = JsonSerializerContext,
         };
@@ -35,7 +43,7 @@ namespace Ollama
         /// <summary>
         /// Given a list of messages comprising a conversation, the model will return a response.
         /// </summary>
-        public ChatClient Chat => new ChatClient(_httpClient, authorizations: _authorizations)
+        public ChatClient Chat => new ChatClient(HttpClient, authorizations: Authorizations)
         {
             JsonSerializerContext = JsonSerializerContext,
         };
@@ -43,7 +51,7 @@ namespace Ollama
         /// <summary>
         /// Get a vector representation of a given input.
         /// </summary>
-        public EmbeddingsClient Embeddings => new EmbeddingsClient(_httpClient, authorizations: _authorizations)
+        public EmbeddingsClient Embeddings => new EmbeddingsClient(HttpClient, authorizations: Authorizations)
         {
             JsonSerializerContext = JsonSerializerContext,
         };
@@ -51,7 +59,7 @@ namespace Ollama
         /// <summary>
         /// List and describe the various models available.
         /// </summary>
-        public ModelsClient Models => new ModelsClient(_httpClient, authorizations: _authorizations)
+        public ModelsClient Models => new ModelsClient(HttpClient, authorizations: Authorizations)
         {
             JsonSerializerContext = JsonSerializerContext,
         };
@@ -61,25 +69,31 @@ namespace Ollama
         /// If no httpClient is provided, a new one will be created.
         /// If no baseUri is provided, the default baseUri from OpenAPI spec will be used.
         /// </summary>
-        /// <param name="httpClient"></param>
-        /// <param name="baseUri"></param>
-        /// <param name="authorizations"></param>
+        /// <param name="httpClient">The HttpClient instance. If not provided, a new one will be created.</param>
+        /// <param name="baseUri">The base URL for the API. If not provided, the default baseUri from OpenAPI spec will be used.</param>
+        /// <param name="authorizations">The authorizations to use for the requests.</param>
+        /// <param name="disposeHttpClient">Dispose the HttpClient when the instance is disposed. True by default.</param>
         public OllamaApiClient(
             global::System.Net.Http.HttpClient? httpClient = null,
             global::System.Uri? baseUri = null,
-            global::System.Collections.Generic.List<global::Ollama.EndPointAuthorization>? authorizations = null)
+            global::System.Collections.Generic.List<global::Ollama.EndPointAuthorization>? authorizations = null,
+            bool disposeHttpClient = true)
         {
-            _httpClient = httpClient ?? new global::System.Net.Http.HttpClient();
-            _httpClient.BaseAddress ??= baseUri ?? new global::System.Uri(BaseUrl);
-            _authorizations = authorizations ?? new global::System.Collections.Generic.List<global::Ollama.EndPointAuthorization>();
+            HttpClient = httpClient ?? new global::System.Net.Http.HttpClient();
+            HttpClient.BaseAddress ??= baseUri ?? new global::System.Uri(DefaultBaseUrl);
+            Authorizations = authorizations ?? new global::System.Collections.Generic.List<global::Ollama.EndPointAuthorization>();
+            _disposeHttpClient = disposeHttpClient;
 
-            Initialized(_httpClient);
+            Initialized(HttpClient);
         }
 
         /// <inheritdoc/>
         public void Dispose()
         {
-            _httpClient.Dispose();
+            if (_disposeHttpClient)
+            {
+                HttpClient.Dispose();
+            }
         }
 
         partial void Initialized(
