@@ -124,7 +124,7 @@ namespace Ollama
             global::System.Collections.Generic.IList<global::Ollama.Message> messages,
             global::Ollama.ResponseFormat? format = default,
             global::Ollama.RequestOptions? options = default,
-            bool? stream = true,
+            bool? stream = default,
             int? keepAlive = default,
             global::System.Collections.Generic.IList<global::Ollama.Tool>? tools = default,
             [global::System.Runtime.CompilerServices.EnumeratorCancellation] global::System.Threading.CancellationToken cancellationToken = default)

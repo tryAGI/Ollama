@@ -14,7 +14,7 @@ namespace Ollama
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Ollama.JsonConverters.ToolTypeJsonConverter))]
-        public global::Ollama.ToolType? Type { get; set; } = global::Ollama.ToolType.Function;
+        public global::Ollama.ToolType? Type { get; set; }
 
         /// <summary>
         /// A function that the model may call.

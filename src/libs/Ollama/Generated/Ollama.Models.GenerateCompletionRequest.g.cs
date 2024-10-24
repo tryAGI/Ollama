@@ -82,7 +82,7 @@ namespace Ollama
         /// Default Value: true
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("stream")]
-        public bool? Stream { get; set; } = true;
+        public bool? Stream { get; set; }
 
         /// <summary>
         /// How long (in minutes) to keep the model loaded in memory.<br/>

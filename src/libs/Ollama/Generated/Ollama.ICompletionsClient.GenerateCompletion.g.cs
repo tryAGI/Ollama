@@ -79,7 +79,7 @@ namespace Ollama
             global::Ollama.RequestOptions? options = default,
             global::Ollama.ResponseFormat? format = default,
             bool? raw = default,
-            bool? stream = true,
+            bool? stream = default,
             int? keepAlive = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }

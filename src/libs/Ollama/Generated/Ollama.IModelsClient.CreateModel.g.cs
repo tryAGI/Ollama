@@ -45,7 +45,7 @@ namespace Ollama
             string modelfile,
             string? path = default,
             string? quantize = default,
-            bool? stream = true,
+            bool? stream = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }
