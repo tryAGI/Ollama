@@ -110,10 +110,10 @@ namespace Ollama
         /// <exception cref="global::System.InvalidOperationException"></exception>
         public async global::System.Collections.Generic.IAsyncEnumerable<global::Ollama.PushModelResponse> PushModelAsync(
             string model,
-            bool? insecure = false,
+            bool? insecure = default,
             string? username = default,
             string? password = default,
-            bool? stream = true,
+            bool? stream = default,
             [global::System.Runtime.CompilerServices.EnumeratorCancellation] global::System.Threading.CancellationToken cancellationToken = default)
         {
             var __request = new global::Ollama.PushModelRequest
