@@ -158,23 +158,23 @@ public static class OllamaApiClientExtensions
 	/// </summary>
 	/// <param name="enumerable"></param>
 	/// <returns></returns>
-	public static async Task<IReadOnlyList<T>> WaitAsync<T>(
-		this IAsyncEnumerable<T> enumerable)
+	public static async Task<IReadOnlyList<PullModelResponse>> WaitAsync(
+		this IAsyncEnumerable<PullModelResponse> enumerable)
 	{
 		enumerable = enumerable ?? throw new ArgumentNullException(nameof(enumerable));
 		
-		var responses = new List<T>();
+		var responses = new List<PullModelResponse>();
 		await foreach (var response in enumerable.ConfigureAwait(false))
 		{
 			responses.Add(response);
 		}
-
+	
 		return responses;
 	}
-
-	/// <inheritdoc cref="WaitAsync{T}(IAsyncEnumerable{T})"/>
-	public static TaskAwaiter<IReadOnlyList<T>> GetAwaiter<T>(
-		this IAsyncEnumerable<T> enumerable)
+	
+	/// <inheritdoc cref="WaitAsync(IAsyncEnumerable{PullModelResponse})"/>
+	public static TaskAwaiter<IReadOnlyList<PullModelResponse>> GetAwaiter(
+		this IAsyncEnumerable<PullModelResponse> enumerable)
 	{
 		enumerable = enumerable ?? throw new ArgumentNullException(nameof(enumerable));
 		
