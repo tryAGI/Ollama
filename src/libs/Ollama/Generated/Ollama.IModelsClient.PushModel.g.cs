@@ -10,7 +10,7 @@ namespace Ollama
         /// </summary>
         /// <param name="request"></param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
-        /// <exception cref="global::System.InvalidOperationException"></exception>
+        /// <exception cref="global::Ollama.ApiException"></exception>
         global::System.Collections.Generic.IAsyncEnumerable<global::Ollama.PushModelResponse> PushModelAsync(
             global::Ollama.PushModelRequest request,
             global::System.Threading.CancellationToken cancellationToken = default);

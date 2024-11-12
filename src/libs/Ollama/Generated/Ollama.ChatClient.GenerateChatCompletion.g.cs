@@ -22,7 +22,7 @@ namespace Ollama
         /// </summary>
         /// <param name="request"></param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
-        /// <exception cref="global::System.InvalidOperationException"></exception>
+        /// <exception cref="global::Ollama.ApiException"></exception>
         public async global::System.Collections.Generic.IAsyncEnumerable<global::Ollama.GenerateChatCompletionResponse> GenerateChatCompletionAsync(
             global::Ollama.GenerateChatCompletionRequest request,
             [global::System.Runtime.CompilerServices.EnumeratorCancellation] global::System.Threading.CancellationToken cancellationToken = default)
@@ -68,18 +68,34 @@ namespace Ollama
             ProcessGenerateChatCompletionResponse(
                 httpClient: HttpClient,
                 httpResponseMessage: __response);
-            __response.EnsureSuccessStatusCode();
-
-            using var stream = await __response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
-            using var reader = new global::System.IO.StreamReader(stream);
-
-            while (!reader.EndOfStream && !cancellationToken.IsCancellationRequested)
+            try
             {
-                var __content = await reader.ReadLineAsync().ConfigureAwait(false) ?? string.Empty;
-                var streamedResponse = global::Ollama.GenerateChatCompletionResponse.FromJson(__content, JsonSerializerContext) ??
+                __response.EnsureSuccessStatusCode();
+            }
+            catch (global::System.Net.Http.HttpRequestException __ex)
+            {
+                throw new global::Ollama.ApiException(
+                    message: __response.ReasonPhrase ?? string.Empty,
+                    innerException: __ex,
+                    statusCode: __response.StatusCode)
+                {
+                    ResponseHeaders = global::System.Linq.Enumerable.ToDictionary(
+                        __response.Headers,
+                        h => h.Key,
+                        h => h.Value),
+                };
+            }
+
+            using var __stream = await __response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
+            using var __reader = new global::System.IO.StreamReader(__stream);
+
+            while (!__reader.EndOfStream && !cancellationToken.IsCancellationRequested)
+            {
+                var __content = await __reader.ReadLineAsync().ConfigureAwait(false) ?? string.Empty;
+                var __streamedResponse = global::Ollama.GenerateChatCompletionResponse.FromJson(__content, JsonSerializerContext) ??
                                        throw new global::System.InvalidOperationException($"Response deserialization failed for \"{__content}\" ");
 
-                yield return streamedResponse;
+                yield return __streamedResponse;
             }
         }
 
