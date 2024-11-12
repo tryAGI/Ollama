@@ -215,91 +215,190 @@ namespace Ollama
         [global::System.Text.Json.Serialization.JsonExtensionData]
         public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
 
-
         /// <summary>
-        /// Serializes the current instance to a JSON string using the provided JsonSerializerContext.
+        /// Initializes a new instance of the <see cref="RequestOptions" /> class.
         /// </summary>
-        public string ToJson(
-            global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
+        /// <param name="numKeep">
+        /// Number of tokens to keep from the prompt.
+        /// </param>
+        /// <param name="seed">
+        /// Sets the random number seed to use for generation. Setting this to a specific number will make the model <br/>
+        /// generate the same text for the same prompt. (Default: 0)
+        /// </param>
+        /// <param name="numPredict">
+        /// Maximum number of tokens to predict when generating text. <br/>
+        /// (Default: 128, -1 = infinite generation, -2 = fill context)
+        /// </param>
+        /// <param name="topK">
+        /// Reduces the probability of generating nonsense. A higher value (e.g. 100) will give more diverse answers, <br/>
+        /// while a lower value (e.g. 10) will be more conservative. (Default: 40)
+        /// </param>
+        /// <param name="topP">
+        /// Works together with top_k. A higher value (e.g., 0.95) will lead to more diverse text, while a lower value <br/>
+        /// (e.g., 0.5) will generate more focused and conservative text. (Default: 0.9)
+        /// </param>
+        /// <param name="minP">
+        /// Alternative to the top_p, and aims to ensure a balance of quality and variety. min_p represents the minimum <br/>
+        /// probability for a token to be considered, relative to the probability of the most likely token. For <br/>
+        /// example, with min_p=0.05 and the most likely token having a probability of 0.9, logits with a value less <br/>
+        /// than 0.05*0.9=0.045 are filtered out. (Default: 0.0)
+        /// </param>
+        /// <param name="tfsZ">
+        /// Tail free sampling is used to reduce the impact of less probable tokens from the output. A higher value <br/>
+        /// (e.g., 2.0) will reduce the impact more, while a value of 1.0 disables this setting. (default: 1)
+        /// </param>
+        /// <param name="typicalP">
+        /// Typical p is used to reduce the impact of less probable tokens from the output. (default: 1)
+        /// </param>
+        /// <param name="repeatLastN">
+        /// Sets how far back for the model to look back to prevent repetition. <br/>
+        /// (Default: 64, 0 = disabled, -1 = num_ctx)
+        /// </param>
+        /// <param name="temperature">
+        /// The temperature of the model. Increasing the temperature will make the model answer more creatively. <br/>
+        /// (Default: 0.8)
+        /// </param>
+        /// <param name="repeatPenalty">
+        /// Sets how strongly to penalize repetitions. A higher value (e.g., 1.5) will penalize repetitions more <br/>
+        /// strongly, while a lower value (e.g., 0.9) will be more lenient. (Default: 1.1)
+        /// </param>
+        /// <param name="presencePenalty">
+        /// Positive values penalize new tokens based on whether they appear in the text so far, increasing the <br/>
+        /// model's likelihood to talk about new topics. (Default: 0)
+        /// </param>
+        /// <param name="frequencyPenalty">
+        /// Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the <br/>
+        /// model's likelihood to repeat the same line verbatim. (Default: 0)
+        /// </param>
+        /// <param name="mirostat">
+        /// Enable Mirostat sampling for controlling perplexity. <br/>
+        /// (default: 0, 0 = disabled, 1 = Mirostat, 2 = Mirostat 2.0)
+        /// </param>
+        /// <param name="mirostatTau">
+        /// Controls the balance between coherence and diversity of the output. A lower value will result in more <br/>
+        /// focused and coherent text. (Default: 5.0)
+        /// </param>
+        /// <param name="mirostatEta">
+        /// Influences how quickly the algorithm responds to feedback from the generated text. A lower learning rate <br/>
+        /// will result in slower adjustments, while a higher learning rate will make the algorithm more responsive. <br/>
+        /// (Default: 0.1)
+        /// </param>
+        /// <param name="penalizeNewline">
+        /// Penalize newlines in the output. (Default: true)
+        /// </param>
+        /// <param name="stop">
+        /// Sequences where the API will stop generating further tokens. The returned text will not contain the stop <br/>
+        /// sequence.
+        /// </param>
+        /// <param name="numa">
+        /// Enable NUMA support. (Default: false)
+        /// </param>
+        /// <param name="numCtx">
+        /// Sets the size of the context window used to generate the next token. (Default: 2048)
+        /// </param>
+        /// <param name="numBatch">
+        /// Sets the number of batches to use for generation. (Default: 512)
+        /// </param>
+        /// <param name="numGpu">
+        /// The number of layers to send to the GPU(s). <br/>
+        /// On macOS it defaults to 1 to enable metal support, 0 to disable.
+        /// </param>
+        /// <param name="mainGpu">
+        /// The GPU to use for the main model. Default is 0.
+        /// </param>
+        /// <param name="lowVram">
+        /// Enable low VRAM mode. (Default: false)
+        /// </param>
+        /// <param name="f16Kv">
+        /// Enable f16 key/value. (Default: true)
+        /// </param>
+        /// <param name="logitsAll">
+        /// Enable logits all. (Default: false)
+        /// </param>
+        /// <param name="vocabOnly">
+        /// Enable vocab only. (Default: false)
+        /// </param>
+        /// <param name="useMmap">
+        /// Enable mmap. (Default: false)
+        /// </param>
+        /// <param name="useMlock">
+        /// Enable mlock. (Default: false)
+        /// </param>
+        /// <param name="numThread">
+        /// Sets the number of threads to use during computation. By default, Ollama will detect this for optimal <br/>
+        /// performance. It is recommended to set this value to the number of physical CPU cores your system has <br/>
+        /// (as opposed to the logical number of cores).
+        /// </param>
+        [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+        public RequestOptions(
+            int? numKeep,
+            int? seed,
+            int? numPredict,
+            int? topK,
+            float? topP,
+            float? minP,
+            float? tfsZ,
+            float? typicalP,
+            int? repeatLastN,
+            float? temperature,
+            float? repeatPenalty,
+            float? presencePenalty,
+            float? frequencyPenalty,
+            int? mirostat,
+            float? mirostatTau,
+            float? mirostatEta,
+            bool? penalizeNewline,
+            global::System.Collections.Generic.IList<string>? stop,
+            bool? numa,
+            int? numCtx,
+            int? numBatch,
+            int? numGpu,
+            int? mainGpu,
+            bool? lowVram,
+            bool? f16Kv,
+            bool? logitsAll,
+            bool? vocabOnly,
+            bool? useMmap,
+            bool? useMlock,
+            int? numThread)
         {
-            return global::System.Text.Json.JsonSerializer.Serialize(
-                this,
-                this.GetType(),
-                jsonSerializerContext);
+            this.NumKeep = numKeep;
+            this.Seed = seed;
+            this.NumPredict = numPredict;
+            this.TopK = topK;
+            this.TopP = topP;
+            this.MinP = minP;
+            this.TfsZ = tfsZ;
+            this.TypicalP = typicalP;
+            this.RepeatLastN = repeatLastN;
+            this.Temperature = temperature;
+            this.RepeatPenalty = repeatPenalty;
+            this.PresencePenalty = presencePenalty;
+            this.FrequencyPenalty = frequencyPenalty;
+            this.Mirostat = mirostat;
+            this.MirostatTau = mirostatTau;
+            this.MirostatEta = mirostatEta;
+            this.PenalizeNewline = penalizeNewline;
+            this.Stop = stop;
+            this.Numa = numa;
+            this.NumCtx = numCtx;
+            this.NumBatch = numBatch;
+            this.NumGpu = numGpu;
+            this.MainGpu = mainGpu;
+            this.LowVram = lowVram;
+            this.F16Kv = f16Kv;
+            this.LogitsAll = logitsAll;
+            this.VocabOnly = vocabOnly;
+            this.UseMmap = useMmap;
+            this.UseMlock = useMlock;
+            this.NumThread = numThread;
         }
 
         /// <summary>
-        /// Serializes the current instance to a JSON string using the provided JsonSerializerOptions.
+        /// Initializes a new instance of the <see cref="RequestOptions" /> class.
         /// </summary>
-#if NET8_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
-        [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
-#endif
-        public string ToJson(
-            global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
+        public RequestOptions()
         {
-            return global::System.Text.Json.JsonSerializer.Serialize(
-                this,
-                jsonSerializerOptions);
         }
-
-        /// <summary>
-        /// Deserializes a JSON string using the provided JsonSerializerContext.
-        /// </summary>
-        public static global::Ollama.RequestOptions? FromJson(
-            string json,
-            global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
-        {
-            return global::System.Text.Json.JsonSerializer.Deserialize(
-                json,
-                typeof(global::Ollama.RequestOptions),
-                jsonSerializerContext) as global::Ollama.RequestOptions;
-        }
-
-        /// <summary>
-        /// Deserializes a JSON string using the provided JsonSerializerOptions.
-        /// </summary>
-#if NET8_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
-        [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
-#endif
-        public static global::Ollama.RequestOptions? FromJson(
-            string json,
-            global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
-        {
-            return global::System.Text.Json.JsonSerializer.Deserialize<global::Ollama.RequestOptions>(
-                json,
-                jsonSerializerOptions);
-        }
-
-        /// <summary>
-        /// Deserializes a JSON stream using the provided JsonSerializerContext.
-        /// </summary>
-        public static async global::System.Threading.Tasks.ValueTask<global::Ollama.RequestOptions?> FromJsonStream(
-            global::System.IO.Stream jsonStream,
-            global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
-        {
-            return (await global::System.Text.Json.JsonSerializer.DeserializeAsync(
-                jsonStream,
-                typeof(global::Ollama.RequestOptions),
-                jsonSerializerContext).ConfigureAwait(false)) as global::Ollama.RequestOptions;
-        }
-
-        /// <summary>
-        /// Deserializes a JSON stream using the provided JsonSerializerOptions.
-        /// </summary>
-#if NET8_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
-        [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
-#endif
-        public static global::System.Threading.Tasks.ValueTask<global::Ollama.RequestOptions?> FromJsonStream(
-            global::System.IO.Stream jsonStream,
-            global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
-        {
-            return global::System.Text.Json.JsonSerializer.DeserializeAsync<global::Ollama.RequestOptions?>(
-                jsonStream,
-                jsonSerializerOptions);
-        }
-
     }
 }

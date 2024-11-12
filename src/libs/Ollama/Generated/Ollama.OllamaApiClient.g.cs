@@ -26,6 +26,11 @@ namespace Ollama
         /// <inheritdoc/>
         public global::System.Collections.Generic.List<global::Ollama.EndPointAuthorization> Authorizations { get; }
 
+        /// <inheritdoc/>
+        public bool ReadResponseAsString { get; set; }
+#if DEBUG
+            = true;
+#endif
         /// <summary>
         /// 
         /// </summary>
@@ -37,6 +42,7 @@ namespace Ollama
         /// </summary>
         public CompletionsClient Completions => new CompletionsClient(HttpClient, authorizations: Authorizations)
         {
+            ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
         };
 
@@ -45,6 +51,7 @@ namespace Ollama
         /// </summary>
         public ChatClient Chat => new ChatClient(HttpClient, authorizations: Authorizations)
         {
+            ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
         };
 
@@ -53,6 +60,7 @@ namespace Ollama
         /// </summary>
         public EmbeddingsClient Embeddings => new EmbeddingsClient(HttpClient, authorizations: Authorizations)
         {
+            ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
         };
 
@@ -61,6 +69,7 @@ namespace Ollama
         /// </summary>
         public ModelsClient Models => new ModelsClient(HttpClient, authorizations: Authorizations)
         {
+            ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
         };
 

@@ -9,7 +9,7 @@ namespace Ollama
         /// This endpoint returns the version of the Ollama server.
         /// </summary>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
-        /// <exception cref="global::System.InvalidOperationException"></exception>
+        /// <exception cref="global::Ollama.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::Ollama.VersionResponse> GetVersionAsync(
             global::System.Threading.CancellationToken cancellationToken = default);
     }
