@@ -14,7 +14,7 @@ namespace Ollama
         /// Status pushing the model.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("status")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Ollama.JsonConverters.AnyOfJsonConverterFactory2))]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Ollama.JsonConverters.AnyOfJsonConverter<string, global::Ollama.PushModelResponseStatus?>))]
         public global::Ollama.AnyOf<string, global::Ollama.PushModelResponseStatus?>? Status { get; set; }
 
         /// <summary>

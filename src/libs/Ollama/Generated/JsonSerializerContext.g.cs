@@ -30,7 +30,7 @@ namespace Ollama
             typeof(global::Ollama.JsonConverters.DoneReasonJsonConverter),
             typeof(global::Ollama.JsonConverters.CreateModelStatusJsonConverter),
             typeof(global::Ollama.JsonConverters.PullModelStatusJsonConverter),
-            typeof(global::Ollama.JsonConverters.AnyOfJsonConverterFactory2),
+            typeof(global::Ollama.JsonConverters.AnyOfJsonConverter<string, global::Ollama.PushModelResponseStatus?>),
         })]
 
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.JsonSerializerContextTypes))]
