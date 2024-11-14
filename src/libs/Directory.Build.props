@@ -1,7 +1,5 @@
 <Project>
 
-  <Sdk Name="ViHo.PackAsAnalyzer" Version="1.0.1" />
-
   <Import Project="..\Directory.Build.props" />
 
   <PropertyGroup Label="Signing">
