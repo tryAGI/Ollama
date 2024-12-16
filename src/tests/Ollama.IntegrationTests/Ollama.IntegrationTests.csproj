@@ -14,7 +14,7 @@
     <PackageReference Include="MSTest.TestAdapter" Version="3.6.4" />
     <PackageReference Include="MSTest.TestFramework" Version="3.6.4" />
     <PackageReference Include="FluentAssertions" Version="7.0.0" />
-    <PackageReference Include="Testcontainers" Version="4.0.0" />
+    <PackageReference Include="Testcontainers" Version="4.1.0" />
   </ItemGroup>
 
   <ItemGroup Label="GlobalUsings">
