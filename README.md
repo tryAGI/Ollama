@@ -70,7 +70,7 @@ var chat = ollama.Chat(
     autoCallTools: true);
 
 var service = new WeatherService();
-chat.AddToolService(service.AsTools(), service.AsCalls());
+chat.AddToolService(service.AsTools().AsOllamaTools(), service.AsCalls());
 
 try
 {
