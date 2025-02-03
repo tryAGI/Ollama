@@ -41,6 +41,25 @@ openApiDocument.Components.Schemas["PushModelResponse"]!.Properties["status"] = 
     },
 };
 
+var currentResponseFormat = openApiDocument.Components.Schemas["ResponseFormat"]!;
+openApiDocument.Components.Schemas["ResponseFormat"]!.OneOf = new List<OpenApiSchema>
+{
+    new()
+    {
+        Type = currentResponseFormat.Type,
+        Enum = currentResponseFormat.Enum,
+        Description = "Enable JSON mode by setting the format parameter to 'json'. This will structure the response as valid JSON.",
+    },
+    new()
+    {
+        Type = "object",
+        Description = "A JSON Schema object that defines the structure of the response. The model will generate a response that matches this schema.",
+    },
+};
+openApiDocument.Components.Schemas["ResponseFormat"].Enum = null;
+openApiDocument.Components.Schemas["ResponseFormat"].Type = null;
+openApiDocument.Components.Schemas["ResponseFormat"].Description = null;
+
 text = openApiDocument.SerializeAsYaml(OpenApiSpecVersion.OpenApi3_0);
 _ = new OpenApiStringReader().Read(text, out diagnostics);
 

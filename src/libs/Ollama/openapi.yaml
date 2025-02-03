@@ -439,12 +439,12 @@ components:
       description: Additional model parameters listed in the documentation for the Modelfile such as `temperature`.
     ResponseFormat:
       oneOf:
-        - type: string
-          enum: ['json']
-          description: "Enable JSON mode by setting the format parameter to 'json'. This will structure the response as valid JSON."
+        - enum:
+            - json
+          type: string
+          description: Enable JSON mode by setting the format parameter to 'json'. This will structure the response as valid JSON.
         - type: object
-          description: "A JSON Schema object that defines the structure of the response. The model will generate a response that matches this schema."
-          additionalProperties: true
+          description: A JSON Schema object that defines the structure of the response. The model will generate a response that matches this schema.
     VersionResponse:
       type: object
       properties:
