@@ -1,9 +1,10 @@
 #nullable enable
+#pragma warning disable CS0618 // Type or member is obsolete
 
 namespace Ollama.JsonConverters
 {
     /// <inheritdoc />
-    public sealed class ResponseFormatJsonConverter : global::System.Text.Json.Serialization.JsonConverter<global::Ollama.ResponseFormat>
+    public class ResponseFormatJsonConverter : global::System.Text.Json.Serialization.JsonConverter<global::Ollama.ResponseFormat>
     {
         /// <inheritdoc />
         public override global::Ollama.ResponseFormat Read(
@@ -11,28 +12,53 @@ namespace Ollama.JsonConverters
             global::System.Type typeToConvert,
             global::System.Text.Json.JsonSerializerOptions options)
         {
-            switch (reader.TokenType)
+            options = options ?? throw new global::System.ArgumentNullException(nameof(options));
+            var typeInfoResolver = options.TypeInfoResolver ?? throw new global::System.InvalidOperationException("TypeInfoResolver is not set.");
+
+            var
+            readerCopy = reader;
+            global::Ollama.ResponseFormatEnum? value1 = default;
+            try
             {
-                case global::System.Text.Json.JsonTokenType.String:
-                {
-                    var stringValue = reader.GetString();
-                    if (stringValue != null)
-                    {
-                        return global::Ollama.ResponseFormatExtensions.ToEnum(stringValue) ?? default;
-                    }
-                    
-                    break;
-                }
-                case global::System.Text.Json.JsonTokenType.Number:
-                {
-                    var numValue = reader.GetInt32();
-                    return (global::Ollama.ResponseFormat)numValue;
-                }
-                default:
-                    throw new global::System.ArgumentOutOfRangeException(nameof(reader));
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Ollama.ResponseFormatEnum), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Ollama.ResponseFormatEnum> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Ollama.ResponseFormatEnum).Name}");
+                value1 = global::System.Text.Json.JsonSerializer.Deserialize(ref readerCopy, typeInfo);
+            }
+            catch (global::System.Text.Json.JsonException)
+            {
             }
 
-            return default;
+            readerCopy = reader;
+            object? value2 = default;
+            try
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(object), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<object> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(object).Name}");
+                value2 = global::System.Text.Json.JsonSerializer.Deserialize(ref readerCopy, typeInfo);
+            }
+            catch (global::System.Text.Json.JsonException)
+            {
+            }
+
+            var result = new global::Ollama.ResponseFormat(
+                value1,
+                value2
+                );
+
+            if (value1 != null)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Ollama.ResponseFormatEnum), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Ollama.ResponseFormatEnum> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Ollama.ResponseFormatEnum).Name}");
+                _ = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
+            else if (value2 != null)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(object), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<object> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(object).Name}");
+                _ = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
+
+            return result;
         }
 
         /// <inheritdoc />
@@ -41,9 +67,21 @@ namespace Ollama.JsonConverters
             global::Ollama.ResponseFormat value,
             global::System.Text.Json.JsonSerializerOptions options)
         {
-            writer = writer ?? throw new global::System.ArgumentNullException(nameof(writer));
+            options = options ?? throw new global::System.ArgumentNullException(nameof(options));
+            var typeInfoResolver = options.TypeInfoResolver ?? throw new global::System.InvalidOperationException("TypeInfoResolver is not set.");
 
-            writer.WriteStringValue(global::Ollama.ResponseFormatExtensions.ToValueString(value));
+            if (value.IsValue1)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Ollama.ResponseFormatEnum), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Ollama.ResponseFormatEnum> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Ollama.ResponseFormatEnum).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Value1, typeInfo);
+            }
+            else if (value.IsValue2)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(object), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<object?> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(object).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Value2, typeInfo);
+            }
         }
     }
 }

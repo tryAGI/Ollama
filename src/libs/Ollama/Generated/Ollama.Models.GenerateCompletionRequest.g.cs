@@ -64,9 +64,7 @@ namespace Ollama
         public global::Ollama.RequestOptions? Options { get; set; }
 
         /// <summary>
-        /// The format to return a response in. Currently the only accepted value is json.<br/>
-        /// Enable JSON mode by setting the format parameter to json. This will structure the response as valid JSON.<br/>
-        /// Note: it's important to instruct the model to use JSON in the prompt. Otherwise, the model may generate large amounts whitespace.
+        /// 
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("format")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Ollama.JsonConverters.ResponseFormatJsonConverter))]
@@ -132,11 +130,7 @@ namespace Ollama
         /// <param name="options">
         /// Additional model parameters listed in the documentation for the Modelfile such as `temperature`.
         /// </param>
-        /// <param name="format">
-        /// The format to return a response in. Currently the only accepted value is json.<br/>
-        /// Enable JSON mode by setting the format parameter to json. This will structure the response as valid JSON.<br/>
-        /// Note: it's important to instruct the model to use JSON in the prompt. Otherwise, the model may generate large amounts whitespace.
-        /// </param>
+        /// <param name="format"></param>
         /// <param name="raw">
         /// If `true` no formatting will be applied to the prompt and no context will be returned. <br/>
         /// You may choose to use the `raw` parameter if you are specifying a full templated prompt in your request to the API, and are managing history yourself.
