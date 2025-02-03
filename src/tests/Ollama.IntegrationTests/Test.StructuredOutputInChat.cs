@@ -66,6 +66,6 @@ public partial class Tests
 
         public int Temperature { get; set; }
         public TemperatureUnit Unit { get; set; }
-        public string Location { get; set; }
+        public string Location { get; set; } = string.Empty;
     }
 }
