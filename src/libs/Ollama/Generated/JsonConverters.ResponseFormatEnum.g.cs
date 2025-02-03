@@ -3,10 +3,10 @@
 namespace Ollama.JsonConverters
 {
     /// <inheritdoc />
-    public sealed class ResponseFormatNullableJsonConverter : global::System.Text.Json.Serialization.JsonConverter<global::Ollama.ResponseFormat?>
+    public sealed class ResponseFormatEnumJsonConverter : global::System.Text.Json.Serialization.JsonConverter<global::Ollama.ResponseFormatEnum>
     {
         /// <inheritdoc />
-        public override global::Ollama.ResponseFormat? Read(
+        public override global::Ollama.ResponseFormatEnum Read(
             ref global::System.Text.Json.Utf8JsonReader reader,
             global::System.Type typeToConvert,
             global::System.Text.Json.JsonSerializerOptions options)
@@ -18,7 +18,7 @@ namespace Ollama.JsonConverters
                     var stringValue = reader.GetString();
                     if (stringValue != null)
                     {
-                        return global::Ollama.ResponseFormatExtensions.ToEnum(stringValue);
+                        return global::Ollama.ResponseFormatEnumExtensions.ToEnum(stringValue) ?? default;
                     }
                     
                     break;
@@ -26,7 +26,7 @@ namespace Ollama.JsonConverters
                 case global::System.Text.Json.JsonTokenType.Number:
                 {
                     var numValue = reader.GetInt32();
-                    return (global::Ollama.ResponseFormat)numValue;
+                    return (global::Ollama.ResponseFormatEnum)numValue;
                 }
                 default:
                     throw new global::System.ArgumentOutOfRangeException(nameof(reader));
@@ -38,19 +38,12 @@ namespace Ollama.JsonConverters
         /// <inheritdoc />
         public override void Write(
             global::System.Text.Json.Utf8JsonWriter writer,
-            global::Ollama.ResponseFormat? value,
+            global::Ollama.ResponseFormatEnum value,
             global::System.Text.Json.JsonSerializerOptions options)
         {
             writer = writer ?? throw new global::System.ArgumentNullException(nameof(writer));
 
-            if (value == null)
-            {
-                writer.WriteNullValue();
-            }
-            else
-            {
-                writer.WriteStringValue(global::Ollama.ResponseFormatExtensions.ToValueString(value.Value));
-            }
+            writer.WriteStringValue(global::Ollama.ResponseFormatEnumExtensions.ToValueString(value));
         }
     }
 }
