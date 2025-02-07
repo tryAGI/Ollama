@@ -73,7 +73,9 @@ namespace Ollama
         /// <param name="details">
         /// Details about a model.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public Model(
             string? model1,
             global::System.DateTime? modifiedAt,

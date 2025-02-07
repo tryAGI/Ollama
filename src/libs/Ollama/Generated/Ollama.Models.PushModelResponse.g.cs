@@ -65,7 +65,9 @@ namespace Ollama
         /// Total bytes transferred.<br/>
         /// Example: 2142590208L
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public PushModelResponse(
             global::Ollama.AnyOf<string, global::Ollama.PushModelResponseStatus?>? status,
             string? digest,

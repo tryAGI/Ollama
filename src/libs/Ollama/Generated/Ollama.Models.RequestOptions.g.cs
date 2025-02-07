@@ -329,7 +329,9 @@ namespace Ollama
         /// performance. It is recommended to set this value to the number of physical CPU cores your system has <br/>
         /// (as opposed to the logical number of cores).
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public RequestOptions(
             int? numKeep,
             int? seed,

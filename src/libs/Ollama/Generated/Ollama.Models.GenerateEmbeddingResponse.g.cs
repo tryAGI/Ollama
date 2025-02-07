@@ -29,7 +29,9 @@ namespace Ollama
         /// The embedding for the prompt.<br/>
         /// Example: [0.5670403838157654, 0.009260174818336964, ...]
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public GenerateEmbeddingResponse(
             global::System.Collections.Generic.IList<double>? embedding)
         {

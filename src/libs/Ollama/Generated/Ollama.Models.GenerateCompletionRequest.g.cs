@@ -146,7 +146,9 @@ namespace Ollama
         /// - If set to 0, the model will be unloaded immediately once finished.<br/>
         /// - If not set, the model will stay loaded for 5 minutes by default
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public GenerateCompletionRequest(
             string model,
             string prompt,
