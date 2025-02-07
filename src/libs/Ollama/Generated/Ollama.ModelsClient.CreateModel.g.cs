@@ -90,7 +90,11 @@ namespace Ollama
                 };
             }
 
-            using var __stream = await __response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
+            using var __stream = await __response.Content.ReadAsStreamAsync(
+#if NET5_0_OR_GREATER
+                cancellationToken
+#endif
+            ).ConfigureAwait(false);
             using var __reader = new global::System.IO.StreamReader(__stream);
 
             while (!__reader.EndOfStream && !cancellationToken.IsCancellationRequested)

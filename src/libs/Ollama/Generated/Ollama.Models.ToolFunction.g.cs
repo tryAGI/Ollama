@@ -47,7 +47,9 @@ namespace Ollama
         /// <param name="parameters">
         /// The parameters the functions accepts, described as a JSON Schema object.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public ToolFunction(
             string name,
             string description,

@@ -26,7 +26,9 @@ namespace Ollama
         /// <param name="version">
         /// The version of the Ollama server.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public VersionResponse(
             string? version)
         {

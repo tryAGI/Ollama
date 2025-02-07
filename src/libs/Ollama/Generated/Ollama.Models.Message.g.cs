@@ -59,7 +59,9 @@ namespace Ollama
         /// <param name="toolCalls">
         /// A list of tools the model wants to call.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public Message(
             global::Ollama.MessageRole role,
             string content,

@@ -37,7 +37,9 @@ namespace Ollama
         /// <param name="arguments">
         /// The arguments to pass to the function.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public ToolCallFunction(
             string name,
             object arguments)

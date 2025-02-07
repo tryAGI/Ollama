@@ -71,7 +71,9 @@ namespace Ollama
         /// <param name="quantizationLevel">
         /// The quantization level of the model.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public ModelDetails(
             string? parentModel,
             string? format,

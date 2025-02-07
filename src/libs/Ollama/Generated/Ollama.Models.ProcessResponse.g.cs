@@ -26,7 +26,9 @@ namespace Ollama
         /// <param name="models">
         /// List of running models.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public ProcessResponse(
             global::System.Collections.Generic.IList<global::Ollama.ProcessModel>? models)
         {
