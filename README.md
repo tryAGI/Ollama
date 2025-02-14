@@ -19,6 +19,8 @@
 
 ```csharp
 using var ollama = new OllamaApiClient();
+// or if you have a custom server
+// using var ollama = new OllamaApiClient(baseUri: new Uri("http://10.10.5.85:11434/api")
 
 var models = await ollama.Models.ListModelsAsync();
 
