@@ -9,6 +9,8 @@ on:
       - 'examples/**'
       - 'src/helpers/GenerateDocs/**'
       - '.github/workflows/mkdocs.yml'
+      - 'src/tests/IntegrationTests/**'
+      - 'README.md'
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
