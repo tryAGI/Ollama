@@ -23,7 +23,7 @@ public class Chat
 	/// <summary>
 	/// 
 	/// </summary>
-	public OllamaApiClient Client { get; }
+	public IOllamaApiClient Client { get; }
 	
 	/// <inheritdoc cref="GenerateChatCompletionRequest.Model"/>
 	public string Model { get; set; }
@@ -65,7 +65,7 @@ public class Chat
 	/// </param>
 	/// <exception cref="ArgumentNullException"></exception>
 	public Chat(
-		OllamaApiClient client,
+		IOllamaApiClient client,
 		string model,
 		string? systemMessage = null,
 		ResponseFormat? format = default,
