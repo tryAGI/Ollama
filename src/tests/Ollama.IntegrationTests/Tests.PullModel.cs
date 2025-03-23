@@ -5,7 +5,7 @@ public partial class Tests
     [TestMethod]
     public async Task PullModel()
     {
-        await using var container = await Environment.PrepareAsync(EnvironmentType.Container);
+        await using var container = await Environment.PrepareAsync(environmentType: EnvironmentType.Container);
         
         await foreach (var response in container.ApiClient.Models.PullModelAsync("all-minilm"))
         {
