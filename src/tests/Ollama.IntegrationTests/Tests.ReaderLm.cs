@@ -5,11 +5,7 @@ public partial class Tests
     [TestMethod]
     public async Task ReaderLm()
     {
-#if DEBUG
-        await using var container = await Environment.PrepareAsync(EnvironmentType.Local, "reader-lm:latest");
-#else
-        await using var container = await Environment.PrepareAsync(EnvironmentType.Container, "reader-lm:latest");
-#endif
+        await using var container = await Environment.PrepareAsync("reader-lm:latest");
 
         var enumerable = container.ApiClient.Completions.GenerateCompletionAsync(
             "reader-lm:latest", 

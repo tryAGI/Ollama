@@ -5,11 +5,7 @@ public partial class Tests
     [TestMethod]
     public async Task ToolsInChat()
     {
-#if DEBUG
-        await using var container = await Environment.PrepareAsync(EnvironmentType.Local, "llama3.2");
-#else
-        await using var container = await Environment.PrepareAsync(EnvironmentType.Container, "llama3.2");
-#endif
+        await using var container = await Environment.PrepareAsync("llama3.2");
         
         var chat = container.ApiClient.Chat(
             model: "llama3.2",

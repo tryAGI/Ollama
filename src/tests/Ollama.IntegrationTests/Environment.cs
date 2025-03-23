@@ -5,7 +5,7 @@ namespace Ollama.IntegrationTests;
 
 public sealed class Environment : IAsyncDisposable
 {
-    public required EnvironmentType Type { get; init; }
+    public required EnvironmentType? Type { get; init; }
     public IContainer? Container { get; init; }
     public required OllamaApiClient ApiClient { get; init; }
 
@@ -18,8 +18,9 @@ public sealed class Environment : IAsyncDisposable
         }
     }
     
-    public static async Task<Environment> PrepareAsync(EnvironmentType environmentType, string model = "")
+    public static async Task<Environment> PrepareAsync(string model = "", EnvironmentType? environmentType = null)
     {
+        environmentType ??= InferEnvironment();
         switch (environmentType)
         {
             case EnvironmentType.Local:
@@ -71,6 +72,15 @@ public sealed class Environment : IAsyncDisposable
                 throw new ArgumentOutOfRangeException(nameof(environmentType), environmentType, null);
         }
     }
+    private static EnvironmentType InferEnvironment()
+    {
+#if DEBUG
+        return EnvironmentType.Local;
+#else
+        return EnvironmentType.Container;
+#endif
+    }
+
 }
 
 public enum EnvironmentType
