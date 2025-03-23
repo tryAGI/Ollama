@@ -20,7 +20,7 @@ public static class OllamaApiClientExtensions
 	/// the Ollama endpoint while maintaining the message history.
 	/// </returns>
 	public static Chat Chat(
-		this OllamaApiClient client,
+		this IOllamaApiClient client,
 		string model,
 		string? systemMessage = null,
 		bool autoCallTools = true)
