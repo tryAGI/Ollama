@@ -29,7 +29,7 @@ namespace Ollama
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator DoneReason(string value) => new DoneReason(value);
+        public static implicit operator DoneReason(string value) => new DoneReason((string?)value);
 
         /// <summary>
         /// 
@@ -64,7 +64,7 @@ namespace Ollama
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator DoneReason(global::Ollama.DoneReasonEnum value) => new DoneReason(value);
+        public static implicit operator DoneReason(global::Ollama.DoneReasonEnum value) => new DoneReason((global::Ollama.DoneReasonEnum?)value);
 
         /// <summary>
         /// 

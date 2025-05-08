@@ -28,7 +28,7 @@ namespace Ollama
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator AnyOf<T1, T2>(T1 value) => new AnyOf<T1, T2>(value);
+        public static implicit operator AnyOf<T1, T2>(T1 value) => new AnyOf<T1, T2>((T1?)value);
 
         /// <summary>
         /// 
@@ -63,7 +63,7 @@ namespace Ollama
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator AnyOf<T1, T2>(T2 value) => new AnyOf<T1, T2>(value);
+        public static implicit operator AnyOf<T1, T2>(T2 value) => new AnyOf<T1, T2>((T2?)value);
 
         /// <summary>
         /// 

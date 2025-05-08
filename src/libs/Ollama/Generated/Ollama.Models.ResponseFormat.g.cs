@@ -29,7 +29,7 @@ namespace Ollama
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator ResponseFormat(global::Ollama.ResponseFormatEnum value) => new ResponseFormat(value);
+        public static implicit operator ResponseFormat(global::Ollama.ResponseFormatEnum value) => new ResponseFormat((global::Ollama.ResponseFormatEnum?)value);
 
         /// <summary>
         /// 

@@ -30,7 +30,7 @@ namespace Ollama
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator PullModelStatus(string value) => new PullModelStatus(value);
+        public static implicit operator PullModelStatus(string value) => new PullModelStatus((string?)value);
 
         /// <summary>
         /// 
@@ -65,7 +65,7 @@ namespace Ollama
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator PullModelStatus(global::Ollama.PullModelStatusEnum value) => new PullModelStatus(value);
+        public static implicit operator PullModelStatus(global::Ollama.PullModelStatusEnum value) => new PullModelStatus((global::Ollama.PullModelStatusEnum?)value);
 
         /// <summary>
         /// 

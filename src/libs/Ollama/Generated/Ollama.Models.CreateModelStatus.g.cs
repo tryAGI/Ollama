@@ -29,7 +29,7 @@ namespace Ollama
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator CreateModelStatus(string value) => new CreateModelStatus(value);
+        public static implicit operator CreateModelStatus(string value) => new CreateModelStatus((string?)value);
 
         /// <summary>
         /// 
@@ -64,7 +64,7 @@ namespace Ollama
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator CreateModelStatus(global::Ollama.CreateModelStatusEnum value) => new CreateModelStatus(value);
+        public static implicit operator CreateModelStatus(global::Ollama.CreateModelStatusEnum value) => new CreateModelStatus((global::Ollama.CreateModelStatusEnum?)value);
 
         /// <summary>
         /// 
