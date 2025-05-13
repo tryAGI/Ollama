@@ -28,6 +28,10 @@ namespace Ollama.JsonConverters
                     var numValue = reader.GetInt32();
                     return (global::Ollama.PullModelStatusEnum)numValue;
                 }
+                case global::System.Text.Json.JsonTokenType.Null:
+                {
+                    return default(global::Ollama.PullModelStatusEnum?);
+                }
                 default:
                     throw new global::System.ArgumentOutOfRangeException(nameof(reader));
             }
