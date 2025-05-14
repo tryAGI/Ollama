@@ -25,7 +25,7 @@ using var ollama = new OllamaApiClient();
 var models = await ollama.Models.ListModelsAsync();
 
 // Pulling a model and reporting progress
-await foreach (var response in ollama.PullModelAsync("all-minilm", stream: true))
+await foreach (var response in ollama.Models.PullModelAsync("all-minilm", stream: true))
 {
     Console.WriteLine($"{response.Status}. Progress: {response.Completed}/{response.Total}");
 }
@@ -59,7 +59,7 @@ while (true)
     Console.WriteLine(message.Content);
     
     var newMessage = Console.ReadLine();
-    await chat.Send(newMessage);
+    await chat.SendAsync(newMessage);
 }
 ```
 
