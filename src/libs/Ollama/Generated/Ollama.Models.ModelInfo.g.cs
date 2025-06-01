@@ -53,16 +53,40 @@ namespace Ollama
         public global::Ollama.ModelDetails? Details { get; set; }
 
         /// <summary>
+        /// The default messages for the model.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("messages")]
+        public global::System.Collections.Generic.IList<global::Ollama.Message>? Messages { get; set; }
+
+        /// <summary>
         /// Details about a model.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("model_info")]
         public global::Ollama.ModelInformation? ModelInfo1 { get; set; }
 
         /// <summary>
-        /// The default messages for the model.
+        /// Projector info.
         /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("messages")]
-        public global::System.Collections.Generic.IList<global::Ollama.Message>? Messages { get; set; }
+        [global::System.Text.Json.Serialization.JsonPropertyName("projector_info")]
+        public object? ProjectorInfo { get; set; }
+
+        /// <summary>
+        /// The tensors of the model.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("tensors")]
+        public global::System.Collections.Generic.IList<global::Ollama.Tensor>? Tensors { get; set; }
+
+        /// <summary>
+        /// The capabilities of the model.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("capabilities")]
+        public global::System.Collections.Generic.IList<global::Ollama.Capability>? Capabilities { get; set; }
+
+        /// <summary>
+        /// Date on which a model was created.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("modified_at")]
+        public global::System.DateTime? ModifiedAt { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -95,11 +119,23 @@ namespace Ollama
         /// <param name="details">
         /// Details about a model.
         /// </param>
+        /// <param name="messages">
+        /// The default messages for the model.
+        /// </param>
         /// <param name="modelInfo1">
         /// Details about a model.
         /// </param>
-        /// <param name="messages">
-        /// The default messages for the model.
+        /// <param name="projectorInfo">
+        /// Projector info.
+        /// </param>
+        /// <param name="tensors">
+        /// The tensors of the model.
+        /// </param>
+        /// <param name="capabilities">
+        /// The capabilities of the model.
+        /// </param>
+        /// <param name="modifiedAt">
+        /// Date on which a model was created.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -111,8 +147,12 @@ namespace Ollama
             string? template,
             string? system,
             global::Ollama.ModelDetails? details,
+            global::System.Collections.Generic.IList<global::Ollama.Message>? messages,
             global::Ollama.ModelInformation? modelInfo1,
-            global::System.Collections.Generic.IList<global::Ollama.Message>? messages)
+            object? projectorInfo,
+            global::System.Collections.Generic.IList<global::Ollama.Tensor>? tensors,
+            global::System.Collections.Generic.IList<global::Ollama.Capability>? capabilities,
+            global::System.DateTime? modifiedAt)
         {
             this.License = license;
             this.Modelfile = modelfile;
@@ -120,8 +160,12 @@ namespace Ollama
             this.Template = template;
             this.System = system;
             this.Details = details;
-            this.ModelInfo1 = modelInfo1;
             this.Messages = messages;
+            this.ModelInfo1 = modelInfo1;
+            this.ProjectorInfo = projectorInfo;
+            this.Tensors = tensors;
+            this.Capabilities = capabilities;
+            this.ModifiedAt = modifiedAt;
         }
 
         /// <summary>

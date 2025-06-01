@@ -194,66 +194,82 @@ namespace Ollama
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.ProcessResponse? Type42 { get; set; }
+        public global::Ollama.Tensor? Type42 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Ollama.ProcessModel>? Type43 { get; set; }
+        public global::Ollama.Capability? Type43 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.ProcessModel? Type44 { get; set; }
+        public global::Ollama.ProcessResponse? Type44 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.ModelInfoRequest? Type45 { get; set; }
+        public global::System.Collections.Generic.IList<global::Ollama.ProcessModel>? Type45 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.ModelInfo? Type46 { get; set; }
+        public global::Ollama.ProcessModel? Type46 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.CopyModelRequest? Type47 { get; set; }
+        public global::Ollama.ModelInfoRequest? Type47 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.DeleteModelRequest? Type48 { get; set; }
+        public global::Ollama.ModelInfo? Type48 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.PullModelRequest? Type49 { get; set; }
+        public global::System.Collections.Generic.IList<global::Ollama.Tensor>? Type49 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.PullModelResponse? Type50 { get; set; }
+        public global::System.Collections.Generic.IList<global::Ollama.Capability>? Type50 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.PullModelStatus? Type51 { get; set; }
+        public global::Ollama.CopyModelRequest? Type51 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.PullModelStatusEnum? Type52 { get; set; }
+        public global::Ollama.DeleteModelRequest? Type52 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.PushModelRequest? Type53 { get; set; }
+        public global::Ollama.PullModelRequest? Type53 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.PushModelResponse? Type54 { get; set; }
+        public global::Ollama.PullModelResponse? Type54 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.AnyOf<string, global::Ollama.PushModelResponseStatus?>? Type55 { get; set; }
+        public global::Ollama.PullModelStatus? Type55 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.PushModelResponseStatus? Type56 { get; set; }
+        public global::Ollama.PullModelStatusEnum? Type56 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public byte[]? Type57 { get; set; }
+        public global::Ollama.PushModelRequest? Type57 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Ollama.PushModelResponse? Type58 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Ollama.AnyOf<string, global::Ollama.PushModelResponseStatus?>? Type59 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Ollama.PushModelResponseStatus? Type60 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public byte[]? Type61 { get; set; }
     }
 }
