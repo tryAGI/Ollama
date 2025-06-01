@@ -23,6 +23,8 @@ namespace Ollama
             typeof(global::Ollama.JsonConverters.DoneReasonEnumNullableJsonConverter),
             typeof(global::Ollama.JsonConverters.CreateModelStatusEnumJsonConverter),
             typeof(global::Ollama.JsonConverters.CreateModelStatusEnumNullableJsonConverter),
+            typeof(global::Ollama.JsonConverters.CapabilityJsonConverter),
+            typeof(global::Ollama.JsonConverters.CapabilityNullableJsonConverter),
             typeof(global::Ollama.JsonConverters.PullModelStatusEnumJsonConverter),
             typeof(global::Ollama.JsonConverters.PullModelStatusEnumNullableJsonConverter),
             typeof(global::Ollama.JsonConverters.PushModelResponseStatusJsonConverter),

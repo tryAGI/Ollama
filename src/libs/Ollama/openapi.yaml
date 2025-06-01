@@ -843,6 +843,32 @@ components:
           description: The number of parameters in the model.
           nullable: true
       description: Details about a model.
+    Tensor:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the tensor.
+        type:
+          type: string
+          description: The type of the tensor.
+        shape:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: The shape of the tensor.
+      description: Metadata for a given tensor.
+    Capability:
+      enum:
+        - completion
+        - tools
+        - insert
+        - vision
+        - embedding
+        - thinking
+      type: string
+      description: Capability of a model.
     ProcessResponse:
       type: object
       properties:
@@ -919,14 +945,34 @@ components:
           nullable: true
         details:
           $ref: '#/components/schemas/ModelDetails'
-        model_info:
-          $ref: '#/components/schemas/ModelInformation'
         messages:
           type: array
           items:
             $ref: '#/components/schemas/Message'
           description: The default messages for the model.
           nullable: true
+        model_info:
+          $ref: '#/components/schemas/ModelInformation'
+        projector_info:
+          type: object
+          description: Projector info.
+        tensors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tensor'
+          description: The tensors of the model.
+          nullable: true
+        capabilities:
+          type: array
+          items:
+            $ref: '#/components/schemas/Capability'
+          description: The capabilities of the model.
+          nullable: true
+        modified_at:
+          type: string
+          description: Date on which a model was created.
+          format: date-time
+          example: '2023-08-04T19:22:45.4991270+00:00'
       description: 'Details about a model including modelfile, template, parameters, license, and system prompt.'
     CopyModelRequest:
       required:
