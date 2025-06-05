@@ -33,7 +33,7 @@ namespace Ollama
                 httpClient: HttpClient,
                 digest: ref digest);
 
-            var __pathBuilder = new PathBuilder(
+            var __pathBuilder = new global::Ollama.PathBuilder(
                 path: $"/blobs/{digest}",
                 baseUri: HttpClient.BaseAddress); 
             var __path = __pathBuilder.ToString();
