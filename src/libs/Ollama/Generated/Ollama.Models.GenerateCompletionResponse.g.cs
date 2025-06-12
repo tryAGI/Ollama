@@ -32,6 +32,12 @@ namespace Ollama
         public string? Response { get; set; }
 
         /// <summary>
+        /// Contains the text that was inside thinking tags in the original model output when `think` is enabled.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("thinking")]
+        public string? Thinking { get; set; }
+
+        /// <summary>
         /// Whether the response has completed.<br/>
         /// Example: true
         /// </summary>
@@ -116,6 +122,9 @@ namespace Ollama
         /// The response for a given prompt with a provided model.<br/>
         /// Example: The sky appears blue because of a phenomenon called Rayleigh scattering.
         /// </param>
+        /// <param name="thinking">
+        /// Contains the text that was inside thinking tags in the original model output when `think` is enabled.
+        /// </param>
         /// <param name="done">
         /// Whether the response has completed.<br/>
         /// Example: true
@@ -155,6 +164,7 @@ namespace Ollama
             string? model,
             global::System.DateTime? createdAt,
             string? response,
+            string? thinking,
             bool? done,
             global::System.Collections.Generic.IList<long>? context,
             long? totalDuration,
@@ -167,6 +177,7 @@ namespace Ollama
             this.Model = model;
             this.CreatedAt = createdAt;
             this.Response = response;
+            this.Thinking = thinking;
             this.Done = done;
             this.Context = context;
             this.TotalDuration = totalDuration;

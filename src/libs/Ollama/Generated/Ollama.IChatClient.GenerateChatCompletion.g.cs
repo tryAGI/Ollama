@@ -27,14 +27,11 @@ namespace Ollama
         /// <param name="messages">
         /// The messages of the chat, this can be used to keep a chat memory
         /// </param>
-        /// <param name="format"></param>
-        /// <param name="options">
-        /// Additional model parameters listed in the documentation for the Modelfile such as `temperature`.
-        /// </param>
         /// <param name="stream">
         /// If `false` the response will be returned as a single response object, otherwise the response will be streamed as a series of objects.<br/>
         /// Default Value: true
         /// </param>
+        /// <param name="format"></param>
         /// <param name="keepAlive">
         /// How long (in minutes) to keep the model loaded in memory.<br/>
         /// - If set to a positive duration (e.g. 20), the model will stay loaded for the provided duration.<br/>
@@ -45,16 +42,26 @@ namespace Ollama
         /// <param name="tools">
         /// A list of tools the model may call.
         /// </param>
+        /// <param name="options">
+        /// Additional model parameters listed in the documentation for the Modelfile such as `temperature`.
+        /// </param>
+        /// <param name="think">
+        /// Think controls whether thinking/reasoning models will think before<br/>
+        /// responding. Needs to be a pointer so we can distinguish between false<br/>
+        /// (request that thinking _not_ be used) and unset (use the old behavior<br/>
+        /// before this option was introduced).
+        /// </param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Collections.Generic.IAsyncEnumerable<global::Ollama.GenerateChatCompletionResponse> GenerateChatCompletionAsync(
             string model,
             global::System.Collections.Generic.IList<global::Ollama.Message> messages,
-            global::Ollama.ResponseFormat? format = default,
-            global::Ollama.RequestOptions? options = default,
             bool? stream = default,
+            global::Ollama.ResponseFormat? format = default,
             int? keepAlive = default,
             global::System.Collections.Generic.IList<global::Ollama.Tool>? tools = default,
+            global::Ollama.RequestOptions? options = default,
+            bool? think = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }
