@@ -26,24 +26,18 @@ namespace Ollama
         public required global::System.Collections.Generic.IList<global::Ollama.Message> Messages { get; set; }
 
         /// <summary>
-        /// 
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("format")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Ollama.JsonConverters.ResponseFormatJsonConverter))]
-        public global::Ollama.ResponseFormat? Format { get; set; }
-
-        /// <summary>
-        /// Additional model parameters listed in the documentation for the Modelfile such as `temperature`.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("options")]
-        public global::Ollama.RequestOptions? Options { get; set; }
-
-        /// <summary>
         /// If `false` the response will be returned as a single response object, otherwise the response will be streamed as a series of objects.<br/>
         /// Default Value: true
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("stream")]
         public bool? Stream { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("format")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Ollama.JsonConverters.ResponseFormatJsonConverter))]
+        public global::Ollama.ResponseFormat? Format { get; set; }
 
         /// <summary>
         /// How long (in minutes) to keep the model loaded in memory.<br/>
@@ -62,6 +56,21 @@ namespace Ollama
         public global::System.Collections.Generic.IList<global::Ollama.Tool>? Tools { get; set; }
 
         /// <summary>
+        /// Additional model parameters listed in the documentation for the Modelfile such as `temperature`.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("options")]
+        public global::Ollama.RequestOptions? Options { get; set; }
+
+        /// <summary>
+        /// Think controls whether thinking/reasoning models will think before<br/>
+        /// responding. Needs to be a pointer so we can distinguish between false<br/>
+        /// (request that thinking _not_ be used) and unset (use the old behavior<br/>
+        /// before this option was introduced).
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("think")]
+        public bool? Think { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -78,14 +87,11 @@ namespace Ollama
         /// <param name="messages">
         /// The messages of the chat, this can be used to keep a chat memory
         /// </param>
-        /// <param name="format"></param>
-        /// <param name="options">
-        /// Additional model parameters listed in the documentation for the Modelfile such as `temperature`.
-        /// </param>
         /// <param name="stream">
         /// If `false` the response will be returned as a single response object, otherwise the response will be streamed as a series of objects.<br/>
         /// Default Value: true
         /// </param>
+        /// <param name="format"></param>
         /// <param name="keepAlive">
         /// How long (in minutes) to keep the model loaded in memory.<br/>
         /// - If set to a positive duration (e.g. 20), the model will stay loaded for the provided duration.<br/>
@@ -96,25 +102,36 @@ namespace Ollama
         /// <param name="tools">
         /// A list of tools the model may call.
         /// </param>
+        /// <param name="options">
+        /// Additional model parameters listed in the documentation for the Modelfile such as `temperature`.
+        /// </param>
+        /// <param name="think">
+        /// Think controls whether thinking/reasoning models will think before<br/>
+        /// responding. Needs to be a pointer so we can distinguish between false<br/>
+        /// (request that thinking _not_ be used) and unset (use the old behavior<br/>
+        /// before this option was introduced).
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public GenerateChatCompletionRequest(
             string model,
             global::System.Collections.Generic.IList<global::Ollama.Message> messages,
-            global::Ollama.ResponseFormat? format,
-            global::Ollama.RequestOptions? options,
             bool? stream,
+            global::Ollama.ResponseFormat? format,
             int? keepAlive,
-            global::System.Collections.Generic.IList<global::Ollama.Tool>? tools)
+            global::System.Collections.Generic.IList<global::Ollama.Tool>? tools,
+            global::Ollama.RequestOptions? options,
+            bool? think)
         {
             this.Model = model ?? throw new global::System.ArgumentNullException(nameof(model));
             this.Messages = messages ?? throw new global::System.ArgumentNullException(nameof(messages));
-            this.Format = format;
-            this.Options = options;
             this.Stream = stream;
+            this.Format = format;
             this.KeepAlive = keepAlive;
             this.Tools = tools;
+            this.Options = options;
+            this.Think = think;
         }
 
         /// <summary>

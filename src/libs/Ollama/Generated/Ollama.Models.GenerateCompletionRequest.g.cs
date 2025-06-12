@@ -34,12 +34,6 @@ namespace Ollama
         public string? Suffix { get; set; }
 
         /// <summary>
-        /// (optional) a list of Base64-encoded images to include in the message (for multimodal models such as llava)
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("images")]
-        public global::System.Collections.Generic.IList<string>? Images { get; set; }
-
-        /// <summary>
         /// The system prompt to (overrides what is defined in the Modelfile).
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("system")]
@@ -58,17 +52,11 @@ namespace Ollama
         public global::System.Collections.Generic.IList<long>? Context { get; set; }
 
         /// <summary>
-        /// Additional model parameters listed in the documentation for the Modelfile such as `temperature`.
+        /// If `false` the response will be returned as a single response object, otherwise the response will be streamed as a series of objects.<br/>
+        /// Default Value: true
         /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("options")]
-        public global::Ollama.RequestOptions? Options { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("format")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Ollama.JsonConverters.ResponseFormatJsonConverter))]
-        public global::Ollama.ResponseFormat? Format { get; set; }
+        [global::System.Text.Json.Serialization.JsonPropertyName("stream")]
+        public bool? Stream { get; set; }
 
         /// <summary>
         /// If `true` no formatting will be applied to the prompt and no context will be returned. <br/>
@@ -78,11 +66,11 @@ namespace Ollama
         public bool? Raw { get; set; }
 
         /// <summary>
-        /// If `false` the response will be returned as a single response object, otherwise the response will be streamed as a series of objects.<br/>
-        /// Default Value: true
+        /// 
         /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("stream")]
-        public bool? Stream { get; set; }
+        [global::System.Text.Json.Serialization.JsonPropertyName("format")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Ollama.JsonConverters.ResponseFormatJsonConverter))]
+        public global::Ollama.ResponseFormat? Format { get; set; }
 
         /// <summary>
         /// How long (in minutes) to keep the model loaded in memory.<br/>
@@ -93,6 +81,27 @@ namespace Ollama
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("keep_alive")]
         public int? KeepAlive { get; set; }
+
+        /// <summary>
+        /// (optional) a list of Base64-encoded images to include in the message (for multimodal models such as llava)
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("images")]
+        public global::System.Collections.Generic.IList<string>? Images { get; set; }
+
+        /// <summary>
+        /// Additional model parameters listed in the documentation for the Modelfile such as `temperature`.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("options")]
+        public global::Ollama.RequestOptions? Options { get; set; }
+
+        /// <summary>
+        /// Think controls whether thinking/reasoning models will think before<br/>
+        /// responding. Needs to be a pointer so we can distinguish between false<br/>
+        /// (request that thinking _not_ be used) and unset (use the old behavior<br/>
+        /// before this option was introduced).
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("think")]
+        public bool? Think { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -115,9 +124,6 @@ namespace Ollama
         /// <param name="suffix">
         /// The text that comes after the inserted text.
         /// </param>
-        /// <param name="images">
-        /// (optional) a list of Base64-encoded images to include in the message (for multimodal models such as llava)
-        /// </param>
         /// <param name="system">
         /// The system prompt to (overrides what is defined in the Modelfile).
         /// </param>
@@ -127,24 +133,33 @@ namespace Ollama
         /// <param name="context">
         /// The context parameter returned from a previous request to [generateCompletion], this can be used to keep a short conversational memory.
         /// </param>
-        /// <param name="options">
-        /// Additional model parameters listed in the documentation for the Modelfile such as `temperature`.
-        /// </param>
-        /// <param name="format"></param>
-        /// <param name="raw">
-        /// If `true` no formatting will be applied to the prompt and no context will be returned. <br/>
-        /// You may choose to use the `raw` parameter if you are specifying a full templated prompt in your request to the API, and are managing history yourself.
-        /// </param>
         /// <param name="stream">
         /// If `false` the response will be returned as a single response object, otherwise the response will be streamed as a series of objects.<br/>
         /// Default Value: true
         /// </param>
+        /// <param name="raw">
+        /// If `true` no formatting will be applied to the prompt and no context will be returned. <br/>
+        /// You may choose to use the `raw` parameter if you are specifying a full templated prompt in your request to the API, and are managing history yourself.
+        /// </param>
+        /// <param name="format"></param>
         /// <param name="keepAlive">
         /// How long (in minutes) to keep the model loaded in memory.<br/>
         /// - If set to a positive duration (e.g. 20), the model will stay loaded for the provided duration.<br/>
         /// - If set to a negative duration (e.g. -1), the model will stay loaded indefinitely.<br/>
         /// - If set to 0, the model will be unloaded immediately once finished.<br/>
         /// - If not set, the model will stay loaded for 5 minutes by default
+        /// </param>
+        /// <param name="images">
+        /// (optional) a list of Base64-encoded images to include in the message (for multimodal models such as llava)
+        /// </param>
+        /// <param name="options">
+        /// Additional model parameters listed in the documentation for the Modelfile such as `temperature`.
+        /// </param>
+        /// <param name="think">
+        /// Think controls whether thinking/reasoning models will think before<br/>
+        /// responding. Needs to be a pointer so we can distinguish between false<br/>
+        /// (request that thinking _not_ be used) and unset (use the old behavior<br/>
+        /// before this option was introduced).
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -153,28 +168,30 @@ namespace Ollama
             string model,
             string prompt,
             string? suffix,
-            global::System.Collections.Generic.IList<string>? images,
             string? system,
             string? template,
             global::System.Collections.Generic.IList<long>? context,
-            global::Ollama.RequestOptions? options,
-            global::Ollama.ResponseFormat? format,
-            bool? raw,
             bool? stream,
-            int? keepAlive)
+            bool? raw,
+            global::Ollama.ResponseFormat? format,
+            int? keepAlive,
+            global::System.Collections.Generic.IList<string>? images,
+            global::Ollama.RequestOptions? options,
+            bool? think)
         {
             this.Model = model ?? throw new global::System.ArgumentNullException(nameof(model));
             this.Prompt = prompt ?? throw new global::System.ArgumentNullException(nameof(prompt));
             this.Suffix = suffix;
-            this.Images = images;
             this.System = system;
             this.Template = template;
             this.Context = context;
-            this.Options = options;
-            this.Format = format;
-            this.Raw = raw;
             this.Stream = stream;
+            this.Raw = raw;
+            this.Format = format;
             this.KeepAlive = keepAlive;
+            this.Images = images;
+            this.Options = options;
+            this.Think = think;
         }
 
         /// <summary>
