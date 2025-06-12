@@ -26,6 +26,12 @@ namespace Ollama
         public required string Content { get; set; }
 
         /// <summary>
+        /// Contains the text that was inside thinking tags in the original model output when `think` is enabled.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("thinking")]
+        public string? Thinking { get; set; }
+
+        /// <summary>
         /// (optional) a list of Base64-encoded images to include in the message (for multimodal models such as llava)
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("images")]
@@ -53,6 +59,9 @@ namespace Ollama
         /// The content of the message<br/>
         /// Example: Why is the sky blue?
         /// </param>
+        /// <param name="thinking">
+        /// Contains the text that was inside thinking tags in the original model output when `think` is enabled.
+        /// </param>
         /// <param name="images">
         /// (optional) a list of Base64-encoded images to include in the message (for multimodal models such as llava)
         /// </param>
@@ -65,11 +74,13 @@ namespace Ollama
         public Message(
             global::Ollama.MessageRole role,
             string content,
+            string? thinking,
             global::System.Collections.Generic.IList<string>? images,
             global::System.Collections.Generic.IList<global::Ollama.ToolCall>? toolCalls)
         {
             this.Role = role;
             this.Content = content ?? throw new global::System.ArgumentNullException(nameof(content));
+            this.Thinking = thinking;
             this.Images = images;
             this.ToolCalls = toolCalls;
         }

@@ -34,43 +34,43 @@ namespace Ollama
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<string>? Type2 { get; set; }
+        public global::System.Collections.Generic.IList<long>? Type2 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<long>? Type3 { get; set; }
+        public long? Type3 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public long? Type4 { get; set; }
+        public bool? Type4 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.RequestOptions? Type5 { get; set; }
+        public global::Ollama.ResponseFormat? Type5 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public int? Type6 { get; set; }
+        public global::Ollama.ResponseFormatEnum? Type6 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public float? Type7 { get; set; }
+        public object? Type7 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public bool? Type8 { get; set; }
+        public int? Type8 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.ResponseFormat? Type9 { get; set; }
+        public global::System.Collections.Generic.IList<string>? Type9 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.ResponseFormatEnum? Type10 { get; set; }
+        public global::Ollama.RequestOptions? Type10 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public object? Type11 { get; set; }
+        public float? Type11 { get; set; }
         /// <summary>
         /// 
         /// </summary>
