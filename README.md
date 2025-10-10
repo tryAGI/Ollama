@@ -138,6 +138,17 @@ public class WeatherService : IWeatherFunctions
 }
 ```
 
+## Community Projects
+
+Projects built on top of this SDK:
+
+### LangMate
+[LangMate](https://github.com/raminesfahani/LangMate) - A comprehensive .NET SDK built on Ollama SDK with:
+- Blazor-based chat bot UI with rich features
+- RESTful API samples
+- Integrated middlewares for logging, resilience, and exception handling
+- Production-ready .NET 9 implementation
+
 ## Credits
 
 Icon and name were reused from the amazing [Ollama project](https://github.com/jmorganca/ollama).  
