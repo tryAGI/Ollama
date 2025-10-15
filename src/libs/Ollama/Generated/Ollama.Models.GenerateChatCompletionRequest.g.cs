@@ -1,4 +1,6 @@
 
+#pragma warning disable CS0618 // Type or member is obsolete
+
 #nullable enable
 
 namespace Ollama
@@ -33,11 +35,13 @@ namespace Ollama
         public bool? Stream { get; set; }
 
         /// <summary>
-        /// 
+        /// The format to return a response in. Can be:<br/>
+        /// - "json" string to enable JSON mode<br/>
+        /// - JSON schema object for structured output validation
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("format")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Ollama.JsonConverters.ResponseFormatJsonConverter))]
-        public global::Ollama.ResponseFormat? Format { get; set; }
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Ollama.JsonConverters.OneOfJsonConverter<global::Ollama.GenerateChatCompletionRequestFormatEnum?, object>))]
+        public global::Ollama.OneOf<global::Ollama.GenerateChatCompletionRequestFormatEnum?, object>? Format { get; set; }
 
         /// <summary>
         /// How long (in minutes) to keep the model loaded in memory.<br/>
@@ -62,13 +66,26 @@ namespace Ollama
         public global::Ollama.RequestOptions? Options { get; set; }
 
         /// <summary>
-        /// Think controls whether thinking/reasoning models will think before<br/>
-        /// responding. Needs to be a pointer so we can distinguish between false<br/>
-        /// (request that thinking _not_ be used) and unset (use the old behavior<br/>
-        /// before this option was introduced).
+        /// Controls whether thinking/reasoning models will think before responding.<br/>
+        /// Can be:<br/>
+        /// - boolean: true/false to enable/disable thinking<br/>
+        /// - string: "high", "medium", "low" to set thinking intensity level
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("think")]
-        public bool? Think { get; set; }
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Ollama.JsonConverters.OneOfJsonConverter<bool?, global::Ollama.GenerateChatCompletionRequestThink?>))]
+        public global::Ollama.OneOf<bool?, global::Ollama.GenerateChatCompletionRequestThink?>? Think { get; set; }
+
+        /// <summary>
+        /// Truncates the end of the chat history if it exceeds the context length
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("truncate")]
+        public bool? Truncate { get; set; }
+
+        /// <summary>
+        /// Shifts the oldest messages out of the context window when the context limit is reached
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("shift")]
+        public bool? Shift { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -91,7 +108,11 @@ namespace Ollama
         /// If `false` the response will be returned as a single response object, otherwise the response will be streamed as a series of objects.<br/>
         /// Default Value: true
         /// </param>
-        /// <param name="format"></param>
+        /// <param name="format">
+        /// The format to return a response in. Can be:<br/>
+        /// - "json" string to enable JSON mode<br/>
+        /// - JSON schema object for structured output validation
+        /// </param>
         /// <param name="keepAlive">
         /// How long (in minutes) to keep the model loaded in memory.<br/>
         /// - If set to a positive duration (e.g. 20), the model will stay loaded for the provided duration.<br/>
@@ -106,10 +127,16 @@ namespace Ollama
         /// Additional model parameters listed in the documentation for the Modelfile such as `temperature`.
         /// </param>
         /// <param name="think">
-        /// Think controls whether thinking/reasoning models will think before<br/>
-        /// responding. Needs to be a pointer so we can distinguish between false<br/>
-        /// (request that thinking _not_ be used) and unset (use the old behavior<br/>
-        /// before this option was introduced).
+        /// Controls whether thinking/reasoning models will think before responding.<br/>
+        /// Can be:<br/>
+        /// - boolean: true/false to enable/disable thinking<br/>
+        /// - string: "high", "medium", "low" to set thinking intensity level
+        /// </param>
+        /// <param name="truncate">
+        /// Truncates the end of the chat history if it exceeds the context length
+        /// </param>
+        /// <param name="shift">
+        /// Shifts the oldest messages out of the context window when the context limit is reached
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -118,11 +145,13 @@ namespace Ollama
             string model,
             global::System.Collections.Generic.IList<global::Ollama.Message> messages,
             bool? stream,
-            global::Ollama.ResponseFormat? format,
+            global::Ollama.OneOf<global::Ollama.GenerateChatCompletionRequestFormatEnum?, object>? format,
             int? keepAlive,
             global::System.Collections.Generic.IList<global::Ollama.Tool>? tools,
             global::Ollama.RequestOptions? options,
-            bool? think)
+            global::Ollama.OneOf<bool?, global::Ollama.GenerateChatCompletionRequestThink?>? think,
+            bool? truncate,
+            bool? shift)
         {
             this.Model = model ?? throw new global::System.ArgumentNullException(nameof(model));
             this.Messages = messages ?? throw new global::System.ArgumentNullException(nameof(messages));
@@ -132,6 +161,8 @@ namespace Ollama
             this.Tools = tools;
             this.Options = options;
             this.Think = think;
+            this.Truncate = truncate;
+            this.Shift = shift;
         }
 
         /// <summary>
