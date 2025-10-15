@@ -24,8 +24,7 @@ namespace Ollama
         /// </summary>
         /// <example>FROM llama3\nSYSTEM You are mario from Super Mario Bros.</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("modelfile")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Modelfile { get; set; }
+        public string? Modelfile { get; set; }
 
         /// <summary>
         /// Path to the Modelfile (optional)
@@ -45,6 +44,42 @@ namespace Ollama
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("stream")]
         public bool? Stream { get; set; }
+
+        /// <summary>
+        /// Name of the model or file to use as the source
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("from")]
+        public string? From { get; set; }
+
+        /// <summary>
+        /// Map of files to include when creating the model
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("files")]
+        public global::System.Collections.Generic.Dictionary<string, string>? Files { get; set; }
+
+        /// <summary>
+        /// Map of LoRA adapters to include when creating the model
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("adapters")]
+        public global::System.Collections.Generic.Dictionary<string, string>? Adapters { get; set; }
+
+        /// <summary>
+        /// Template used when constructing a request to the model
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("template")]
+        public string? Template { get; set; }
+
+        /// <summary>
+        /// System prompt for the model
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("system")]
+        public string? System { get; set; }
+
+        /// <summary>
+        /// Map of hyper-parameters which are applied to the model
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("parameters")]
+        public object? Parameters { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -74,21 +109,51 @@ namespace Ollama
         /// If `false` the response will be returned as a single response object, otherwise the response will be streamed as a series of objects.<br/>
         /// Default Value: true
         /// </param>
+        /// <param name="from">
+        /// Name of the model or file to use as the source
+        /// </param>
+        /// <param name="files">
+        /// Map of files to include when creating the model
+        /// </param>
+        /// <param name="adapters">
+        /// Map of LoRA adapters to include when creating the model
+        /// </param>
+        /// <param name="template">
+        /// Template used when constructing a request to the model
+        /// </param>
+        /// <param name="system">
+        /// System prompt for the model
+        /// </param>
+        /// <param name="parameters">
+        /// Map of hyper-parameters which are applied to the model
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public CreateModelRequest(
             string model,
-            string modelfile,
+            string? modelfile,
             string? path,
             string? quantize,
-            bool? stream)
+            bool? stream,
+            string? from,
+            global::System.Collections.Generic.Dictionary<string, string>? files,
+            global::System.Collections.Generic.Dictionary<string, string>? adapters,
+            string? template,
+            string? system,
+            object? parameters)
         {
             this.Model = model ?? throw new global::System.ArgumentNullException(nameof(model));
-            this.Modelfile = modelfile ?? throw new global::System.ArgumentNullException(nameof(modelfile));
+            this.Modelfile = modelfile;
             this.Path = path;
             this.Quantize = quantize;
             this.Stream = stream;
+            this.From = from;
+            this.Files = files;
+            this.Adapters = adapters;
+            this.Template = template;
+            this.System = system;
+            this.Parameters = parameters;
         }
 
         /// <summary>
