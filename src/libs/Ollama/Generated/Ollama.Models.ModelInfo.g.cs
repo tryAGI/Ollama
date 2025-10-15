@@ -89,6 +89,18 @@ namespace Ollama
         public global::System.DateTime? ModifiedAt { get; set; }
 
         /// <summary>
+        /// Name of the upstream remote model (when model is federated from another Ollama instance)
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("remote_model")]
+        public string? RemoteModel { get; set; }
+
+        /// <summary>
+        /// URL of the upstream Ollama host (when model is federated from another instance)
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("remote_host")]
+        public string? RemoteHost { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -137,6 +149,12 @@ namespace Ollama
         /// <param name="modifiedAt">
         /// Date on which a model was created.
         /// </param>
+        /// <param name="remoteModel">
+        /// Name of the upstream remote model (when model is federated from another Ollama instance)
+        /// </param>
+        /// <param name="remoteHost">
+        /// URL of the upstream Ollama host (when model is federated from another instance)
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -152,7 +170,9 @@ namespace Ollama
             object? projectorInfo,
             global::System.Collections.Generic.IList<global::Ollama.Tensor>? tensors,
             global::System.Collections.Generic.IList<global::Ollama.Capability>? capabilities,
-            global::System.DateTime? modifiedAt)
+            global::System.DateTime? modifiedAt,
+            string? remoteModel,
+            string? remoteHost)
         {
             this.License = license;
             this.Modelfile = modelfile;
@@ -166,6 +186,8 @@ namespace Ollama
             this.Tensors = tensors;
             this.Capabilities = capabilities;
             this.ModifiedAt = modifiedAt;
+            this.RemoteModel = remoteModel;
+            this.RemoteHost = remoteHost;
         }
 
         /// <summary>
