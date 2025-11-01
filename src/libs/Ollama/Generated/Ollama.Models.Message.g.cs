@@ -44,6 +44,12 @@ namespace Ollama
         public global::System.Collections.Generic.IList<global::Ollama.ToolCall>? ToolCalls { get; set; }
 
         /// <summary>
+        /// The name of the tool when role is "tool" (used in tool response messages)
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("tool_name")]
+        public string? ToolName { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -68,6 +74,9 @@ namespace Ollama
         /// <param name="toolCalls">
         /// A list of tools the model wants to call.
         /// </param>
+        /// <param name="toolName">
+        /// The name of the tool when role is "tool" (used in tool response messages)
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -76,13 +85,15 @@ namespace Ollama
             string content,
             string? thinking,
             global::System.Collections.Generic.IList<string>? images,
-            global::System.Collections.Generic.IList<global::Ollama.ToolCall>? toolCalls)
+            global::System.Collections.Generic.IList<global::Ollama.ToolCall>? toolCalls,
+            string? toolName)
         {
             this.Role = role;
             this.Content = content ?? throw new global::System.ArgumentNullException(nameof(content));
             this.Thinking = thinking;
             this.Images = images;
             this.ToolCalls = toolCalls;
+            this.ToolName = toolName;
         }
 
         /// <summary>

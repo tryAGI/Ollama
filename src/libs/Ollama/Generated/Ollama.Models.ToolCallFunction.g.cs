@@ -23,6 +23,12 @@ namespace Ollama
         public required object Arguments { get; set; }
 
         /// <summary>
+        /// The index of the tool call in the list of tool calls
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("index")]
+        public int? Index { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -37,15 +43,20 @@ namespace Ollama
         /// <param name="arguments">
         /// The arguments to pass to the function.
         /// </param>
+        /// <param name="index">
+        /// The index of the tool call in the list of tool calls
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public ToolCallFunction(
             string name,
-            object arguments)
+            object arguments,
+            int? index)
         {
             this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
             this.Arguments = arguments ?? throw new global::System.ArgumentNullException(nameof(arguments));
+            this.Index = index;
         }
 
         /// <summary>

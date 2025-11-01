@@ -38,14 +38,38 @@ namespace Ollama
         /// If `false` the response will be returned as a single response object, otherwise the response will be streamed as a series of objects.<br/>
         /// Default Value: true
         /// </param>
+        /// <param name="from">
+        /// Name of the model or file to use as the source
+        /// </param>
+        /// <param name="files">
+        /// Map of files to include when creating the model
+        /// </param>
+        /// <param name="adapters">
+        /// Map of LoRA adapters to include when creating the model
+        /// </param>
+        /// <param name="template">
+        /// Template used when constructing a request to the model
+        /// </param>
+        /// <param name="system">
+        /// System prompt for the model
+        /// </param>
+        /// <param name="parameters">
+        /// Map of hyper-parameters which are applied to the model
+        /// </param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Collections.Generic.IAsyncEnumerable<global::Ollama.CreateModelResponse> CreateModelAsync(
             string model,
-            string modelfile,
+            string? modelfile = default,
             string? path = default,
             string? quantize = default,
             bool? stream = default,
+            string? from = default,
+            global::System.Collections.Generic.Dictionary<string, string>? files = default,
+            global::System.Collections.Generic.Dictionary<string, string>? adapters = default,
+            string? template = default,
+            string? system = default,
+            object? parameters = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }
