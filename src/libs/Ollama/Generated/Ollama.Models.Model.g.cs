@@ -46,6 +46,18 @@ namespace Ollama
         public global::Ollama.ModelDetails? Details { get; set; }
 
         /// <summary>
+        /// Name of the upstream remote model (when model is federated from another Ollama instance)
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("remote_model")]
+        public string? RemoteModel { get; set; }
+
+        /// <summary>
+        /// URL of the upstream Ollama host (when model is federated from another instance)
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("remote_host")]
+        public string? RemoteHost { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -73,6 +85,12 @@ namespace Ollama
         /// <param name="details">
         /// Details about a model.
         /// </param>
+        /// <param name="remoteModel">
+        /// Name of the upstream remote model (when model is federated from another Ollama instance)
+        /// </param>
+        /// <param name="remoteHost">
+        /// URL of the upstream Ollama host (when model is federated from another instance)
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -81,13 +99,17 @@ namespace Ollama
             global::System.DateTime? modifiedAt,
             long? size,
             string? digest,
-            global::Ollama.ModelDetails? details)
+            global::Ollama.ModelDetails? details,
+            string? remoteModel,
+            string? remoteHost)
         {
             this.Model1 = model1;
             this.ModifiedAt = modifiedAt;
             this.Size = size;
             this.Digest = digest;
             this.Details = details;
+            this.RemoteModel = remoteModel;
+            this.RemoteHost = remoteHost;
         }
 
         /// <summary>
