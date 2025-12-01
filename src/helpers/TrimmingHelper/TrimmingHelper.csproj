@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.ILLink.Tasks" Version="9.0.10" />
-    <PackageReference Include="System.Text.Json" Version="9.0.10" />
+    <PackageReference Include="System.Text.Json" Version="10.0.0" />
     <TrimmerRootAssembly Include="Ollama" />
   </ItemGroup>
 
