@@ -443,10 +443,7 @@ components:
       description: Additional model parameters listed in the documentation for the Modelfile such as `temperature`.
     ResponseFormat:
       oneOf:
-        - enum:
-            - json
-          type: string
-          description: Enable JSON mode by setting the format parameter to 'json'. This will structure the response as valid JSON.
+        - description: Enable JSON mode by setting the format parameter to 'json'. This will structure the response as valid JSON.
         - type: object
           description: A JSON Schema object that defines the structure of the response. The model will generate a response that matches this schema.
     VersionResponse:
@@ -612,11 +609,7 @@ components:
     DoneReason:
       anyOf:
         - type: string
-        - enum:
-            - stop
-            - length
-            - load
-          type: string
+        - type: string
       description: Reason why the model is done generating a response.
     Message:
       required:
@@ -774,11 +767,7 @@ components:
     CreateModelStatus:
       anyOf:
         - type: string
-        - enum:
-            - creating system layer
-            - parsing modelfile
-            - success
-          type: string
+        - type: string
       description: Status creating the model
     ModelsResponse:
       type: object
@@ -1060,14 +1049,7 @@ components:
     PullModelStatus:
       anyOf:
         - type: string
-        - enum:
-            - pulling manifest
-            - downloading digestname
-            - verifying sha256 digest
-            - writing manifest
-            - removing any unused layers
-            - success
-          type: string
+        - type: string
       description: Status pulling the model.
       example: pulling manifest
     PushModelRequest:
