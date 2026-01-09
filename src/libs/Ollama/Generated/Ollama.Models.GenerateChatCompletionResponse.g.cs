@@ -97,6 +97,18 @@ namespace Ollama
         public long? EvalDuration { get; set; }
 
         /// <summary>
+        /// Name of the upstream remote model that generated the response (when using federated models)
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("remote_model")]
+        public string? RemoteModel { get; set; }
+
+        /// <summary>
+        /// URL of the upstream Ollama host that served the request (when proxying to remote instances)
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("remote_host")]
+        public string? RemoteHost { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -147,6 +159,12 @@ namespace Ollama
         /// Time in nanoseconds spent generating the response.<br/>
         /// Example: 1325948000L
         /// </param>
+        /// <param name="remoteModel">
+        /// Name of the upstream remote model that generated the response (when using federated models)
+        /// </param>
+        /// <param name="remoteHost">
+        /// URL of the upstream Ollama host that served the request (when proxying to remote instances)
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -161,7 +179,9 @@ namespace Ollama
             int? promptEvalCount,
             long? promptEvalDuration,
             int? evalCount,
-            long? evalDuration)
+            long? evalDuration,
+            string? remoteModel,
+            string? remoteHost)
         {
             this.Message = message ?? throw new global::System.ArgumentNullException(nameof(message));
             this.Model = model ?? throw new global::System.ArgumentNullException(nameof(model));
@@ -174,6 +194,8 @@ namespace Ollama
             this.PromptEvalDuration = promptEvalDuration;
             this.EvalCount = evalCount;
             this.EvalDuration = evalDuration;
+            this.RemoteModel = remoteModel;
+            this.RemoteHost = remoteHost;
         }
 
         /// <summary>
