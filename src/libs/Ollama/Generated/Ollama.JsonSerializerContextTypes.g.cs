@@ -46,11 +46,11 @@ namespace Ollama
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.ResponseFormat? Type5 { get; set; }
+        public global::Ollama.OneOf<global::Ollama.GenerateCompletionRequestFormatEnum?, object>? Type5 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.ResponseFormatEnum? Type6 { get; set; }
+        public global::Ollama.GenerateCompletionRequestFormatEnum? Type6 { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -74,202 +74,234 @@ namespace Ollama
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.VersionResponse? Type12 { get; set; }
+        public global::Ollama.OneOf<bool?, global::Ollama.GenerateCompletionRequestThink?>? Type12 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.GenerateCompletionResponse? Type13 { get; set; }
+        public global::Ollama.GenerateCompletionRequestThink? Type13 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.DateTime? Type14 { get; set; }
+        public global::Ollama.ResponseFormat? Type14 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.GenerateChatCompletionRequest? Type15 { get; set; }
+        public global::Ollama.ResponseFormatEnum? Type15 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Ollama.Message>? Type16 { get; set; }
+        public global::Ollama.VersionResponse? Type16 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.Message? Type17 { get; set; }
+        public global::Ollama.GenerateCompletionResponse? Type17 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.MessageRole? Type18 { get; set; }
+        public global::System.DateTime? Type18 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Ollama.ToolCall>? Type19 { get; set; }
+        public global::Ollama.GenerateChatCompletionRequest? Type19 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.ToolCall? Type20 { get; set; }
+        public global::System.Collections.Generic.IList<global::Ollama.Message>? Type20 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.ToolCallFunction? Type21 { get; set; }
+        public global::Ollama.Message? Type21 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Ollama.Tool>? Type22 { get; set; }
+        public global::Ollama.MessageRole? Type22 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.Tool? Type23 { get; set; }
+        public global::System.Collections.Generic.IList<global::Ollama.ToolCall>? Type23 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.ToolType? Type24 { get; set; }
+        public global::Ollama.ToolCall? Type24 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.ToolFunction? Type25 { get; set; }
+        public global::Ollama.ToolCallFunction? Type25 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.GenerateChatCompletionResponse? Type26 { get; set; }
+        public global::Ollama.OneOf<global::Ollama.GenerateChatCompletionRequestFormatEnum?, object>? Type26 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.DoneReason? Type27 { get; set; }
+        public global::Ollama.GenerateChatCompletionRequestFormatEnum? Type27 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.DoneReasonEnum? Type28 { get; set; }
+        public global::System.Collections.Generic.IList<global::Ollama.Tool>? Type28 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.GenerateEmbeddingRequest? Type29 { get; set; }
+        public global::Ollama.Tool? Type29 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.GenerateEmbeddingResponse? Type30 { get; set; }
+        public global::Ollama.ToolType? Type30 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<double>? Type31 { get; set; }
+        public global::Ollama.ToolFunction? Type31 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public double? Type32 { get; set; }
+        public global::Ollama.OneOf<bool?, global::Ollama.GenerateChatCompletionRequestThink?>? Type32 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.CreateModelRequest? Type33 { get; set; }
+        public global::Ollama.GenerateChatCompletionRequestThink? Type33 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.CreateModelResponse? Type34 { get; set; }
+        public global::Ollama.GenerateChatCompletionResponse? Type34 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.CreateModelStatus? Type35 { get; set; }
+        public global::Ollama.DoneReason? Type35 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.CreateModelStatusEnum? Type36 { get; set; }
+        public global::Ollama.DoneReasonEnum? Type36 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.ModelsResponse? Type37 { get; set; }
+        public global::Ollama.GenerateEmbeddingRequest? Type37 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Ollama.Model>? Type38 { get; set; }
+        public global::Ollama.GenerateEmbeddingResponse? Type38 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.Model? Type39 { get; set; }
+        public global::System.Collections.Generic.IList<double>? Type39 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.ModelDetails? Type40 { get; set; }
+        public double? Type40 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.ModelInformation? Type41 { get; set; }
+        public global::Ollama.CreateModelRequest? Type41 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.Tensor? Type42 { get; set; }
+        public global::Ollama.CreateModelResponse? Type42 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.Capability? Type43 { get; set; }
+        public global::Ollama.CreateModelStatus? Type43 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.ProcessResponse? Type44 { get; set; }
+        public global::Ollama.CreateModelStatusEnum? Type44 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Ollama.ProcessModel>? Type45 { get; set; }
+        public global::Ollama.ModelsResponse? Type45 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.ProcessModel? Type46 { get; set; }
+        public global::System.Collections.Generic.IList<global::Ollama.Model>? Type46 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.ModelInfoRequest? Type47 { get; set; }
+        public global::Ollama.Model? Type47 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.ModelInfo? Type48 { get; set; }
+        public global::Ollama.ModelDetails? Type48 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Ollama.Tensor>? Type49 { get; set; }
+        public global::Ollama.ModelInformation? Type49 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Ollama.Capability>? Type50 { get; set; }
+        public global::Ollama.Tensor? Type50 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.CopyModelRequest? Type51 { get; set; }
+        public global::Ollama.Capability? Type51 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.DeleteModelRequest? Type52 { get; set; }
+        public global::Ollama.ProcessResponse? Type52 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.PullModelRequest? Type53 { get; set; }
+        public global::System.Collections.Generic.IList<global::Ollama.ProcessModel>? Type53 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.PullModelResponse? Type54 { get; set; }
+        public global::Ollama.ProcessModel? Type54 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.PullModelStatus? Type55 { get; set; }
+        public global::Ollama.ModelInfoRequest? Type55 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.PullModelStatusEnum? Type56 { get; set; }
+        public global::Ollama.ModelInfo? Type56 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.PushModelRequest? Type57 { get; set; }
+        public global::System.Collections.Generic.IList<global::Ollama.Tensor>? Type57 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.PushModelResponse? Type58 { get; set; }
+        public global::System.Collections.Generic.IList<global::Ollama.Capability>? Type58 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.AnyOf<string, global::Ollama.PushModelResponseStatus?>? Type59 { get; set; }
+        public global::Ollama.CopyModelRequest? Type59 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Ollama.PushModelResponseStatus? Type60 { get; set; }
+        public global::Ollama.DeleteModelRequest? Type60 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public byte[]? Type61 { get; set; }
+        public global::Ollama.PullModelRequest? Type61 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Ollama.PullModelResponse? Type62 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Ollama.PullModelStatus? Type63 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Ollama.PullModelStatusEnum? Type64 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Ollama.PushModelRequest? Type65 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Ollama.PushModelResponse? Type66 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Ollama.AnyOf<string, global::Ollama.PushModelResponseStatus?>? Type67 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Ollama.PushModelResponseStatus? Type68 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public byte[]? Type69 { get; set; }
     }
 }

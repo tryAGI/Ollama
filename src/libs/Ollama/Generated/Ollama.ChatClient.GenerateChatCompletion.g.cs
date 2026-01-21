@@ -123,7 +123,11 @@ namespace Ollama
         /// If `false` the response will be returned as a single response object, otherwise the response will be streamed as a series of objects.<br/>
         /// Default Value: true
         /// </param>
-        /// <param name="format"></param>
+        /// <param name="format">
+        /// The format to return a response in. Can be:<br/>
+        /// - "json" string to enable JSON mode<br/>
+        /// - JSON schema object for structured output validation
+        /// </param>
         /// <param name="keepAlive">
         /// How long (in minutes) to keep the model loaded in memory.<br/>
         /// - If set to a positive duration (e.g. 20), the model will stay loaded for the provided duration.<br/>
@@ -138,10 +142,16 @@ namespace Ollama
         /// Additional model parameters listed in the documentation for the Modelfile such as `temperature`.
         /// </param>
         /// <param name="think">
-        /// Think controls whether thinking/reasoning models will think before<br/>
-        /// responding. Needs to be a pointer so we can distinguish between false<br/>
-        /// (request that thinking _not_ be used) and unset (use the old behavior<br/>
-        /// before this option was introduced).
+        /// Controls whether thinking/reasoning models will think before responding.<br/>
+        /// Can be:<br/>
+        /// - boolean: true/false to enable/disable thinking<br/>
+        /// - string: "high", "medium", "low" to set thinking intensity level
+        /// </param>
+        /// <param name="truncate">
+        /// Truncates the end of the chat history if it exceeds the context length
+        /// </param>
+        /// <param name="shift">
+        /// Shifts the oldest messages out of the context window when the context limit is reached
         /// </param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
@@ -149,11 +159,13 @@ namespace Ollama
             string model,
             global::System.Collections.Generic.IList<global::Ollama.Message> messages,
             bool? stream = default,
-            global::Ollama.ResponseFormat? format = default,
+            global::Ollama.OneOf<global::Ollama.GenerateChatCompletionRequestFormatEnum?, object>? format = default,
             int? keepAlive = default,
             global::System.Collections.Generic.IList<global::Ollama.Tool>? tools = default,
             global::Ollama.RequestOptions? options = default,
-            bool? think = default,
+            global::Ollama.OneOf<bool?, global::Ollama.GenerateChatCompletionRequestThink?>? think = default,
+            bool? truncate = default,
+            bool? shift = default,
             [global::System.Runtime.CompilerServices.EnumeratorCancellation] global::System.Threading.CancellationToken cancellationToken = default)
         {
             var __request = new global::Ollama.GenerateChatCompletionRequest
@@ -166,6 +178,8 @@ namespace Ollama
                 Tools = tools,
                 Options = options,
                 Think = think,
+                Truncate = truncate,
+                Shift = shift,
             };
 
             var __enumerable = GenerateChatCompletionAsync(

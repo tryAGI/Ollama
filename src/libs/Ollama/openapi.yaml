@@ -284,9 +284,17 @@ components:
           default: true
         raw:
           type: boolean
-          description: "If `true` no formatting will be applied to the prompt and no context will be returned. \n\nYou may choose to use the `raw` parameter if you are specifying a full templated prompt in your request to the API, and are managing history yourself.\n"
+          description: "If `true` no formatting will be applied to the prompt and no context will be returned.\n\nYou may choose to use the `raw` parameter if you are specifying a full templated prompt in your request to the API, and are managing history yourself.\n"
         format:
-          $ref: '#/components/schemas/ResponseFormat'
+          oneOf:
+            - enum:
+                - json
+              type: string
+              description: Enable JSON mode
+            - type: object
+              description: JSON schema object for structured output validation
+          description: "The format to return a response in. Can be:\n- \"json\" string to enable JSON mode\n- JSON schema object for structured output validation\n"
+          nullable: true
         keep_alive:
           type: integer
           description: "How long (in minutes) to keep the model loaded in memory.\n\n- If set to a positive duration (e.g. 20), the model will stay loaded for the provided duration.\n- If set to a negative duration (e.g. -1), the model will stay loaded indefinitely.\n- If set to 0, the model will be unloaded immediately once finished.\n- If not set, the model will stay loaded for 5 minutes by default\n"
@@ -301,8 +309,22 @@ components:
         options:
           $ref: '#/components/schemas/RequestOptions'
         think:
+          oneOf:
+            - type: boolean
+            - enum:
+                - high
+                - medium
+                - low
+              type: string
+          description: "Controls whether thinking/reasoning models will think before responding.\nCan be:\n- boolean: true/false to enable/disable thinking\n- string: \"high\", \"medium\", \"low\" to set thinking intensity level\n"
+          nullable: true
+        truncate:
           type: boolean
-          description: "Think controls whether thinking/reasoning models will think before\nresponding. Needs to be a pointer so we can distinguish between false\n(request that thinking _not_ be used) and unset (use the old behavior\nbefore this option was introduced).\n"
+          description: Truncates the end of the prompt if it exceeds the context length
+          nullable: true
+        shift:
+          type: boolean
+          description: Shifts the oldest parts out of the context window when the context limit is reached
           nullable: true
       description: Request class for the generate endpoint.
     RequestOptions:
@@ -517,6 +539,14 @@ components:
           description: Time in nanoseconds spent generating the response.
           format: int64
           example: 1325948000
+        remote_model:
+          type: string
+          description: Name of the upstream remote model that generated the response (when using federated models)
+          nullable: true
+        remote_host:
+          type: string
+          description: URL of the upstream Ollama host that served the request (when proxying to remote instances)
+          nullable: true
       description: The response class for the generate endpoint.
     GenerateChatCompletionRequest:
       required:
@@ -538,7 +568,15 @@ components:
           description: "If `false` the response will be returned as a single response object, otherwise the response will be streamed as a series of objects.\n"
           default: true
         format:
-          $ref: '#/components/schemas/ResponseFormat'
+          oneOf:
+            - enum:
+                - json
+              type: string
+              description: Enable JSON mode
+            - type: object
+              description: JSON schema object for structured output validation
+          description: "The format to return a response in. Can be:\n- \"json\" string to enable JSON mode\n- JSON schema object for structured output validation\n"
+          nullable: true
         keep_alive:
           type: integer
           description: "How long (in minutes) to keep the model loaded in memory.\n\n- If set to a positive duration (e.g. 20), the model will stay loaded for the provided duration.\n- If set to a negative duration (e.g. -1), the model will stay loaded indefinitely.\n- If set to 0, the model will be unloaded immediately once finished.\n- If not set, the model will stay loaded for 5 minutes by default\n"
@@ -551,8 +589,22 @@ components:
         options:
           $ref: '#/components/schemas/RequestOptions'
         think:
+          oneOf:
+            - type: boolean
+            - enum:
+                - high
+                - medium
+                - low
+              type: string
+          description: "Controls whether thinking/reasoning models will think before responding.\nCan be:\n- boolean: true/false to enable/disable thinking\n- string: \"high\", \"medium\", \"low\" to set thinking intensity level\n"
+          nullable: true
+        truncate:
           type: boolean
-          description: "Think controls whether thinking/reasoning models will think before\nresponding. Needs to be a pointer so we can distinguish between false\n(request that thinking _not_ be used) and unset (use the old behavior\nbefore this option was introduced).\n"
+          description: Truncates the end of the chat history if it exceeds the context length
+          nullable: true
+        shift:
+          type: boolean
+          description: Shifts the oldest messages out of the context window when the context limit is reached
           nullable: true
       description: Request class for the chat endpoint.
     GenerateChatCompletionResponse:
@@ -608,6 +660,14 @@ components:
           description: Time in nanoseconds spent generating the response.
           format: int64
           example: 1325948000
+        remote_model:
+          type: string
+          description: Name of the upstream remote model that generated the response (when using federated models)
+          nullable: true
+        remote_host:
+          type: string
+          description: URL of the upstream Ollama host that served the request (when proxying to remote instances)
+          nullable: true
       description: The response class for the chat endpoint.
     DoneReason:
       anyOf:
@@ -651,6 +711,10 @@ components:
           items:
             $ref: '#/components/schemas/ToolCall'
           description: A list of tools the model wants to call.
+        tool_name:
+          type: string
+          description: The name of the tool when role is "tool" (used in tool response messages)
+          nullable: true
       description: A message in the chat endpoint
     Tool:
       type: object
@@ -700,6 +764,9 @@ components:
           description: The name of the function to be called.
         arguments:
           $ref: '#/components/schemas/ToolCallFunctionArgs'
+        index:
+          type: integer
+          description: The index of the tool call in the list of tool calls
       description: The function the model wants to call.
     ToolCallFunctionArgs:
       type: object
@@ -812,6 +879,14 @@ components:
           example: sha256:bc07c81de745696fdf5afca05e065818a8149fb0c77266fb584d9b2cba3711a
         details:
           $ref: '#/components/schemas/ModelDetails'
+        remote_model:
+          type: string
+          description: Name of the upstream remote model (when model is federated from another Ollama instance)
+          nullable: true
+        remote_host:
+          type: string
+          description: URL of the upstream Ollama host (when model is federated from another instance)
+          nullable: true
       description: A model available locally.
     ModelDetails:
       type: object
@@ -987,6 +1062,14 @@ components:
           description: Date on which a model was created.
           format: date-time
           example: '2023-08-04T19:22:45.4991270+00:00'
+        remote_model:
+          type: string
+          description: Name of the upstream remote model (when model is federated from another Ollama instance)
+          nullable: true
+        remote_host:
+          type: string
+          description: URL of the upstream Ollama host (when model is federated from another instance)
+          nullable: true
       description: 'Details about a model including modelfile, template, parameters, license, and system prompt.'
     CopyModelRequest:
       required:
