@@ -33,14 +33,14 @@
   </PropertyGroup>
 
   <ItemGroup Label="Versioning">
-    <PackageReference Include="MinVer" Version="6.0.0">
+    <PackageReference Include="MinVer" Version="7.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
 
   <ItemGroup Label="Source Link">
-    <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.2.39">
+    <PackageReference Include="DotNet.ReproducibleBuilds" Version="2.0.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
