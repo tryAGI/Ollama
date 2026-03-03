@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net4.6.2;net8.0;net9.0</TargetFrameworks>
+    <TargetFramework>net10.0</TargetFramework>
     <NoWarn>$(NoWarn);CA2016;CA2227;CA1002;CA1303;CA1305</NoWarn>
   </PropertyGroup>
   
@@ -17,16 +17,6 @@
   
   <ItemGroup>
     <PackageReference Include="CSharpToJsonSchema" Version="3.10.1" />
-    <PackageReference Include="PolySharp" Version="1.15.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="System.Text.Json" Version="10.0.0" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net4.6.2'">
-    <PackageReference Include="Microsoft.NET.ILLink.Tasks" Version="9.0.8" />
-    <Reference Include="System.Net.Http" />
-  </ItemGroup>
+</ItemGroup>
 
 </Project>
