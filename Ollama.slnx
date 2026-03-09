@@ -1,0 +1,29 @@
+<Solution>
+  <Folder Name="/helpers/">
+    <Project Path="src/helpers/FixOpenApiSpec/FixOpenApiSpec.csproj" />
+    <Project Path="src/helpers/GenerateDocs/GenerateDocs.csproj" />
+    <Project Path="src/helpers/TrimmingHelper/TrimmingHelper.csproj" />
+  </Folder>
+  <Folder Name="/libs/">
+    <File Path="src/libs/Directory.Build.props" />
+    <Project Path="src/libs/Ollama/Ollama.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".gitignore" />
+    <File Path="LICENSE" />
+    <File Path="mkdocs.yml" />
+    <File Path="README.md" />
+    <File Path="src/Directory.Build.props" />
+  </Folder>
+  <Folder Name="/Solution Items/workflows/">
+    <File Path=".github/dependabot.yml" />
+    <File Path=".github/workflows/auto-merge.yml" />
+    <File Path=".github/workflows/auto-update.yml" />
+    <File Path=".github/workflows/dotnet.yml" />
+    <File Path=".github/workflows/mkdocs.yml" />
+    <File Path=".github/workflows/pull-request.yml" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="src/tests/Ollama.IntegrationTests/Ollama.IntegrationTests.csproj" />
+  </Folder>
+</Solution>
