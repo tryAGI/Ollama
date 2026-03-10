@@ -10,16 +10,16 @@ This is a fully generated C# SDK for the Ollama API, built using OpenAPI specifi
 
 ### Building
 ```bash
-dotnet build Ollama.sln
+dotnet build Ollama.slnx
 ```
 
 ### Running Tests
 ```bash
 # Run all tests
-dotnet test Ollama.sln
+dotnet test Ollama.slnx
 
 # Run tests with GitHub Actions logger
-dotnet test Ollama.sln --logger GitHubActions
+dotnet test Ollama.slnx --logger GitHubActions
 
 # Run a single test
 dotnet test --filter "FullyQualifiedName~Tests.Tools"
