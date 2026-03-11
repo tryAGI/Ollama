@@ -16,7 +16,7 @@ namespace Ollama
         /// <example>llama3.2</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("model")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Model { get; set; }
+        public string Model { get; set; } = default!;
 
         /// <summary>
         /// The prompt to generate a response.<br/>
@@ -25,7 +25,7 @@ namespace Ollama
         /// <example>Why is the sky blue?</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("prompt")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Prompt { get; set; }
+        public string Prompt { get; set; } = default!;
 
         /// <summary>
         /// The text that comes after the inserted text.

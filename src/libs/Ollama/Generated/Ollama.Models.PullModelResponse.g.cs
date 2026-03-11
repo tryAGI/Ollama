@@ -29,17 +29,17 @@ namespace Ollama
 
         /// <summary>
         /// Total size of the model.<br/>
-        /// Example: 2142590208L
+        /// Example: 2142590208
         /// </summary>
-        /// <example>2142590208L</example>
+        /// <example>2142590208</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("total")]
         public long? Total { get; set; }
 
         /// <summary>
         /// Total bytes transferred.<br/>
-        /// Example: 2142590208L
+        /// Example: 2142590208
         /// </summary>
-        /// <example>2142590208L</example>
+        /// <example>2142590208</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("completed")]
         public long? Completed { get; set; }
 
@@ -62,11 +62,11 @@ namespace Ollama
         /// </param>
         /// <param name="total">
         /// Total size of the model.<br/>
-        /// Example: 2142590208L
+        /// Example: 2142590208
         /// </param>
         /// <param name="completed">
         /// Total bytes transferred.<br/>
-        /// Example: 2142590208L
+        /// Example: 2142590208
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

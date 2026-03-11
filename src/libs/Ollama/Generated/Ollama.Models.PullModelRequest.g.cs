@@ -16,7 +16,7 @@ namespace Ollama
         /// <example>llama3.2</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("model")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Model { get; set; }
+        public string Model { get; set; } = default!;
 
         /// <summary>
         /// Allow insecure connections to the library. <br/>

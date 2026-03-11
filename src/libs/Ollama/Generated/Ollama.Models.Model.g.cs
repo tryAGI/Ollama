@@ -18,16 +18,18 @@ namespace Ollama
         public string? Model1 { get; set; }
 
         /// <summary>
-        /// Model modification date.
+        /// Model modification date.<br/>
+        /// Example: 2023-08-02T17:02:23.7134544-07:00
         /// </summary>
+        /// <example>2023-08-02T17:02:23.7134544-07:00</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("modified_at")]
         public global::System.DateTime? ModifiedAt { get; set; }
 
         /// <summary>
         /// Size of the model on disk.<br/>
-        /// Example: 7323310500L
+        /// Example: 7323310500
         /// </summary>
-        /// <example>7323310500L</example>
+        /// <example>7323310500</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("size")]
         public long? Size { get; set; }
 
@@ -60,11 +62,12 @@ namespace Ollama
         /// Example: llama3.2
         /// </param>
         /// <param name="modifiedAt">
-        /// Model modification date.
+        /// Model modification date.<br/>
+        /// Example: 2023-08-02T17:02:23.7134544-07:00
         /// </param>
         /// <param name="size">
         /// Size of the model on disk.<br/>
-        /// Example: 7323310500L
+        /// Example: 7323310500
         /// </param>
         /// <param name="digest">
         /// The model's digest.<br/>

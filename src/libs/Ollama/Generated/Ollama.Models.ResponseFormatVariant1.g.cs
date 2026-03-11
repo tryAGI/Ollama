@@ -4,9 +4,9 @@
 namespace Ollama
 {
     /// <summary>
-    /// A JSON Schema object that defines the structure of the response. The model will generate a response that matches this schema.
+    /// Enable JSON mode by setting the format parameter to 'json'. This will structure the response as valid JSON.
     /// </summary>
-    public sealed partial class ResponseFormatEnum2
+    public sealed partial class ResponseFormatVariant1
     {
 
         /// <summary>

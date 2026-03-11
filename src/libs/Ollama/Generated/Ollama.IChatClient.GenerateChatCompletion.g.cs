@@ -12,6 +12,7 @@ namespace Ollama
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Ollama.ApiException"></exception>
         global::System.Collections.Generic.IAsyncEnumerable<global::Ollama.GenerateChatCompletionResponse> GenerateChatCompletionAsync(
+
             global::Ollama.GenerateChatCompletionRequest request,
             global::System.Threading.CancellationToken cancellationToken = default);
 

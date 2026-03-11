@@ -13,9 +13,9 @@ namespace Ollama
         /// Enable JSON mode by setting the format parameter to 'json'. This will structure the response as valid JSON.
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::Ollama.ResponseFormatEnum? Value1 { get; init; }
+        public object? Value1 { get; init; }
 #else
-        public global::Ollama.ResponseFormatEnum? Value1 { get; }
+        public object? Value1 { get; }
 #endif
 
         /// <summary>
@@ -25,24 +25,6 @@ namespace Ollama
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Value1))]
 #endif
         public bool IsValue1 => Value1 != null;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public static implicit operator ResponseFormat(global::Ollama.ResponseFormatEnum value) => new ResponseFormat((global::Ollama.ResponseFormatEnum?)value);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public static implicit operator global::Ollama.ResponseFormatEnum?(ResponseFormat @this) => @this.Value1;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public ResponseFormat(global::Ollama.ResponseFormatEnum? value)
-        {
-            Value1 = value;
-        }
 
         /// <summary>
         /// A JSON Schema object that defines the structure of the response. The model will generate a response that matches this schema.
@@ -64,16 +46,8 @@ namespace Ollama
         /// <summary>
         /// 
         /// </summary>
-        public ResponseFormat(object? value)
-        {
-            Value2 = value;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public ResponseFormat(
-            global::Ollama.ResponseFormatEnum? value1,
+            object? value1,
             object? value2
             )
         {
@@ -93,7 +67,7 @@ namespace Ollama
         /// 
         /// </summary>
         public override string? ToString() =>
-            Value1?.ToValueString() ??
+            Value1?.ToString() ??
             Value2?.ToString() 
             ;
 
@@ -109,7 +83,7 @@ namespace Ollama
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Ollama.ResponseFormatEnum?, TResult>? value1 = null,
+            global::System.Func<object?, TResult>? value1 = null,
             global::System.Func<object?, TResult>? value2 = null,
             bool validate = true)
         {
@@ -134,7 +108,7 @@ namespace Ollama
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Ollama.ResponseFormatEnum?>? value1 = null,
+            global::System.Action<object?>? value1 = null,
             global::System.Action<object?>? value2 = null,
             bool validate = true)
         {
@@ -161,7 +135,7 @@ namespace Ollama
             var fields = new object?[]
             {
                 Value1,
-                typeof(global::Ollama.ResponseFormatEnum),
+                typeof(object),
                 Value2,
                 typeof(object),
             };
@@ -180,7 +154,7 @@ namespace Ollama
         public bool Equals(ResponseFormat other)
         {
             return
-                global::System.Collections.Generic.EqualityComparer<global::Ollama.ResponseFormatEnum?>.Default.Equals(Value1, other.Value1) &&
+                global::System.Collections.Generic.EqualityComparer<object?>.Default.Equals(Value1, other.Value1) &&
                 global::System.Collections.Generic.EqualityComparer<object?>.Default.Equals(Value2, other.Value2) 
                 ;
         }

@@ -24,6 +24,7 @@ namespace Ollama
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Ollama.ApiException"></exception>
         public async global::System.Collections.Generic.IAsyncEnumerable<global::Ollama.CreateModelResponse> CreateModelAsync(
+
             global::Ollama.CreateModelRequest request,
             [global::System.Runtime.CompilerServices.EnumeratorCancellation] global::System.Threading.CancellationToken cancellationToken = default)
         {
@@ -72,6 +73,7 @@ namespace Ollama
             ProcessCreateModelResponse(
                 httpClient: HttpClient,
                 httpResponseMessage: __response);
+
             try
             {
                 __response.EnsureSuccessStatusCode();

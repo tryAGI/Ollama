@@ -29,19 +29,20 @@ namespace Ollama.JsonConverters
             }
 
             readerCopy = reader;
-            global::Ollama.DoneReasonEnum? value2 = default;
+            string? value2 = default;
             try
             {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Ollama.DoneReasonEnum), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Ollama.DoneReasonEnum> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Ollama.DoneReasonEnum).Name}");
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(string), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<string> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(string).Name}");
                 value2 = global::System.Text.Json.JsonSerializer.Deserialize(ref readerCopy, typeInfo);
             }
             catch (global::System.Text.Json.JsonException)
             {
             }
 
-            var result = new global::Ollama.DoneReason(
+            var __value = new global::Ollama.DoneReason(
                 value1,
+
                 value2
                 );
 
@@ -53,12 +54,12 @@ namespace Ollama.JsonConverters
             }
             else if (value2 != null)
             {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Ollama.DoneReasonEnum), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Ollama.DoneReasonEnum> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Ollama.DoneReasonEnum).Name}");
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(string), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<string> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(string).Name}");
                 _ = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
 
-            return result;
+            return __value;
         }
 
         /// <inheritdoc />
@@ -78,8 +79,8 @@ namespace Ollama.JsonConverters
             }
             else if (value.IsValue2)
             {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Ollama.DoneReasonEnum), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Ollama.DoneReasonEnum> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Ollama.DoneReasonEnum).Name}");
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(string), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<string?> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(string).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.Value2, typeInfo);
             }
         }

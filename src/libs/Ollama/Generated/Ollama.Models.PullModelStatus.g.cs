@@ -30,6 +30,22 @@ namespace Ollama
         /// <summary>
         /// 
         /// </summary>
+#if NET6_0_OR_GREATER
+        public string? Value2 { get; init; }
+#else
+        public string? Value2 { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Value2))]
+#endif
+        public bool IsValue2 => Value2 != null;
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator PullModelStatus(string value) => new PullModelStatus((string?)value);
 
         /// <summary>
@@ -48,44 +64,9 @@ namespace Ollama
         /// <summary>
         /// 
         /// </summary>
-#if NET6_0_OR_GREATER
-        public global::Ollama.PullModelStatusEnum? Value2 { get; init; }
-#else
-        public global::Ollama.PullModelStatusEnum? Value2 { get; }
-#endif
-
-        /// <summary>
-        /// 
-        /// </summary>
-#if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Value2))]
-#endif
-        public bool IsValue2 => Value2 != null;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public static implicit operator PullModelStatus(global::Ollama.PullModelStatusEnum value) => new PullModelStatus((global::Ollama.PullModelStatusEnum?)value);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public static implicit operator global::Ollama.PullModelStatusEnum?(PullModelStatus @this) => @this.Value2;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public PullModelStatus(global::Ollama.PullModelStatusEnum? value)
-        {
-            Value2 = value;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public PullModelStatus(
             string? value1,
-            global::Ollama.PullModelStatusEnum? value2
+            string? value2
             )
         {
             Value1 = value1;
@@ -105,7 +86,7 @@ namespace Ollama
         /// </summary>
         public override string? ToString() =>
             Value1?.ToString() ??
-            Value2?.ToValueString() 
+            Value2?.ToString() 
             ;
 
         /// <summary>
@@ -121,7 +102,7 @@ namespace Ollama
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<string?, TResult>? value1 = null,
-            global::System.Func<global::Ollama.PullModelStatusEnum?, TResult>? value2 = null,
+            global::System.Func<string?, TResult>? value2 = null,
             bool validate = true)
         {
             if (validate)
@@ -146,7 +127,7 @@ namespace Ollama
         /// </summary>
         public void Match(
             global::System.Action<string?>? value1 = null,
-            global::System.Action<global::Ollama.PullModelStatusEnum?>? value2 = null,
+            global::System.Action<string?>? value2 = null,
             bool validate = true)
         {
             if (validate)
@@ -174,7 +155,7 @@ namespace Ollama
                 Value1,
                 typeof(string),
                 Value2,
-                typeof(global::Ollama.PullModelStatusEnum),
+                typeof(string),
             };
             const int offset = unchecked((int)2166136261);
             const int prime = 16777619;
@@ -192,7 +173,7 @@ namespace Ollama
         {
             return
                 global::System.Collections.Generic.EqualityComparer<string?>.Default.Equals(Value1, other.Value1) &&
-                global::System.Collections.Generic.EqualityComparer<global::Ollama.PullModelStatusEnum?>.Default.Equals(Value2, other.Value2) 
+                global::System.Collections.Generic.EqualityComparer<string?>.Default.Equals(Value2, other.Value2) 
                 ;
         }
 

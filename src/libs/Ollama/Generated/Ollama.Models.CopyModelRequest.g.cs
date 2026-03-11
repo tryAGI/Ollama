@@ -15,7 +15,7 @@ namespace Ollama
         /// <example>llama3.2</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("source")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Source { get; set; }
+        public string Source { get; set; } = default!;
 
         /// <summary>
         /// Name of the new model.<br/>
@@ -24,7 +24,7 @@ namespace Ollama
         /// <example>llama3-backup</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("destination")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Destination { get; set; }
+        public string Destination { get; set; } = default!;
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema

@@ -37,7 +37,7 @@ public partial class Tests
         try
         {
             Console.WriteLine($"schemaObject: {schemaObject}");
-            chat.ResponseFormat = new ResponseFormat(schemaObject);
+            chat.ResponseFormat = new ResponseFormat(value1: null, value2: schemaObject);
             var response = await chat.SendAsync("What is the current temperature in Dubai, UAE in Celsius? (hint: it's 25C in Dubai right now)");
             Console.WriteLine(response);
             var queryResponse = JsonSerializer.Deserialize<QueryResponse>(response.Content);

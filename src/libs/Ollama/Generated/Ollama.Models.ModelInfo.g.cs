@@ -83,8 +83,10 @@ namespace Ollama
         public global::System.Collections.Generic.IList<global::Ollama.Capability>? Capabilities { get; set; }
 
         /// <summary>
-        /// Date on which a model was created.
+        /// Date on which a model was created.<br/>
+        /// Example: 2023-08-04T19:22:45.4991270+00:00
         /// </summary>
+        /// <example>2023-08-04T19:22:45.4991270+00:00</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("modified_at")]
         public global::System.DateTime? ModifiedAt { get; set; }
 
@@ -135,7 +137,8 @@ namespace Ollama
         /// The capabilities of the model.
         /// </param>
         /// <param name="modifiedAt">
-        /// Date on which a model was created.
+        /// Date on which a model was created.<br/>
+        /// Example: 2023-08-04T19:22:45.4991270+00:00
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

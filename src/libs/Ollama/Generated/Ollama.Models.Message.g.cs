@@ -14,7 +14,7 @@ namespace Ollama
         [global::System.Text.Json.Serialization.JsonPropertyName("role")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Ollama.JsonConverters.MessageRoleJsonConverter))]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required global::Ollama.MessageRole Role { get; set; }
+        public global::Ollama.MessageRole Role { get; set; } = default!;
 
         /// <summary>
         /// The content of the message<br/>
@@ -23,7 +23,7 @@ namespace Ollama
         /// <example>Why is the sky blue?</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("content")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Content { get; set; }
+        public string Content { get; set; } = default!;
 
         /// <summary>
         /// Contains the text that was inside thinking tags in the original model output when `think` is enabled.

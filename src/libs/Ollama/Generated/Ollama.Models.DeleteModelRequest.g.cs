@@ -16,7 +16,7 @@ namespace Ollama
         /// <example>llama3:13b</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("model")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Model { get; set; }
+        public string Model { get; set; } = default!;
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema

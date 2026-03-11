@@ -16,7 +16,7 @@ namespace Ollama
         /// <example>llama3.2</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("model")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Model { get; set; }
+        public string Model { get; set; } = default!;
 
         /// <summary>
         /// Text to generate embeddings for.<br/>
@@ -25,7 +25,7 @@ namespace Ollama
         /// <example>Here is an article about llamas...</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("prompt")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Prompt { get; set; }
+        public string Prompt { get; set; } = default!;
 
         /// <summary>
         /// Additional model parameters listed in the documentation for the Modelfile such as `temperature`.

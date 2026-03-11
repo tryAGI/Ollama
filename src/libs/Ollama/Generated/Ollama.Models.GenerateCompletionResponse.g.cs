@@ -18,8 +18,10 @@ namespace Ollama
         public string? Model { get; set; }
 
         /// <summary>
-        /// Date on which a model was created.
+        /// Date on which a model was created.<br/>
+        /// Example: 2023-08-04T19:22:45.4991270+00:00
         /// </summary>
+        /// <example>2023-08-04T19:22:45.4991270+00:00</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("created_at")]
         public global::System.DateTime? CreatedAt { get; set; }
 
@@ -47,25 +49,25 @@ namespace Ollama
 
         /// <summary>
         /// An encoding of the conversation used in this response, this can be sent in the next request to keep a conversational memory.<br/>
-        /// Example: [1L, 2L, 3L]
+        /// Example: [1, 2, 3]
         /// </summary>
-        /// <example>[1L, 2L, 3L]</example>
+        /// <example>[1, 2, 3]</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("context")]
         public global::System.Collections.Generic.IList<long>? Context { get; set; }
 
         /// <summary>
         /// Time spent generating the response.<br/>
-        /// Example: 5589157167L
+        /// Example: 5589157167
         /// </summary>
-        /// <example>5589157167L</example>
+        /// <example>5589157167</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("total_duration")]
         public long? TotalDuration { get; set; }
 
         /// <summary>
         /// Time spent in nanoseconds loading the model.<br/>
-        /// Example: 3013701500L
+        /// Example: 3013701500
         /// </summary>
-        /// <example>3013701500L</example>
+        /// <example>3013701500</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("load_duration")]
         public long? LoadDuration { get; set; }
 
@@ -79,9 +81,9 @@ namespace Ollama
 
         /// <summary>
         /// Time spent in nanoseconds evaluating the prompt.<br/>
-        /// Example: 1160282000L
+        /// Example: 1160282000
         /// </summary>
-        /// <example>1160282000L</example>
+        /// <example>1160282000</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("prompt_eval_duration")]
         public long? PromptEvalDuration { get; set; }
 
@@ -95,9 +97,9 @@ namespace Ollama
 
         /// <summary>
         /// Time in nanoseconds spent generating the response.<br/>
-        /// Example: 1325948000L
+        /// Example: 1325948000
         /// </summary>
-        /// <example>1325948000L</example>
+        /// <example>1325948000</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("eval_duration")]
         public long? EvalDuration { get; set; }
 
@@ -116,7 +118,8 @@ namespace Ollama
         /// Example: llama3.2
         /// </param>
         /// <param name="createdAt">
-        /// Date on which a model was created.
+        /// Date on which a model was created.<br/>
+        /// Example: 2023-08-04T19:22:45.4991270+00:00
         /// </param>
         /// <param name="response">
         /// The response for a given prompt with a provided model.<br/>
@@ -131,15 +134,15 @@ namespace Ollama
         /// </param>
         /// <param name="context">
         /// An encoding of the conversation used in this response, this can be sent in the next request to keep a conversational memory.<br/>
-        /// Example: [1L, 2L, 3L]
+        /// Example: [1, 2, 3]
         /// </param>
         /// <param name="totalDuration">
         /// Time spent generating the response.<br/>
-        /// Example: 5589157167L
+        /// Example: 5589157167
         /// </param>
         /// <param name="loadDuration">
         /// Time spent in nanoseconds loading the model.<br/>
-        /// Example: 3013701500L
+        /// Example: 3013701500
         /// </param>
         /// <param name="promptEvalCount">
         /// Number of tokens in the prompt.<br/>
@@ -147,7 +150,7 @@ namespace Ollama
         /// </param>
         /// <param name="promptEvalDuration">
         /// Time spent in nanoseconds evaluating the prompt.<br/>
-        /// Example: 1160282000L
+        /// Example: 1160282000
         /// </param>
         /// <param name="evalCount">
         /// Number of tokens the response.<br/>
@@ -155,7 +158,7 @@ namespace Ollama
         /// </param>
         /// <param name="evalDuration">
         /// Time in nanoseconds spent generating the response.<br/>
-        /// Example: 1325948000L
+        /// Example: 1325948000
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

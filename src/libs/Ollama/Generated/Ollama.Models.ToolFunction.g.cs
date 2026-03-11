@@ -13,21 +13,21 @@ namespace Ollama
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("name")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Name { get; set; }
+        public string Name { get; set; } = default!;
 
         /// <summary>
         /// A description of what the function does, used by the model to choose when and how to call the function.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("description")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Description { get; set; }
+        public string Description { get; set; } = default!;
 
         /// <summary>
         /// The parameters the functions accepts, described as a JSON Schema object.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("parameters")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required object Parameters { get; set; }
+        public object Parameters { get; set; } = default!;
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema

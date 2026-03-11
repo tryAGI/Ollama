@@ -16,14 +16,14 @@ namespace Ollama
         /// <example>llama3.2</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("model")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Model { get; set; }
+        public string Model { get; set; } = default!;
 
         /// <summary>
         /// The messages of the chat, this can be used to keep a chat memory
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("messages")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required global::System.Collections.Generic.IList<global::Ollama.Message> Messages { get; set; }
+        public global::System.Collections.Generic.IList<global::Ollama.Message> Messages { get; set; } = default!;
 
         /// <summary>
         /// If `false` the response will be returned as a single response object, otherwise the response will be streamed as a series of objects.<br/>

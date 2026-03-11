@@ -9,7 +9,7 @@ fi
 autosdk generate openapi.yaml \
   --namespace Ollama \
   --clientClassName OllamaApiClient \
-  --targetFramework net8.0 \
+  --targetFramework net10.0 \
   --output Generated \
   --exclude-deprecated-operations
 #openapi-generator generate \

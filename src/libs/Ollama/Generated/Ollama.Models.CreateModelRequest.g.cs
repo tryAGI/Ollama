@@ -16,7 +16,7 @@ namespace Ollama
         /// <example>mario</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("model")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Model { get; set; }
+        public string Model { get; set; } = default!;
 
         /// <summary>
         /// The contents of the Modelfile.<br/>
@@ -25,7 +25,7 @@ namespace Ollama
         /// <example>FROM llama3\nSYSTEM You are mario from Super Mario Bros.</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("modelfile")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Modelfile { get; set; }
+        public string Modelfile { get; set; } = default!;
 
         /// <summary>
         /// Path to the Modelfile (optional)

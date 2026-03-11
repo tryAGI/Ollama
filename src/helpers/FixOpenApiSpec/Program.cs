@@ -1,93 +1,83 @@
+using System.Text.Json.Nodes;
+using AutoSDK.Extensions;
+using AutoSDK.Models;
 using Microsoft.OpenApi;
-using Microsoft.OpenApi.Any;
-using Microsoft.OpenApi.Extensions;
-using Microsoft.OpenApi.Models;
-using Microsoft.OpenApi.Readers;
 
 var path = args[0];
-var text = await File.ReadAllTextAsync(path);
+var yamlOrJson = await File.ReadAllTextAsync(path);
 
-var openApiDocument = new OpenApiStringReader().Read(text, out var diagnostics);
-openApiDocument.Components.Schemas["GenerateCompletionRequest"]!.Properties["stream"]!.Default = new OpenApiBoolean(true);
-openApiDocument.Components.Schemas["GenerateChatCompletionRequest"]!.Properties["stream"]!.Default = new OpenApiBoolean(true);
-openApiDocument.Components.Schemas["CreateModelRequest"]!.Properties["stream"]!.Default = new OpenApiBoolean(true);
-openApiDocument.Components.Schemas["PullModelRequest"]!.Properties["stream"]!.Default = new OpenApiBoolean(true);
-openApiDocument.Components.Schemas["PushModelRequest"]!.Properties["stream"]!.Default = new OpenApiBoolean(true);
+var openApiDocument = yamlOrJson.GetOpenApiDocument(Settings.Default);
 
-ConvertToAnyOf(openApiDocument.Components.Schemas["DoneReason"]!);
-ConvertToAnyOf(openApiDocument.Components.Schemas["CreateModelStatus"]!);
-ConvertToAnyOf(openApiDocument.Components.Schemas["PullModelStatus"]!);
+((OpenApiSchema)openApiDocument.Components!.Schemas!["GenerateCompletionRequest"]!.Properties!["stream"]!).Default = JsonValue.Create(true);
+((OpenApiSchema)openApiDocument.Components.Schemas["GenerateChatCompletionRequest"]!.Properties!["stream"]!).Default = JsonValue.Create(true);
+((OpenApiSchema)openApiDocument.Components.Schemas["CreateModelRequest"]!.Properties!["stream"]!).Default = JsonValue.Create(true);
+((OpenApiSchema)openApiDocument.Components.Schemas["PullModelRequest"]!.Properties!["stream"]!).Default = JsonValue.Create(true);
+((OpenApiSchema)openApiDocument.Components.Schemas["PushModelRequest"]!.Properties!["stream"]!).Default = JsonValue.Create(true);
 
-openApiDocument.Components.Schemas["PushModelResponse"]!.Properties["status"] = new OpenApiSchema
+ConvertToAnyOf((OpenApiSchema)openApiDocument.Components.Schemas["DoneReason"]!);
+ConvertToAnyOf((OpenApiSchema)openApiDocument.Components.Schemas["CreateModelStatus"]!);
+ConvertToAnyOf((OpenApiSchema)openApiDocument.Components.Schemas["PullModelStatus"]!);
+
+openApiDocument.Components.Schemas["PushModelResponse"]!.Properties!["status"] = new OpenApiSchema
 {
     Description = "Status pushing the model.",
-    AnyOf = new List<OpenApiSchema>
+    AnyOf = new List<IOpenApiSchema>
     {
-        new()
+        new OpenApiSchema
         {
-            Type = "string",
+            Type = JsonSchemaType.String,
         },
-        new()
+        new OpenApiSchema
         {
-            Type = "string",
-            Enum = new List<IOpenApiAny>
+            Type = JsonSchemaType.String,
+            Enum = new List<JsonNode>
             {
-                new OpenApiString("retrieving manifest"),
-                new OpenApiString("starting upload"),
-                new OpenApiString("pushing manifest"),
-                new OpenApiString("success"),
+                JsonValue.Create("retrieving manifest")!,
+                JsonValue.Create("starting upload")!,
+                JsonValue.Create("pushing manifest")!,
+                JsonValue.Create("success")!,
             },
         },
     },
 };
 
-var currentResponseFormat = openApiDocument.Components.Schemas["ResponseFormat"]!;
-openApiDocument.Components.Schemas["ResponseFormat"]!.OneOf = new List<OpenApiSchema>
+var currentResponseFormat = (OpenApiSchema)openApiDocument.Components.Schemas["ResponseFormat"]!;
+var responseFormatSchema = (OpenApiSchema)openApiDocument.Components.Schemas["ResponseFormat"]!;
+responseFormatSchema.OneOf = new List<IOpenApiSchema>
 {
-    new()
+    new OpenApiSchema
     {
         Type = currentResponseFormat.Type,
         Enum = currentResponseFormat.Enum,
         Description = "Enable JSON mode by setting the format parameter to 'json'. This will structure the response as valid JSON.",
     },
-    new()
+    new OpenApiSchema
     {
-        Type = "object",
+        Type = JsonSchemaType.Object,
         Description = "A JSON Schema object that defines the structure of the response. The model will generate a response that matches this schema.",
     },
 };
-openApiDocument.Components.Schemas["ResponseFormat"].Enum = null;
-openApiDocument.Components.Schemas["ResponseFormat"].Type = null;
-openApiDocument.Components.Schemas["ResponseFormat"].Description = null;
+responseFormatSchema.Enum = null;
+responseFormatSchema.Type = null;
+responseFormatSchema.Description = null;
 
-text = openApiDocument.SerializeAsYaml(OpenApiSpecVersion.OpenApi3_0);
-_ = new OpenApiStringReader().Read(text, out diagnostics);
+yamlOrJson = await openApiDocument.SerializeAsYamlAsync(OpenApiSpecVersion.OpenApi3_2);
 
-if (diagnostics.Errors.Count > 0)
-{
-    foreach (var error in diagnostics.Errors)
-    {
-        Console.WriteLine(error.Message);
-    }
-    // Return Exit code 1
-    Environment.Exit(1);
-}
-
-await File.WriteAllTextAsync(path, text);
+await File.WriteAllTextAsync(path, yamlOrJson);
 return;
 
 static void ConvertToAnyOf(OpenApiSchema schema)
 {
     schema.Type = null;
-    schema.AnyOf = new List<OpenApiSchema>
+    schema.AnyOf = new List<IOpenApiSchema>
     {
-        new()
+        new OpenApiSchema
         {
-            Type = "string",
+            Type = JsonSchemaType.String,
         },
-        new()
+        new OpenApiSchema
         {
-            Type = "string",
+            Type = JsonSchemaType.String,
             Enum = schema.Enum,
         },
     };
