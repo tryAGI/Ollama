@@ -9,32 +9,29 @@ fi
 
 curl -fsSL https://raw.githubusercontent.com/ollama/ollama/main/docs/openapi.yaml -o openapi.yaml
 
-if ! command -v python3 >/dev/null 2>&1; then
-  echo "python3 is required to patch the downloaded OpenAPI spec" >&2
+if ! command -v yq >/dev/null 2>&1; then
+  echo "yq is required to patch the downloaded OpenAPI spec" >&2
   exit 1
 fi
 
-python3 - <<'PY'
-from pathlib import Path
-import re
-
-path = Path("openapi.yaml")
-text = path.read_text()
-
-for key in (
-    "total_duration",
-    "load_duration",
-    "prompt_eval_duration",
-    "eval_duration",
-    "total",
-    "completed",
-    "size",
-):
-    pattern = re.compile(rf"^(\s+{re.escape(key)}:\n)(\s+)type: integer\n", re.MULTILINE)
-    text = pattern.sub(r"\1\2type: integer\n\2format: int64\n", text)
-
-path.write_text(text)
-PY
+for key in \
+  total_duration \
+  load_duration \
+  prompt_eval_duration \
+  eval_duration \
+  total \
+  completed \
+  size
+do
+  yq -i '
+    (
+      .. |
+      select(tag == "!!map" and has("'"$key"'")) |
+      .'"$key"' |
+      select(.type == "integer")
+    ).format = "int64"
+  ' openapi.yaml
+done
 
 rm -rf Generated
 

@@ -34,10 +34,12 @@ jobs:
         with:
           dotnet-version: 10.0.x
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
+      - name: Setup yq
+        run: |
+          YQ_VERSION=v4.48.1
+          sudo wget -qO /usr/local/bin/yq "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64"
+          sudo chmod +x /usr/local/bin/yq
+          yq --version
 
       - name: Generate code
         run: |
