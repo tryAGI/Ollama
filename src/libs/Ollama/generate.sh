@@ -9,6 +9,11 @@ fi
 
 curl -fsSL https://raw.githubusercontent.com/ollama/ollama/main/docs/openapi.yaml -o openapi.yaml
 
+if ! command -v python3 >/dev/null 2>&1; then
+  echo "python3 is required to patch the downloaded OpenAPI spec" >&2
+  exit 1
+fi
+
 python3 - <<'PY'
 from pathlib import Path
 import re
