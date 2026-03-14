@@ -4,12 +4,12 @@
 namespace Ollama
 {
     /// <summary>
-    /// The response class for the version endpoint.
+    /// 
     /// </summary>
     public sealed partial class VersionResponse
     {
         /// <summary>
-        /// The version of the Ollama server.
+        /// Version of Ollama
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("version")]
         public string? Version { get; set; }
@@ -24,7 +24,7 @@ namespace Ollama
         /// Initializes a new instance of the <see cref="VersionResponse" /> class.
         /// </summary>
         /// <param name="version">
-        /// The version of the Ollama server.
+        /// Version of Ollama
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

@@ -32,11 +32,11 @@ public sealed class Environment : IAsyncDisposable
                     {
                         Timeout = TimeSpan.FromMinutes(10),
                     },
-                    baseUri: new Uri("http://127.0.0.1:11434/api")); // baseUri: new Uri("http://10.10.5.85:11434/api")
+                    baseUri: new Uri("http://127.0.0.1:11434")); // baseUri: new Uri("http://10.10.5.85:11434")
                 
                 if (!string.IsNullOrEmpty(model))
                 {
-                    await apiClient.Models.PullModelAsync(model).EnsureSuccessAsync();
+                    await apiClient.PullAsStreamAsync(model).EnsureSuccessAsync();
                 }
 
                 return new Environment
@@ -58,7 +58,7 @@ public sealed class Environment : IAsyncDisposable
                 var apiClient = new OllamaApiClient();
                 if (!string.IsNullOrEmpty(model))
                 {
-                    await apiClient.Models.PullModelAsync(model).EnsureSuccessAsync();
+                    await apiClient.PullAsStreamAsync(model).EnsureSuccessAsync();
                 }
                 
                 return new Environment

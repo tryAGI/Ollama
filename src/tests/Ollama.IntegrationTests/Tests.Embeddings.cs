@@ -7,10 +7,10 @@ public partial class Tests
     {
         await using var container = await Environment.PrepareAsync( "all-minilm");
         
-        var embeddingResponse = await container.ApiClient.Embeddings.GenerateEmbeddingAsync(
+        var embeddingResponse = await container.ApiClient.EmbedAsync(
             model:"all-minilm",
-            prompt: "hello");
+            input: "hello");
         
-        embeddingResponse.Embedding.Should().NotBeNullOrEmpty();
+        embeddingResponse.Embeddings.Should().NotBeNullOrEmpty();
     }
 }

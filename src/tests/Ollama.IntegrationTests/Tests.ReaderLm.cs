@@ -7,7 +7,7 @@ public partial class Tests
     {
         await using var container = await Environment.PrepareAsync("reader-lm:latest");
 
-        var enumerable = container.ApiClient.Completions.GenerateCompletionAsync(
+        var enumerable = container.ApiClient.GenerateAsStreamAsync(
             "reader-lm:latest", 
             """
             <html>

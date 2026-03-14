@@ -4,23 +4,28 @@
 namespace Ollama
 {
     /// <summary>
-    /// The function the model wants to call.
+    /// 
     /// </summary>
     public sealed partial class ToolCallFunction
     {
         /// <summary>
-        /// The name of the function to be called.
+        /// Name of the function to call
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("name")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public string Name { get; set; } = default!;
+        public required string Name { get; set; }
 
         /// <summary>
-        /// The arguments to pass to the function.
+        /// What the function does
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("description")]
+        public string? Description { get; set; }
+
+        /// <summary>
+        /// JSON object of arguments to pass to the function
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("arguments")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public object Arguments { get; set; } = default!;
+        public object? Arguments { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -32,20 +37,25 @@ namespace Ollama
         /// Initializes a new instance of the <see cref="ToolCallFunction" /> class.
         /// </summary>
         /// <param name="name">
-        /// The name of the function to be called.
+        /// Name of the function to call
+        /// </param>
+        /// <param name="description">
+        /// What the function does
         /// </param>
         /// <param name="arguments">
-        /// The arguments to pass to the function.
+        /// JSON object of arguments to pass to the function
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public ToolCallFunction(
             string name,
-            object arguments)
+            string? description,
+            object? arguments)
         {
             this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
-            this.Arguments = arguments ?? throw new global::System.ArgumentNullException(nameof(arguments));
+            this.Description = description;
+            this.Arguments = arguments;
         }
 
         /// <summary>

@@ -4,12 +4,12 @@
 namespace Ollama
 {
     /// <summary>
-    /// The tool the model wants to call.
+    /// 
     /// </summary>
     public sealed partial class ToolCall
     {
         /// <summary>
-        /// The function the model wants to call.
+        /// 
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("function")]
         public global::Ollama.ToolCallFunction? Function { get; set; }
@@ -23,9 +23,7 @@ namespace Ollama
         /// <summary>
         /// Initializes a new instance of the <see cref="ToolCall" /> class.
         /// </summary>
-        /// <param name="function">
-        /// The function the model wants to call.
-        /// </param>
+        /// <param name="function"></param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif

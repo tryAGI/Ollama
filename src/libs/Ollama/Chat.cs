@@ -10,10 +10,10 @@ public class Chat
 	/// <summary>
 	/// 
 	/// </summary>
-	public List<Message> History { get; set; } = new();
+	public List<ChatMessage> History { get; set; } = new();
 	
-	/// <inheritdoc cref="GenerateChatCompletionRequest.Tools"/>
-	public List<Tool> Tools { get; } = new();
+	/// <inheritdoc cref="ChatRequest.Tools"/>
+	public List<ToolDefinition> Tools { get; } = new();
 	
 	/// <summary>
 	/// 
@@ -25,7 +25,7 @@ public class Chat
 	/// </summary>
 	public IOllamaApiClient Client { get; }
 	
-	/// <inheritdoc cref="GenerateChatCompletionRequest.Model"/>
+	/// <inheritdoc cref="ChatRequest.Model"/>
 	public string Model { get; set; }
 	
 	/// <summary>
@@ -33,14 +33,14 @@ public class Chat
 	/// </summary>
 	public bool AutoCallTools { get; set; } = true;
 	
-	/// <inheritdoc cref="GenerateChatCompletionRequest.Format"/>
-	public ResponseFormat? ResponseFormat { get; set; }
+	/// <inheritdoc cref="ChatRequest.Format"/>
+	public OneOf<ChatRequestFormatEnum?, object>? Format { get; set; }
 	
-	/// <inheritdoc cref="GenerateChatCompletionRequest.Options"/>
-	public RequestOptions? RequestOptions { get; set; }
+	/// <inheritdoc cref="ChatRequest.Options"/>
+	public ModelOptions? Options { get; set; }
 	
-	/// <inheritdoc cref="GenerateChatCompletionRequest.KeepAlive"/>
-	public int? KeepAlive { get; set; }
+	/// <inheritdoc cref="ChatRequest.KeepAlive"/>
+	public OneOf<string, double?>? KeepAlive { get; set; }
 
 	/// <summary>
 	/// 
@@ -68,22 +68,22 @@ public class Chat
 		IOllamaApiClient client,
 		string model,
 		string? systemMessage = null,
-		ResponseFormat? format = default,
-		RequestOptions? options = default,
-		int? keepAlive = default)
+		OneOf<ChatRequestFormatEnum?, object>? format = default,
+		ModelOptions? options = default,
+		OneOf<string, double?>? keepAlive = default)
 	{
 		Client = client ?? throw new ArgumentNullException(nameof(client));
 		Model = model ?? throw new ArgumentNullException(nameof(model));
 		
-		ResponseFormat = format;
-		RequestOptions = options;
+		Format = format;
+		Options = options;
 		KeepAlive = keepAlive;
 		
 		if (systemMessage != null)
 		{
-			History.Add(new Message
+			History.Add(new ChatMessage
 			{
-				Role = MessageRole.System,
+				Role = ChatMessageRole.System,
 				Content = systemMessage,
 			});
 		}
@@ -95,7 +95,7 @@ public class Chat
 	/// <param name="tools"></param>
 	/// <param name="calls"></param>
 	public void AddToolService(
-		IList<Tool> tools,
+		IList<ToolDefinition> tools,
 		IReadOnlyDictionary<string, Func<string, CancellationToken, Task<string>>> calls)
 	{
 		tools = tools ?? throw new ArgumentNullException(nameof(tools));
@@ -115,15 +115,15 @@ public class Chat
 	/// <param name="message">The message to send</param>
 	/// <param name="imagesAsBase64">Base64 encoded images to send to the model</param>
 	/// <param name="cancellationToken">The token to cancel the operation with</param>
-	public async Task<Message> SendAsync(
+	public async Task<ChatMessage> SendAsync(
 		string? message = null,
-		MessageRole role = MessageRole.User,
+		ChatMessageRole role = ChatMessageRole.User,
 		IEnumerable<string>? imagesAsBase64 = null,
 		CancellationToken cancellationToken = default)
 	{
 		if (message != null)
 		{
-			History.Add(new Message
+			History.Add(new ChatMessage
 			{
 				Content = message,
 				Role = role,
@@ -131,21 +131,21 @@ public class Chat
 			});
 		}
 
-		var answer = await Client.Chat.GenerateChatCompletionAsync(
+		var answer = await Client.ChatAsync(
 			model: Model,
 			messages: History,
-			format: ResponseFormat,
-			options: RequestOptions,
-			stream: false,
+			format: Format,
+			options: Options,
 			keepAlive: KeepAlive,
 			tools: Tools.Count == 0 ? null : Tools,
-			cancellationToken: cancellationToken).WaitAsync().ConfigureAwait(false);
+			cancellationToken: cancellationToken).ConfigureAwait(false);
 		if (answer.Message == null)
 		{
 			throw new InvalidOperationException("Response message was null.");
 		}
 		
-		History.Add(answer.Message);
+		var answerMessage = answer.Message.ToChatMessage();
+		History.Add(answerMessage);
 
 		if (AutoCallTools && answer.Message.ToolCalls?.Count > 0)
 		{
@@ -154,14 +154,17 @@ public class Chat
 				string funcName = call.Function?.Name ?? string.Empty;
 				if (string.IsNullOrEmpty(funcName)) continue;
 				if (!Calls.TryGetValue(funcName, out var func)) continue;
-				var json = await func(call.Function?.Arguments.AsJson() ?? string.Empty, cancellationToken).ConfigureAwait(false);
+				var argumentsAsJson = call.Function?.Arguments == null
+					? string.Empty
+					: call.Function.Arguments.AsJson();
+				var json = await func(argumentsAsJson, cancellationToken).ConfigureAwait(false);
 				History.Add(json.AsToolMessage());
 			}
 
 			return await SendAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
 		}
 		
-		return answer.Message;
+		return answerMessage;
 	}
 	
 	/// <summary>
@@ -176,7 +179,7 @@ public class Chat
 	/// 
 	/// </summary>
 	/// <param name="messages"></param>
-	public static string PrintMessages(List<Message> messages)
+	public static string PrintMessages(List<ChatMessage> messages)
 	{
 		messages = messages ?? throw new ArgumentNullException(nameof(messages));
 		
@@ -194,7 +197,10 @@ public class Chat
 				
 				foreach (var call in message.ToolCalls)
 				{
-					builder.AppendLine($"{call.Function?.Name}({call.Function?.Arguments.AsJson()})");
+					var argumentsAsJson = call.Function?.Arguments == null
+						? string.Empty
+						: call.Function.Arguments.AsJson();
+					builder.AppendLine($"{call.Function?.Name}({argumentsAsJson})");
 				}
 			}
 		}

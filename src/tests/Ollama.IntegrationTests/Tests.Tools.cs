@@ -7,7 +7,7 @@ public partial class Tests
     {
         await using var container = await Environment.PrepareAsync("llama3.2");
         
-        var messages = new List<Message>
+        var messages = new List<ChatMessage>
         {
             "You are a helpful weather assistant.".AsSystemMessage(),
             "What is the current temperature in Dubai, UAE in Celsius?".AsUserMessage(),
@@ -18,30 +18,32 @@ public partial class Tests
         {
             var service = new WeatherService();
             var tools = service.AsTools().AsOllamaTools();
-            var response = await container.ApiClient.Chat.GenerateChatCompletionAsync(
+            var response = await container.ApiClient.ChatAsync(
                 model,
                 messages,
-                stream: false,
-                tools: tools).WaitAsync();
+                tools: tools);
+            var assistantMessage = response.Message ?? throw new InvalidOperationException("Expected a response message.");
 
-            messages.Add(response.Message);
+            messages.Add(assistantMessage.ToChatMessage());
 
-            response.Message.ToolCalls.Should().NotBeNullOrEmpty(because: "Expected a function call.");
+            assistantMessage.ToolCalls.Should().NotBeNullOrEmpty(because: "Expected a function call.");
 
-            foreach (var call in response.Message.ToolCalls!)
+            foreach (var call in assistantMessage.ToolCalls!)
             {
+                var argumentsAsJson = call.Function?.Arguments == null
+                    ? string.Empty
+                    : call.Function.Arguments.AsJson();
                 var json = await service.CallAsync(
                     functionName: call.Function?.Name ?? string.Empty,
-                    argumentsAsJson: call.Function?.Arguments.AsJson() ?? string.Empty);
+                    argumentsAsJson: argumentsAsJson);
                 messages.Add(json.AsToolMessage());
             }
 
-            response = await container.ApiClient.Chat.GenerateChatCompletionAsync(
+            response = await container.ApiClient.ChatAsync(
                 model,
                 messages,
-                stream: false,
-                tools: tools).WaitAsync();
-            messages.Add(response.Message);
+                tools: tools);
+            messages.Add((response.Message ?? throw new InvalidOperationException("Expected a response message.")).ToChatMessage());
         }
         finally
         {

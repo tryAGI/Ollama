@@ -29,7 +29,7 @@ The integration tests are located in `src/tests/Ollama.IntegrationTests` and use
 
 ## Code Generation
 
-**CRITICAL**: The `Generated/` directory (151 files) is auto-generated and should NEVER be manually edited. All generated code is created using the `autosdk.cli` tool based on the OpenAPI specification.
+**CRITICAL**: The `Generated/` directory is auto-generated and should NEVER be manually edited. All generated code is created using the `autosdk.cli` tool based on the OpenAPI specification.
 
 ### Regenerating Code
 ```bash
@@ -38,17 +38,17 @@ cd src/libs/Ollama
 ```
 
 This script:
-1. Downloads the latest OpenAPI spec from langchain_dart repository
-2. Runs `FixOpenApiSpec` helper to preprocess the spec
-3. Generates C# code using `autosdk generate` command
+1. Downloads the latest official OpenAPI spec from the Ollama repository
+2. Writes it to `src/libs/Ollama/openapi.yaml`
+3. Generates C# code using `autosdk generate`
 
 ## Architecture
 
 ### Generated vs Manual Code
 
 **Generated Code** (`src/libs/Ollama/Generated/`):
-- `OllamaApiClient.g.cs` - Main client with endpoint clients as properties
-- Endpoint clients: `CompletionsClient`, `ChatClient`, `EmbeddingsClient`, `ModelsClient`
+- `OllamaApiClient.g.cs` - Main client
+- Flat endpoint methods such as `GenerateAsync()`, `GenerateAsStreamAsync()`, `ChatAsync()`, `ChatAsStreamAsync()`, `PullAsync()`, `PullAsStreamAsync()`, `EmbedAsync()`, and `ListAsync()`
 - All API models, enums, converters, and serialization contexts
 - Generated from `openapi.yaml` using AutoSDK
 
@@ -57,8 +57,8 @@ This script:
 - `OllamaApiClientExtensions.cs` - Extension methods for improved ergonomics:
   - `Chat()` - Creates a new Chat instance
   - `WaitAsync()` - Combines streaming responses into single responses
-  - `EnsureSuccessAsync()` - Ensures model pull operations succeed
-- `Message.cs` - Partial class adding implicit string-to-Message conversion
+  - `EnsureSuccessAsync()` - Ensures streamed model operations succeed
+- `ChatMessage.cs` - Partial class adding implicit string-to-`ChatMessage` conversion
 - `Extensions/StringExtensions.cs` - Helper methods for creating messages and converting tools:
   - `AsUserMessage()`, `AsSystemMessage()`, `AsToolMessage()`, `AsAssistantMessage()`
   - `AsOllamaTools()` - Converts CSharpToJsonSchema tools to Ollama format
@@ -66,18 +66,18 @@ This script:
 
 ### Client Structure
 
-The `OllamaApiClient` exposes endpoint clients as properties:
-- `client.Completions` - For completion generation
-- `client.Chat` - For chat completions
-- `client.Embeddings` - For embeddings
-- `client.Models` - For model management (list, pull, push, delete, etc.)
+The `OllamaApiClient` exposes a flat method surface generated directly from the official Ollama spec:
+- `client.GenerateAsync()` / `client.GenerateAsStreamAsync()`
+- `client.ChatAsync()` / `client.ChatAsStreamAsync()`
+- `client.PullAsync()` / `client.PullAsStreamAsync()`
+- `client.EmbedAsync()`, `client.ListAsync()`, `client.ShowAsync()`, `client.PsAsync()`, and other model-management methods
 
 ### Streaming and Extension Methods
 
-Key pattern: Most API methods return `IAsyncEnumerable<T>` for streaming. Extension methods in `OllamaApiClientExtensions.cs` provide:
-- `WaitAsync()` methods that aggregate streams into single responses
-- `GetAwaiter()` methods enabling direct `await` on enumerables
-- This allows both streaming (`await foreach`) and non-streaming (`await`) usage
+Key pattern: operations that support both JSON and NDJSON have two generated methods. Extension methods in `OllamaApiClientExtensions.cs` provide:
+- `WaitAsync()` methods that aggregate NDJSON streams into single responses
+- `GetAwaiter()` methods enabling direct `await` on streamed enumerables
+- `EnsureSuccessAsync()` for streamed pull/create/push status events
 
 ### Chat Abstraction
 
@@ -99,7 +99,6 @@ See `src/tests/Ollama.IntegrationTests/WeatherTools.cs` for complete example.
 
 ## Helper Projects
 
-- `src/helpers/FixOpenApiSpec/` - Preprocesses OpenAPI spec before generation
 - `src/helpers/GenerateDocs/` - Documentation generation utility
 - `src/helpers/TrimmingHelper/` - Tests trimming/NativeAOT compatibility
 

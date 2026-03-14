@@ -11,11 +11,11 @@ public static class StringExtensions
     /// </summary>
     /// <param name="content"></param>
     /// <returns></returns>
-    public static Message AsUserMessage(this string content)
+    public static ChatMessage AsUserMessage(this string content)
     {
-        return new Message
+        return new ChatMessage
         {
-            Role = MessageRole.User,
+            Role = ChatMessageRole.User,
             Content = content,
         };
     }
@@ -25,11 +25,11 @@ public static class StringExtensions
     /// </summary>
     /// <param name="content"></param>
     /// <returns></returns>
-    public static Message AsAssistantMessage(this string content)
+    public static ChatMessage AsAssistantMessage(this string content)
     {
-        return new Message
+        return new ChatMessage
         {
-            Role = MessageRole.Assistant,
+            Role = ChatMessageRole.Assistant,
             Content = content,
         };
     }
@@ -39,11 +39,11 @@ public static class StringExtensions
     /// </summary>
     /// <param name="content"></param>
     /// <returns></returns>
-    public static Message AsSystemMessage(this string content)
+    public static ChatMessage AsSystemMessage(this string content)
     {
-        return new Message
+        return new ChatMessage
         {
-            Role = MessageRole.System,
+            Role = ChatMessageRole.System,
             Content = content,
         };
     }
@@ -53,11 +53,11 @@ public static class StringExtensions
     /// </summary>
     /// <param name="content"></param>
     /// <returns></returns>
-    public static Message AsToolMessage(this string content)
+    public static ChatMessage AsToolMessage(this string content)
     {
-        return new Message
+        return new ChatMessage
         {
-            Role = MessageRole.Tool,
+            Role = ChatMessageRole.Tool,
             Content = content,
         };
     }
@@ -77,18 +77,18 @@ public static class StringExtensions
     /// </summary>
     /// <param name="tools"></param>
     /// <returns></returns>
-    public static IList<Tool> AsOllamaTools(
+    public static IList<ToolDefinition> AsOllamaTools(
         this IList<CSharpToJsonSchema.Tool> tools)
     {
         return tools
-            .Select(x => new Tool
+            .Select(x => new ToolDefinition
             {
-                Type = ToolType.Function,
-                Function = new ToolFunction
+                Type = ToolDefinitionType.Function,
+                Function = new ToolDefinitionFunction
                 {
                     Name = x.Name!,
                     Description = x.Description ?? string.Empty,
-                    Parameters = x.Parameters ?? new ToolFunctionParams(),
+                    Parameters = x.Parameters ?? new object(),
                 },
             })
             .ToList();

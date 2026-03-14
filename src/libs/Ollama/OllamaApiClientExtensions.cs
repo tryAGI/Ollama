@@ -1,4 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
+using System.Text.Json;
 using System.Text;
 
 namespace Ollama;
@@ -38,7 +39,7 @@ public static class OllamaApiClientExtensions
 	/// <exception cref="ArgumentNullException">Thrown when the enumerable is null.</exception>
 	/// <exception cref="InvalidOperationException">Thrown when the response status is not "success".</exception>
 	public static async Task EnsureSuccessAsync(
-		this IAsyncEnumerable<PullModelResponse> enumerable)
+		this IAsyncEnumerable<StatusEvent> enumerable)
 	{
 		enumerable = enumerable ?? throw new ArgumentNullException(nameof(enumerable));
 		
@@ -58,13 +59,28 @@ public static class OllamaApiClientExtensions
 	/// <exception cref="ArgumentNullException"></exception>
 	/// <exception cref="InvalidOperationException"></exception>
 	public static void EnsureSuccess(
-		this PullModelResponse response)
+		this StatusEvent response)
 	{
 		response = response ?? throw new ArgumentNullException(nameof(response));
 
-		if (response.Status?.Value1 != "success")
+		if (!string.Equals(response.Status, "success", StringComparison.OrdinalIgnoreCase))
 		{
-			throw new InvalidOperationException($"Failed to pull model with status {response.Status?.Object}");
+			throw new InvalidOperationException($"Failed to pull model with status {response.Status}");
+		}
+	}
+
+	/// <summary>
+	/// Throws an InvalidOperationException if the response is not successful.
+	/// </summary>
+	/// <param name="response"></param>
+	public static void EnsureSuccess(
+		this StatusResponse response)
+	{
+		response = response ?? throw new ArgumentNullException(nameof(response));
+
+		if (!string.Equals(response.Status, "success", StringComparison.OrdinalIgnoreCase))
+		{
+			throw new InvalidOperationException($"Failed with status {response.Status}");
 		}
 	}
 	
@@ -73,27 +89,45 @@ public static class OllamaApiClientExtensions
 	/// </summary>
 	/// <param name="enumerable"></param>
 	/// <returns></returns>
-	public static async Task<GenerateCompletionResponse> WaitAsync(
-		this IAsyncEnumerable<GenerateCompletionResponse> enumerable)
+	public static async Task<GenerateResponse> WaitAsync(
+		this IAsyncEnumerable<GenerateStreamEvent> enumerable)
 	{
 		enumerable = enumerable ?? throw new ArgumentNullException(nameof(enumerable));
 		
 		var content = new StringBuilder();
-		var currentResponse = new GenerateCompletionResponse();
+		var thinking = new StringBuilder();
+		var currentResponse = new GenerateResponse();
 		await foreach (var response in enumerable.ConfigureAwait(false))
 		{
 			content.Append(response.Response);
-			currentResponse = response;
+			thinking.Append(response.Thinking);
+			currentResponse = new GenerateResponse
+			{
+				Model = response.Model,
+				CreatedAt = response.CreatedAt,
+				Done = response.Done,
+				DoneReason = response.DoneReason,
+				TotalDuration = response.TotalDuration,
+				LoadDuration = response.LoadDuration,
+				PromptEvalCount = response.PromptEvalCount,
+				PromptEvalDuration = response.PromptEvalDuration,
+				EvalCount = response.EvalCount,
+				EvalDuration = response.EvalDuration,
+			};
 		}
 		
 		currentResponse.Response = content.ToString();
+		if (thinking.Length > 0)
+		{
+			currentResponse.Thinking = thinking.ToString();
+		}
 
 		return currentResponse;
 	}
 
-	/// <inheritdoc cref="WaitAsync(IAsyncEnumerable{GenerateCompletionResponse})"/>
-	public static TaskAwaiter<GenerateCompletionResponse> GetAwaiter(
-		this IAsyncEnumerable<GenerateCompletionResponse> enumerable)
+	/// <inheritdoc cref="WaitAsync(IAsyncEnumerable{GenerateStreamEvent})"/>
+	public static TaskAwaiter<GenerateResponse> GetAwaiter(
+		this IAsyncEnumerable<GenerateStreamEvent> enumerable)
 	{
 		enumerable = enumerable ?? throw new ArgumentNullException(nameof(enumerable));
 		
@@ -105,20 +139,22 @@ public static class OllamaApiClientExtensions
 	/// </summary>
 	/// <param name="enumerable"></param>
 	/// <returns></returns>
-	public static async Task<GenerateChatCompletionResponse> WaitAsync(
-		this IAsyncEnumerable<GenerateChatCompletionResponse> enumerable)
+	public static async Task<ChatResponse> WaitAsync(
+		this IAsyncEnumerable<ChatStreamEvent> enumerable)
 	{
 		enumerable = enumerable ?? throw new ArgumentNullException(nameof(enumerable));
 		
-		MessageRole? responseRole = null;
+		string? responseRole = null;
 		IList<ToolCall>? toolCalls = null;
+		IList<string>? images = null;
 		var responseContent = new StringBuilder();
+		var responseThinking = new StringBuilder();
 		
-		var currentResponse = new GenerateChatCompletionResponse
+		var currentResponse = new ChatResponse
 		{
-			Message = new Message
+			Message = new ChatResponseMessage
 			{
-				Role = MessageRole.User,
+				Role = ChatResponseMessageRole.Assistant,
 				Content = string.Empty,
 			},
 			Model = string.Empty,
@@ -127,26 +163,44 @@ public static class OllamaApiClientExtensions
 		};
 		await foreach (var response in enumerable.ConfigureAwait(false))
 		{
-			responseRole ??= response.Message.Role;
-			toolCalls ??= response.Message.ToolCalls;
-			responseContent.Append(response.Message.Content);
+			responseRole ??= response.Message?.Role;
+			toolCalls ??= response.Message?.ToolCalls;
+			images ??= response.Message?.Images;
+			responseContent.Append(response.Message?.Content);
+			responseThinking.Append(response.Message?.Thinking);
 			
-			currentResponse = response;
+			currentResponse = new ChatResponse
+			{
+				Model = response.Model,
+				CreatedAt = response.CreatedAt,
+				Done = response.Done,
+				DoneReason = GetString(response.AdditionalProperties, "done_reason"),
+				TotalDuration = GetInt(response.AdditionalProperties, "total_duration"),
+				LoadDuration = GetInt(response.AdditionalProperties, "load_duration"),
+				PromptEvalCount = GetInt(response.AdditionalProperties, "prompt_eval_count"),
+				PromptEvalDuration = GetInt(response.AdditionalProperties, "prompt_eval_duration"),
+				EvalCount = GetInt(response.AdditionalProperties, "eval_count"),
+				EvalDuration = GetInt(response.AdditionalProperties, "eval_duration"),
+			};
 		}
 		
-		currentResponse.Message = new Message
+		currentResponse.Message = new ChatResponseMessage
 		{
-			Role = responseRole ?? MessageRole.User,
+			Role = string.Equals(responseRole, "assistant", StringComparison.OrdinalIgnoreCase)
+				? ChatResponseMessageRole.Assistant
+				: ChatResponseMessageRole.Assistant,
 			Content = responseContent.ToString(),
+			Thinking = responseThinking.Length > 0 ? responseThinking.ToString() : null,
 			ToolCalls = toolCalls,
+			Images = images,
 		};
 
 		return currentResponse;
 	}
 
-	/// <inheritdoc cref="WaitAsync(IAsyncEnumerable{GenerateChatCompletionResponse})"/>
-	public static TaskAwaiter<GenerateChatCompletionResponse> GetAwaiter(
-		this IAsyncEnumerable<GenerateChatCompletionResponse> enumerable)
+	/// <inheritdoc cref="WaitAsync(IAsyncEnumerable{ChatStreamEvent})"/>
+	public static TaskAwaiter<ChatResponse> GetAwaiter(
+		this IAsyncEnumerable<ChatStreamEvent> enumerable)
 	{
 		enumerable = enumerable ?? throw new ArgumentNullException(nameof(enumerable));
 		
@@ -158,12 +212,12 @@ public static class OllamaApiClientExtensions
 	/// </summary>
 	/// <param name="enumerable"></param>
 	/// <returns></returns>
-	public static async Task<IReadOnlyList<PullModelResponse>> WaitAsync(
-		this IAsyncEnumerable<PullModelResponse> enumerable)
+	public static async Task<IReadOnlyList<StatusEvent>> WaitAsync(
+		this IAsyncEnumerable<StatusEvent> enumerable)
 	{
 		enumerable = enumerable ?? throw new ArgumentNullException(nameof(enumerable));
 		
-		var responses = new List<PullModelResponse>();
+		var responses = new List<StatusEvent>();
 		await foreach (var response in enumerable.ConfigureAwait(false))
 		{
 			responses.Add(response);
@@ -172,12 +226,85 @@ public static class OllamaApiClientExtensions
 		return responses;
 	}
 	
-	/// <inheritdoc cref="WaitAsync(IAsyncEnumerable{PullModelResponse})"/>
-	public static TaskAwaiter<IReadOnlyList<PullModelResponse>> GetAwaiter(
-		this IAsyncEnumerable<PullModelResponse> enumerable)
+	/// <inheritdoc cref="WaitAsync(IAsyncEnumerable{StatusEvent})"/>
+	public static TaskAwaiter<IReadOnlyList<StatusEvent>> GetAwaiter(
+		this IAsyncEnumerable<StatusEvent> enumerable)
 	{
 		enumerable = enumerable ?? throw new ArgumentNullException(nameof(enumerable));
 		
 		return enumerable.WaitAsync().GetAwaiter();
+	}
+
+	/// <summary>
+	/// Converts a chat response message into a chat history message.
+	/// </summary>
+	/// <param name="message"></param>
+	public static ChatMessage ToChatMessage(
+		this ChatResponseMessage message)
+	{
+		message = message ?? throw new ArgumentNullException(nameof(message));
+
+		return new ChatMessage
+		{
+			Role = ChatMessageRole.Assistant,
+			Content = message.Content ?? string.Empty,
+			Images = message.Images,
+			ToolCalls = message.ToolCalls,
+		};
+	}
+
+	/// <summary>
+	/// Converts a streamed chat message chunk into a chat history message.
+	/// </summary>
+	/// <param name="message"></param>
+	public static ChatMessage ToChatMessage(
+		this ChatStreamEventMessage message)
+	{
+		message = message ?? throw new ArgumentNullException(nameof(message));
+
+		return new ChatMessage
+		{
+			Role = ChatMessageRoleExtensions.ToEnum(message.Role ?? string.Empty) ?? ChatMessageRole.Assistant,
+			Content = message.Content ?? string.Empty,
+			Images = message.Images,
+			ToolCalls = message.ToolCalls,
+		};
+	}
+
+	private static string? GetString(
+		IDictionary<string, object>? additionalProperties,
+		string name)
+	{
+		if (additionalProperties?.TryGetValue(name, out var value) != true)
+		{
+			return null;
+		}
+
+		return value switch
+		{
+			null => null,
+			string stringValue => stringValue,
+			JsonElement jsonElement when jsonElement.ValueKind == JsonValueKind.String => jsonElement.GetString(),
+			JsonElement jsonElement => jsonElement.ToString(),
+			_ => value.ToString(),
+		};
+	}
+
+	private static int? GetInt(
+		IDictionary<string, object>? additionalProperties,
+		string name)
+	{
+		if (additionalProperties?.TryGetValue(name, out var value) != true)
+		{
+			return null;
+		}
+
+		return value switch
+		{
+			int intValue => intValue,
+			long longValue when longValue <= int.MaxValue && longValue >= int.MinValue => (int)longValue,
+			JsonElement jsonElement when jsonElement.ValueKind == JsonValueKind.Number && jsonElement.TryGetInt32(out var intValue) => intValue,
+			_ => null,
+		};
 	}
 }

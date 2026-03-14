@@ -7,12 +7,11 @@ public partial class Tests
     {
         await using var container = await Environment.PrepareAsync("llama3.2");
 
-        var response = await container.ApiClient.Completions.GenerateCompletionAsync(new GenerateCompletionRequest
+        var response = await container.ApiClient.GenerateAsync(new GenerateRequest
         {
             Model = "llama3.2",
             Prompt = "answer me just \"123\"",
-            Stream = true,
-            Options = new RequestOptions
+            Options = new ModelOptions
             {
                 Temperature = 0,
             },

@@ -6,8 +6,8 @@
 [![Discord](https://img.shields.io/discord/1115206893015662663?label=Discord&logo=discord&logoColor=white&color=d82679)](https://discord.gg/Ca2xhfBf3v)
 
 ## Features 🔥
-- Fully generated C# SDK based on [OpenAPI specification](https://github.com/davidmigloz/langchain_dart/blob/main/packages/ollama_dart/oas/ollama-curated.yaml) using [OpenApiGenerator](https://github.com/HavenDV/OpenApiGenerator)
-- Automatic releases of new preview versions if there was an update to the OpenAPI specification
+- Fully generated C# SDK based on the official [Ollama OpenAPI specification](https://github.com/ollama/ollama/blob/main/docs/openapi.yaml) using [AutoSDK](https://github.com/tryAGI/AutoSDK)
+- Automatic releases of new preview versions when the official OpenAPI specification changes
 - Source generator to define tools natively through C# interfaces
 - All modern .NET features - nullability, trimming, NativeAOT, etc.
 - Support .Net Framework/.Net Standard 2.0
@@ -20,35 +20,31 @@
 ```csharp
 using var ollama = new OllamaApiClient();
 // or if you have a custom server
-// using var ollama = new OllamaApiClient(baseUri: new Uri("http://10.10.5.85:11434/api")
+// using var ollama = new OllamaApiClient(baseUri: new Uri("http://10.10.5.85:11434"));
 
-var models = await ollama.Models.ListModelsAsync();
+var models = await ollama.ListAsync();
 
 // Pulling a model and reporting progress
-await foreach (var response in ollama.Models.PullModelAsync("all-minilm", stream: true))
+await foreach (var response in ollama.PullAsStreamAsync("all-minilm"))
 {
     Console.WriteLine($"{response.Status}. Progress: {response.Completed}/{response.Total}");
 }
 // or just pull the model and wait for it to finish
-await ollama.Models.PullModelAsync("all-minilm").EnsureSuccessAsync();
+await ollama.PullAsStreamAsync("all-minilm").EnsureSuccessAsync();
 
 // Generating an embedding
-var embedding = await ollama.Embeddings.GenerateEmbeddingAsync(
+var embedding = await ollama.EmbedAsync(
     model: "all-minilm",
-    prompt: "hello");
+    input: "hello");
 
 // Streaming a completion directly into the console
-// keep reusing the context to keep the chat topic going
-IList<long>? context = null;
-var enumerable = ollama.Completions.GenerateCompletionAsync("llama3.2", "answer 5 random words");
+var enumerable = ollama.GenerateAsStreamAsync("llama3.2", "answer 5 random words");
 await foreach (var response in enumerable)
 {
     Console.WriteLine($"> {response.Response}");
-    
-    context = response.Context;
 }
 
-var lastResponse = await ollama.Completions.GenerateCompletionAsync("llama3.2", "answer 123", stream: false, context: context).WaitAsync();
+var lastResponse = await ollama.GenerateAsync("llama3.2", "answer 123");
 Console.WriteLine(lastResponse.Response);
 
 var chat = ollama.Chat("mistral");
@@ -157,8 +153,7 @@ Projects built on top of this SDK:
 
 Icon and name were reused from the amazing [Ollama project](https://github.com/jmorganca/ollama).  
 The project was forked from [this repository](https://github.com/awaescher/OllamaSharp), 
-after which automatic code generation was applied based on [this OpenAPI specification](https://github.com/davidmigloz/langchain_dart/blob/main/packages/ollama_dart/oas/ollama-curated.yaml) 
-(in the future it will be replaced by the official one, if one appears)
+after which automatic code generation was applied based on the official [Ollama OpenAPI specification](https://github.com/ollama/ollama/blob/main/docs/openapi.yaml).
 
 ## Support
 
