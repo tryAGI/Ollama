@@ -27,29 +27,29 @@ foreach (var path in Directory.EnumerateFiles(sampleDirectory, "Tests.*.cs", Sea
     code = code
         .Replace(
             "await using var container = await Environment.PrepareAsync(environmentType: EnvironmentType.Container);",
-            "using var api = new OllamaApiClient();")
+            "using var api = new OllamaClient();")
         .Replace(
             "await using var container = await Environment.PrepareAsync(\"llama3.2\");",
-            @"using var api = new OllamaApiClient();
+            @"using var api = new OllamaClient();
 
 await api.PullAsStreamAsync(""llama3.2"").EnsureSuccessAsync();")
         .Replace(
             "await using var container = await Environment.PrepareAsync(\"reader-lm:latest\");",
-            @"using var api = new OllamaApiClient();
+            @"using var api = new OllamaClient();
 
 await api.PullAsStreamAsync(""reader-lm:latest"").EnsureSuccessAsync();")
         .Replace(
             "await using var container = await Environment.PrepareAsync(\"all-minilm\");",
-            @"using var api = new OllamaApiClient();
+            @"using var api = new OllamaClient();
 
 await api.PullAsStreamAsync(""all-minilm"").EnsureSuccessAsync();")
         .Replace(
             "await using var container = await Environment.PrepareAsync( \"all-minilm\");",
-            @"using var api = new OllamaApiClient();
+            @"using var api = new OllamaClient();
 
 await api.PullAsStreamAsync(""all-minilm"").EnsureSuccessAsync();")
         .Replace(
-            "container.ApiClient",
+            "container.Client",
             "api")
         ;
     

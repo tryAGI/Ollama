@@ -7,7 +7,7 @@ public partial class Tests
     {
         await using var container = await Environment.PrepareAsync("llama3.2");
         
-        var chat = container.ApiClient.Chat(
+        var chat = container.Client.Chat(
             model: "llama3.2",
             systemMessage: "You are a helpful weather assistant.",
             autoCallTools: true);

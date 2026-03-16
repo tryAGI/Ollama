@@ -23,7 +23,7 @@ public class Chat
 	/// <summary>
 	/// 
 	/// </summary>
-	public IOllamaApiClient Client { get; }
+	public IOllamaClient Client { get; }
 	
 	/// <inheritdoc cref="ChatRequest.Model"/>
 	public string Model { get; set; }
@@ -65,7 +65,7 @@ public class Chat
 	/// </param>
 	/// <exception cref="ArgumentNullException"></exception>
 	public Chat(
-		IOllamaApiClient client,
+		IOllamaClient client,
 		string model,
 		string? systemMessage = null,
 		OneOf<ChatRequestFormatEnum?, object>? format = default,

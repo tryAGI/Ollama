@@ -18,7 +18,7 @@ public partial class Tests
         {
             var service = new WeatherService();
             var tools = service.AsTools().AsOllamaTools();
-            var response = await container.ApiClient.ChatAsync(
+            var response = await container.Client.ChatAsync(
                 model,
                 messages,
                 tools: tools);
@@ -39,7 +39,7 @@ public partial class Tests
                 messages.Add(json.AsToolMessage());
             }
 
-            response = await container.ApiClient.ChatAsync(
+            response = await container.Client.ChatAsync(
                 model,
                 messages,
                 tools: tools);

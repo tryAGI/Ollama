@@ -18,9 +18,9 @@
 ### Initializing
 
 ```csharp
-using var ollama = new OllamaApiClient();
+using var ollama = new OllamaClient();
 // or if you have a custom server
-// using var ollama = new OllamaApiClient(baseUri: new Uri("http://10.10.5.85:11434"));
+// using var ollama = new OllamaClient(baseUri: new Uri("http://10.10.5.85:11434"));
 
 var models = await ollama.ListAsync();
 
@@ -61,7 +61,7 @@ while (true)
 
 ### Tools
 ```csharp
-using var ollama = new OllamaApiClient();
+using var ollama = new OllamaClient();
 var chat = ollama.Chat(
     model: "llama3.2",
     systemMessage: "You are a helpful weather assistant.",

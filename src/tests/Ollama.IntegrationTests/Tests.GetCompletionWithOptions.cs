@@ -7,7 +7,7 @@ public partial class Tests
     {
         await using var container = await Environment.PrepareAsync("llama3.2");
 
-        var response = await container.ApiClient.GenerateAsync(new GenerateRequest
+        var response = await container.Client.GenerateAsync(new GenerateRequest
         {
             Model = "llama3.2",
             Prompt = "answer me just \"123\"",

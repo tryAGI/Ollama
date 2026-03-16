@@ -42,7 +42,7 @@ rm -rf Generated
 # those fields to `int64` locally before generation.
 autosdk generate openapi.yaml \
   --namespace Ollama \
-  --clientClassName OllamaApiClient \
+  --clientClassName OllamaClient \
   --targetFramework net10.0 \
   --output Generated \
   --exclude-deprecated-operations

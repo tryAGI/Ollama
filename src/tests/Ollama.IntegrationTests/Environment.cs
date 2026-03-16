@@ -7,11 +7,11 @@ public sealed class Environment : IAsyncDisposable
 {
     public required EnvironmentType? Type { get; init; }
     public IContainer? Container { get; init; }
-    public required OllamaApiClient ApiClient { get; init; }
+    public required OllamaClient Client { get; init; }
 
     public async ValueTask DisposeAsync()
     {
-        ApiClient.Dispose();
+        Client.Dispose();
         if (Container != null)
         {
             await Container.DisposeAsync();
@@ -27,7 +27,7 @@ public sealed class Environment : IAsyncDisposable
             {
                 // set OLLAMA_HOST=10.10.5.85:11434
                 // ollama serve
-                var apiClient = new OllamaApiClient(
+                var client = new OllamaClient(
                     httpClient: new HttpClient
                     {
                         Timeout = TimeSpan.FromMinutes(10),
@@ -36,13 +36,13 @@ public sealed class Environment : IAsyncDisposable
                 
                 if (!string.IsNullOrEmpty(model))
                 {
-                    await apiClient.PullAsStreamAsync(model).EnsureSuccessAsync();
+                    await client.PullAsStreamAsync(model).EnsureSuccessAsync();
                 }
 
                 return new Environment
                 {
                     Type = environmentType,
-                    ApiClient = apiClient,
+                    Client = client,
                 };
             }
             case EnvironmentType.Container:
@@ -55,17 +55,17 @@ public sealed class Environment : IAsyncDisposable
         
                 await container.StartAsync();
         
-                var apiClient = new OllamaApiClient();
+                var client = new OllamaClient();
                 if (!string.IsNullOrEmpty(model))
                 {
-                    await apiClient.PullAsStreamAsync(model).EnsureSuccessAsync();
+                    await client.PullAsStreamAsync(model).EnsureSuccessAsync();
                 }
                 
                 return new Environment
                 {
                     Type = environmentType,
                     Container = container,
-                    ApiClient = apiClient,
+                    Client = client,
                 };
             }
             default:

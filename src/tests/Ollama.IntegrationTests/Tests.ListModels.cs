@@ -7,12 +7,12 @@ public partial class Tests
     {
         await using var container = await Environment.PrepareAsync(environmentType: EnvironmentType.Container);
         
-        var models = await container.ApiClient.ListAsync();
+        var models = await container.Client.ListAsync();
         models.Models.Should().BeNullOrEmpty();
         
-        await container.ApiClient.PullAsStreamAsync("all-minilm").EnsureSuccessAsync();
+        await container.Client.PullAsStreamAsync("all-minilm").EnsureSuccessAsync();
         
-        models = await container.ApiClient.ListAsync();
+        models = await container.Client.ListAsync();
         models.Models.Should().NotBeNull();
         models.Models.Should().HaveCount(1);
         models.Models![0].Model.Should().Be("all-minilm:latest");

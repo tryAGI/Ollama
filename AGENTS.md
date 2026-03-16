@@ -47,14 +47,14 @@ This script:
 ### Generated vs Manual Code
 
 **Generated Code** (`src/libs/Ollama/Generated/`):
-- `OllamaApiClient.g.cs` - Main client
+- `OllamaClient.g.cs` - Main client
 - Flat endpoint methods such as `GenerateAsync()`, `GenerateAsStreamAsync()`, `ChatAsync()`, `ChatAsStreamAsync()`, `PullAsync()`, `PullAsStreamAsync()`, `EmbedAsync()`, and `ListAsync()`
 - All API models, enums, converters, and serialization contexts
 - Generated from `openapi.yaml` using AutoSDK
 
 **Manual Code** (files at root of `src/libs/Ollama/`):
 - `Chat.cs` - High-level chat abstraction with conversation history and tool calling
-- `OllamaApiClientExtensions.cs` - Extension methods for improved ergonomics:
+- `OllamaClientExtensions.cs` - Extension methods for improved ergonomics:
   - `Chat()` - Creates a new Chat instance
   - `WaitAsync()` - Combines streaming responses into single responses
   - `EnsureSuccessAsync()` - Ensures streamed model operations succeed
@@ -66,7 +66,7 @@ This script:
 
 ### Client Structure
 
-The `OllamaApiClient` exposes a flat method surface generated directly from the official Ollama spec:
+The `OllamaClient` exposes a flat method surface generated directly from the official Ollama spec:
 - `client.GenerateAsync()` / `client.GenerateAsStreamAsync()`
 - `client.ChatAsync()` / `client.ChatAsStreamAsync()`
 - `client.PullAsync()` / `client.PullAsStreamAsync()`
@@ -74,7 +74,7 @@ The `OllamaApiClient` exposes a flat method surface generated directly from the 
 
 ### Streaming and Extension Methods
 
-Key pattern: operations that support both JSON and NDJSON have two generated methods. Extension methods in `OllamaApiClientExtensions.cs` provide:
+Key pattern: operations that support both JSON and NDJSON have two generated methods. Extension methods in `OllamaClientExtensions.cs` provide:
 - `WaitAsync()` methods that aggregate NDJSON streams into single responses
 - `GetAwaiter()` methods enabling direct `await` on streamed enumerables
 - `EnsureSuccessAsync()` for streamed pull/create/push status events
