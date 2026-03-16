@@ -9,37 +9,7 @@ fi
 
 curl -fsSL https://raw.githubusercontent.com/ollama/ollama/main/docs/openapi.yaml -o openapi.yaml
 
-if ! command -v yq >/dev/null 2>&1; then
-  echo "yq is required to patch the downloaded OpenAPI spec" >&2
-  exit 1
-fi
-
-for key in \
-  total_duration \
-  load_duration \
-  prompt_eval_duration \
-  eval_duration \
-  total \
-  completed \
-  size
-do
-  yq -i '
-    (
-      .. |
-      select(tag == "!!map" and has("'"$key"'")) |
-      .'"$key"' |
-      select(.type == "integer")
-    ).format = "int64"
-  ' openapi.yaml
-done
-
 rm -rf Generated
-
-# Official upstream spec:
-# https://raw.githubusercontent.com/ollama/ollama/main/docs/openapi.yaml
-# Ollama returns nanosecond durations and byte counts that exceed Int32.
-# The official spec currently declares these as plain `integer`, so we widen
-# those fields to `int64` locally before generation.
 autosdk generate openapi.yaml \
   --namespace Ollama \
   --clientClassName OllamaClient \
