@@ -1,4 +1,4 @@
-﻿name: Publish
+name: Publish
 on:
   push:
     branches:
@@ -28,7 +28,7 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/v')
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Create release
         run: gh release create ${{ github.ref_name }}
