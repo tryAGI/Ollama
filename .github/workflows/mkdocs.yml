@@ -7,7 +7,7 @@ on:
       - 'docs/**'
       - 'mkdocs.yml'
       - 'examples/**'
-      - 'src/helpers/GenerateDocs/**'
+      - 'autosdk.docs.json'
       - '.github/workflows/mkdocs.yml'
       - 'src/tests/IntegrationTests/**'
       - 'README.md'
@@ -39,8 +39,11 @@ jobs:
         with:
           dotnet-version: 10.0.x
         
+      - name: Install AutoSDK CLI
+        run: dotnet tool install --global autosdk.cli --prerelease
+
       - name: Generate docs
-        run: dotnet run --project src/helpers/GenerateDocs/GenerateDocs.csproj .
+        run: autosdk docs sync .
 
       - name: Build with MkDocs
         run: |

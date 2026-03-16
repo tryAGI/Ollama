@@ -1,6 +1,5 @@
 <Solution>
   <Folder Name="/helpers/">
-    <Project Path="src/helpers/GenerateDocs/GenerateDocs.csproj" />
     <Project Path="src/helpers/TrimmingHelper/TrimmingHelper.csproj" />
   </Folder>
   <Folder Name="/libs/">

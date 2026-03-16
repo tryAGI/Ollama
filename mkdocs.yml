@@ -1,7 +1,9 @@
 site_name: Ollama .NET Documentation
 nav:
 - Overview: index.md
-# EXAMPLES #
+# EXAMPLES:START
+
+# EXAMPLES:END
 
 #  - Quick Start: QuickStart.md
 #  - Architecture: Architecture.md
