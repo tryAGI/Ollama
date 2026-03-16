@@ -5,6 +5,9 @@ namespace Ollama.IntegrationTests;
 
 public sealed class Environment : IAsyncDisposable
 {
+    private const ushort OllamaPort = 11434;
+    private static readonly TimeSpan ClientTimeout = TimeSpan.FromMinutes(10);
+
     public required EnvironmentType? Type { get; init; }
     public IContainer? Container { get; init; }
     public required OllamaClient Client { get; init; }
@@ -27,12 +30,7 @@ public sealed class Environment : IAsyncDisposable
             {
                 // set OLLAMA_HOST=10.10.5.85:11434
                 // ollama serve
-                var client = new OllamaClient(
-                    httpClient: new HttpClient
-                    {
-                        Timeout = TimeSpan.FromMinutes(10),
-                    },
-                    baseUri: new Uri("http://127.0.0.1:11434")); // baseUri: new Uri("http://10.10.5.85:11434")
+                var client = CreateClient(new Uri($"http://127.0.0.1:{OllamaPort}")); // baseUri: new Uri("http://10.10.5.85:11434")
                 
                 if (!string.IsNullOrEmpty(model))
                 {
@@ -47,15 +45,22 @@ public sealed class Environment : IAsyncDisposable
             }
             case EnvironmentType.Container:
             {
-                var container = new ContainerBuilder()
-                    .WithImage("ollama/ollama")
-                    .WithPortBinding(hostPort: 11434, containerPort: 11434)
-                    .WithWaitStrategy(Wait.ForUnixContainer().UntilPortIsAvailable(11434))
+                var container = new ContainerBuilder("ollama/ollama")
+                    .WithPortBinding(OllamaPort, assignRandomHostPort: true)
+                    .WithWaitStrategy(
+                        Wait.ForUnixContainer()
+                            .UntilInternalTcpPortIsAvailable(OllamaPort)
+                            .UntilExternalTcpPortIsAvailable(OllamaPort))
                     .Build();
         
                 await container.StartAsync();
         
-                var client = new OllamaClient();
+                var client = CreateClient(
+                    new UriBuilder(
+                        Uri.UriSchemeHttp,
+                        container.Hostname,
+                        container.GetMappedPublicPort(OllamaPort)).Uri);
+
                 if (!string.IsNullOrEmpty(model))
                 {
                     await client.PullAsStreamAsync(model).EnsureSuccessAsync();
@@ -72,6 +77,15 @@ public sealed class Environment : IAsyncDisposable
                 throw new ArgumentOutOfRangeException(nameof(environmentType), environmentType, null);
         }
     }
+
+    private static OllamaClient CreateClient(Uri baseUri) =>
+        new(
+            httpClient: new HttpClient
+            {
+                Timeout = ClientTimeout,
+            },
+            baseUri: baseUri);
+
     private static EnvironmentType InferEnvironment()
     {
 #if DEBUG
