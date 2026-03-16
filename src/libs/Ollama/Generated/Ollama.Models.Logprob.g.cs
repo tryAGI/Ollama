@@ -24,7 +24,7 @@ namespace Ollama
         /// The raw byte representation of the token
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("bytes")]
-        public global::System.Collections.Generic.IList<int>? Bytes { get; set; }
+        public global::System.Collections.Generic.IList<long>? Bytes { get; set; }
 
         /// <summary>
         /// Most likely tokens and their log probabilities at this position
@@ -59,7 +59,7 @@ namespace Ollama
         public Logprob(
             string? token,
             double? logprob1,
-            global::System.Collections.Generic.IList<int>? bytes,
+            global::System.Collections.Generic.IList<long>? bytes,
             global::System.Collections.Generic.IList<global::Ollama.TokenLogprob>? topLogprobs)
         {
             this.Token = token;

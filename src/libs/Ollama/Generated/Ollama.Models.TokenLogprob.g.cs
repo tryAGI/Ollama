@@ -24,7 +24,7 @@ namespace Ollama
         /// The raw byte representation of the token
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("bytes")]
-        public global::System.Collections.Generic.IList<int>? Bytes { get; set; }
+        public global::System.Collections.Generic.IList<long>? Bytes { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -50,7 +50,7 @@ namespace Ollama
         public TokenLogprob(
             string? token,
             double? logprob,
-            global::System.Collections.Generic.IList<int>? bytes)
+            global::System.Collections.Generic.IList<long>? bytes)
         {
             this.Token = token;
             this.Logprob = logprob;
