@@ -100,7 +100,7 @@ namespace Ollama
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<int>? Type18 { get; set; }
+        public global::System.Collections.Generic.IList<long>? Type18 { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -325,7 +325,7 @@ namespace Ollama
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.List<int>? ListType3 { get; set; }
+        public global::System.Collections.Generic.List<long>? ListType3 { get; set; }
         /// <summary>
         /// 
         /// </summary>

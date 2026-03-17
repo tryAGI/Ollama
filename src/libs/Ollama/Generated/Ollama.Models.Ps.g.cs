@@ -48,7 +48,7 @@ namespace Ollama
         /// VRAM usage in bytes
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("size_vram")]
-        public int? SizeVram { get; set; }
+        public long? SizeVram { get; set; }
 
         /// <summary>
         /// Context length for the running model
@@ -99,7 +99,7 @@ namespace Ollama
             string? digest,
             object? details,
             string? expiresAt,
-            int? sizeVram,
+            long? sizeVram,
             int? contextLength)
         {
             this.Name = name;
