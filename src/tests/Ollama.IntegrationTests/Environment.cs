@@ -6,7 +6,11 @@ namespace Ollama.IntegrationTests;
 public sealed class Environment : IAsyncDisposable
 {
     private const ushort OllamaPort = 11434;
-    private static readonly TimeSpan ClientTimeout = TimeSpan.FromMinutes(10);
+    private static readonly TimeSpan ClientTimeout = TimeSpan.FromMinutes(20);
+    private static readonly string OllamaModelsDirectory = Path.Combine(
+        Path.GetTempPath(),
+        "Ollama.IntegrationTests",
+        "models");
 
     public required EnvironmentType? Type { get; init; }
     public IContainer? Container { get; init; }
@@ -45,7 +49,11 @@ public sealed class Environment : IAsyncDisposable
             }
             case EnvironmentType.Container:
             {
+                Directory.CreateDirectory(OllamaModelsDirectory);
+
                 var container = new ContainerBuilder("ollama/ollama")
+                    .WithEnvironment("OLLAMA_LOAD_TIMEOUT", "15m")
+                    .WithBindMount(OllamaModelsDirectory, "/root/.ollama/models")
                     .WithPortBinding(OllamaPort, assignRandomHostPort: true)
                     .WithWaitStrategy(
                         Wait.ForUnixContainer()

@@ -5,14 +5,14 @@ public partial class Tests
     [TestMethod]
     public async Task Tools()
     {
-        await using var container = await Environment.PrepareAsync("llama3.2");
+        await using var container = await Environment.PrepareAsync(TestModels.Chat);
         
         var messages = new List<ChatMessage>
         {
-            "You are a helpful weather assistant.".AsSystemMessage(),
+            "You are a helpful weather assistant. Use the provided tools for weather questions.".AsSystemMessage(),
             "What is the current temperature in Dubai, UAE in Celsius?".AsUserMessage(),
         };
-        const string model = "llama3.2";
+        var model = TestModels.Chat;
 
         try
         {
@@ -21,7 +21,12 @@ public partial class Tests
             var response = await container.Client.ChatAsync(
                 model,
                 messages,
-                tools: tools);
+                tools: tools,
+                options: new ModelOptions
+                {
+                    Temperature = 0,
+                    Seed = 1,
+                });
             var assistantMessage = response.Message ?? throw new InvalidOperationException("Expected a response message.");
 
             messages.Add(assistantMessage.ToChatMessage());
@@ -42,7 +47,12 @@ public partial class Tests
             response = await container.Client.ChatAsync(
                 model,
                 messages,
-                tools: tools);
+                tools: tools,
+                options: new ModelOptions
+                {
+                    Temperature = 0,
+                    Seed = 1,
+                });
             messages.Add((response.Message ?? throw new InvalidOperationException("Expected a response message.")).ToChatMessage());
         }
         finally

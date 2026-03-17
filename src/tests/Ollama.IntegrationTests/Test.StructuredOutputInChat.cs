@@ -5,15 +5,25 @@ namespace Ollama.IntegrationTests;
 
 public partial class Tests
 {
+    private static readonly JsonSerializerOptions StructuredOutputJsonOptions = new()
+    {
+        PropertyNameCaseInsensitive = true,
+    };
+
     [TestMethod]
     public async Task StructuredOutputInChat()
     {
-        await using var container = await Environment.PrepareAsync("llama3.2");
+        await using var container = await Environment.PrepareAsync(TestModels.Chat);
 
         var chat = container.Client.Chat(
-            model: "llama3.2",
+            model: TestModels.Chat,
             systemMessage: "You are a helpful weather assistant."
         );
+        chat.Options = new ModelOptions
+        {
+            Temperature = 0,
+            Seed = 1,
+        };
 
         // can also use NewtonSoft.Json.Schema or some other auto schema generation library
         var schemaObject = JsonSerializer.Deserialize<object>(@"{
@@ -38,9 +48,9 @@ public partial class Tests
         {
             Console.WriteLine($"schemaObject: {schemaObject}");
             chat.Format = schemaObject!;
-            var response = await chat.SendAsync("What is the current temperature in Dubai, UAE in Celsius? (hint: it's 25C in Dubai right now)");
+            var response = await chat.SendAsync("Return JSON only. What is the current temperature in Dubai, UAE in Celsius? (hint: it's 25C in Dubai right now)");
             Console.WriteLine(response);
-            var queryResponse = JsonSerializer.Deserialize<QueryResponse>(response.Content);
+            var queryResponse = JsonSerializer.Deserialize<QueryResponse>(response.Content, StructuredOutputJsonOptions);
             queryResponse.Should().NotBeNull();
             queryResponse.Temperature.Should().Be(25);
             queryResponse.Location.Should().Contain("Dubai");
