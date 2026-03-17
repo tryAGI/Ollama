@@ -12,6 +12,7 @@
 - All modern .NET features - nullability, trimming, NativeAOT, etc.
 - Support .Net Framework/.Net Standard 2.0
 - Support for all Ollama API endpoints including chats, embeddings, listing models, pulling and creating new models, and more.
+- Support for [Microsoft.Extensions.AI](https://learn.microsoft.com/dotnet/ai/microsoft-extensions-ai/)
 
 ## Usage
 
