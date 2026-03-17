@@ -5,12 +5,17 @@ public partial class Tests
     [TestMethod]
     public async Task ToolsInChat()
     {
-        await using var container = await Environment.PrepareAsync("llama3.2");
+        await using var container = await Environment.PrepareAsync(TestModels.Chat);
         
         var chat = container.Client.Chat(
-            model: "llama3.2",
-            systemMessage: "You are a helpful weather assistant.",
+            model: TestModels.Chat,
+            systemMessage: "You are a helpful weather assistant. Use the provided tools for weather questions.",
             autoCallTools: true);
+        chat.Options = new ModelOptions
+        {
+            Temperature = 0,
+            Seed = 1,
+        };
         
         var service = new WeatherService();
         chat.AddToolService(service.AsTools().AsOllamaTools(), service.AsCalls());

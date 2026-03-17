@@ -5,11 +5,11 @@ public partial class Tests
     [TestMethod]
     public async Task GetCompletionWithOptions()
     {
-        await using var container = await Environment.PrepareAsync("llama3.2");
+        await using var container = await Environment.PrepareAsync(TestModels.Chat);
 
         var response = await container.Client.GenerateAsync(new GenerateRequest
         {
-            Model = "llama3.2",
+            Model = TestModels.Chat,
             Prompt = "answer me just \"123\"",
             Options = new ModelOptions
             {

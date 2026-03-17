@@ -89,6 +89,12 @@ public static class StringExtensions
                     Name = x.Name!,
                     Description = x.Description ?? string.Empty,
                     Parameters = x.Parameters ?? new object(),
+                    AdditionalProperties = x.Strict == true
+                        ? new Dictionary<string, object>
+                        {
+                            ["strict"] = true,
+                        }
+                        : new Dictionary<string, object>(),
                 },
             })
             .ToList();

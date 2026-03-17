@@ -17,18 +17,18 @@ public class Weather
     public string Description { get; set; } = string.Empty;
 }
 
-[GenerateJsonSchema]
+[GenerateJsonSchema(Strict = true)]
 public interface IWeatherTools
 {
     [Description("Get the current weather in a given location")]
     public Weather GetCurrentWeather(
         [Description("The city and state, e.g. San Francisco, CA")] string location,
-        Unit unit = Unit.Celsius);
+        Unit unit);
     
     [Description("Get the current weather in a given location")]
     public Task<Weather> GetCurrentWeatherAsync(
         [Description("The city and state, e.g. San Francisco, CA")] string location,
-        Unit unit = Unit.Celsius,
+        Unit unit,
         CancellationToken cancellationToken = default);
 }
 

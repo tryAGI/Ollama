@@ -5,10 +5,10 @@ public partial class Tests
     [TestMethod]
     public async Task ReaderLm()
     {
-        await using var container = await Environment.PrepareAsync("reader-lm:latest");
+        await using var container = await Environment.PrepareAsync(TestModels.Reader);
 
         var enumerable = container.Client.GenerateAsStreamAsync(
-            "reader-lm:latest", 
+            TestModels.Reader, 
             """
             <html>
               <body>

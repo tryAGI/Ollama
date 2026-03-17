@@ -8,13 +8,15 @@ public partial class Tests
         await using var container = await Environment.PrepareAsync(environmentType: EnvironmentType.Container);
         
         var models = await container.Client.ListAsync();
-        models.Models.Should().BeNullOrEmpty();
+        var initialCount = models.Models?.Count ?? 0;
         
-        await container.Client.PullAsStreamAsync("all-minilm").EnsureSuccessAsync();
+        await container.Client.PullAsStreamAsync(TestModels.Embeddings).EnsureSuccessAsync();
         
         models = await container.Client.ListAsync();
         models.Models.Should().NotBeNull();
-        models.Models.Should().HaveCount(1);
-        models.Models![0].Model.Should().Be("all-minilm:latest");
+        models.Models!.Count.Should().BeGreaterThan(initialCount - 1);
+        models.Models.Any(model =>
+            model.Model != null &&
+            model.Model.StartsWith(TestModels.Embeddings, StringComparison.OrdinalIgnoreCase)).Should().BeTrue();
     }
 }

@@ -7,14 +7,14 @@ public partial class Tests
     {
         await using var container = await Environment.PrepareAsync(environmentType: EnvironmentType.Container);
         
-        await foreach (var response in container.Client.PullAsStreamAsync("all-minilm"))
+        await foreach (var response in container.Client.PullAsStreamAsync(TestModels.Embeddings))
         {
             Console.WriteLine($"{response.Status}. Progress: {response.Completed}/{response.Total}");
         }
         
-        var responses = await container.Client.PullAsStreamAsync("all-minilm");
+        var responses = await container.Client.PullAsStreamAsync(TestModels.Embeddings);
         responses[^1].EnsureSuccess();
         
-        await container.Client.PullAsStreamAsync("all-minilm").EnsureSuccessAsync();
+        await container.Client.PullAsStreamAsync(TestModels.Embeddings).EnsureSuccessAsync();
     }
 }
