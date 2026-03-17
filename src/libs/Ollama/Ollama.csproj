@@ -12,11 +12,12 @@
 
   <PropertyGroup Label="Nuget">
     <Description>Generated C# SDK based on Ollama OpenAPI specification.</Description>
-    <PackageTags>api;client;sdk;dotnet;swagger;openapi;specification;ollama;generated</PackageTags>
+    <PackageTags>api;client;sdk;dotnet;swagger;openapi;specification;ollama;generated;ai;abstractions;ichatclient</PackageTags>
   </PropertyGroup>
   
   <ItemGroup>
     <PackageReference Include="CSharpToJsonSchema" Version="3.10.1" />
-</ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.AI.Abstractions" Version="10.4.0" />
+  </ItemGroup>
 
 </Project>
