@@ -100,7 +100,6 @@ See `src/tests/Ollama.IntegrationTests/WeatherTools.cs` for complete example.
 ## Helper Projects
 
 - `src/helpers/GenerateDocs/` - Documentation generation utility
-- `src/helpers/TrimmingHelper/` - Tests trimming/NativeAOT compatibility
 
 ## Key Files
 
