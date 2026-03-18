@@ -13,7 +13,9 @@ namespace Ollama
         /// </summary>
         public global::System.Net.HttpStatusCode StatusCode { get; }
         /// <summary>
-        /// The response body.
+        /// The response body as a string, or <c>null</c> if the body could not be read.
+        /// This is always populated for error responses regardless of the <c>ReadResponseAsString</c> setting.
+        /// For success-path failures (e.g. deserialization errors), the client attempts a best-effort read.
         /// </summary>
         public string? ResponseBody { get; set; }
         /// <summary>
