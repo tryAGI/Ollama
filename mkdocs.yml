@@ -1,6 +1,8 @@
 site_name: Ollama .NET Documentation
 nav:
 - Overview: index.md
+- Guides:
+  - Microsoft.Extensions.AI: guides/meai.md
 # EXAMPLES:START
 
 # EXAMPLES:END
