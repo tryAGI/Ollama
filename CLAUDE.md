@@ -99,7 +99,6 @@ See `src/tests/Ollama.IntegrationTests/WeatherTools.cs` for complete example.
 
 ## Helper Projects
 
-- `src/helpers/GenerateDocs/` - Documentation generation utility
 
 ## Key Files
 
