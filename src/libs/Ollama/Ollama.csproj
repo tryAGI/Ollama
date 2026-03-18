@@ -12,7 +12,7 @@
 
   <PropertyGroup Label="Nuget">
     <Description>Generated C# SDK based on Ollama OpenAPI specification.</Description>
-    <PackageTags>api;client;sdk;dotnet;swagger;openapi;specification;ollama;generated;ai;abstractions;ichatclient</PackageTags>
+    <PackageTags>api;client;sdk;dotnet;swagger;openapi;specification;ollama;generated;ai;abstractions;ichatclient;iembeddinggenerator</PackageTags>
   </PropertyGroup>
   
   <ItemGroup>
