@@ -1,7 +1,4 @@
 <Solution>
-  <Folder Name="/helpers/">
-    <Project Path="src/helpers/TrimmingHelper/TrimmingHelper.csproj" />
-  </Folder>
   <Folder Name="/libs/">
     <File Path="src/libs/Directory.Build.props" />
     <Project Path="src/libs/Ollama/Ollama.csproj" />

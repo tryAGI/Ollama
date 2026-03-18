@@ -21,6 +21,22 @@ jobs:
     secrets:
       nuget-key: ${{ secrets.NUGET_KEY }}
       
+  trim-check:
+    name: Trimming Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+
+      - name: Install AutoSDK CLI
+        run: dotnet tool install --global autosdk.cli --prerelease
+
+      - name: Run trimming check
+        run: autosdk trim src/libs/Ollama/Ollama.csproj
+
   release:
     name: Release
     runs-on: ubuntu-latest
