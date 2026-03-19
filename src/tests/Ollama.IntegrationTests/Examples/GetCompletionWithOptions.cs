@@ -1,3 +1,9 @@
+/*
+order: 140
+title: Get Completion With Options
+slug: get-completion-with-options
+*/
+
 namespace Ollama.IntegrationTests;
 
 public partial class Tests

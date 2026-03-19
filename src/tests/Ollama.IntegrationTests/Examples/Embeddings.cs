@@ -1,3 +1,9 @@
+/*
+order: 120
+title: Embeddings
+slug: embeddings
+*/
+
 namespace Ollama.IntegrationTests;
 
 public partial class Tests

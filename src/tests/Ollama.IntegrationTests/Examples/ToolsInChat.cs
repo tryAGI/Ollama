@@ -1,3 +1,9 @@
+/*
+order: 200
+title: Tools In Chat
+slug: tools-in-chat
+*/
+
 namespace Ollama.IntegrationTests;
 
 public partial class Tests

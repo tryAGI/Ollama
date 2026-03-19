@@ -4,7 +4,27 @@ nav:
 - Guides:
   - Microsoft.Extensions.AI: guides/meai.md
 # EXAMPLES:START
-
+- Examples:
+  - Chat: examples/chat.md
+  - Chat Client Five Random Words Streaming: examples/chat-client-five-random-words-streaming.md
+  - Chat Client Five Random Words: examples/chat-client-five-random-words.md
+  - Chat Client Get Service Returns Chat Client Metadata: examples/chat-client-get-service-returns-chat-client-metadata.md
+  - Chat Client Get Service Returns Null For Unknown Key: examples/chat-client-get-service-returns-null-for-unknown-key.md
+  - Chat Client Get Service Returns Self: examples/chat-client-get-service-returns-self.md
+  - Embedding Generator Batch Input: examples/embedding-generator-batch-input.md
+  - Embedding Generator Get Service Returns Embedding Generator Metadata: examples/embedding-generator-get-service-returns-embedding-generator-metadata.md
+  - Embedding Generator Get Service Returns Null For Unknown Key: examples/embedding-generator-get-service-returns-null-for-unknown-key.md
+  - Embedding Generator Get Service Returns Self: examples/embedding-generator-get-service-returns-self.md
+  - Embedding Generator Single Input: examples/embedding-generator-single-input.md
+  - Embeddings: examples/embeddings.md
+  - Get Completion: examples/get-completion.md
+  - Get Completion With Options: examples/get-completion-with-options.md
+  - List Models: examples/list-models.md
+  - Pull Model: examples/pull-model.md
+  - Reader Lm: examples/reader-lm.md
+  - Strict Tools: examples/strict-tools.md
+  - Tools: examples/tools.md
+  - Tools In Chat: examples/tools-in-chat.md
 # EXAMPLES:END
 
 #  - Quick Start: QuickStart.md

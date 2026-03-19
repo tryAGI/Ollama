@@ -1,3 +1,9 @@
+/*
+order: 180
+title: Strict Tools
+slug: strict-tools
+*/
+
 namespace Ollama.IntegrationTests;
 
 public partial class Tests

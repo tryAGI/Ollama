@@ -1,3 +1,9 @@
+/*
+order: 160
+title: Pull Model
+slug: pull-model
+*/
+
 namespace Ollama.IntegrationTests;
 
 public partial class Tests

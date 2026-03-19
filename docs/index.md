@@ -135,6 +135,32 @@ public class WeatherService : IWeatherFunctions
 }
 ```
 
+### Microsoft.Extensions.AI
+
+The SDK implements [`IChatClient`](https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.ai.ichatclient) and [`IEmbeddingGenerator`](https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.ai.iembeddinggenerator-2):
+```csharp
+using Ollama;
+using Microsoft.Extensions.AI;
+
+using var ollama = new OllamaClient();
+
+// IChatClient
+IChatClient chatClient = ollama;
+var response = await chatClient.GetResponseAsync(
+    [new ChatMessage(ChatRole.User, "Hello!")],
+    new ChatOptions { ModelId = "llama3.2" });
+
+Console.WriteLine(response.Text);
+
+// IEmbeddingGenerator
+IEmbeddingGenerator<string, Embedding<float>> generator = ollama;
+var embeddings = await generator.GenerateAsync(
+    ["Hello, world!"],
+    new EmbeddingGenerationOptions { ModelId = "all-minilm" });
+
+Console.WriteLine($"Dimensions: {embeddings[0].Vector.Length}");
+```
+
 ## Community Projects
 
 Projects built on top of this SDK:

@@ -1,3 +1,9 @@
+/*
+order: 10
+title: Chat
+slug: chat
+*/
+
 namespace Ollama.IntegrationTests;
 
 [TestClass]

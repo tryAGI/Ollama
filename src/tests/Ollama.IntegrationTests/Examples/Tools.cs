@@ -1,3 +1,9 @@
+/*
+order: 190
+title: Tools
+slug: tools
+*/
+
 namespace Ollama.IntegrationTests;
 
 public partial class Tests

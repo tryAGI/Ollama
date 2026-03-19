@@ -1,3 +1,9 @@
+/*
+order: 150
+title: List Models
+slug: list-models
+*/
+
 namespace Ollama.IntegrationTests;
 
 public partial class Tests
