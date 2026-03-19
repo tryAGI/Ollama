@@ -182,6 +182,9 @@ Icon and name were reused from the amazing [Ollama project](https://github.com/j
 The project was forked from [this repository](https://github.com/awaescher/OllamaSharp), 
 after which automatic code generation was applied based on the official [Ollama OpenAPI specification](https://github.com/ollama/ollama/blob/main/docs/openapi.yaml).
 
+<!-- EXAMPLES:START -->
+<!-- EXAMPLES:END -->
+
 ## Support
 
 Priority place for bugs: https://github.com/tryAGI/Ollama/issues  
