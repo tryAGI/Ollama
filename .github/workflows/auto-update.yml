@@ -4,6 +4,11 @@ on:
     - cron: '0 */3 * * *'
   workflow_dispatch:
 
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
 jobs:
   auto-update:
     uses: tryAGI/workflows/.github/workflows/auto-update.yml@main
