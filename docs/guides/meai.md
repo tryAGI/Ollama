@@ -1,5 +1,8 @@
 # Microsoft.Extensions.AI Integration
 
+!!! tip "Cross-SDK comparison"
+    See the [centralized MEAI documentation](https://tryagi.github.io/docs/meai/) for feature matrices and comparisons across all tryAGI SDKs.
+
 The Ollama SDK natively implements [Microsoft.Extensions.AI](https://learn.microsoft.com/dotnet/ai/microsoft-extensions-ai/) interfaces, providing a unified abstraction layer for AI services across .NET applications.
 
 ## Supported Interfaces
