@@ -2,6 +2,7 @@ name: Opens a new PR if there are OpenAPI updates
 on:
   schedule:
     - cron: '0 */3 * * *'
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -17,7 +18,7 @@ jobs:
 
       - name: Setup Git user
         run: |
-          git config --local user.email "bot@openai.com"
+          git config --local user.email "dependabot@bot.com"
           git config --local user.name "github-actions[bot]"
 
       - name: Generate branch name
