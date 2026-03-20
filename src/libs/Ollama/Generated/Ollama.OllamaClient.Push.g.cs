@@ -21,12 +21,20 @@ namespace Ollama
             global::System.Net.Http.HttpResponseMessage httpResponseMessage,
             ref string content);
 
+
         /// <summary>
         /// Push a model
         /// </summary>
+
         /// <param name="request"></param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Ollama.ApiException"></exception>
+
+        /// <remarks>
+        /// curl http://localhost:11434/api/push -d '{<br/>
+        ///   "model": "my-username/my-model"<br/>
+        /// }'
+        /// </remarks>
         public async global::System.Threading.Tasks.Task<global::Ollama.StatusResponse> PushAsync(
 
             global::Ollama.PushRequest request,

@@ -16,12 +16,20 @@ namespace Ollama
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage);
 
+
         /// <summary>
         /// Delete a model
         /// </summary>
+
         /// <param name="request"></param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Ollama.ApiException"></exception>
+
+        /// <remarks>
+        /// curl -X DELETE http://localhost:11434/api/delete -d '{<br/>
+        ///   "model": "gemma3"<br/>
+        /// }'
+        /// </remarks>
         public async global::System.Threading.Tasks.Task DeleteAsync(
 
             global::Ollama.DeleteRequest request,

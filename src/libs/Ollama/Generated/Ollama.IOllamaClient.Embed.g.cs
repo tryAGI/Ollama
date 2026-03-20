@@ -4,13 +4,22 @@ namespace Ollama
 {
     public partial interface IOllamaClient
     {
+
         /// <summary>
         /// Generate embeddings<br/>
         /// Creates vector embeddings representing the input text
         /// </summary>
+
         /// <param name="request"></param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Ollama.ApiException"></exception>
+
+        /// <remarks>
+        /// curl http://localhost:11434/api/embed -d '{<br/>
+        ///   "model": "embeddinggemma",<br/>
+        ///   "input": "Why is the sky blue?"<br/>
+        /// }'
+        /// </remarks>
         global::System.Threading.Tasks.Task<global::Ollama.EmbedResponse> EmbedAsync(
 
             global::Ollama.EmbedRequest request,

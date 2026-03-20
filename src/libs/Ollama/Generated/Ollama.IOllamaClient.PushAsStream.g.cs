@@ -4,12 +4,20 @@ namespace Ollama
 {
     public partial interface IOllamaClient
     {
+
         /// <summary>
         /// Push a model
         /// </summary>
+
         /// <param name="request"></param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Ollama.ApiException"></exception>
+
+        /// <remarks>
+        /// curl http://localhost:11434/api/push -d '{<br/>
+        ///   "model": "my-username/my-model"<br/>
+        /// }'
+        /// </remarks>
         global::System.Collections.Generic.IAsyncEnumerable<global::Ollama.StatusEvent> PushAsStreamAsync(
 
             global::Ollama.PushRequest request,

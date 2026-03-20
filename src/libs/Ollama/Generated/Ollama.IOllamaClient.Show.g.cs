@@ -4,12 +4,20 @@ namespace Ollama
 {
     public partial interface IOllamaClient
     {
+
         /// <summary>
         /// Show model details
         /// </summary>
+
         /// <param name="request"></param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Ollama.ApiException"></exception>
+
+        /// <remarks>
+        /// curl http://localhost:11434/api/show -d '{<br/>
+        ///   "model": "gemma3"<br/>
+        /// }'
+        /// </remarks>
         global::System.Threading.Tasks.Task<global::Ollama.ShowResponse> ShowAsync(
 
             global::Ollama.ShowRequest request,
