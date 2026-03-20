@@ -4,13 +4,27 @@ namespace Ollama
 {
     public partial interface IOllamaClient
     {
+
         /// <summary>
         /// Generate a chat message<br/>
         /// Generate the next chat message in a conversation between a user and an assistant.
         /// </summary>
+
         /// <param name="request"></param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Ollama.ApiException"></exception>
+
+        /// <remarks>
+        /// curl http://localhost:11434/api/chat -d '{<br/>
+        ///   "model": "gemma3",<br/>
+        ///   "messages": [<br/>
+        ///     {<br/>
+        ///       "role": "user",<br/>
+        ///       "content": "why is the sky blue?"<br/>
+        ///     }<br/>
+        ///   ]<br/>
+        /// }'
+        /// </remarks>
         global::System.Threading.Tasks.Task<global::Ollama.ChatResponse> ChatAsync(
 
             global::Ollama.ChatRequest request,

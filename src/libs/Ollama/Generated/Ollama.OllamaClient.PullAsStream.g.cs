@@ -16,12 +16,20 @@ namespace Ollama
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage);
 
+
         /// <summary>
         /// Pull a model
         /// </summary>
+
         /// <param name="request"></param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Ollama.ApiException"></exception>
+
+        /// <remarks>
+        /// curl http://localhost:11434/api/pull -d '{<br/>
+        ///   "model": "gemma3"<br/>
+        /// }'
+        /// </remarks>
         public async global::System.Collections.Generic.IAsyncEnumerable<global::Ollama.StatusEvent> PullAsStreamAsync(
 
             global::Ollama.PullRequest request,

@@ -19,12 +19,17 @@ namespace Ollama
             global::System.Net.Http.HttpResponseMessage httpResponseMessage,
             ref string content);
 
+
         /// <summary>
         /// List running models<br/>
         /// Retrieve a list of models that are currently running
         /// </summary>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Ollama.ApiException"></exception>
+
+        /// <remarks>
+        /// curl http://localhost:11434/api/ps
+        /// </remarks>
         public async global::System.Threading.Tasks.Task<global::Ollama.PsResponse> PsAsync(
             global::System.Threading.CancellationToken cancellationToken = default)
         {
