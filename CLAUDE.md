@@ -104,7 +104,7 @@ See `src/tests/Ollama.IntegrationTests/WeatherTools.cs` for complete example.
 | Project | Purpose |
 |---------|---------|
 | `src/libs/Ollama/` | Main SDK library (`OllamaClient`) |
-| `src/tests/Ollama.IntegrationTests/` | Integration tests against real Ollama API |
+| `src/tests/Ollama.IntegrationTests/` | Integration tests (Testcontainers in CI, local server in debug) |
 
 ### Documentation Generation
 
