@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a fully generated C# SDK for the Ollama API, built using OpenAPI specifications. The core library targets multiple frameworks (netstandard2.0, net4.6.2, net8.0, net9.0) and emphasizes modern .NET features including nullability, trimming, and NativeAOT support.
+This is a fully generated C# SDK for the Ollama API, built using OpenAPI specifications. The core library targets `net10.0` and emphasizes modern .NET features including nullability, trimming, and NativeAOT support.
 
 ## Build and Test Commands
 
