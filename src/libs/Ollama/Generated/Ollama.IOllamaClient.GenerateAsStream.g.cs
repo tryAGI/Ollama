@@ -4,16 +4,13 @@ namespace Ollama
 {
     public partial interface IOllamaClient
     {
-
         /// <summary>
         /// Generate a response<br/>
         /// Generates a response for the provided prompt
         /// </summary>
-
         /// <param name="request"></param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Ollama.ApiException"></exception>
-
         /// <remarks>
         /// curl http://localhost:11434/api/generate -d '{<br/>
         ///   "model": "gemma3",<br/>
@@ -24,7 +21,6 @@ namespace Ollama
 
             global::Ollama.GenerateRequest request,
             global::System.Threading.CancellationToken cancellationToken = default);
-
         /// <summary>
         /// Generate a response<br/>
         /// Generates a response for the provided prompt
