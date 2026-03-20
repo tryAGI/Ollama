@@ -4,15 +4,12 @@ namespace Ollama
 {
     public partial interface IOllamaClient
     {
-
         /// <summary>
         /// Show model details
         /// </summary>
-
         /// <param name="request"></param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Ollama.ApiException"></exception>
-
         /// <remarks>
         /// curl http://localhost:11434/api/show -d '{<br/>
         ///   "model": "gemma3"<br/>
@@ -22,7 +19,6 @@ namespace Ollama
 
             global::Ollama.ShowRequest request,
             global::System.Threading.CancellationToken cancellationToken = default);
-
         /// <summary>
         /// Show model details
         /// </summary>

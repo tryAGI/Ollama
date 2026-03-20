@@ -21,16 +21,13 @@ namespace Ollama
             global::System.Net.Http.HttpResponseMessage httpResponseMessage,
             ref string content);
 
-
         /// <summary>
         /// Generate a chat message<br/>
         /// Generate the next chat message in a conversation between a user and an assistant.
         /// </summary>
-
         /// <param name="request"></param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Ollama.ApiException"></exception>
-
         /// <remarks>
         /// curl http://localhost:11434/api/chat -d '{<br/>
         ///   "model": "gemma3",<br/>
@@ -192,7 +189,6 @@ namespace Ollama
                 }
             }
         }
-
         /// <summary>
         /// Generate a chat message<br/>
         /// Generate the next chat message in a conversation between a user and an assistant.
