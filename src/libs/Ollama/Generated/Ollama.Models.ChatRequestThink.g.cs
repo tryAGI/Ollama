@@ -15,11 +15,11 @@ namespace Ollama
         /// <summary>
         /// 
         /// </summary>
-        Medium,
+        Low,
         /// <summary>
         /// 
         /// </summary>
-        Low,
+        Medium,
     }
 
     /// <summary>
@@ -35,8 +35,8 @@ namespace Ollama
             return value switch
             {
                 ChatRequestThink.High => "high",
-                ChatRequestThink.Medium => "medium",
                 ChatRequestThink.Low => "low",
+                ChatRequestThink.Medium => "medium",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -48,8 +48,8 @@ namespace Ollama
             return value switch
             {
                 "high" => ChatRequestThink.High,
-                "medium" => ChatRequestThink.Medium,
                 "low" => ChatRequestThink.Low,
+                "medium" => ChatRequestThink.Medium,
                 _ => null,
             };
         }

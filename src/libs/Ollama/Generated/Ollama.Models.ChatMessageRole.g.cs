@@ -11,19 +11,19 @@ namespace Ollama
         /// <summary>
         /// 
         /// </summary>
-        System,
-        /// <summary>
-        /// 
-        /// </summary>
-        User,
-        /// <summary>
-        /// 
-        /// </summary>
         Assistant,
         /// <summary>
         /// 
         /// </summary>
+        System,
+        /// <summary>
+        /// 
+        /// </summary>
         Tool,
+        /// <summary>
+        /// 
+        /// </summary>
+        User,
     }
 
     /// <summary>
@@ -38,10 +38,10 @@ namespace Ollama
         {
             return value switch
             {
-                ChatMessageRole.System => "system",
-                ChatMessageRole.User => "user",
                 ChatMessageRole.Assistant => "assistant",
+                ChatMessageRole.System => "system",
                 ChatMessageRole.Tool => "tool",
+                ChatMessageRole.User => "user",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -52,10 +52,10 @@ namespace Ollama
         {
             return value switch
             {
-                "system" => ChatMessageRole.System,
-                "user" => ChatMessageRole.User,
                 "assistant" => ChatMessageRole.Assistant,
+                "system" => ChatMessageRole.System,
                 "tool" => ChatMessageRole.Tool,
+                "user" => ChatMessageRole.User,
                 _ => null,
             };
         }
