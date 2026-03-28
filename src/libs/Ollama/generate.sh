@@ -1,11 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if dotnet tool list --global | grep -q '^autosdk\.cli '; then
-  dotnet tool update --global autosdk.cli --prerelease
-else
-  dotnet tool install --global autosdk.cli --prerelease
-fi
+dotnet tool install --global autosdk.cli --prerelease
 
 curl -fsSL https://raw.githubusercontent.com/ollama/ollama/main/docs/openapi.yaml -o openapi.yaml
 
