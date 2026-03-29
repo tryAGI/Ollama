@@ -31,10 +31,10 @@ namespace Ollama
         /// <summary>
         /// Initializes a new instance of the <see cref="ToolDefinition" /> class.
         /// </summary>
+        /// <param name="function"></param>
         /// <param name="type">
         /// Type of tool (always `function`)
         /// </param>
-        /// <param name="function"></param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -42,8 +42,8 @@ namespace Ollama
             global::Ollama.ToolDefinitionFunction function,
             global::Ollama.ToolDefinitionType type)
         {
-            this.Function = function ?? throw new global::System.ArgumentNullException(nameof(function));
             this.Type = type;
+            this.Function = function ?? throw new global::System.ArgumentNullException(nameof(function));
         }
 
         /// <summary>

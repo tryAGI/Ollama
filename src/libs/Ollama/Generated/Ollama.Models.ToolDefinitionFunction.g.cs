@@ -40,11 +40,11 @@ namespace Ollama
         /// <param name="name">
         /// Function name exposed to the model
         /// </param>
-        /// <param name="description">
-        /// Human-readable description of the function
-        /// </param>
         /// <param name="parameters">
         /// JSON Schema for the function parameters
+        /// </param>
+        /// <param name="description">
+        /// Human-readable description of the function
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -55,8 +55,8 @@ namespace Ollama
             string? description)
         {
             this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
-            this.Parameters = parameters ?? throw new global::System.ArgumentNullException(nameof(parameters));
             this.Description = description;
+            this.Parameters = parameters ?? throw new global::System.ArgumentNullException(nameof(parameters));
         }
 
         /// <summary>
