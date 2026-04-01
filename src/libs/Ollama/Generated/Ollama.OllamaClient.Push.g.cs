@@ -39,7 +39,6 @@ namespace Ollama
         {
             request = request ?? throw new global::System.ArgumentNullException(nameof(request));
 
-
             request = new global::Ollama.PushRequest
             {
                 Model = request.Model,
@@ -191,7 +190,6 @@ namespace Ollama
             bool? insecure = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
-
             var __request = new global::Ollama.PushRequest
             {
                 Model = model,
