@@ -46,7 +46,6 @@ namespace Ollama
         {
             request = request ?? throw new global::System.ArgumentNullException(nameof(request));
 
-
             request = new global::Ollama.ChatRequest
             {
                 Model = request.Model,
@@ -234,7 +233,6 @@ namespace Ollama
             int? topLogprobs = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
-
             var __request = new global::Ollama.ChatRequest
             {
                 Model = model,

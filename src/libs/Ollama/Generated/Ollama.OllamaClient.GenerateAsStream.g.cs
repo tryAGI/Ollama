@@ -36,7 +36,6 @@ namespace Ollama
         {
             request = request ?? throw new global::System.ArgumentNullException(nameof(request));
 
-
             request = new global::Ollama.GenerateRequest
             {
                 Model = request.Model,
@@ -214,7 +213,6 @@ namespace Ollama
             int? topLogprobs = default,
             [global::System.Runtime.CompilerServices.EnumeratorCancellation] global::System.Threading.CancellationToken cancellationToken = default)
         {
-
             var __request = new global::Ollama.GenerateRequest
             {
                 Model = model,

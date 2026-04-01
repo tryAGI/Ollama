@@ -170,7 +170,6 @@ namespace Ollama
             string destination,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
-
             var __request = new global::Ollama.CopyRequest
             {
                 Source = source,
