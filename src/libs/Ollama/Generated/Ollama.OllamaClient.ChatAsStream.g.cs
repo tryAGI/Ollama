@@ -206,6 +206,7 @@ namespace Ollama
             int? topLogprobs = default,
             [global::System.Runtime.CompilerServices.EnumeratorCancellation] global::System.Threading.CancellationToken cancellationToken = default)
         {
+
             var __request = new global::Ollama.ChatRequest
             {
                 Model = model,

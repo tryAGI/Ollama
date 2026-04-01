@@ -223,6 +223,7 @@ namespace Ollama
             string? quantize = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
+
             var __request = new global::Ollama.CreateRequest
             {
                 Model = model,

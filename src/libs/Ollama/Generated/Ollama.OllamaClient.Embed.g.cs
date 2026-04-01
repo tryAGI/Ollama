@@ -204,6 +204,7 @@ namespace Ollama
             global::Ollama.ModelOptions? options = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
+
             var __request = new global::Ollama.EmbedRequest
             {
                 Model = model,
