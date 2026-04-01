@@ -184,6 +184,7 @@ namespace Ollama
             bool? verbose = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
+
             var __request = new global::Ollama.ShowRequest
             {
                 Model = model,

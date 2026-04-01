@@ -242,6 +242,7 @@ namespace Ollama
             int? topLogprobs = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
+
             var __request = new global::Ollama.GenerateRequest
             {
                 Model = model,

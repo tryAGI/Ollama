@@ -165,6 +165,7 @@ namespace Ollama
             string model,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
+
             var __request = new global::Ollama.DeleteRequest
             {
                 Model = model,
