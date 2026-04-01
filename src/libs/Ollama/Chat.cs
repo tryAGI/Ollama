@@ -5,7 +5,7 @@ namespace Ollama;
 /// <summary>
 /// 
 /// </summary>
-public class Chat
+public partial class Chat
 {
 	/// <summary>
 	/// 
@@ -165,6 +165,42 @@ public class Chat
 		}
 		
 		return answerMessage;
+	}
+
+	/// <summary>
+	/// Sends a message and invokes a callback for each streamed response chunk while preserving chat history.
+	/// </summary>
+	/// <param name="message">The message to send</param>
+	/// <param name="onResponseChunk">Callback invoked for each non-empty streamed response chunk</param>
+	/// <param name="role">The role in which the message should be sent</param>
+	/// <param name="imagesAsBase64">Base64 encoded images to send to the model</param>
+	/// <param name="cancellationToken">The token to cancel the operation with</param>
+	public async Task<ChatMessage> SendAsync(
+		string? message,
+		Action<bool, string?> onResponseChunk,
+		ChatMessageRole role = ChatMessageRole.User,
+		IEnumerable<string>? imagesAsBase64 = null,
+		CancellationToken cancellationToken = default)
+	{
+		onResponseChunk = onResponseChunk ?? throw new ArgumentNullException(nameof(onResponseChunk));
+
+		var isFirstChunk = true;
+		await foreach (var update in SendAsStreamAsync(
+			message: message,
+			role: role,
+			imagesAsBase64: imagesAsBase64,
+			cancellationToken: cancellationToken).ConfigureAwait(false))
+		{
+			if (update.Message?.Content is not { Length: > 0 } content)
+			{
+				continue;
+			}
+
+			onResponseChunk(isFirstChunk, content);
+			isFirstChunk = false;
+		}
+
+		return History[^1];
 	}
 	
 	/// <summary>

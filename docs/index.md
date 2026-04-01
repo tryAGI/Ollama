@@ -60,6 +60,27 @@ while (true)
 }
 ```
 
+### Streaming Chat State
+```csharp
+using var ollama = new OllamaClient();
+var chat = ollama.Chat("mistral");
+
+var message = await chat.SendAsync(
+    message: "answer 5 random words",
+    onResponseChunk: (isFirstChunk, chunk) =>
+    {
+        if (isFirstChunk)
+        {
+            Console.Write("> ");
+        }
+
+        Console.Write(chunk);
+    });
+
+Console.WriteLine();
+Console.WriteLine(message.Content);
+```
+
 ### Tools
 ```csharp
 using var ollama = new OllamaClient();
@@ -184,6 +205,8 @@ after which automatic code generation was applied based on the official [Ollama 
 
 <!-- EXAMPLES:START -->
 ### Chat
+
+
 ```csharp
 await using var container = await Environment.PrepareAsync(TestModels.Chat);
 
@@ -194,6 +217,8 @@ Console.WriteLine(message.Content);
 ```
 
 ### Chat Client Five Random Words Streaming
+
+
 ```csharp
 await using var environment = await Environment.PrepareAsync(TestModels.Chat);
 
@@ -218,7 +243,36 @@ await foreach (var update in updates)
 }
 ```
 
+### Chat Streaming
+
+
+```csharp
+await using var container = await Environment.PrepareAsync(TestModels.Chat);
+
+var chat = container.Client.Chat(TestModels.Chat);
+var deltas = new List<string>();
+var message = await chat.SendAsync(
+    message: "answer 5 random words",
+    onResponseChunk: (isFirstChunk, chunk) =>
+    {
+        if (isFirstChunk)
+        {
+            Console.Write("> ");
+        }
+
+        if (!string.IsNullOrWhiteSpace(chunk))
+        {
+            deltas.Add(chunk);
+            Console.Write(chunk);
+        }
+    });
+
+Console.WriteLine();
+```
+
 ### Chat Client Five Random Words
+
+
 ```csharp
 await using var environment = await Environment.PrepareAsync(TestModels.Chat);
 
@@ -235,6 +289,8 @@ var response = await client.GetResponseAsync(
 ```
 
 ### Chat Client Get Service Returns Chat Client Metadata
+
+
 ```csharp
 using var client = new OllamaClient();
 IChatClient chatClient = client;
@@ -243,6 +299,8 @@ var metadata = chatClient.GetService<ChatClientMetadata>();
 ```
 
 ### Chat Client Get Service Returns Null For Unknown Key
+
+
 ```csharp
 using var client = new OllamaClient();
 IChatClient chatClient = client;
@@ -251,6 +309,8 @@ var result = chatClient.GetService<ChatClientMetadata>(serviceKey: "unknown");
 ```
 
 ### Chat Client Get Service Returns Self
+
+
 ```csharp
 using var client = new OllamaClient();
 IChatClient chatClient = client;
@@ -259,6 +319,8 @@ var self = chatClient.GetService<OllamaClient>();
 ```
 
 ### Embedding Generator Batch Input
+
+
 ```csharp
 await using var environment = await Environment.PrepareAsync(TestModels.Embeddings);
 
@@ -272,6 +334,8 @@ var result = await generator.GenerateAsync(
 ```
 
 ### Embedding Generator Get Service Returns Embedding Generator Metadata
+
+
 ```csharp
 using var client = new OllamaClient();
 IEmbeddingGenerator<string, Embedding<float>> generator = client;
@@ -280,6 +344,8 @@ var metadata = generator.GetService<EmbeddingGeneratorMetadata>();
 ```
 
 ### Embedding Generator Get Service Returns Null For Unknown Key
+
+
 ```csharp
 using var client = new OllamaClient();
 IEmbeddingGenerator<string, Embedding<float>> generator = client;
@@ -288,6 +354,8 @@ var result = generator.GetService<EmbeddingGeneratorMetadata>(serviceKey: "unkno
 ```
 
 ### Embedding Generator Get Service Returns Self
+
+
 ```csharp
 using var client = new OllamaClient();
 IEmbeddingGenerator<string, Embedding<float>> generator = client;
@@ -296,6 +364,8 @@ var self = generator.GetService<OllamaClient>();
 ```
 
 ### Embedding Generator Single Input
+
+
 ```csharp
 await using var environment = await Environment.PrepareAsync(TestModels.Embeddings);
 
@@ -309,6 +379,8 @@ var result = await generator.GenerateAsync(
 ```
 
 ### Embeddings
+
+
 ```csharp
 await using var container = await Environment.PrepareAsync(TestModels.Embeddings);
 
@@ -318,6 +390,8 @@ var embeddingResponse = await container.Client.EmbedAsync(
 ```
 
 ### Get Completion
+
+
 ```csharp
 await using var container = await Environment.PrepareAsync(TestModels.Chat);
 
@@ -332,6 +406,8 @@ Console.WriteLine(lastResponse.Response);
 ```
 
 ### Get Completion With Options
+
+
 ```csharp
 await using var container = await Environment.PrepareAsync(TestModels.Chat);
 
@@ -348,6 +424,8 @@ Console.WriteLine(response.Response);
 ```
 
 ### List Models
+
+
 ```csharp
 await using var container = await Environment.PrepareAsync(environmentType: EnvironmentType.Container);
 
@@ -362,6 +440,8 @@ models.Models.Any(model =>
 ```
 
 ### Pull Model
+
+
 ```csharp
 await using var container = await Environment.PrepareAsync(environmentType: EnvironmentType.Container);
 
@@ -377,6 +457,8 @@ await container.Client.PullAsStreamAsync(TestModels.Embeddings).EnsureSuccessAsy
 ```
 
 ### Reader Lm
+
+
 ```csharp
 await using var container = await Environment.PrepareAsync(TestModels.Reader);
 
@@ -402,6 +484,8 @@ await foreach (var response in enumerable)
 ```
 
 ### Strict Tools
+
+
 ```csharp
 var service = new WeatherService();
 
@@ -417,6 +501,8 @@ foreach (var tool in ollamaTools)
 ```
 
 ### Tools
+
+
 ```csharp
 await using var container = await Environment.PrepareAsync(TestModels.Chat);
 
@@ -473,6 +559,8 @@ finally
 ```
 
 ### Tools In Chat
+
+
 ```csharp
 await using var container = await Environment.PrepareAsync(TestModels.Chat);
 
