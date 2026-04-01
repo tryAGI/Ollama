@@ -260,7 +260,7 @@ var message = await chat.SendAsync(
             Console.Write("> ");
         }
 
-        if (!string.IsNullOrWhiteSpace(chunk))
+        if (chunk != null)
         {
             deltas.Add(chunk);
             Console.Write(chunk);

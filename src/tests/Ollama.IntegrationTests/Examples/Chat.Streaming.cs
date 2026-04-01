@@ -24,7 +24,7 @@ public partial class Tests
                     Console.Write("> ");
                 }
 
-                if (!string.IsNullOrWhiteSpace(chunk))
+                if (chunk != null)
                 {
                     deltas.Add(chunk);
                     Console.Write(chunk);
