@@ -53,6 +53,10 @@ namespace Ollama
         /// <summary>
         /// Creates a JSON request content instance.
         /// </summary>
+#if NET8_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
+        [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
+#endif
         public static global::System.Net.Http.HttpContent CreateJsonContent<T>(
             T inputValue,
             string mediaType,
@@ -124,6 +128,10 @@ namespace Ollama
         /// <summary>
         /// Reads JSON content into the specified type using serializer options.
         /// </summary>
+#if NET8_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
+        [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
+#endif
         public static async global::System.Threading.Tasks.Task<T?> ReadFromJsonAsync<T>(
             this global::System.Net.Http.HttpContent content,
             global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions,
