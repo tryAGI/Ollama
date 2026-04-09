@@ -13,7 +13,7 @@ namespace Ollama
         /// <summary>
         /// Ollama
         /// </summary>
-        public const string DefaultBaseUrl = "http://localhost:11434";
+        public const string DefaultBaseUrl = "http://localhost:11434/";
 
         private bool _disposeHttpClient = true;
 
