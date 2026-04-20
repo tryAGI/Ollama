@@ -8,6 +8,7 @@ namespace Ollama
         /// Pull a model
         /// </summary>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Ollama.ApiException"></exception>
         /// <remarks>
@@ -18,6 +19,7 @@ namespace Ollama
         global::System.Collections.Generic.IAsyncEnumerable<global::Ollama.StatusEvent> PullAsStreamAsync(
 
             global::Ollama.PullRequest request,
+            global::Ollama.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Pull a model
@@ -28,11 +30,13 @@ namespace Ollama
         /// <param name="insecure">
         /// Allow downloading over insecure connections
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Collections.Generic.IAsyncEnumerable<global::Ollama.StatusEvent> PullAsStreamAsync(
             string model,
             bool? insecure = default,
+            global::Ollama.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }
