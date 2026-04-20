@@ -9,6 +9,7 @@ namespace Ollama
         /// Generates a response for the provided prompt
         /// </summary>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Ollama.ApiException"></exception>
         /// <remarks>
@@ -20,6 +21,7 @@ namespace Ollama
         global::System.Collections.Generic.IAsyncEnumerable<global::Ollama.GenerateStreamEvent> GenerateAsStreamAsync(
 
             global::Ollama.GenerateRequest request,
+            global::Ollama.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Generate a response<br/>
@@ -59,6 +61,7 @@ namespace Ollama
         /// <param name="topLogprobs">
         /// Number of most likely tokens to return at each token position when logprobs are enabled
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Collections.Generic.IAsyncEnumerable<global::Ollama.GenerateStreamEvent> GenerateAsStreamAsync(
@@ -74,6 +77,7 @@ namespace Ollama
             global::Ollama.ModelOptions? options = default,
             bool? logprobs = default,
             int? topLogprobs = default,
+            global::Ollama.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }
