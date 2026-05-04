@@ -8,12 +8,14 @@ namespace Ollama
         /// Get version<br/>
         /// Retrieve the version of the Ollama
         /// </summary>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Ollama.ApiException"></exception>
         /// <remarks>
         /// curl http://localhost:11434/api/version
         /// </remarks>
         global::System.Threading.Tasks.Task<global::Ollama.VersionResponse> VersionAsync(
+            global::Ollama.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

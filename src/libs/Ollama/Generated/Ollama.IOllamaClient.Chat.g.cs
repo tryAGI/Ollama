@@ -9,6 +9,7 @@ namespace Ollama
         /// Generate the next chat message in a conversation between a user and an assistant.
         /// </summary>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Ollama.ApiException"></exception>
         /// <remarks>
@@ -25,6 +26,7 @@ namespace Ollama
         global::System.Threading.Tasks.Task<global::Ollama.ChatResponse> ChatAsync(
 
             global::Ollama.ChatRequest request,
+            global::Ollama.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Generate a chat message<br/>
@@ -57,6 +59,7 @@ namespace Ollama
         /// <param name="topLogprobs">
         /// Number of most likely tokens to return at each token position when logprobs are enabled
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::Ollama.ChatResponse> ChatAsync(
@@ -69,6 +72,7 @@ namespace Ollama
             global::Ollama.OneOf<string, double?>? keepAlive = default,
             bool? logprobs = default,
             int? topLogprobs = default,
+            global::Ollama.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }
