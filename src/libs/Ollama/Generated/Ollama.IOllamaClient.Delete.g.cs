@@ -8,6 +8,7 @@ namespace Ollama
         /// Delete a model
         /// </summary>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Ollama.ApiException"></exception>
         /// <remarks>
@@ -18,6 +19,7 @@ namespace Ollama
         global::System.Threading.Tasks.Task DeleteAsync(
 
             global::Ollama.DeleteRequest request,
+            global::Ollama.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Delete a model
@@ -25,10 +27,12 @@ namespace Ollama
         /// <param name="model">
         /// Model name to delete
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task DeleteAsync(
             string model,
+            global::Ollama.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

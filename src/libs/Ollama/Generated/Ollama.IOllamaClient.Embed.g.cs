@@ -9,6 +9,7 @@ namespace Ollama
         /// Creates vector embeddings representing the input text
         /// </summary>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Ollama.ApiException"></exception>
         /// <remarks>
@@ -20,6 +21,7 @@ namespace Ollama
         global::System.Threading.Tasks.Task<global::Ollama.EmbedResponse> EmbedAsync(
 
             global::Ollama.EmbedRequest request,
+            global::Ollama.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Generate embeddings<br/>
@@ -44,6 +46,7 @@ namespace Ollama
         /// <param name="options">
         /// Runtime options that control text generation
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::Ollama.EmbedResponse> EmbedAsync(
@@ -53,6 +56,7 @@ namespace Ollama
             int? dimensions = default,
             string? keepAlive = default,
             global::Ollama.ModelOptions? options = default,
+            global::Ollama.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }
