@@ -16,8 +16,8 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="CSharpToJsonSchema" Version="3.10.1" />
-    <PackageReference Include="Microsoft.Extensions.AI.Abstractions" Version="10.5.0" />
+    <PackageReference Include="CSharpToJsonSchema" Version="3.10.4" />
+    <PackageReference Include="Microsoft.Extensions.AI.Abstractions" Version="10.6.0" />
   </ItemGroup>
 
 </Project>
