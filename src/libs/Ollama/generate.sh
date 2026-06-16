@@ -1,11 +1,22 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+install_autosdk_cli() {
+  dotnet tool update --global autosdk.cli --prerelease >/dev/null 2>&1 || \
+    dotnet tool install --global autosdk.cli --prerelease
+}
+
+fetch_spec() {
+  curl "$@" \
+    --fail --silent --show-error --location \
+    --retry 5 --retry-delay 10 --retry-all-errors \
+    --connect-timeout 30 --max-time 300
+}
+
 # OpenAPI spec: https://raw.githubusercontent.com/ollama/ollama/main/docs/openapi.yaml
+install_autosdk_cli
 
-dotnet tool install --global autosdk.cli --prerelease
-
-curl -fsSL https://raw.githubusercontent.com/ollama/ollama/main/docs/openapi.yaml -o openapi.yaml
+fetch_spec -fsSL https://raw.githubusercontent.com/ollama/ollama/main/docs/openapi.yaml -o openapi.yaml
 
 rm -rf Generated
 autosdk generate openapi.yaml \
