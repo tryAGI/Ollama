@@ -65,5 +65,6 @@ namespace Ollama
         public ToolDefinitionFunction()
         {
         }
+
     }
 }

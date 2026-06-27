@@ -54,7 +54,7 @@ namespace Ollama
         public bool? Stream { get; set; }
 
         /// <summary>
-        /// When true, returns separate thinking output in addition to content. Can be a boolean (true/false) or a string ("high", "medium", "low") for supported models.
+        /// When true, returns separate thinking output in addition to content. Can be a boolean (true/false) or a string ("high", "medium", "low", "max") for supported models, with "max" requesting the highest thinking level.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("think")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Ollama.JsonConverters.OneOfJsonConverter<bool?, global::Ollama.GenerateRequestThink?>))]
@@ -121,7 +121,7 @@ namespace Ollama
         /// Default Value: true
         /// </param>
         /// <param name="think">
-        /// When true, returns separate thinking output in addition to content. Can be a boolean (true/false) or a string ("high", "medium", "low") for supported models.
+        /// When true, returns separate thinking output in addition to content. Can be a boolean (true/false) or a string ("high", "medium", "low", "max") for supported models, with "max" requesting the highest thinking level.
         /// </param>
         /// <param name="raw">
         /// When true, returns the raw response from the model without any prompt templating
@@ -177,5 +177,6 @@ namespace Ollama
         public GenerateRequest()
         {
         }
+
     }
 }

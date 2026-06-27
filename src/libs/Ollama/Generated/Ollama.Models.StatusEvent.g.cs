@@ -74,5 +74,6 @@ namespace Ollama
         public StatusEvent()
         {
         }
+
     }
 }

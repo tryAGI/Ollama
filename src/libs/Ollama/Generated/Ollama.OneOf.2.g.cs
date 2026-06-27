@@ -28,6 +28,26 @@ namespace Ollama
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickValue1(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out T1? value)
+        {
+            value = Value1;
+            return IsValue1;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public T1 PickValue1() => IsValue1
+            ? Value1!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Value1' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public T2? Value2 { get; init; }
 #else
@@ -41,6 +61,26 @@ namespace Ollama
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Value2))]
 #endif
         public bool IsValue2 => Value2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickValue2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out T2? value)
+        {
+            value = Value2;
+            return IsValue2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public T2 PickValue2() => IsValue2
+            ? Value2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Value2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -62,6 +102,11 @@ namespace Ollama
         /// <summary>
         /// 
         /// </summary>
+        public static OneOf<T1, T2> FromValue1(T1? value) => new OneOf<T1, T2>(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator OneOf<T1, T2>(T2 value) => new OneOf<T1, T2>((T2?)value);
 
         /// <summary>
@@ -76,6 +121,11 @@ namespace Ollama
         {
             Value2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static OneOf<T1, T2> FromValue2(T2? value) => new OneOf<T1, T2>(value);
 
         /// <summary>
         /// 
@@ -142,6 +192,30 @@ namespace Ollama
         /// 
         /// </summary>
         public void Match(
+            global::System.Action<T1>? value1 = null,
+
+            global::System.Action<T2>? value2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsValue1)
+            {
+                value1?.Invoke(Value1!);
+            }
+            else if (IsValue2)
+            {
+                value2?.Invoke(Value2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
             global::System.Action<T1>? value1 = null,
             global::System.Action<T2>? value2 = null,
             bool validate = true)

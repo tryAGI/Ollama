@@ -42,5 +42,6 @@ namespace Ollama
         public WebFetchRequest()
         {
         }
+
     }
 }

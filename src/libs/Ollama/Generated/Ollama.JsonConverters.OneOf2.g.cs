@@ -3,7 +3,7 @@
 namespace Ollama.JsonConverters
 {
     /// <inheritdoc />
-    public class OneOfJsonConverter<[global::System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembers(global::System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicProperties)] T1, [global::System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembers(global::System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicProperties)] T2> : global::System.Text.Json.Serialization.JsonConverter<global::Ollama.OneOf<T1, T2>>
+    public class OneOfJsonConverter<T1, T2> : global::System.Text.Json.Serialization.JsonConverter<global::Ollama.OneOf<T1, T2>>
     {
         /// <inheritdoc />
         public override global::Ollama.OneOf<T1, T2> Read(
@@ -107,7 +107,10 @@ namespace Ollama.JsonConverters
                 catch (global::System.InvalidOperationException)
                 {
                 }
+            }
 
+            if (value1 == null && value2 == null)
+            {
                 try
                 {
 
