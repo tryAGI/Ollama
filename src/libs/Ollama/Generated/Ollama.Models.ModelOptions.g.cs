@@ -119,5 +119,6 @@ namespace Ollama
         public ModelOptions()
         {
         }
+
     }
 }

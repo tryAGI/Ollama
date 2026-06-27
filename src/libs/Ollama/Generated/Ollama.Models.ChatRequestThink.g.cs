@@ -19,6 +19,10 @@ namespace Ollama
         /// <summary>
         /// 
         /// </summary>
+        Max,
+        /// <summary>
+        /// 
+        /// </summary>
         Medium,
     }
 
@@ -36,6 +40,7 @@ namespace Ollama
             {
                 ChatRequestThink.High => "high",
                 ChatRequestThink.Low => "low",
+                ChatRequestThink.Max => "max",
                 ChatRequestThink.Medium => "medium",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
@@ -49,6 +54,7 @@ namespace Ollama
             {
                 "high" => ChatRequestThink.High,
                 "low" => ChatRequestThink.Low,
+                "max" => ChatRequestThink.Max,
                 "medium" => ChatRequestThink.Medium,
                 _ => null,
             };

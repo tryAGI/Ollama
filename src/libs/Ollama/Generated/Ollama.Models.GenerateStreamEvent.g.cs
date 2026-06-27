@@ -162,5 +162,6 @@ namespace Ollama
         public GenerateStreamEvent()
         {
         }
+
     }
 }

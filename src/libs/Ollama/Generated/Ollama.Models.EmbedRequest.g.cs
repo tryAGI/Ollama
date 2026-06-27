@@ -101,5 +101,6 @@ namespace Ollama
         public EmbedRequest()
         {
         }
+
     }
 }

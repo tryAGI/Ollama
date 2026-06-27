@@ -54,5 +54,6 @@ namespace Ollama
         public CopyRequest()
         {
         }
+
     }
 }
