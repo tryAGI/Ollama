@@ -72,5 +72,6 @@ namespace Ollama
         public ChatStreamEvent()
         {
         }
+
     }
 }

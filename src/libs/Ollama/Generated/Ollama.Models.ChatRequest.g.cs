@@ -48,7 +48,7 @@ namespace Ollama
         public bool? Stream { get; set; }
 
         /// <summary>
-        /// When true, returns separate thinking output in addition to content. Can be a boolean (true/false) or a string ("high", "medium", "low") for supported models.
+        /// When true, returns separate thinking output in addition to content. Can be a boolean (true/false) or a string ("high", "medium", "low", "max") for supported models, with "max" requesting the highest thinking level.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("think")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Ollama.JsonConverters.OneOfJsonConverter<bool?, global::Ollama.ChatRequestThink?>))]
@@ -101,7 +101,7 @@ namespace Ollama
         /// Default Value: true
         /// </param>
         /// <param name="think">
-        /// When true, returns separate thinking output in addition to content. Can be a boolean (true/false) or a string ("high", "medium", "low") for supported models.
+        /// When true, returns separate thinking output in addition to content. Can be a boolean (true/false) or a string ("high", "medium", "low", "max") for supported models, with "max" requesting the highest thinking level.
         /// </param>
         /// <param name="keepAlive">
         /// Model keep-alive duration (for example `5m` or `0` to unload immediately)
@@ -145,5 +145,6 @@ namespace Ollama
         public ChatRequest()
         {
         }
+
     }
 }
