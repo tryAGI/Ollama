@@ -9,11 +9,12 @@ namespace Ollama
         /// Generate the next chat message in a conversation between a user and an assistant.
         /// </summary>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Ollama.ApiException"></exception>
         /// <remarks>
         /// curl http://localhost:11434/api/chat -d '{<br/>
-        ///   "model": "gemma3",<br/>
+        ///   "model": "gemma4",<br/>
         ///   "messages": [<br/>
         ///     {<br/>
         ///       "role": "user",<br/>
@@ -25,6 +26,31 @@ namespace Ollama
         global::System.Threading.Tasks.Task<global::Ollama.ChatResponse> ChatAsync(
 
             global::Ollama.ChatRequest request,
+            global::Ollama.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Generate a chat message<br/>
+        /// Generate the next chat message in a conversation between a user and an assistant.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::Ollama.ApiException"></exception>
+        /// <remarks>
+        /// curl http://localhost:11434/api/chat -d '{<br/>
+        ///   "model": "gemma4",<br/>
+        ///   "messages": [<br/>
+        ///     {<br/>
+        ///       "role": "user",<br/>
+        ///       "content": "why is the sky blue?"<br/>
+        ///     }<br/>
+        ///   ]<br/>
+        /// }'
+        /// </remarks>
+        global::System.Threading.Tasks.Task<global::Ollama.AutoSDKHttpResponse<global::Ollama.ChatResponse>> ChatAsResponseAsync(
+
+            global::Ollama.ChatRequest request,
+            global::Ollama.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Generate a chat message<br/>
@@ -46,7 +72,7 @@ namespace Ollama
         /// Runtime options that control text generation
         /// </param>
         /// <param name="think">
-        /// When true, returns separate thinking output in addition to content. Can be a boolean (true/false) or a string ("high", "medium", "low") for supported models.
+        /// When true, returns separate thinking output in addition to content. Can be a boolean (true/false) or a string ("high", "medium", "low", "max") for supported models, with "max" requesting the highest thinking level.
         /// </param>
         /// <param name="keepAlive">
         /// Model keep-alive duration (for example `5m` or `0` to unload immediately)
@@ -57,6 +83,7 @@ namespace Ollama
         /// <param name="topLogprobs">
         /// Number of most likely tokens to return at each token position when logprobs are enabled
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::Ollama.ChatResponse> ChatAsync(
@@ -69,6 +96,7 @@ namespace Ollama
             global::Ollama.OneOf<string, double?>? keepAlive = default,
             bool? logprobs = default,
             int? topLogprobs = default,
+            global::Ollama.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

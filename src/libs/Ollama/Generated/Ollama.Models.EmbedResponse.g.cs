@@ -85,5 +85,6 @@ namespace Ollama
         public EmbedResponse()
         {
         }
+
     }
 }

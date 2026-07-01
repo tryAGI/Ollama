@@ -107,5 +107,6 @@ namespace Ollama
         public ShowResponse()
         {
         }
+
     }
 }

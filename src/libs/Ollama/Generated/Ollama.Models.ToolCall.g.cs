@@ -39,5 +39,6 @@ namespace Ollama
         public ToolCall()
         {
         }
+
     }
 }

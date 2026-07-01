@@ -64,5 +64,6 @@ namespace Ollama
         public ToolCallFunction()
         {
         }
+
     }
 }

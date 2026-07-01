@@ -55,5 +55,6 @@ namespace Ollama
         public WebSearchRequest()
         {
         }
+
     }
 }

@@ -86,5 +86,6 @@ namespace Ollama
         public ChatResponseMessage()
         {
         }
+
     }
 }

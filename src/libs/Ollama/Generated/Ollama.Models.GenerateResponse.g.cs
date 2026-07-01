@@ -173,5 +173,6 @@ namespace Ollama
         public GenerateResponse()
         {
         }
+
     }
 }

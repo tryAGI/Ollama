@@ -53,5 +53,6 @@ namespace Ollama
         public ShowRequest()
         {
         }
+
     }
 }

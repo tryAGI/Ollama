@@ -41,5 +41,6 @@ namespace Ollama
         public StatusResponse()
         {
         }
+
     }
 }
