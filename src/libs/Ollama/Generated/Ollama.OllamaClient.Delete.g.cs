@@ -25,7 +25,7 @@ namespace Ollama
         /// <exception cref="global::Ollama.ApiException"></exception>
         /// <remarks>
         /// curl -X DELETE http://localhost:11434/api/delete -d '{<br/>
-        ///   "model": "gemma3"<br/>
+        ///   "model": "gemma4"<br/>
         /// }'
         /// </remarks>
         public async global::System.Threading.Tasks.Task DeleteAsync(
@@ -50,7 +50,7 @@ namespace Ollama
         /// <exception cref="global::Ollama.ApiException"></exception>
         /// <remarks>
         /// curl -X DELETE http://localhost:11434/api/delete -d '{<br/>
-        ///   "model": "gemma3"<br/>
+        ///   "model": "gemma4"<br/>
         /// }'
         /// </remarks>
         public async global::System.Threading.Tasks.Task<global::Ollama.AutoSDKHttpResponse> DeleteAsResponseAsync(

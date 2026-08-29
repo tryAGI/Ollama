@@ -30,7 +30,7 @@ namespace Ollama
         /// <exception cref="global::Ollama.ApiException"></exception>
         /// <remarks>
         /// curl http://localhost:11434/api/create -d '{<br/>
-        ///   "from": "gemma3",<br/>
+        ///   "from": "gemma4",<br/>
         ///   "model": "alpaca",<br/>
         ///   "system": "You are Alpaca, a helpful AI assistant. You only answer with Emojis."<br/>
         /// }'
@@ -59,7 +59,7 @@ namespace Ollama
         /// <exception cref="global::Ollama.ApiException"></exception>
         /// <remarks>
         /// curl http://localhost:11434/api/create -d '{<br/>
-        ///   "from": "gemma3",<br/>
+        ///   "from": "gemma4",<br/>
         ///   "model": "alpaca",<br/>
         ///   "system": "You are Alpaca, a helpful AI assistant. You only answer with Emojis."<br/>
         /// }'
@@ -77,6 +77,8 @@ namespace Ollama
                 Model = request.Model,
                 From = request.From,
                 Template = request.Template,
+                Renderer = request.Renderer,
+                Parser = request.Parser,
                 License = request.License,
                 System = request.System,
                 Parameters = request.Parameters,
@@ -430,6 +432,12 @@ namespace Ollama
         /// <param name="template">
         /// Prompt template to use for the model
         /// </param>
+        /// <param name="renderer">
+        /// Name of the renderer for the model
+        /// </param>
+        /// <param name="parser">
+        /// Name of the parser for the model
+        /// </param>
         /// <param name="license">
         /// License string or list of licenses for the model
         /// </param>
@@ -452,6 +460,8 @@ namespace Ollama
             string model,
             string? from = default,
             string? template = default,
+            string? renderer = default,
+            string? parser = default,
             global::Ollama.OneOf<string, global::System.Collections.Generic.IList<string>>? license = default,
             string? system = default,
             object? parameters = default,
@@ -465,6 +475,8 @@ namespace Ollama
                 Model = model,
                 From = from,
                 Template = template,
+                Renderer = renderer,
+                Parser = parser,
                 License = license,
                 System = system,
                 Parameters = parameters,

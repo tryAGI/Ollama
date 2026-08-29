@@ -28,6 +28,18 @@ namespace Ollama
         public string? Template { get; set; }
 
         /// <summary>
+        /// Name of the renderer for the model
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("renderer")]
+        public string? Renderer { get; set; }
+
+        /// <summary>
+        /// Name of the parser for the model
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("parser")]
+        public string? Parser { get; set; }
+
+        /// <summary>
         /// License string or list of licenses for the model
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("license")]
@@ -83,6 +95,12 @@ namespace Ollama
         /// <param name="template">
         /// Prompt template to use for the model
         /// </param>
+        /// <param name="renderer">
+        /// Name of the renderer for the model
+        /// </param>
+        /// <param name="parser">
+        /// Name of the parser for the model
+        /// </param>
         /// <param name="license">
         /// License string or list of licenses for the model
         /// </param>
@@ -109,6 +127,8 @@ namespace Ollama
             string model,
             string? from,
             string? template,
+            string? renderer,
+            string? parser,
             global::Ollama.OneOf<string, global::System.Collections.Generic.IList<string>>? license,
             string? system,
             object? parameters,
@@ -119,6 +139,8 @@ namespace Ollama
             this.Model = model ?? throw new global::System.ArgumentNullException(nameof(model));
             this.From = from;
             this.Template = template;
+            this.Renderer = renderer;
+            this.Parser = parser;
             this.License = license;
             this.System = system;
             this.Parameters = parameters;

@@ -13,7 +13,7 @@ namespace Ollama
         /// <exception cref="global::Ollama.ApiException"></exception>
         /// <remarks>
         /// curl http://localhost:11434/api/create -d '{<br/>
-        ///   "from": "gemma3",<br/>
+        ///   "from": "gemma4",<br/>
         ///   "model": "alpaca",<br/>
         ///   "system": "You are Alpaca, a helpful AI assistant. You only answer with Emojis."<br/>
         /// }'
@@ -34,6 +34,12 @@ namespace Ollama
         /// </param>
         /// <param name="template">
         /// Prompt template to use for the model
+        /// </param>
+        /// <param name="renderer">
+        /// Name of the renderer for the model
+        /// </param>
+        /// <param name="parser">
+        /// Name of the parser for the model
         /// </param>
         /// <param name="license">
         /// License string or list of licenses for the model
@@ -57,6 +63,8 @@ namespace Ollama
             string model,
             string? from = default,
             string? template = default,
+            string? renderer = default,
+            string? parser = default,
             global::Ollama.OneOf<string, global::System.Collections.Generic.IList<string>>? license = default,
             string? system = default,
             object? parameters = default,

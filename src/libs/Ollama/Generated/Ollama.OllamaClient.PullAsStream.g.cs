@@ -25,7 +25,7 @@ namespace Ollama
         /// <exception cref="global::Ollama.ApiException"></exception>
         /// <remarks>
         /// curl http://localhost:11434/api/pull -d '{<br/>
-        ///   "model": "gemma3"<br/>
+        ///   "model": "gemma4"<br/>
         /// }'
         /// </remarks>
         public async global::System.Collections.Generic.IAsyncEnumerable<global::Ollama.StatusEvent> PullAsStreamAsync(

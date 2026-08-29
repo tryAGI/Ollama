@@ -13,8 +13,8 @@ namespace Ollama
         /// <exception cref="global::Ollama.ApiException"></exception>
         /// <remarks>
         /// curl http://localhost:11434/api/copy -d '{<br/>
-        ///   "source": "gemma3",<br/>
-        ///   "destination": "gemma3-backup"<br/>
+        ///   "source": "gemma4",<br/>
+        ///   "destination": "gemma4-backup"<br/>
         /// }'
         /// </remarks>
         global::System.Threading.Tasks.Task CopyAsync(
@@ -31,8 +31,8 @@ namespace Ollama
         /// <exception cref="global::Ollama.ApiException"></exception>
         /// <remarks>
         /// curl http://localhost:11434/api/copy -d '{<br/>
-        ///   "source": "gemma3",<br/>
-        ///   "destination": "gemma3-backup"<br/>
+        ///   "source": "gemma4",<br/>
+        ///   "destination": "gemma4-backup"<br/>
         /// }'
         /// </remarks>
         global::System.Threading.Tasks.Task<global::Ollama.AutoSDKHttpResponse> CopyAsResponseAsync(
