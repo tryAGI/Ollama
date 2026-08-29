@@ -4,7 +4,7 @@
 namespace Ollama
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class CopyRequest
     {
@@ -54,5 +54,6 @@ namespace Ollama
         public CopyRequest()
         {
         }
+
     }
 }

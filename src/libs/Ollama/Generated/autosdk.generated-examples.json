@@ -1,0 +1,136 @@
+{
+  "Examples": [
+    {
+      "Order": 1,
+      "Title": "Generate a chat message",
+      "Slug": "chat",
+      "Description": "Generate the next chat message in a conversation between a user and an assistant.",
+      "Language": "http",
+      "Code": "### Generate a chat message\n# @name chat\nPOST {{host}}/api/chat\nContent-Type: application/json\nAccept: application/json, application/x-ndjson\n\n{\n  \u0022model\u0022: \u0022string\u0022,\n  \u0022messages\u0022: [\n    {\n      \u0022role\u0022: \u0022system\u0022,\n      \u0022content\u0022: \u0022string\u0022,\n      \u0022images\u0022: [],\n      \u0022tool_calls\u0022: []\n    }\n  ],\n  \u0022tools\u0022: [\n    {\n      \u0022type\u0022: \u0022function\u0022,\n      \u0022function\u0022: {}\n    }\n  ],\n  \u0022format\u0022: \u0022json\u0022,\n  \u0022options\u0022: {\n    \u0022seed\u0022: 0,\n    \u0022temperature\u0022: 0,\n    \u0022top_k\u0022: 0,\n    \u0022top_p\u0022: 0,\n    \u0022min_p\u0022: 0,\n    \u0022stop\u0022: \u0022string\u0022,\n    \u0022num_ctx\u0022: 0,\n    \u0022num_predict\u0022: 0\n  },\n  \u0022stream\u0022: true,\n  \u0022think\u0022: true,\n  \u0022keep_alive\u0022: \u0022string\u0022,\n  \u0022logprobs\u0022: true,\n  \u0022top_logprobs\u0022: 0\n}\n\n## Responses\n# 200\n# Description: Chat response\n# Content-Type: application/json, application/x-ndjson",
+      "Format": "http",
+      "OperationId": "chat",
+      "Setup": null
+    },
+    {
+      "Order": 2,
+      "Title": "Copy a model",
+      "Slug": "copy",
+      "Description": "Generated from OpenAPI examples.",
+      "Language": "csharp",
+      "Code": "using var client = new OllamaClient();\n\nvar request = global::System.Text.Json.JsonSerializer.Deserialize\u003Cglobal::Ollama.CopyRequest\u003E(\n    @\u0022{\n  \u0022\u0022source\u0022\u0022: \u0022\u0022gemma3\u0022\u0022,\n  \u0022\u0022destination\u0022\u0022: \u0022\u0022gemma3-backup\u0022\u0022\n}\u0022)!;\n\nawait client.CopyAsync(\n    request: request\n);",
+      "Format": "sdk",
+      "OperationId": "copy",
+      "Setup": "This example assumes \u0060using Ollama;\u0060 is in scope."
+    },
+    {
+      "Order": 3,
+      "Title": "Create a model",
+      "Slug": "create",
+      "Description": "Generated from OpenAPI examples.",
+      "Language": "csharp",
+      "Code": "using var client = new OllamaClient();\n\nvar request = global::System.Text.Json.JsonSerializer.Deserialize\u003Cglobal::Ollama.CreateRequest\u003E(\n    @\u0022{\n  \u0022\u0022model\u0022\u0022: \u0022\u0022mario\u0022\u0022,\n  \u0022\u0022from\u0022\u0022: \u0022\u0022gemma3\u0022\u0022,\n  \u0022\u0022system\u0022\u0022: \u0022\u0022You are Mario from Super Mario Bros.\u0022\u0022\n}\u0022)!;\n\nvar response = await client.CreateAsync(\n    request: request\n);\n\n// Example response:\n// {\n//   \u0022status\u0022: \u0022success\u0022\n// }",
+      "Format": "sdk",
+      "OperationId": "create",
+      "Setup": "This example assumes \u0060using Ollama;\u0060 is in scope."
+    },
+    {
+      "Order": 4,
+      "Title": "Delete a model",
+      "Slug": "delete",
+      "Description": "Generated from OpenAPI examples.",
+      "Language": "csharp",
+      "Code": "using var client = new OllamaClient();\n\nvar request = global::System.Text.Json.JsonSerializer.Deserialize\u003Cglobal::Ollama.DeleteRequest\u003E(\n    @\u0022{\n  \u0022\u0022model\u0022\u0022: \u0022\u0022gemma3\u0022\u0022\n}\u0022)!;\n\nawait client.DeleteAsync(\n    request: request\n);",
+      "Format": "sdk",
+      "OperationId": "delete",
+      "Setup": "This example assumes \u0060using Ollama;\u0060 is in scope."
+    },
+    {
+      "Order": 5,
+      "Title": "Generate embeddings",
+      "Slug": "embed",
+      "Description": "Creates vector embeddings representing the input text",
+      "Language": "csharp",
+      "Code": "using var client = new OllamaClient();\n\nvar request = global::System.Text.Json.JsonSerializer.Deserialize\u003Cglobal::Ollama.EmbedRequest\u003E(\n    @\u0022{\n  \u0022\u0022model\u0022\u0022: \u0022\u0022embeddinggemma\u0022\u0022,\n  \u0022\u0022input\u0022\u0022: \u0022\u0022Generate embeddings for this text\u0022\u0022\n}\u0022)!;\n\nvar response = await client.EmbedAsync(\n    request: request\n);\n\n// Example response:\n// {\n//   \u0022model\u0022: \u0022embeddinggemma\u0022,\n//   \u0022embeddings\u0022: [\n//     [\n//       0.010071029,\n//       -0.0017594862,\n//       0.05007221,\n//       0.04692972,\n//       0.054916814,\n//       0.008599704,\n//       0.105441414,\n//       -0.025878139,\n//       0.12958129,\n//       0.031952348\n//     ]\n//   ],\n//   \u0022total_duration\u0022: 14143917,\n//   \u0022load_duration\u0022: 1019500,\n//   \u0022prompt_eval_count\u0022: 8\n// }",
+      "Format": "sdk",
+      "OperationId": "embed",
+      "Setup": "This example assumes \u0060using Ollama;\u0060 is in scope."
+    },
+    {
+      "Order": 6,
+      "Title": "Generate a response",
+      "Slug": "generate",
+      "Description": "Generates a response for the provided prompt",
+      "Language": "csharp",
+      "Code": "using var client = new OllamaClient();\n\nvar request = global::System.Text.Json.JsonSerializer.Deserialize\u003Cglobal::Ollama.GenerateRequest\u003E(\n    @\u0022{\n  \u0022\u0022model\u0022\u0022: \u0022\u0022gemma3\u0022\u0022,\n  \u0022\u0022prompt\u0022\u0022: \u0022\u0022Why is the sky blue?\u0022\u0022\n}\u0022)!;\n\nvar response = await client.GenerateAsync(\n    request: request\n);\n\n// Example response:\n// {\n//   \u0022model\u0022: \u0022gemma3\u0022,\n//   \u0022created_at\u0022: \u00222025-10-17T23:14:07.414671Z\u0022,\n//   \u0022response\u0022: \u0022Hello! How can I help you today?\u0022,\n//   \u0022done\u0022: true,\n//   \u0022done_reason\u0022: \u0022stop\u0022,\n//   \u0022total_duration\u0022: 174560334,\n//   \u0022load_duration\u0022: 101397084,\n//   \u0022prompt_eval_count\u0022: 11,\n//   \u0022prompt_eval_duration\u0022: 13074791,\n//   \u0022eval_count\u0022: 18,\n//   \u0022eval_duration\u0022: 52479709\n// }",
+      "Format": "sdk",
+      "OperationId": "generate",
+      "Setup": "This example assumes \u0060using Ollama;\u0060 is in scope."
+    },
+    {
+      "Order": 7,
+      "Title": "List models",
+      "Slug": "list",
+      "Description": "Fetch a list of models and their details",
+      "Language": "csharp",
+      "Code": "using var client = new OllamaClient();\nvar response = await client.ListAsync();\n\n// Example response:\n// {\n//   \u0022models\u0022: [\n//     {\n//       \u0022name\u0022: \u0022gemma3\u0022,\n//       \u0022model\u0022: \u0022gemma3\u0022,\n//       \u0022modified_at\u0022: \u00222025-10-03T23:34:03.409490317-07:00\u0022,\n//       \u0022size\u0022: 3338801804,\n//       \u0022digest\u0022: \u0022a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a\u0022,\n//       \u0022details\u0022: {\n//         \u0022format\u0022: \u0022gguf\u0022,\n//         \u0022family\u0022: \u0022gemma\u0022,\n//         \u0022families\u0022: [\n//           \u0022gemma\u0022\n//         ],\n//         \u0022parameter_size\u0022: \u00224.3B\u0022,\n//         \u0022quantization_level\u0022: \u0022Q4_K_M\u0022\n//       }\n//     }\n//   ]\n// }",
+      "Format": "sdk",
+      "OperationId": "list",
+      "Setup": "This example assumes \u0060using Ollama;\u0060 is in scope."
+    },
+    {
+      "Order": 8,
+      "Title": "List running models",
+      "Slug": "ps",
+      "Description": "Retrieve a list of models that are currently running",
+      "Language": "csharp",
+      "Code": "using var client = new OllamaClient();\nvar response = await client.PsAsync();\n\n// Example response:\n// {\n//   \u0022models\u0022: [\n//     {\n//       \u0022name\u0022: \u0022gemma3\u0022,\n//       \u0022model\u0022: \u0022gemma3\u0022,\n//       \u0022size\u0022: 6591830464,\n//       \u0022digest\u0022: \u0022a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a\u0022,\n//       \u0022details\u0022: {\n//         \u0022parent_model\u0022: \u0022\u0022,\n//         \u0022format\u0022: \u0022gguf\u0022,\n//         \u0022family\u0022: \u0022gemma3\u0022,\n//         \u0022families\u0022: [\n//           \u0022gemma3\u0022\n//         ],\n//         \u0022parameter_size\u0022: \u00224.3B\u0022,\n//         \u0022quantization_level\u0022: \u0022Q4_K_M\u0022\n//       },\n//       \u0022expires_at\u0022: \u00222025-10-17T16:47:07.93355-07:00\u0022,\n//       \u0022size_vram\u0022: 5333539264,\n//       \u0022context_length\u0022: 4096\n//     }\n//   ]\n// }",
+      "Format": "sdk",
+      "OperationId": "ps",
+      "Setup": "This example assumes \u0060using Ollama;\u0060 is in scope."
+    },
+    {
+      "Order": 9,
+      "Title": "Pull a model",
+      "Slug": "pull",
+      "Description": "Generated from OpenAPI examples.",
+      "Language": "csharp",
+      "Code": "using var client = new OllamaClient();\n\nvar request = global::System.Text.Json.JsonSerializer.Deserialize\u003Cglobal::Ollama.PullRequest\u003E(\n    @\u0022{\n  \u0022\u0022model\u0022\u0022: \u0022\u0022gemma3\u0022\u0022\n}\u0022)!;\n\nvar response = await client.PullAsync(\n    request: request\n);\n\n// Example response:\n// {\n//   \u0022status\u0022: \u0022success\u0022\n// }",
+      "Format": "sdk",
+      "OperationId": "pull",
+      "Setup": "This example assumes \u0060using Ollama;\u0060 is in scope."
+    },
+    {
+      "Order": 10,
+      "Title": "Push a model",
+      "Slug": "push",
+      "Description": "Generated from OpenAPI examples.",
+      "Language": "csharp",
+      "Code": "using var client = new OllamaClient();\n\nvar request = global::System.Text.Json.JsonSerializer.Deserialize\u003Cglobal::Ollama.PushRequest\u003E(\n    @\u0022{\n  \u0022\u0022model\u0022\u0022: \u0022\u0022my-username/my-model\u0022\u0022\n}\u0022)!;\n\nvar response = await client.PushAsync(\n    request: request\n);\n\n// Example response:\n// {\n//   \u0022status\u0022: \u0022success\u0022\n// }",
+      "Format": "sdk",
+      "OperationId": "push",
+      "Setup": "This example assumes \u0060using Ollama;\u0060 is in scope."
+    },
+    {
+      "Order": 11,
+      "Title": "Show model details",
+      "Slug": "show",
+      "Description": "Generated from OpenAPI examples.",
+      "Language": "csharp",
+      "Code": "using var client = new OllamaClient();\n\nvar request = global::System.Text.Json.JsonSerializer.Deserialize\u003Cglobal::Ollama.ShowRequest\u003E(\n    @\u0022{\n  \u0022\u0022model\u0022\u0022: \u0022\u0022gemma3\u0022\u0022\n}\u0022)!;\n\nvar response = await client.ShowAsync(\n    request: request\n);\n\n// Example response:\n// {\n//   \u0022parameters\u0022: \u0022temperature 0.7\\nnum_ctx 2048\u0022,\n//   \u0022license\u0022: \u0022Gemma Terms of Use \\n\\nLast modified: February 21, 2024...\u0022,\n//   \u0022capabilities\u0022: [\n//     \u0022completion\u0022,\n//     \u0022vision\u0022\n//   ],\n//   \u0022modified_at\u0022: \u00222025-08-14T15:49:43.634137516-07:00\u0022,\n//   \u0022details\u0022: {\n//     \u0022parent_model\u0022: \u0022\u0022,\n//     \u0022format\u0022: \u0022gguf\u0022,\n//     \u0022family\u0022: \u0022gemma3\u0022,\n//     \u0022families\u0022: [\n//       \u0022gemma3\u0022\n//     ],\n//     \u0022parameter_size\u0022: \u00224.3B\u0022,\n//     \u0022quantization_level\u0022: \u0022Q4_K_M\u0022\n//   },\n//   \u0022model_info\u0022: {\n//     \u0022gemma3.attention.head_count\u0022: 8,\n//     \u0022gemma3.attention.head_count_kv\u0022: 4,\n//     \u0022gemma3.attention.key_length\u0022: 256,\n//     \u0022gemma3.attention.sliding_window\u0022: 1024,\n//     \u0022gemma3.attention.value_length\u0022: 256,\n//     \u0022gemma3.block_count\u0022: 34,\n//     \u0022gemma3.context_length\u0022: 131072,\n//     \u0022gemma3.embedding_length\u0022: 2560,\n//     \u0022gemma3.feed_forward_length\u0022: 10240,\n//     \u0022gemma3.mm.tokens_per_image\u0022: 256,\n//     \u0022gemma3.vision.attention.head_count\u0022: 16,\n//     \u0022gemma3.vision.attention.layer_norm_epsilon\u0022: 0.000001,\n//     \u0022gemma3.vision.block_count\u0022: 27,\n//     \u0022gemma3.vision.embedding_length\u0022: 1152,\n//     \u0022gemma3.vision.feed_forward_length\u0022: 4304,\n//     \u0022gemma3.vision.image_size\u0022: 896,\n//     \u0022gemma3.vision.num_channels\u0022: 3,\n//     \u0022gemma3.vision.patch_size\u0022: 14,\n//     \u0022general.architecture\u0022: \u0022gemma3\u0022,\n//     \u0022general.file_type\u0022: 15,\n//     \u0022general.parameter_count\u0022: 4299915632,\n//     \u0022general.quantization_version\u0022: 2,\n//     \u0022tokenizer.ggml.add_bos_token\u0022: true,\n//     \u0022tokenizer.ggml.add_eos_token\u0022: false,\n//     \u0022tokenizer.ggml.add_padding_token\u0022: false,\n//     \u0022tokenizer.ggml.add_unknown_token\u0022: false,\n//     \u0022tokenizer.ggml.bos_token_id\u0022: 2,\n//     \u0022tokenizer.ggml.eos_token_id\u0022: 1,\n//     \u0022tokenizer.ggml.merges\u0022: \u0022openapi-json-null-sentinel-value-2BF93600-0FE4-4250-987A-E5DDB203E464\u0022,\n//     \u0022tokenizer.ggml.model\u0022: \u0022llama\u0022,\n//     \u0022tokenizer.ggml.padding_token_id\u0022: 0,\n//     \u0022tokenizer.ggml.pre\u0022: \u0022default\u0022,\n//     \u0022tokenizer.ggml.scores\u0022: \u0022openapi-json-null-sentinel-value-2BF93600-0FE4-4250-987A-E5DDB203E464\u0022,\n//     \u0022tokenizer.ggml.token_type\u0022: \u0022openapi-json-null-sentinel-value-2BF93600-0FE4-4250-987A-E5DDB203E464\u0022,\n//     \u0022tokenizer.ggml.tokens\u0022: \u0022openapi-json-null-sentinel-value-2BF93600-0FE4-4250-987A-E5DDB203E464\u0022,\n//     \u0022tokenizer.ggml.unknown_token_id\u0022: 3\n//   }\n// }",
+      "Format": "sdk",
+      "OperationId": "show",
+      "Setup": "This example assumes \u0060using Ollama;\u0060 is in scope."
+    },
+    {
+      "Order": 12,
+      "Title": "Get version",
+      "Slug": "version",
+      "Description": "Retrieve the version of the Ollama",
+      "Language": "csharp",
+      "Code": "using var client = new OllamaClient();\nvar response = await client.VersionAsync();\n\n// Example response:\n// {\n//   \u0022version\u0022: \u00220.12.6\u0022\n// }",
+      "Format": "sdk",
+      "OperationId": "version",
+      "Setup": "This example assumes \u0060using Ollama;\u0060 is in scope."
+    }
+  ]
+}

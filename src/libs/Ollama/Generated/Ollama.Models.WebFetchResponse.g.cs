@@ -4,7 +4,7 @@
 namespace Ollama
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class WebFetchResponse
     {
@@ -63,5 +63,6 @@ namespace Ollama
         public WebFetchResponse()
         {
         }
+
     }
 }

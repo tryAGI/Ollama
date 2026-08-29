@@ -4,7 +4,7 @@
 namespace Ollama
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class EmbedRequest
     {
@@ -101,5 +101,6 @@ namespace Ollama
         public EmbedRequest()
         {
         }
+
     }
 }

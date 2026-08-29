@@ -4,7 +4,7 @@
 namespace Ollama
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class ChatRequest
     {
@@ -145,5 +145,6 @@ namespace Ollama
         public ChatRequest()
         {
         }
+
     }
 }

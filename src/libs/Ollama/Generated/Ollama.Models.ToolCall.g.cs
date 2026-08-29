@@ -4,12 +4,12 @@
 namespace Ollama
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class ToolCall
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("function")]
         public global::Ollama.ToolCallFunction? Function { get; set; }
@@ -39,5 +39,6 @@ namespace Ollama
         public ToolCall()
         {
         }
+
     }
 }

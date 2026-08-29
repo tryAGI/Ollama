@@ -4,7 +4,7 @@
 namespace Ollama
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class WebSearchResponse
     {
@@ -41,5 +41,6 @@ namespace Ollama
         public WebSearchResponse()
         {
         }
+
     }
 }

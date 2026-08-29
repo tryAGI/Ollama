@@ -4,7 +4,7 @@
 namespace Ollama
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class ChatStreamEvent
     {
@@ -21,7 +21,7 @@ namespace Ollama
         public global::System.DateTime? CreatedAt { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("message")]
         public global::Ollama.ChatStreamEventMessage? Message { get; set; }
@@ -72,5 +72,6 @@ namespace Ollama
         public ChatStreamEvent()
         {
         }
+
     }
 }

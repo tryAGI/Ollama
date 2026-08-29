@@ -4,7 +4,7 @@
 namespace Ollama
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class ToolDefinition
     {
@@ -16,7 +16,7 @@ namespace Ollama
         public global::Ollama.ToolDefinitionType Type { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("function")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -52,5 +52,6 @@ namespace Ollama
         public ToolDefinition()
         {
         }
+
     }
 }

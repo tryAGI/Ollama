@@ -4,7 +4,7 @@
 namespace Ollama
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class PullRequest
     {
@@ -66,5 +66,6 @@ namespace Ollama
         public PullRequest()
         {
         }
+
     }
 }

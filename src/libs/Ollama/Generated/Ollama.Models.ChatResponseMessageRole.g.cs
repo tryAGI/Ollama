@@ -9,7 +9,7 @@ namespace Ollama
     public enum ChatResponseMessageRole
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Assistant,
     }

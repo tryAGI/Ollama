@@ -39,7 +39,7 @@ public partial class OllamaClient : Meai.IEmbeddingGenerator<string, Meai.Embedd
             request.Dimensions = dimensions;
         }
 
-        var response = await EmbedAsync(request, cancellationToken).ConfigureAwait(false);
+        var response = await EmbedAsync(request, cancellationToken: cancellationToken).ConfigureAwait(false);
 
         var embeddings = new Meai.GeneratedEmbeddings<Meai.Embedding<float>>();
 

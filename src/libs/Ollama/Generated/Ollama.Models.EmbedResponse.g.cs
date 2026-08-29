@@ -4,7 +4,7 @@
 namespace Ollama
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class EmbedResponse
     {
@@ -85,5 +85,6 @@ namespace Ollama
         public EmbedResponse()
         {
         }
+
     }
 }

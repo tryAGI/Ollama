@@ -8,6 +8,7 @@ namespace Ollama
         /// Push a model
         /// </summary>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Ollama.ApiException"></exception>
         /// <remarks>
@@ -18,6 +19,24 @@ namespace Ollama
         global::System.Threading.Tasks.Task<global::Ollama.StatusResponse> PushAsync(
 
             global::Ollama.PushRequest request,
+            global::Ollama.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Push a model
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::Ollama.ApiException"></exception>
+        /// <remarks>
+        /// curl http://localhost:11434/api/push -d '{<br/>
+        ///   "model": "my-username/my-model"<br/>
+        /// }'
+        /// </remarks>
+        global::System.Threading.Tasks.Task<global::Ollama.AutoSDKHttpResponse<global::Ollama.StatusResponse>> PushAsResponseAsync(
+
+            global::Ollama.PushRequest request,
+            global::Ollama.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Push a model
@@ -28,11 +47,13 @@ namespace Ollama
         /// <param name="insecure">
         /// Allow publishing over insecure connections
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::Ollama.StatusResponse> PushAsync(
             string model,
             bool? insecure = default,
+            global::Ollama.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

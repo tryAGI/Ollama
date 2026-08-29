@@ -4,7 +4,7 @@
 namespace Ollama
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class ToolCallFunction
     {
@@ -64,5 +64,6 @@ namespace Ollama
         public ToolCallFunction()
         {
         }
+
     }
 }

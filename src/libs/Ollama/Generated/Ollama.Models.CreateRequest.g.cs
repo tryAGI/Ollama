@@ -4,7 +4,7 @@
 namespace Ollama
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class CreateRequest
     {
@@ -133,5 +133,6 @@ namespace Ollama
         public CreateRequest()
         {
         }
+
     }
 }

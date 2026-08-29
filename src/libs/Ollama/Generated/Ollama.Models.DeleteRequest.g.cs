@@ -4,7 +4,7 @@
 namespace Ollama
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class DeleteRequest
     {
@@ -42,5 +42,6 @@ namespace Ollama
         public DeleteRequest()
         {
         }
+
     }
 }

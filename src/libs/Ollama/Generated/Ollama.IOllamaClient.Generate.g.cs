@@ -9,6 +9,7 @@ namespace Ollama
         /// Generates a response for the provided prompt
         /// </summary>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Ollama.ApiException"></exception>
         /// <remarks>
@@ -20,6 +21,26 @@ namespace Ollama
         global::System.Threading.Tasks.Task<global::Ollama.GenerateResponse> GenerateAsync(
 
             global::Ollama.GenerateRequest request,
+            global::Ollama.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Generate a response<br/>
+        /// Generates a response for the provided prompt
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::Ollama.ApiException"></exception>
+        /// <remarks>
+        /// curl http://localhost:11434/api/generate -d '{<br/>
+        ///   "model": "gemma3",<br/>
+        ///   "prompt": "Why is the sky blue?"<br/>
+        /// }'
+        /// </remarks>
+        global::System.Threading.Tasks.Task<global::Ollama.AutoSDKHttpResponse<global::Ollama.GenerateResponse>> GenerateAsResponseAsync(
+
+            global::Ollama.GenerateRequest request,
+            global::Ollama.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Generate a response<br/>
@@ -59,6 +80,7 @@ namespace Ollama
         /// <param name="topLogprobs">
         /// Number of most likely tokens to return at each token position when logprobs are enabled
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::Ollama.GenerateResponse> GenerateAsync(
@@ -74,6 +96,7 @@ namespace Ollama
             global::Ollama.ModelOptions? options = default,
             bool? logprobs = default,
             int? topLogprobs = default,
+            global::Ollama.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

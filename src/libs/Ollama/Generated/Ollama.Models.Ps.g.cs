@@ -4,7 +4,7 @@
 namespace Ollama
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class Ps
     {
@@ -118,5 +118,6 @@ namespace Ollama
         public Ps()
         {
         }
+
     }
 }

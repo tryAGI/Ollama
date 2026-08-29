@@ -4,12 +4,12 @@
 namespace Ollama
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum ChatRequestFormatEnum
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Json,
     }

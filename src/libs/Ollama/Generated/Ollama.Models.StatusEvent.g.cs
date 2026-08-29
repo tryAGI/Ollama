@@ -4,7 +4,7 @@
 namespace Ollama
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class StatusEvent
     {
@@ -74,5 +74,6 @@ namespace Ollama
         public StatusEvent()
         {
         }
+
     }
 }

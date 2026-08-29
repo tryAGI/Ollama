@@ -4,7 +4,7 @@
 namespace Ollama
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class GenerateRequest
     {
@@ -28,7 +28,7 @@ namespace Ollama
         public string? Suffix { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("images")]
         public global::System.Collections.Generic.IList<string>? Images { get; set; }
@@ -177,5 +177,6 @@ namespace Ollama
         public GenerateRequest()
         {
         }
+
     }
 }

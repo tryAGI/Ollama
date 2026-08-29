@@ -4,7 +4,7 @@
 namespace Ollama
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class GenerateStreamEvent
     {
@@ -162,5 +162,6 @@ namespace Ollama
         public GenerateStreamEvent()
         {
         }
+
     }
 }

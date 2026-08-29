@@ -4,12 +4,12 @@
 namespace Ollama
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class ListResponse
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("models")]
         public global::System.Collections.Generic.IList<global::Ollama.ModelSummary>? Models { get; set; }
@@ -39,5 +39,6 @@ namespace Ollama
         public ListResponse()
         {
         }
+
     }
 }

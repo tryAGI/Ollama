@@ -29,7 +29,7 @@ public partial class OllamaClient : Meai.IChatClient
 
         var response = await ChatAsync(
             CreateRequest(messages, options),
-            cancellationToken).ConfigureAwait(false);
+            cancellationToken: cancellationToken).ConfigureAwait(false);
 
         return CreateChatResponse(response);
     }
@@ -46,7 +46,7 @@ public partial class OllamaClient : Meai.IChatClient
 
         await foreach (var update in ChatAsStreamAsync(
                            CreateRequest(messages, options),
-                           cancellationToken).ConfigureAwait(false))
+                           cancellationToken: cancellationToken).ConfigureAwait(false))
         {
             var responseUpdate = new Meai.ChatResponseUpdate
             {

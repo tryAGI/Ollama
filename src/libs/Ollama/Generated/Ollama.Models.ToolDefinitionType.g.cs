@@ -9,7 +9,7 @@ namespace Ollama
     public enum ToolDefinitionType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Function,
     }

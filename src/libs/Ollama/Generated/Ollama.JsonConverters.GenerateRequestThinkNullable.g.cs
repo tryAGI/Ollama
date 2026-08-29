@@ -20,7 +20,7 @@ namespace Ollama.JsonConverters
                     {
                         return global::Ollama.GenerateRequestThinkExtensions.ToEnum(stringValue);
                     }
-                    
+
                     break;
                 }
                 case global::System.Text.Json.JsonTokenType.Number:

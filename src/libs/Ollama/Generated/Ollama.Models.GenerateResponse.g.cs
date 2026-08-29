@@ -4,7 +4,7 @@
 namespace Ollama
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class GenerateResponse
     {
@@ -173,5 +173,6 @@ namespace Ollama
         public GenerateResponse()
         {
         }
+
     }
 }

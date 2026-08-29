@@ -20,7 +20,7 @@ namespace Ollama.JsonConverters
                     {
                         return global::Ollama.ChatMessageRoleExtensions.ToEnum(stringValue);
                     }
-                    
+
                     break;
                 }
                 case global::System.Text.Json.JsonTokenType.Number:
