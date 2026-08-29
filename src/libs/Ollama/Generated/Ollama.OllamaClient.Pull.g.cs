@@ -30,7 +30,7 @@ namespace Ollama
         /// <exception cref="global::Ollama.ApiException"></exception>
         /// <remarks>
         /// curl http://localhost:11434/api/pull -d '{<br/>
-        ///   "model": "gemma3"<br/>
+        ///   "model": "gemma4"<br/>
         /// }'
         /// </remarks>
         public async global::System.Threading.Tasks.Task<global::Ollama.StatusResponse> PullAsync(
@@ -57,7 +57,7 @@ namespace Ollama
         /// <exception cref="global::Ollama.ApiException"></exception>
         /// <remarks>
         /// curl http://localhost:11434/api/pull -d '{<br/>
-        ///   "model": "gemma3"<br/>
+        ///   "model": "gemma4"<br/>
         /// }'
         /// </remarks>
         public async global::System.Threading.Tasks.Task<global::Ollama.AutoSDKHttpResponse<global::Ollama.StatusResponse>> PullAsResponseAsync(

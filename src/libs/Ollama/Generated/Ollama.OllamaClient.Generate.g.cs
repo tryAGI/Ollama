@@ -31,7 +31,7 @@ namespace Ollama
         /// <exception cref="global::Ollama.ApiException"></exception>
         /// <remarks>
         /// curl http://localhost:11434/api/generate -d '{<br/>
-        ///   "model": "gemma3",<br/>
+        ///   "model": "gemma4",<br/>
         ///   "prompt": "Why is the sky blue?"<br/>
         /// }'
         /// </remarks>
@@ -60,7 +60,7 @@ namespace Ollama
         /// <exception cref="global::Ollama.ApiException"></exception>
         /// <remarks>
         /// curl http://localhost:11434/api/generate -d '{<br/>
-        ///   "model": "gemma3",<br/>
+        ///   "model": "gemma4",<br/>
         ///   "prompt": "Why is the sky blue?"<br/>
         /// }'
         /// </remarks>
@@ -443,7 +443,7 @@ namespace Ollama
         /// System prompt for the model to generate a response from
         /// </param>
         /// <param name="think">
-        /// When true, returns separate thinking output in addition to content. Can be a boolean (true/false) or a string ("high", "medium", "low") for supported models.
+        /// When true, returns separate thinking output in addition to content. Can be a boolean (true/false) or a string ("high", "medium", "low", "max") for supported models, with "max" requesting the highest thinking level.
         /// </param>
         /// <param name="raw">
         /// When true, returns the raw response from the model without any prompt templating
