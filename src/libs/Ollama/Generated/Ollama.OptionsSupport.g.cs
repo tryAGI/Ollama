@@ -903,11 +903,14 @@ namespace Ollama
             foreach (var header in headers)
             {
                 request.Headers.Remove(header.Key);
-                request.Content?.Headers.Remove(header.Key);
-
-                if (!request.Headers.TryAddWithoutValidation(header.Key, header.Value ?? string.Empty) &&
-                    request.Content != null)
+                if (request.Headers.TryAddWithoutValidation(header.Key, header.Value ?? string.Empty))
                 {
+                    continue;
+                }
+
+                if (request.Content != null)
+                {
+                    request.Content.Headers.Remove(header.Key);
                     request.Content.Headers.TryAddWithoutValidation(header.Key, header.Value ?? string.Empty);
                 }
             }
