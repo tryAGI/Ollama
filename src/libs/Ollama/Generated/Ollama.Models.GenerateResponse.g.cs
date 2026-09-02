@@ -63,7 +63,13 @@ namespace Ollama
         public int? PromptEvalCount { get; set; }
 
         /// <summary>
-        /// Time spent evaluating the prompt in nanoseconds
+        /// Number of prompt tokens read from the cache
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("prompt_eval_cached_count")]
+        public int? PromptEvalCachedCount { get; set; }
+
+        /// <summary>
+        /// Time spent evaluating uncached prompt tokens in nanoseconds
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("prompt_eval_duration")]
         public long? PromptEvalDuration { get; set; }
@@ -122,8 +128,11 @@ namespace Ollama
         /// <param name="promptEvalCount">
         /// Number of input tokens in the prompt
         /// </param>
+        /// <param name="promptEvalCachedCount">
+        /// Number of prompt tokens read from the cache
+        /// </param>
         /// <param name="promptEvalDuration">
-        /// Time spent evaluating the prompt in nanoseconds
+        /// Time spent evaluating uncached prompt tokens in nanoseconds
         /// </param>
         /// <param name="evalCount">
         /// Number of output tokens generated in the response
@@ -147,6 +156,7 @@ namespace Ollama
             long? totalDuration,
             long? loadDuration,
             int? promptEvalCount,
+            int? promptEvalCachedCount,
             long? promptEvalDuration,
             int? evalCount,
             long? evalDuration,
@@ -161,6 +171,7 @@ namespace Ollama
             this.TotalDuration = totalDuration;
             this.LoadDuration = loadDuration;
             this.PromptEvalCount = promptEvalCount;
+            this.PromptEvalCachedCount = promptEvalCachedCount;
             this.PromptEvalDuration = promptEvalDuration;
             this.EvalCount = evalCount;
             this.EvalDuration = evalDuration;
