@@ -5,96 +5,52 @@ namespace Ollama
 {
     public partial class OllamaClient
     {
-        partial void PrepareCreateArguments(
+        partial void PrepareHeadBlobArguments(
             global::System.Net.Http.HttpClient httpClient,
-            global::Ollama.CreateRequest request);
-        partial void PrepareCreateRequest(
+            ref string digest);
+        partial void PrepareHeadBlobRequest(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpRequestMessage httpRequestMessage,
-            global::Ollama.CreateRequest request);
-        partial void ProcessCreateResponse(
+            string digest);
+        partial void ProcessHeadBlobResponse(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage);
 
-        partial void ProcessCreateResponseContent(
-            global::System.Net.Http.HttpClient httpClient,
-            global::System.Net.Http.HttpResponseMessage httpResponseMessage,
-            ref string content);
-
         /// <summary>
-        /// Create a model
+        /// Check if a blob exists
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="digest"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Ollama.ApiException"></exception>
-        /// <remarks>
-        /// curl http://localhost:11434/api/create -d '{<br/>
-        ///   "from": "gemma4",<br/>
-        ///   "model": "alpaca",<br/>
-        ///   "system": "You are Alpaca, a helpful AI assistant. You only answer with Emojis."<br/>
-        /// }'
-        /// </remarks>
-        public async global::System.Threading.Tasks.Task<global::Ollama.StatusResponse> CreateAsync(
-
-            global::Ollama.CreateRequest request,
+        public async global::System.Threading.Tasks.Task HeadBlobAsync(
+            string digest,
             global::Ollama.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
-            var __response = await CreateAsResponseAsync(
-
-                request: request,
+            await HeadBlobAsResponseAsync(
+                digest: digest,
                 requestOptions: requestOptions,
                 cancellationToken: cancellationToken
             ).ConfigureAwait(false);
-
-            return __response.Body;
         }
         /// <summary>
-        /// Create a model
+        /// Check if a blob exists
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="digest"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Ollama.ApiException"></exception>
-        /// <remarks>
-        /// curl http://localhost:11434/api/create -d '{<br/>
-        ///   "from": "gemma4",<br/>
-        ///   "model": "alpaca",<br/>
-        ///   "system": "You are Alpaca, a helpful AI assistant. You only answer with Emojis."<br/>
-        /// }'
-        /// </remarks>
-        public async global::System.Threading.Tasks.Task<global::Ollama.AutoSDKHttpResponse<global::Ollama.StatusResponse>> CreateAsResponseAsync(
-
-            global::Ollama.CreateRequest request,
+        public async global::System.Threading.Tasks.Task<global::Ollama.AutoSDKHttpResponse> HeadBlobAsResponseAsync(
+            string digest,
             global::Ollama.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
-            request = request ?? throw new global::System.ArgumentNullException(nameof(request));
-
-            request = new global::Ollama.CreateRequest
-            {
-                Model = request.Model,
-                From = request.From,
-                Template = request.Template,
-                Renderer = request.Renderer,
-                Parser = request.Parser,
-                Files = request.Files,
-                DraftFiles = request.DraftFiles,
-                License = request.License,
-                System = request.System,
-                Parameters = request.Parameters,
-                Messages = request.Messages,
-                Quantize = request.Quantize,
-                DraftQuantize = request.DraftQuantize,
-                Requires = request.Requires,
-                Stream = false,
-            };
             PrepareArguments(
                 client: HttpClient);
-            PrepareCreateArguments(
+            PrepareHeadBlobArguments(
                 httpClient: HttpClient,
-                request: request);
+                digest: ref digest);
 
             using var __timeoutCancellationTokenSource = global::Ollama.AutoSDKRequestOptionsSupport.CreateTimeoutCancellationTokenSource(
                 clientOptions: Options,
@@ -108,13 +64,13 @@ namespace Ollama
             var __maxAttempts = global::Ollama.AutoSDKRequestOptionsSupport.GetMaxAttempts(
                 clientOptions: Options,
                 requestOptions: requestOptions,
-                supportsRetry: false);
+                supportsRetry: true);
 
             global::System.Net.Http.HttpRequestMessage __CreateHttpRequest()
             {
 
                             var __pathBuilder = new global::Ollama.PathBuilder(
-                                path: "/api/create",
+                                path: $"/api/blobs/{digest}",
                                 baseUri: HttpClient.BaseAddress);
                             var __path = __pathBuilder.ToString();
                 __path = global::Ollama.AutoSDKRequestOptionsSupport.AppendQueryParameters(
@@ -122,22 +78,12 @@ namespace Ollama
                     clientParameters: Options.QueryParameters,
                     requestParameters: requestOptions?.QueryParameters);
                 var __httpRequest = new global::System.Net.Http.HttpRequestMessage(
-                    method: global::System.Net.Http.HttpMethod.Post,
+                    method: global::System.Net.Http.HttpMethod.Head,
                     requestUri: new global::System.Uri(__path, global::System.UriKind.RelativeOrAbsolute));
 #if NET6_0_OR_GREATER
                 __httpRequest.Version = global::System.Net.HttpVersion.Version11;
                 __httpRequest.VersionPolicy = global::System.Net.Http.HttpVersionPolicy.RequestVersionOrHigher;
 #endif
-
-                __httpRequest.Headers.TryAddWithoutValidation(
-                    "Accept",
-                    "application/json");
-                            var __httpRequestContentBody = request.ToJson(JsonSerializerContext);
-                            var __httpRequestContent = new global::System.Net.Http.StringContent(
-                                content: __httpRequestContentBody,
-                                encoding: global::System.Text.Encoding.UTF8,
-                                mediaType: "application/json");
-                            __httpRequest.Content = __httpRequestContent;
                 global::Ollama.AutoSDKRequestOptionsSupport.ApplyHeaders(
                     request: __httpRequest,
                     clientHeaders: Options.Headers,
@@ -146,10 +92,10 @@ namespace Ollama
                 PrepareRequest(
                     client: HttpClient,
                     request: __httpRequest);
-                PrepareCreateRequest(
+                PrepareHeadBlobRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
-                    request: request);
+                    digest: digest!);
 
                 return __httpRequest;
             }
@@ -166,10 +112,10 @@ namespace Ollama
                     await global::Ollama.AutoSDKRequestOptionsSupport.OnBeforeRequestAsync(
                             clientOptions: Options,
                             context: global::Ollama.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "Create",
-                                methodName: "CreateAsync",
-                                pathTemplate: "\"/api/create\"",
-                                httpMethod: "POST",
+                                operationId: "HeadBlob",
+                                methodName: "HeadBlobAsync",
+                                pathTemplate: "$\"/api/blobs/{digest}\"",
+                                httpMethod: "HEAD",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
                                 response: null,
@@ -200,10 +146,10 @@ namespace Ollama
                         await global::Ollama.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
                             context: global::Ollama.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "Create",
-                                methodName: "CreateAsync",
-                                pathTemplate: "\"/api/create\"",
-                                httpMethod: "POST",
+                                operationId: "HeadBlob",
+                                methodName: "HeadBlobAsync",
+                                pathTemplate: "$\"/api/blobs/{digest}\"",
+                                httpMethod: "HEAD",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
                                 response: null,
@@ -241,10 +187,10 @@ namespace Ollama
                         await global::Ollama.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
                             context: global::Ollama.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "Create",
-                                methodName: "CreateAsync",
-                                pathTemplate: "\"/api/create\"",
-                                httpMethod: "POST",
+                                operationId: "HeadBlob",
+                                methodName: "HeadBlobAsync",
+                                pathTemplate: "$\"/api/blobs/{digest}\"",
+                                httpMethod: "HEAD",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
                                 response: __response,
@@ -281,7 +227,7 @@ namespace Ollama
                 ProcessResponse(
                     client: HttpClient,
                     response: __response);
-                ProcessCreateResponse(
+                ProcessHeadBlobResponse(
                     httpClient: HttpClient,
                     httpResponseMessage: __response);
                 if (__response.IsSuccessStatusCode)
@@ -289,10 +235,10 @@ namespace Ollama
                     await global::Ollama.AutoSDKRequestOptionsSupport.OnAfterSuccessAsync(
                             clientOptions: Options,
                             context: global::Ollama.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "Create",
-                                methodName: "CreateAsync",
-                                pathTemplate: "\"/api/create\"",
-                                httpMethod: "POST",
+                                operationId: "HeadBlob",
+                                methodName: "HeadBlobAsync",
+                                pathTemplate: "$\"/api/blobs/{digest}\"",
+                                httpMethod: "HEAD",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
                                 response: __response,
@@ -311,10 +257,10 @@ namespace Ollama
                     await global::Ollama.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
                             context: global::Ollama.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "Create",
-                                methodName: "CreateAsync",
-                                pathTemplate: "\"/api/create\"",
-                                httpMethod: "POST",
+                                operationId: "HeadBlob",
+                                methodName: "HeadBlobAsync",
+                                pathTemplate: "$\"/api/blobs/{digest}\"",
+                                httpMethod: "HEAD",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
                                 response: __response,
@@ -328,6 +274,117 @@ namespace Ollama
                                 retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
+                            // Invalid digest
+                            if ((int)__response.StatusCode == 400)
+                            {
+                                string? __content_400 = null;
+                                global::System.Exception? __exception_400 = null;
+                                global::Ollama.ErrorResponse? __value_400 = null;
+                                try
+                                {
+                                    if (__effectiveReadResponseAsString)
+                                    {
+                                        __content_400 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+                                        __value_400 = global::Ollama.ErrorResponse.FromJson(__content_400, JsonSerializerContext);
+                                    }
+                                    else
+                                    {
+                                        __content_400 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+
+                                        __value_400 = global::Ollama.ErrorResponse.FromJson(__content_400, JsonSerializerContext);
+                                    }
+                                }
+                                catch (global::System.Exception __ex)
+                                {
+                                    __exception_400 = __ex;
+                                }
+
+
+                                throw global::Ollama.ApiException<global::Ollama.ErrorResponse>.Create(
+                                    statusCode: __response.StatusCode,
+                                    message: __content_400 ?? __response.ReasonPhrase ?? string.Empty,
+                                    innerException: __exception_400,
+                                    responseBody: __content_400,
+                                    responseObject: __value_400,
+                                    responseHeaders: global::System.Linq.Enumerable.ToDictionary(
+                                        __response.Headers,
+                                        h => h.Key,
+                                        h => h.Value));
+                            }
+                            // Blob not found
+                            if ((int)__response.StatusCode == 404)
+                            {
+                                string? __content_404 = null;
+                                global::System.Exception? __exception_404 = null;
+                                global::Ollama.ErrorResponse? __value_404 = null;
+                                try
+                                {
+                                    if (__effectiveReadResponseAsString)
+                                    {
+                                        __content_404 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+                                        __value_404 = global::Ollama.ErrorResponse.FromJson(__content_404, JsonSerializerContext);
+                                    }
+                                    else
+                                    {
+                                        __content_404 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+
+                                        __value_404 = global::Ollama.ErrorResponse.FromJson(__content_404, JsonSerializerContext);
+                                    }
+                                }
+                                catch (global::System.Exception __ex)
+                                {
+                                    __exception_404 = __ex;
+                                }
+
+
+                                throw global::Ollama.ApiException<global::Ollama.ErrorResponse>.Create(
+                                    statusCode: __response.StatusCode,
+                                    message: __content_404 ?? __response.ReasonPhrase ?? string.Empty,
+                                    innerException: __exception_404,
+                                    responseBody: __content_404,
+                                    responseObject: __value_404,
+                                    responseHeaders: global::System.Linq.Enumerable.ToDictionary(
+                                        __response.Headers,
+                                        h => h.Key,
+                                        h => h.Value));
+                            }
+                            // Failed to inspect blob
+                            if ((int)__response.StatusCode == 500)
+                            {
+                                string? __content_500 = null;
+                                global::System.Exception? __exception_500 = null;
+                                global::Ollama.ErrorResponse? __value_500 = null;
+                                try
+                                {
+                                    if (__effectiveReadResponseAsString)
+                                    {
+                                        __content_500 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+                                        __value_500 = global::Ollama.ErrorResponse.FromJson(__content_500, JsonSerializerContext);
+                                    }
+                                    else
+                                    {
+                                        __content_500 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+
+                                        __value_500 = global::Ollama.ErrorResponse.FromJson(__content_500, JsonSerializerContext);
+                                    }
+                                }
+                                catch (global::System.Exception __ex)
+                                {
+                                    __exception_500 = __ex;
+                                }
+
+
+                                throw global::Ollama.ApiException<global::Ollama.ErrorResponse>.Create(
+                                    statusCode: __response.StatusCode,
+                                    message: __content_500 ?? __response.ReasonPhrase ?? string.Empty,
+                                    innerException: __exception_500,
+                                    responseBody: __content_500,
+                                    responseObject: __value_500,
+                                    responseHeaders: global::System.Linq.Enumerable.ToDictionary(
+                                        __response.Headers,
+                                        h => h.Key,
+                                        h => h.Value));
+                            }
 
                             if (__effectiveReadResponseAsString)
                             {
@@ -341,22 +398,15 @@ namespace Ollama
                                     client: HttpClient,
                                     response: __response,
                                     content: ref __content);
-                                ProcessCreateResponseContent(
-                                    httpClient: HttpClient,
-                                    httpResponseMessage: __response,
-                                    content: ref __content);
 
                                 try
                                 {
                                     __response.EnsureSuccessStatusCode();
 
-                                    var __value = global::Ollama.StatusResponse.FromJson(__content, JsonSerializerContext) ??
-                                        throw new global::System.InvalidOperationException($"Response deserialization failed for \"{__content}\" ");
-                                    return new global::Ollama.AutoSDKHttpResponse<global::Ollama.StatusResponse>(
+                return new global::Ollama.AutoSDKHttpResponse(
                                         statusCode: __response.StatusCode,
                                         headers: global::Ollama.AutoSDKHttpResponse.CreateHeaders(__response),
-                                        requestUri: __response.RequestMessage?.RequestUri,
-                                        body: __value);
+                                        requestUri: __response.RequestMessage?.RequestUri);
                                 }
                                 catch (global::System.Exception __ex)
                                 {
@@ -376,19 +426,10 @@ namespace Ollama
                                 try
                                 {
                                     __response.EnsureSuccessStatusCode();
-                                    using var __content = await __response.Content.ReadAsStreamAsync(
-                #if NET5_0_OR_GREATER
-                                        __effectiveCancellationToken
-                #endif
-                                    ).ConfigureAwait(false);
-
-                                    var __value = await global::Ollama.StatusResponse.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
-                                        throw new global::System.InvalidOperationException("Response deserialization failed.");
-                                    return new global::Ollama.AutoSDKHttpResponse<global::Ollama.StatusResponse>(
+                                    return new global::Ollama.AutoSDKHttpResponse(
                                         statusCode: __response.StatusCode,
                                         headers: global::Ollama.AutoSDKHttpResponse.CreateHeaders(__response),
-                                        requestUri: __response.RequestMessage?.RequestUri,
-                                        body: __value);
+                                        requestUri: __response.RequestMessage?.RequestUri);
                                 }
                                 catch (global::System.Exception __ex)
                                 {
@@ -423,96 +464,6 @@ namespace Ollama
             {
                 __httpRequest?.Dispose();
             }
-        }
-        /// <summary>
-        /// Create a model
-        /// </summary>
-        /// <param name="model">
-        /// Name for the model to create
-        /// </param>
-        /// <param name="from">
-        /// Existing model to create from
-        /// </param>
-        /// <param name="template">
-        /// Prompt template to use for the model
-        /// </param>
-        /// <param name="renderer">
-        /// Name of the renderer for the model
-        /// </param>
-        /// <param name="parser">
-        /// Name of the parser for the model
-        /// </param>
-        /// <param name="files">
-        /// Source file names mapped to their SHA-256 digests. Split GGUF models must include each shard under its original split filename.
-        /// </param>
-        /// <param name="draftFiles">
-        /// Draft source file names mapped to their SHA-256 digests
-        /// </param>
-        /// <param name="license">
-        /// License string or list of licenses for the model
-        /// </param>
-        /// <param name="system">
-        /// System prompt to embed in the model
-        /// </param>
-        /// <param name="parameters">
-        /// Key-value parameters for the model
-        /// </param>
-        /// <param name="messages">
-        /// Message history to use for the model
-        /// </param>
-        /// <param name="quantize">
-        /// Quantization level to apply during import (e.g. `nvfp4`)
-        /// </param>
-        /// <param name="draftQuantize">
-        /// Quantization level to apply to draft weights during import
-        /// </param>
-        /// <param name="requires">
-        /// Minimum Ollama version required by the model
-        /// </param>
-        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
-        /// <param name="cancellationToken">The token to cancel the operation with</param>
-        /// <exception cref="global::System.InvalidOperationException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Ollama.StatusResponse> CreateAsync(
-            string model,
-            string? from = default,
-            string? template = default,
-            string? renderer = default,
-            string? parser = default,
-            global::System.Collections.Generic.Dictionary<string, string>? files = default,
-            global::System.Collections.Generic.Dictionary<string, string>? draftFiles = default,
-            global::Ollama.OneOf<string, global::System.Collections.Generic.IList<string>>? license = default,
-            string? system = default,
-            object? parameters = default,
-            global::System.Collections.Generic.IList<global::Ollama.ChatMessage>? messages = default,
-            string? quantize = default,
-            string? draftQuantize = default,
-            string? requires = default,
-            global::Ollama.AutoSDKRequestOptions? requestOptions = default,
-            global::System.Threading.CancellationToken cancellationToken = default)
-        {
-            var __request = new global::Ollama.CreateRequest
-            {
-                Model = model,
-                From = from,
-                Template = template,
-                Renderer = renderer,
-                Parser = parser,
-                Files = files,
-                DraftFiles = draftFiles,
-                License = license,
-                System = system,
-                Parameters = parameters,
-                Messages = messages,
-                Quantize = quantize,
-                DraftQuantize = draftQuantize,
-                Requires = requires,
-                Stream = false,
-            };
-
-            return await CreateAsync(
-                request: __request,
-                requestOptions: requestOptions,
-                cancellationToken: cancellationToken).ConfigureAwait(false);
         }
     }
 }
