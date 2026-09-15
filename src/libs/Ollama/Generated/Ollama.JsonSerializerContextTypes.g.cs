@@ -221,99 +221,107 @@ namespace Ollama
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.CopyRequest? Type47 { get; set; }
+        public global::System.Collections.Generic.Dictionary<string, string>? Type47 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.DeleteRequest? Type48 { get; set; }
+        public global::Ollama.CopyRequest? Type48 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.PullRequest? Type49 { get; set; }
+        public global::Ollama.DeleteRequest? Type49 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.PushRequest? Type50 { get; set; }
+        public global::Ollama.PullRequest? Type50 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.ShowRequest? Type51 { get; set; }
+        public global::Ollama.PushRequest? Type51 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.ShowResponse? Type52 { get; set; }
+        public global::Ollama.ShowRequest? Type52 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.ModelSummary? Type53 { get; set; }
+        public global::Ollama.ShowResponse? Type53 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.ModelSummaryDetails? Type54 { get; set; }
+        public global::Ollama.ModelSummary? Type54 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.ListResponse? Type55 { get; set; }
+        public global::Ollama.ModelSummaryDetails? Type55 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Ollama.ModelSummary>? Type56 { get; set; }
+        public global::Ollama.ListResponse? Type56 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.Ps? Type57 { get; set; }
+        public global::System.Collections.Generic.IList<global::Ollama.ModelSummary>? Type57 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.PsResponse? Type58 { get; set; }
+        public global::Ollama.Ps? Type58 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Ollama.Ps>? Type59 { get; set; }
+        public global::Ollama.PsResponse? Type59 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.WebSearchRequest? Type60 { get; set; }
+        public global::System.Collections.Generic.IList<global::Ollama.Ps>? Type60 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.WebSearchResult? Type61 { get; set; }
+        public global::Ollama.WebSearchRequest? Type61 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.WebSearchResponse? Type62 { get; set; }
+        public global::Ollama.WebSearchResult? Type62 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Ollama.WebSearchResult>? Type63 { get; set; }
+        public global::Ollama.WebSearchResponse? Type63 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.WebFetchRequest? Type64 { get; set; }
+        public global::System.Collections.Generic.IList<global::Ollama.WebSearchResult>? Type64 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.WebFetchResponse? Type65 { get; set; }
+        public global::Ollama.WebFetchRequest? Type65 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.VersionResponse? Type66 { get; set; }
+        public global::Ollama.WebFetchResponse? Type66 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.TokenLogprob? Type67 { get; set; }
+        public global::Ollama.VersionResponse? Type67 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::System.Collections.Generic.IList<long>? Type68 { get; set; }
+        public global::Ollama.TokenLogprob? Type68 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Ollama.TokenLogprob>? Type69 { get; set; }
+        public global::System.Collections.Generic.IList<long>? Type69 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.ErrorResponse? Type70 { get; set; }
+        public global::System.Collections.Generic.IList<global::Ollama.TokenLogprob>? Type70 { get; set; }
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Ollama.ErrorResponse? Type71 { get; set; }
+        /// <summary>
+        ///
+        /// </summary>
+        public byte[]? Type72 { get; set; }
 
         /// <summary>
         ///

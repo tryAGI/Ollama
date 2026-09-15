@@ -45,11 +45,15 @@ namespace Ollama
                 Template = request.Template,
                 Renderer = request.Renderer,
                 Parser = request.Parser,
+                Files = request.Files,
+                DraftFiles = request.DraftFiles,
                 License = request.License,
                 System = request.System,
                 Parameters = request.Parameters,
                 Messages = request.Messages,
                 Quantize = request.Quantize,
+                DraftQuantize = request.DraftQuantize,
+                Requires = request.Requires,
                 Stream = true,
             };
             PrepareArguments(
@@ -376,6 +380,12 @@ namespace Ollama
         /// <param name="parser">
         /// Name of the parser for the model
         /// </param>
+        /// <param name="files">
+        /// Source file names mapped to their SHA-256 digests. Split GGUF models must include each shard under its original split filename.
+        /// </param>
+        /// <param name="draftFiles">
+        /// Draft source file names mapped to their SHA-256 digests
+        /// </param>
         /// <param name="license">
         /// License string or list of licenses for the model
         /// </param>
@@ -389,7 +399,13 @@ namespace Ollama
         /// Message history to use for the model
         /// </param>
         /// <param name="quantize">
-        /// Quantization level to apply (e.g. `q4_K_M`, `q8_0`)
+        /// Quantization level to apply during import (e.g. `nvfp4`)
+        /// </param>
+        /// <param name="draftQuantize">
+        /// Quantization level to apply to draft weights during import
+        /// </param>
+        /// <param name="requires">
+        /// Minimum Ollama version required by the model
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
@@ -400,11 +416,15 @@ namespace Ollama
             string? template = default,
             string? renderer = default,
             string? parser = default,
+            global::System.Collections.Generic.Dictionary<string, string>? files = default,
+            global::System.Collections.Generic.Dictionary<string, string>? draftFiles = default,
             global::Ollama.OneOf<string, global::System.Collections.Generic.IList<string>>? license = default,
             string? system = default,
             object? parameters = default,
             global::System.Collections.Generic.IList<global::Ollama.ChatMessage>? messages = default,
             string? quantize = default,
+            string? draftQuantize = default,
+            string? requires = default,
             global::Ollama.AutoSDKRequestOptions? requestOptions = default,
             [global::System.Runtime.CompilerServices.EnumeratorCancellation] global::System.Threading.CancellationToken cancellationToken = default)
         {
@@ -415,11 +435,15 @@ namespace Ollama
                 Template = template,
                 Renderer = renderer,
                 Parser = parser,
+                Files = files,
+                DraftFiles = draftFiles,
                 License = license,
                 System = system,
                 Parameters = parameters,
                 Messages = messages,
                 Quantize = quantize,
+                DraftQuantize = draftQuantize,
+                Requires = requires,
                 Stream = true,
             };
 

@@ -40,6 +40,18 @@ namespace Ollama
         public string? Parser { get; set; }
 
         /// <summary>
+        /// Source file names mapped to their SHA-256 digests. Split GGUF models must include each shard under its original split filename.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("files")]
+        public global::System.Collections.Generic.Dictionary<string, string>? Files { get; set; }
+
+        /// <summary>
+        /// Draft source file names mapped to their SHA-256 digests
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("draft_files")]
+        public global::System.Collections.Generic.Dictionary<string, string>? DraftFiles { get; set; }
+
+        /// <summary>
         /// License string or list of licenses for the model
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("license")]
@@ -65,10 +77,22 @@ namespace Ollama
         public global::System.Collections.Generic.IList<global::Ollama.ChatMessage>? Messages { get; set; }
 
         /// <summary>
-        /// Quantization level to apply (e.g. `q4_K_M`, `q8_0`)
+        /// Quantization level to apply during import (e.g. `nvfp4`)
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("quantize")]
         public string? Quantize { get; set; }
+
+        /// <summary>
+        /// Quantization level to apply to draft weights during import
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("draft_quantize")]
+        public string? DraftQuantize { get; set; }
+
+        /// <summary>
+        /// Minimum Ollama version required by the model
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("requires")]
+        public string? Requires { get; set; }
 
         /// <summary>
         /// Stream status updates<br/>
@@ -101,6 +125,12 @@ namespace Ollama
         /// <param name="parser">
         /// Name of the parser for the model
         /// </param>
+        /// <param name="files">
+        /// Source file names mapped to their SHA-256 digests. Split GGUF models must include each shard under its original split filename.
+        /// </param>
+        /// <param name="draftFiles">
+        /// Draft source file names mapped to their SHA-256 digests
+        /// </param>
         /// <param name="license">
         /// License string or list of licenses for the model
         /// </param>
@@ -114,7 +144,13 @@ namespace Ollama
         /// Message history to use for the model
         /// </param>
         /// <param name="quantize">
-        /// Quantization level to apply (e.g. `q4_K_M`, `q8_0`)
+        /// Quantization level to apply during import (e.g. `nvfp4`)
+        /// </param>
+        /// <param name="draftQuantize">
+        /// Quantization level to apply to draft weights during import
+        /// </param>
+        /// <param name="requires">
+        /// Minimum Ollama version required by the model
         /// </param>
         /// <param name="stream">
         /// Stream status updates<br/>
@@ -129,11 +165,15 @@ namespace Ollama
             string? template,
             string? renderer,
             string? parser,
+            global::System.Collections.Generic.Dictionary<string, string>? files,
+            global::System.Collections.Generic.Dictionary<string, string>? draftFiles,
             global::Ollama.OneOf<string, global::System.Collections.Generic.IList<string>>? license,
             string? system,
             object? parameters,
             global::System.Collections.Generic.IList<global::Ollama.ChatMessage>? messages,
             string? quantize,
+            string? draftQuantize,
+            string? requires,
             bool? stream)
         {
             this.Model = model ?? throw new global::System.ArgumentNullException(nameof(model));
@@ -141,11 +181,15 @@ namespace Ollama
             this.Template = template;
             this.Renderer = renderer;
             this.Parser = parser;
+            this.Files = files;
+            this.DraftFiles = draftFiles;
             this.License = license;
             this.System = system;
             this.Parameters = parameters;
             this.Messages = messages;
             this.Quantize = quantize;
+            this.DraftQuantize = draftQuantize;
+            this.Requires = requires;
             this.Stream = stream;
         }
 
