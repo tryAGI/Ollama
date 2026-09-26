@@ -9,6 +9,12 @@ namespace Ollama
     public sealed partial class ShowResponse
     {
         /// <summary>
+        /// Thinking controls advertised by a model. Models without thinking metadata omit this field.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("thinking")]
+        public global::Ollama.Thinking? Thinking { get; set; }
+
+        /// <summary>
         /// Model parameter settings serialized as text
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("parameters")]
@@ -59,6 +65,9 @@ namespace Ollama
         /// <summary>
         /// Initializes a new instance of the <see cref="ShowResponse" /> class.
         /// </summary>
+        /// <param name="thinking">
+        /// Thinking controls advertised by a model. Models without thinking metadata omit this field.
+        /// </param>
         /// <param name="parameters">
         /// Model parameter settings serialized as text
         /// </param>
@@ -84,6 +93,7 @@ namespace Ollama
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public ShowResponse(
+            global::Ollama.Thinking? thinking,
             string? parameters,
             string? license,
             string? modifiedAt,
@@ -92,6 +102,7 @@ namespace Ollama
             global::System.Collections.Generic.IList<string>? capabilities,
             object? modelInfo)
         {
+            this.Thinking = thinking;
             this.Parameters = parameters;
             this.License = license;
             this.ModifiedAt = modifiedAt;

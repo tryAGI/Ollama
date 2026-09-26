@@ -72,7 +72,7 @@ namespace Ollama
         /// Runtime options that control text generation
         /// </param>
         /// <param name="think">
-        /// When true, returns separate thinking output in addition to content. Can be a boolean (true/false) or a string ("high", "medium", "low", "max") for supported models, with "max" requesting the highest thinking level.
+        /// Controls a model's thinking output. Use `/api/show` to discover the supported values and default for the selected model. `true` requests thinking, `false` requests no thinking output, and `null` uses the model default. String values are model-defined; supported names must match `/api/show` exactly. Numbers are not supported.
         /// </param>
         /// <param name="keepAlive">
         /// Model keep-alive duration (for example `5m` or `0` to unload immediately)
@@ -92,7 +92,7 @@ namespace Ollama
             global::System.Collections.Generic.IList<global::Ollama.ToolDefinition>? tools = default,
             global::Ollama.OneOf<global::Ollama.ChatRequestFormatEnum?, object>? format = default,
             global::Ollama.ModelOptions? options = default,
-            global::Ollama.OneOf<bool?, global::Ollama.ChatRequestThink?>? think = default,
+            global::Ollama.ThinkValue? think = default,
             global::Ollama.OneOf<string, double?>? keepAlive = default,
             bool? logprobs = default,
             int? topLogprobs = default,

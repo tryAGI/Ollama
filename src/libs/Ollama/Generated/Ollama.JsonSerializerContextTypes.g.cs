@@ -73,123 +73,123 @@ namespace Ollama
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.OneOf<bool?, global::Ollama.GenerateRequestThink?>? Type10 { get; set; }
+        public global::Ollama.ThinkValue? Type10 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.GenerateRequestThink? Type11 { get; set; }
+        public global::Ollama.OneOf<string, double?>? Type11 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.OneOf<string, double?>? Type12 { get; set; }
+        public double? Type12 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public double? Type13 { get; set; }
+        public global::Ollama.GenerateResponse? Type13 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.GenerateResponse? Type14 { get; set; }
+        public long? Type14 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public long? Type15 { get; set; }
+        public global::System.Collections.Generic.IList<global::Ollama.Logprob>? Type15 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Ollama.Logprob>? Type16 { get; set; }
+        public global::Ollama.Logprob? Type16 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.Logprob? Type17 { get; set; }
+        public global::Ollama.GenerateStreamEvent? Type17 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.GenerateStreamEvent? Type18 { get; set; }
+        public global::Ollama.ChatMessage? Type18 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.ChatMessage? Type19 { get; set; }
+        public global::Ollama.ChatMessageRole? Type19 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.ChatMessageRole? Type20 { get; set; }
+        public global::System.Collections.Generic.IList<global::Ollama.ToolCall>? Type20 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Ollama.ToolCall>? Type21 { get; set; }
+        public global::Ollama.ToolCall? Type21 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.ToolCall? Type22 { get; set; }
+        public global::Ollama.ToolCallFunction? Type22 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.ToolCallFunction? Type23 { get; set; }
+        public global::Ollama.ToolDefinition? Type23 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.ToolDefinition? Type24 { get; set; }
+        public global::Ollama.ToolDefinitionType? Type24 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.ToolDefinitionType? Type25 { get; set; }
+        public global::Ollama.ToolDefinitionFunction? Type25 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.ToolDefinitionFunction? Type26 { get; set; }
+        public global::Ollama.ChatRequest? Type26 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.ChatRequest? Type27 { get; set; }
+        public global::System.Collections.Generic.IList<global::Ollama.ChatMessage>? Type27 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Ollama.ChatMessage>? Type28 { get; set; }
+        public global::System.Collections.Generic.IList<global::Ollama.ToolDefinition>? Type28 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Ollama.ToolDefinition>? Type29 { get; set; }
+        public global::Ollama.OneOf<global::Ollama.ChatRequestFormatEnum?, object>? Type29 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.OneOf<global::Ollama.ChatRequestFormatEnum?, object>? Type30 { get; set; }
+        public global::Ollama.ChatRequestFormatEnum? Type30 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.ChatRequestFormatEnum? Type31 { get; set; }
+        public global::Ollama.ChatResponse? Type31 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.OneOf<bool?, global::Ollama.ChatRequestThink?>? Type32 { get; set; }
+        public global::System.DateTime? Type32 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.ChatRequestThink? Type33 { get; set; }
+        public global::Ollama.ChatResponseMessage? Type33 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.ChatResponse? Type34 { get; set; }
+        public global::Ollama.ChatResponseMessageRole? Type34 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::System.DateTime? Type35 { get; set; }
+        public global::Ollama.ChatStreamEvent? Type35 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.ChatResponseMessage? Type36 { get; set; }
+        public global::Ollama.ChatStreamEventMessage? Type36 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.ChatResponseMessageRole? Type37 { get; set; }
+        public global::Ollama.Thinking? Type37 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.ChatStreamEvent? Type38 { get; set; }
+        public global::System.Collections.Generic.IList<global::Ollama.OneOf<bool?, string>>? Type38 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.ChatStreamEventMessage? Type39 { get; set; }
+        public global::Ollama.OneOf<bool?, string>? Type39 { get; set; }
         /// <summary>
         ///
         /// </summary>
@@ -350,30 +350,34 @@ namespace Ollama
         /// <summary>
         ///
         /// </summary>
-        public global::System.Collections.Generic.List<global::System.Collections.Generic.List<double>>? ListType6 { get; set; }
+        public global::System.Collections.Generic.List<global::Ollama.OneOf<bool?, string>>? ListType6 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::System.Collections.Generic.List<double>? ListType7 { get; set; }
+        public global::System.Collections.Generic.List<global::System.Collections.Generic.List<double>>? ListType7 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::System.Collections.Generic.List<global::Ollama.ModelSummary>? ListType8 { get; set; }
+        public global::System.Collections.Generic.List<double>? ListType8 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::System.Collections.Generic.List<global::Ollama.Ps>? ListType9 { get; set; }
+        public global::System.Collections.Generic.List<global::Ollama.ModelSummary>? ListType9 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::System.Collections.Generic.List<global::Ollama.WebSearchResult>? ListType10 { get; set; }
+        public global::System.Collections.Generic.List<global::Ollama.Ps>? ListType10 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::System.Collections.Generic.List<long>? ListType11 { get; set; }
+        public global::System.Collections.Generic.List<global::Ollama.WebSearchResult>? ListType11 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::System.Collections.Generic.List<global::Ollama.TokenLogprob>? ListType12 { get; set; }
+        public global::System.Collections.Generic.List<long>? ListType12 { get; set; }
+        /// <summary>
+        ///
+        /// </summary>
+        public global::System.Collections.Generic.List<global::Ollama.TokenLogprob>? ListType13 { get; set; }
     }
 }
