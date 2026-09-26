@@ -13,10 +13,6 @@ namespace Ollama
         DefaultIgnoreCondition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
         Converters = new global::System.Type[]
         {
-            typeof(global::Ollama.JsonConverters.GenerateRequestThinkJsonConverter),
-
-            typeof(global::Ollama.JsonConverters.GenerateRequestThinkNullableJsonConverter),
-
             typeof(global::Ollama.JsonConverters.ChatMessageRoleJsonConverter),
 
             typeof(global::Ollama.JsonConverters.ChatMessageRoleNullableJsonConverter),
@@ -29,27 +25,25 @@ namespace Ollama
 
             typeof(global::Ollama.JsonConverters.ChatRequestFormatEnumNullableJsonConverter),
 
-            typeof(global::Ollama.JsonConverters.ChatRequestThinkJsonConverter),
-
-            typeof(global::Ollama.JsonConverters.ChatRequestThinkNullableJsonConverter),
-
             typeof(global::Ollama.JsonConverters.ChatResponseMessageRoleJsonConverter),
 
             typeof(global::Ollama.JsonConverters.ChatResponseMessageRoleNullableJsonConverter),
+
+            typeof(global::Ollama.JsonConverters.ThinkValueJsonConverter),
 
             typeof(global::Ollama.JsonConverters.OneOfJsonConverter<string, global::System.Collections.Generic.IList<string>>),
 
             typeof(global::Ollama.JsonConverters.OneOfJsonConverter<string, object>),
 
-            typeof(global::Ollama.JsonConverters.OneOfJsonConverter<bool?, global::Ollama.GenerateRequestThink?>),
-
             typeof(global::Ollama.JsonConverters.OneOfJsonConverter<string, double?>),
 
             typeof(global::Ollama.JsonConverters.OneOfJsonConverter<global::Ollama.ChatRequestFormatEnum?, object>),
 
-            typeof(global::Ollama.JsonConverters.OneOfJsonConverter<bool?, global::Ollama.ChatRequestThink?>),
-
             typeof(global::Ollama.JsonConverters.OneOfJsonConverter<string, double?>),
+
+            typeof(global::Ollama.JsonConverters.OneOfJsonConverter<bool?, string>),
+
+            typeof(global::Ollama.JsonConverters.OneOfJsonConverter<bool?, string>),
 
             typeof(global::Ollama.JsonConverters.OneOfJsonConverter<string, global::System.Collections.Generic.IList<string>>),
 
@@ -69,8 +63,7 @@ namespace Ollama
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.OneOf<string, object>), TypeInfoPropertyName = "OneOfStringObject2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(object))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(bool))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.OneOf<bool?, global::Ollama.GenerateRequestThink?>), TypeInfoPropertyName = "OneOfBooleanGenerateRequestThink2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.GenerateRequestThink), TypeInfoPropertyName = "GenerateRequestThink2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.ThinkValue), TypeInfoPropertyName = "ThinkValue2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.OneOf<string, double?>), TypeInfoPropertyName = "OneOfStringDouble2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(double))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.GenerateResponse))]
@@ -91,14 +84,15 @@ namespace Ollama
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Ollama.ToolDefinition>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.OneOf<global::Ollama.ChatRequestFormatEnum?, object>), TypeInfoPropertyName = "OneOfChatRequestFormatEnumObject2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.ChatRequestFormatEnum), TypeInfoPropertyName = "ChatRequestFormatEnum2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.OneOf<bool?, global::Ollama.ChatRequestThink?>), TypeInfoPropertyName = "OneOfBooleanChatRequestThink2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.ChatRequestThink), TypeInfoPropertyName = "ChatRequestThink2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.ChatResponse))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.DateTime))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.ChatResponseMessage))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.ChatResponseMessageRole), TypeInfoPropertyName = "ChatResponseMessageRole2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.ChatStreamEvent))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.ChatStreamEventMessage))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.Thinking))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Ollama.OneOf<bool?, string>>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.OneOf<bool?, string>), TypeInfoPropertyName = "OneOfBooleanString2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.StatusEvent))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.StatusResponse))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.EmbedRequest))]
@@ -138,6 +132,7 @@ namespace Ollama
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Ollama.ToolCall>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Ollama.ChatMessage>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Ollama.ToolDefinition>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Ollama.OneOf<bool?, string>>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::System.Collections.Generic.List<double>>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<double>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Ollama.ModelSummary>))]
