@@ -54,11 +54,11 @@ namespace Ollama
         public bool? Stream { get; set; }
 
         /// <summary>
-        /// When true, returns separate thinking output in addition to content. Can be a boolean (true/false) or a string ("high", "medium", "low", "max") for supported models, with "max" requesting the highest thinking level.
+        /// Controls a model's thinking output. Use `/api/show` to discover the supported values and default for the selected model. `true` requests thinking, `false` requests no thinking output, and `null` uses the model default. String values are model-defined; supported names must match `/api/show` exactly. Numbers are not supported.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("think")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Ollama.JsonConverters.OneOfJsonConverter<bool?, global::Ollama.GenerateRequestThink?>))]
-        public global::Ollama.OneOf<bool?, global::Ollama.GenerateRequestThink?>? Think { get; set; }
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Ollama.JsonConverters.ThinkValueJsonConverter))]
+        public global::Ollama.ThinkValue? Think { get; set; }
 
         /// <summary>
         /// When true, returns the raw response from the model without any prompt templating
@@ -121,7 +121,7 @@ namespace Ollama
         /// Default Value: true
         /// </param>
         /// <param name="think">
-        /// When true, returns separate thinking output in addition to content. Can be a boolean (true/false) or a string ("high", "medium", "low", "max") for supported models, with "max" requesting the highest thinking level.
+        /// Controls a model's thinking output. Use `/api/show` to discover the supported values and default for the selected model. `true` requests thinking, `false` requests no thinking output, and `null` uses the model default. String values are model-defined; supported names must match `/api/show` exactly. Numbers are not supported.
         /// </param>
         /// <param name="raw">
         /// When true, returns the raw response from the model without any prompt templating
@@ -149,7 +149,7 @@ namespace Ollama
             global::Ollama.OneOf<string, object>? format,
             string? system,
             bool? stream,
-            global::Ollama.OneOf<bool?, global::Ollama.GenerateRequestThink?>? think,
+            global::Ollama.ThinkValue? think,
             bool? raw,
             global::Ollama.OneOf<string, double?>? keepAlive,
             global::Ollama.ModelOptions? options,

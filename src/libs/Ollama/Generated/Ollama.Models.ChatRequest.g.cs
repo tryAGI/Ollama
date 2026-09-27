@@ -48,11 +48,11 @@ namespace Ollama
         public bool? Stream { get; set; }
 
         /// <summary>
-        /// When true, returns separate thinking output in addition to content. Can be a boolean (true/false) or a string ("high", "medium", "low", "max") for supported models, with "max" requesting the highest thinking level.
+        /// Controls a model's thinking output. Use `/api/show` to discover the supported values and default for the selected model. `true` requests thinking, `false` requests no thinking output, and `null` uses the model default. String values are model-defined; supported names must match `/api/show` exactly. Numbers are not supported.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("think")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Ollama.JsonConverters.OneOfJsonConverter<bool?, global::Ollama.ChatRequestThink?>))]
-        public global::Ollama.OneOf<bool?, global::Ollama.ChatRequestThink?>? Think { get; set; }
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Ollama.JsonConverters.ThinkValueJsonConverter))]
+        public global::Ollama.ThinkValue? Think { get; set; }
 
         /// <summary>
         /// Model keep-alive duration (for example `5m` or `0` to unload immediately)
@@ -101,7 +101,7 @@ namespace Ollama
         /// Default Value: true
         /// </param>
         /// <param name="think">
-        /// When true, returns separate thinking output in addition to content. Can be a boolean (true/false) or a string ("high", "medium", "low", "max") for supported models, with "max" requesting the highest thinking level.
+        /// Controls a model's thinking output. Use `/api/show` to discover the supported values and default for the selected model. `true` requests thinking, `false` requests no thinking output, and `null` uses the model default. String values are model-defined; supported names must match `/api/show` exactly. Numbers are not supported.
         /// </param>
         /// <param name="keepAlive">
         /// Model keep-alive duration (for example `5m` or `0` to unload immediately)
@@ -122,7 +122,7 @@ namespace Ollama
             global::Ollama.OneOf<global::Ollama.ChatRequestFormatEnum?, object>? format,
             global::Ollama.ModelOptions? options,
             bool? stream,
-            global::Ollama.OneOf<bool?, global::Ollama.ChatRequestThink?>? think,
+            global::Ollama.ThinkValue? think,
             global::Ollama.OneOf<string, double?>? keepAlive,
             bool? logprobs,
             int? topLogprobs)
