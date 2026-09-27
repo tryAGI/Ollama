@@ -295,7 +295,7 @@ public partial class OllamaClient : Meai.IChatClient
         };
     }
 
-    private static OneOf<bool?, ChatRequestThink?>? ToThinkingMode(Meai.ReasoningOptions reasoning)
+    private static ThinkValue? ToThinkingMode(Meai.ReasoningOptions reasoning)
     {
         if (reasoning.Output == Meai.ReasoningOutput.None)
         {
@@ -304,9 +304,9 @@ public partial class OllamaClient : Meai.IChatClient
 
         return reasoning.Effort switch
         {
-            Meai.ReasoningEffort.Low => ChatRequestThink.Low,
-            Meai.ReasoningEffort.Medium => ChatRequestThink.Medium,
-            Meai.ReasoningEffort.High or Meai.ReasoningEffort.ExtraHigh => ChatRequestThink.High,
+            Meai.ReasoningEffort.Low => "low",
+            Meai.ReasoningEffort.Medium => "medium",
+            Meai.ReasoningEffort.High or Meai.ReasoningEffort.ExtraHigh => "high",
             _ => true,
         };
     }
