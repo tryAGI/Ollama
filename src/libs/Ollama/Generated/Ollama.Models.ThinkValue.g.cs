@@ -42,8 +42,8 @@ namespace Ollama
         /// <summary>
         ///
         /// </summary>
-        public bool PickThinkValueVariant1() => IsThinkValueVariant1
-            ? ThinkValueVariant1!.Value
+        public bool PickThinkValueVariant1() => ThinkValueVariant1 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'ThinkValueVariant1' but the value was {ToString()}.");
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace Ollama
         /// <summary>
         ///
         /// </summary>
-        public string PickThinkValueVariant2() => IsThinkValueVariant2
-            ? ThinkValueVariant2!
+        public string PickThinkValueVariant2() => ThinkValueVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'ThinkValueVariant2' but the value was {ToString()}.");
 
         /// <summary>
@@ -116,8 +116,8 @@ namespace Ollama
         /// <summary>
         ///
         /// </summary>
-        public object PickThinkValueVariant3() => IsThinkValueVariant3
-            ? ThinkValueVariant3!
+        public object PickThinkValueVariant3() => ThinkValueVariant3 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'ThinkValueVariant3' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -219,17 +219,17 @@ namespace Ollama
                 Validate();
             }
 
-            if (IsThinkValueVariant1 && thinkValueVariant1 != null)
+            if (ThinkValueVariant1 is { } __value0 && thinkValueVariant1 != null)
             {
-                return thinkValueVariant1(ThinkValueVariant1!);
+                return thinkValueVariant1(__value0);
             }
-            else if (IsThinkValueVariant2 && thinkValueVariant2 != null)
+            else if (ThinkValueVariant2 is { } __value1 && thinkValueVariant2 != null)
             {
-                return thinkValueVariant2(ThinkValueVariant2!);
+                return thinkValueVariant2(__value1);
             }
-            else if (IsThinkValueVariant3 && thinkValueVariant3 != null)
+            else if (ThinkValueVariant3 is { } __value2 && thinkValueVariant3 != null)
             {
-                return thinkValueVariant3(ThinkValueVariant3!);
+                return thinkValueVariant3(__value2);
             }
 
             return default(TResult);
@@ -251,17 +251,17 @@ namespace Ollama
                 Validate();
             }
 
-            if (IsThinkValueVariant1)
+            if (ThinkValueVariant1 is { } __value0)
             {
-                thinkValueVariant1?.Invoke(ThinkValueVariant1!);
+                thinkValueVariant1?.Invoke(__value0);
             }
-            else if (IsThinkValueVariant2)
+            else if (ThinkValueVariant2 is { } __value1)
             {
-                thinkValueVariant2?.Invoke(ThinkValueVariant2!);
+                thinkValueVariant2?.Invoke(__value1);
             }
-            else if (IsThinkValueVariant3)
+            else if (ThinkValueVariant3 is { } __value2)
             {
-                thinkValueVariant3?.Invoke(ThinkValueVariant3!);
+                thinkValueVariant3?.Invoke(__value2);
             }
         }
 
@@ -279,17 +279,17 @@ namespace Ollama
                 Validate();
             }
 
-            if (IsThinkValueVariant1)
+            if (ThinkValueVariant1 is { } __value0)
             {
-                thinkValueVariant1?.Invoke(ThinkValueVariant1!);
+                thinkValueVariant1?.Invoke(__value0);
             }
-            else if (IsThinkValueVariant2)
+            else if (ThinkValueVariant2 is { } __value1)
             {
-                thinkValueVariant2?.Invoke(ThinkValueVariant2!);
+                thinkValueVariant2?.Invoke(__value1);
             }
-            else if (IsThinkValueVariant3)
+            else if (ThinkValueVariant3 is { } __value2)
             {
-                thinkValueVariant3?.Invoke(ThinkValueVariant3!);
+                thinkValueVariant3?.Invoke(__value2);
             }
         }
 

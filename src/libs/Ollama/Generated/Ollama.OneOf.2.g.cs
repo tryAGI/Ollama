@@ -41,8 +41,8 @@ namespace Ollama
         /// <summary>
         ///
         /// </summary>
-        public T1 PickValue1() => IsValue1
-            ? Value1!
+        public T1 PickValue1() => Value1 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Value1' but the value was {ToString()}.");
 
         /// <summary>
@@ -78,8 +78,8 @@ namespace Ollama
         /// <summary>
         ///
         /// </summary>
-        public T2 PickValue2() => IsValue2
-            ? Value2!
+        public T2 PickValue2() => Value2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Value2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -176,13 +176,13 @@ namespace Ollama
                 Validate();
             }
 
-            if (IsValue1 && value1 != null)
+            if (Value1 is { } __value0 && value1 != null)
             {
-                return value1(Value1!);
+                return value1(__value0);
             }
-            else if (IsValue2 && value2 != null)
+            else if (Value2 is { } __value1 && value2 != null)
             {
-                return value2(Value2!);
+                return value2(__value1);
             }
 
             return default(TResult);
@@ -202,13 +202,13 @@ namespace Ollama
                 Validate();
             }
 
-            if (IsValue1)
+            if (Value1 is { } __value0)
             {
-                value1?.Invoke(Value1!);
+                value1?.Invoke(__value0);
             }
-            else if (IsValue2)
+            else if (Value2 is { } __value1)
             {
-                value2?.Invoke(Value2!);
+                value2?.Invoke(__value1);
             }
         }
 
@@ -225,13 +225,13 @@ namespace Ollama
                 Validate();
             }
 
-            if (IsValue1)
+            if (Value1 is { } __value0)
             {
-                value1?.Invoke(Value1!);
+                value1?.Invoke(__value0);
             }
-            else if (IsValue2)
+            else if (Value2 is { } __value1)
             {
-                value2?.Invoke(Value2!);
+                value2?.Invoke(__value1);
             }
         }
 
