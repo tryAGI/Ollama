@@ -164,9 +164,9 @@ namespace Ollama
         {
             send = send ?? throw new global::System.ArgumentNullException(nameof(send));
             requestOptions = CloneRequestOptions(requestOptions);
-            if (!string.IsNullOrWhiteSpace(entityTag))
+            if (entityTag is { } nonEmptyEntityTag && !string.IsNullOrWhiteSpace(nonEmptyEntityTag))
             {
-                requestOptions.Headers["If-None-Match"] = entityTag!;
+                requestOptions.Headers["If-None-Match"] = nonEmptyEntityTag;
             }
 
             try
