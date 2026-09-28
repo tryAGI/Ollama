@@ -241,7 +241,8 @@ namespace Ollama
         {
             context = context ?? throw new global::System.ArgumentNullException(nameof(context));
 
-            if (context.Request == null)
+            var request = context.Request;
+            if (request == null)
             {
                 return;
             }
@@ -251,10 +252,10 @@ namespace Ollama
             {
                 for (var index = 0; index < perRequest.Count; index++)
                 {
-                    ApplyAuthorization(context.Request, perRequest[index]);
+                    ApplyAuthorization(request, perRequest[index]);
                 }
 
-                global::Ollama.AutoSDKHttpRequestOptions.StampAuthorizationOverride(context.Request);
+                global::Ollama.AutoSDKHttpRequestOptions.StampAuthorizationOverride(request);
                 return;
             }
 
@@ -272,10 +273,10 @@ namespace Ollama
 
             for (var index = 0; index < resolved.Count; index++)
             {
-                ApplyAuthorization(context.Request, resolved[index]);
+                ApplyAuthorization(request, resolved[index]);
             }
 
-            global::Ollama.AutoSDKHttpRequestOptions.StampAuthorizationOverride(context.Request);
+            global::Ollama.AutoSDKHttpRequestOptions.StampAuthorizationOverride(request);
         }
 
         private static void ApplyAuthorization(
@@ -486,7 +487,7 @@ namespace Ollama
         /// <summary>
         /// The outgoing HTTP request for the current attempt.
         /// </summary>
-        public global::System.Net.Http.HttpRequestMessage Request { get; set; } = null!;
+        public global::System.Net.Http.HttpRequestMessage? Request { get; set; }
 
         /// <summary>
         /// The HTTP response when one was received.
@@ -501,7 +502,7 @@ namespace Ollama
         /// <summary>
         /// The client-wide runtime options.
         /// </summary>
-        public global::Ollama.AutoSDKClientOptions ClientOptions { get; set; } = null!;
+        public global::Ollama.AutoSDKClientOptions? ClientOptions { get; set; }
 
         /// <summary>
         /// The per-request runtime options.
