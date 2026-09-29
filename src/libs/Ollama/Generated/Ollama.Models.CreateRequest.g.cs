@@ -95,6 +95,12 @@ namespace Ollama
         public string? Requires { get; set; }
 
         /// <summary>
+        /// Capabilities to add without removing inherited or inferred capabilities (e.g. `decision` for compatible decision models)
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("capabilities")]
+        public global::System.Collections.Generic.IList<string>? Capabilities { get; set; }
+
+        /// <summary>
         /// Stream status updates<br/>
         /// Default Value: true
         /// </summary>
@@ -152,6 +158,9 @@ namespace Ollama
         /// <param name="requires">
         /// Minimum Ollama version required by the model
         /// </param>
+        /// <param name="capabilities">
+        /// Capabilities to add without removing inherited or inferred capabilities (e.g. `decision` for compatible decision models)
+        /// </param>
         /// <param name="stream">
         /// Stream status updates<br/>
         /// Default Value: true
@@ -174,6 +183,7 @@ namespace Ollama
             string? quantize,
             string? draftQuantize,
             string? requires,
+            global::System.Collections.Generic.IList<string>? capabilities,
             bool? stream)
         {
             this.Model = model ?? throw new global::System.ArgumentNullException(nameof(model));
@@ -190,6 +200,7 @@ namespace Ollama
             this.Quantize = quantize;
             this.DraftQuantize = draftQuantize;
             this.Requires = requires;
+            this.Capabilities = capabilities;
             this.Stream = stream;
         }
 

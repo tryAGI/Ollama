@@ -88,6 +88,7 @@ namespace Ollama
                 Quantize = request.Quantize,
                 DraftQuantize = request.DraftQuantize,
                 Requires = request.Requires,
+                Capabilities = request.Capabilities,
                 Stream = false,
             };
             PrepareArguments(
@@ -469,6 +470,9 @@ namespace Ollama
         /// <param name="requires">
         /// Minimum Ollama version required by the model
         /// </param>
+        /// <param name="capabilities">
+        /// Capabilities to add without removing inherited or inferred capabilities (e.g. `decision` for compatible decision models)
+        /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
@@ -487,6 +491,7 @@ namespace Ollama
             string? quantize = default,
             string? draftQuantize = default,
             string? requires = default,
+            global::System.Collections.Generic.IList<string>? capabilities = default,
             global::Ollama.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
@@ -506,6 +511,7 @@ namespace Ollama
                 Quantize = quantize,
                 DraftQuantize = draftQuantize,
                 Requires = requires,
+                Capabilities = capabilities,
                 Stream = false,
             };
 
