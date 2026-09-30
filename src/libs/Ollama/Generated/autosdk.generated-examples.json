@@ -123,6 +123,17 @@
     },
     {
       "Order": 12,
+      "Title": "Answer typed questions",
+      "Slug": "systemone",
+      "Description": "Answer choice, yes/no, and scoring questions with a local System One model. Requires Ollama v0.35.0 or later. See the [decision guide](/capabilities/decision) for examples.",
+      "Language": "csharp",
+      "Code": "using var client = new OllamaClient();\n\nvar request = global::System.Text.Json.JsonSerializer.Deserialize\u003Cglobal::Ollama.SystemOneRequest\u003E(\n    @\u0022{\n  \u0022\u0022model\u0022\u0022: \u0022\u0022nimble\u0022\u0022,\n  \u0022\u0022state\u0022\u0022: \u0022\u0022Our checkout has returned 500 errors since 9am.\u0022\u0022,\n  \u0022\u0022questions\u0022\u0022: {\n    \u0022\u0022label\u0022\u0022: {\n      \u0022\u0022type\u0022\u0022: \u0022\u0022choice\u0022\u0022,\n      \u0022\u0022instructions\u0022\u0022: \u0022\u0022Which label fits this ticket?\u0022\u0022,\n      \u0022\u0022criteria\u0022\u0022: {\n        \u0022\u0022billing\u0022\u0022: \u0022\u0022Payments and refunds\u0022\u0022,\n        \u0022\u0022bug\u0022\u0022: \u0022\u0022Software errors\u0022\u0022,\n        \u0022\u0022account\u0022\u0022: \u0022\u0022Login and account access\u0022\u0022\n      }\n    }\n  }\n}\u0022)!;\n\nvar response = await client.SystemoneAsync(\n    request: request\n);\n\n// Example response:\n// {\n//   \u0022model\u0022: \u0022nimble\u0022,\n//   \u0022answers\u0022: {\n//     \u0022label\u0022: {\n//       \u0022type\u0022: \u0022choice\u0022,\n//       \u0022choice\u0022: \u0022bug\u0022,\n//       \u0022probabilities\u0022: {\n//         \u0022billing\u0022: 0.0125,\n//         \u0022bug\u0022: 0.9781,\n//         \u0022account\u0022: 0.0093\n//       },\n//       \u0022confidence\u0022: 0.8906\n//     }\n//   },\n//   \u0022usage\u0022: {\n//     \u0022input_tokens\u0022: 174,\n//     \u0022output_tokens\u0022: 1\n//   }\n// }",
+      "Format": "sdk",
+      "OperationId": "systemone",
+      "Setup": "This example assumes \u0060using Ollama;\u0060 is in scope."
+    },
+    {
+      "Order": 13,
       "Title": "Get version",
       "Slug": "version",
       "Description": "Retrieve the version of the Ollama",
