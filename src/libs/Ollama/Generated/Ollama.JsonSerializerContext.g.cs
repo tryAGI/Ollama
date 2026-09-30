@@ -27,7 +27,33 @@ namespace Ollama
 
             typeof(global::Ollama.JsonConverters.ChatResponseMessageRoleNullableJsonConverter),
 
+            typeof(global::Ollama.JsonConverters.SystemOneChoiceQuestionTypeJsonConverter),
+
+            typeof(global::Ollama.JsonConverters.SystemOneChoiceQuestionTypeNullableJsonConverter),
+
+            typeof(global::Ollama.JsonConverters.SystemOneNoulQuestionTypeJsonConverter),
+
+            typeof(global::Ollama.JsonConverters.SystemOneNoulQuestionTypeNullableJsonConverter),
+
+            typeof(global::Ollama.JsonConverters.SystemOneScoreQuestionTypeJsonConverter),
+
+            typeof(global::Ollama.JsonConverters.SystemOneScoreQuestionTypeNullableJsonConverter),
+
+            typeof(global::Ollama.JsonConverters.SystemOneChoiceAnswerTypeJsonConverter),
+
+            typeof(global::Ollama.JsonConverters.SystemOneChoiceAnswerTypeNullableJsonConverter),
+
+            typeof(global::Ollama.JsonConverters.SystemOneNoulAnswerTypeJsonConverter),
+
+            typeof(global::Ollama.JsonConverters.SystemOneNoulAnswerTypeNullableJsonConverter),
+
+            typeof(global::Ollama.JsonConverters.SystemOneScoreAnswerTypeJsonConverter),
+
+            typeof(global::Ollama.JsonConverters.SystemOneScoreAnswerTypeNullableJsonConverter),
+
             typeof(global::Ollama.JsonConverters.ThinkValueJsonConverter),
+
+            typeof(global::Ollama.JsonConverters.SystemOneContentJsonConverter),
 
             typeof(global::Ollama.JsonConverters.OneOfJsonConverter<string, global::System.Collections.Generic.IList<string>>),
 
@@ -46,6 +72,12 @@ namespace Ollama
             typeof(global::Ollama.JsonConverters.OneOfJsonConverter<string, global::System.Collections.Generic.IList<string>>),
 
             typeof(global::Ollama.JsonConverters.OneOfJsonConverter<string, global::System.Collections.Generic.IList<string>>),
+
+            typeof(global::Ollama.JsonConverters.OneOfJsonConverter<global::Ollama.SystemOneChoiceQuestion, global::Ollama.SystemOneNoulQuestion, global::Ollama.SystemOneScoreQuestion>),
+
+            typeof(global::Ollama.JsonConverters.OneOfJsonConverter<string, double?>),
+
+            typeof(global::Ollama.JsonConverters.OneOfJsonConverter<global::Ollama.SystemOneChoiceAnswer, global::Ollama.SystemOneNoulAnswer, global::Ollama.SystemOneScoreAnswer>),
 
             typeof(global::Ollama.JsonConverters.UnixTimestampJsonConverter),
         })]
@@ -99,7 +131,7 @@ namespace Ollama
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::System.Collections.Generic.IList<double>>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<double>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.CreateRequest))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.Dictionary<string, string>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.Dictionary<string, string>), TypeInfoPropertyName = "DictionaryStringString_System_Collections_Generic_Dictionary_string_string")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.CopyRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.DeleteRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.PullRequest))]
@@ -123,6 +155,28 @@ namespace Ollama
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.TokenLogprob))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<long>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Ollama.TokenLogprob>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.SystemOneContent), TypeInfoPropertyName = "SystemOneContent2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<object>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.SystemOneChoiceQuestion))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.SystemOneChoiceQuestionType), TypeInfoPropertyName = "SystemOneChoiceQuestionType2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.Dictionary<string, string?>), TypeInfoPropertyName = "DictionaryStringString_System_Collections_Generic_Dictionary_string_string_3")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.SystemOneNoulQuestion))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.SystemOneNoulQuestionType), TypeInfoPropertyName = "SystemOneNoulQuestionType2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.SystemOneNoulQuestionCriteria))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.SystemOneScoreQuestion))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.SystemOneScoreQuestionType), TypeInfoPropertyName = "SystemOneScoreQuestionType2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.SystemOneRequest))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.OneOf<global::Ollama.SystemOneChoiceQuestion, global::Ollama.SystemOneNoulQuestion, global::Ollama.SystemOneScoreQuestion>), TypeInfoPropertyName = "OneOfSystemOneChoiceQuestionSystemOneNoulQuestionSystemOneScoreQuestion2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.Dictionary<string, double>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.SystemOneChoiceAnswer))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.SystemOneChoiceAnswerType), TypeInfoPropertyName = "SystemOneChoiceAnswerType2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.SystemOneNoulAnswer))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.SystemOneNoulAnswerType), TypeInfoPropertyName = "SystemOneNoulAnswerType2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.SystemOneScoreAnswer))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.SystemOneScoreAnswerType), TypeInfoPropertyName = "SystemOneScoreAnswerType2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.SystemOneResponse))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.OneOf<global::Ollama.SystemOneChoiceAnswer, global::Ollama.SystemOneNoulAnswer, global::Ollama.SystemOneScoreAnswer>), TypeInfoPropertyName = "OneOfSystemOneChoiceAnswerSystemOneNoulAnswerSystemOneScoreAnswer2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.SystemOneResponseUsage))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.ErrorResponse))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(byte[]))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.OneOf<string, global::System.Collections.Generic.List<string>>))]
