@@ -16,7 +16,7 @@ namespace Ollama
         public global::Ollama.SystemOneChoiceAnswerType Type { get; set; }
 
         /// <summary>
-        /// Option key with the highest probability. Ties select the first option in request order.
+        /// Option key with the highest probability. Ties follow the model's option order.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("choice")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -46,7 +46,7 @@ namespace Ollama
         /// Initializes a new instance of the <see cref="SystemOneChoiceAnswer" /> class.
         /// </summary>
         /// <param name="choice">
-        /// Option key with the highest probability. Ties select the first option in request order.
+        /// Option key with the highest probability. Ties follow the model's option order.
         /// </param>
         /// <param name="probabilities">
         /// Probabilities normalized over the supplied candidates, summing to 1 subject to floating-point precision.

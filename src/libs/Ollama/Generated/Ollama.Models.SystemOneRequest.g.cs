@@ -24,7 +24,13 @@ namespace Ollama
         public required global::Ollama.SystemOneContent State { get; set; }
 
         /// <summary>
-        /// Named questions about the shared state. Each is scored separately against the full state and question schema; answers are not passed to later questions.
+        /// Base64-encoded images shared by all questions, in request order. Requires Clef or Clef Flash with vision weights. URLs and data URLs are not supported.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("images")]
+        public global::System.Collections.Generic.IList<byte[]>? Images { get; set; }
+
+        /// <summary>
+        /// Named questions about the shared state. Answers are not passed to later questions.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("questions")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -53,7 +59,10 @@ namespace Ollama
         /// A nonempty string, or an object or array serialized as JSON text. Not interpreted as chat messages or multimodal input.
         /// </param>
         /// <param name="questions">
-        /// Named questions about the shared state. Each is scored separately against the full state and question schema; answers are not passed to later questions.
+        /// Named questions about the shared state. Answers are not passed to later questions.
+        /// </param>
+        /// <param name="images">
+        /// Base64-encoded images shared by all questions, in request order. Requires Clef or Clef Flash with vision weights. URLs and data URLs are not supported.
         /// </param>
         /// <param name="keepAlive">
         /// How long to keep the model loaded after the request, as a duration string (such as 5m) or seconds. Zero unloads after the request; a negative value keeps it loaded. Defaults to the server's keep-alive setting (5m unless configured otherwise).
@@ -65,10 +74,12 @@ namespace Ollama
             string model,
             global::Ollama.SystemOneContent state,
             object questions,
+            global::System.Collections.Generic.IList<byte[]>? images,
             global::Ollama.OneOf<string, double?>? keepAlive)
         {
             this.Model = model ?? throw new global::System.ArgumentNullException(nameof(model));
             this.State = state;
+            this.Images = images;
             this.Questions = questions ?? throw new global::System.ArgumentNullException(nameof(questions));
             this.KeepAlive = keepAlive;
         }
