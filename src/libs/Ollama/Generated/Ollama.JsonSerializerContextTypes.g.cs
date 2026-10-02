@@ -353,55 +353,59 @@ namespace Ollama
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.OneOf<global::Ollama.SystemOneChoiceQuestion, global::Ollama.SystemOneNoulQuestion, global::Ollama.SystemOneScoreQuestion>? Type80 { get; set; }
+        public global::System.Collections.Generic.IList<byte[]>? Type80 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::System.Collections.Generic.Dictionary<string, double>? Type81 { get; set; }
+        public byte[]? Type81 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.SystemOneChoiceAnswer? Type82 { get; set; }
+        public global::Ollama.OneOf<global::Ollama.SystemOneChoiceQuestion, global::Ollama.SystemOneNoulQuestion, global::Ollama.SystemOneScoreQuestion>? Type82 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.SystemOneChoiceAnswerType? Type83 { get; set; }
+        public global::System.Collections.Generic.Dictionary<string, double>? Type83 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.SystemOneNoulAnswer? Type84 { get; set; }
+        public global::Ollama.SystemOneChoiceAnswer? Type84 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.SystemOneNoulAnswerType? Type85 { get; set; }
+        public global::Ollama.SystemOneChoiceAnswerType? Type85 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.SystemOneScoreAnswer? Type86 { get; set; }
+        public global::Ollama.SystemOneNoulAnswer? Type86 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.SystemOneScoreAnswerType? Type87 { get; set; }
+        public global::Ollama.SystemOneNoulAnswerType? Type87 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.SystemOneResponse? Type88 { get; set; }
+        public global::Ollama.SystemOneScoreAnswer? Type88 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.OneOf<global::Ollama.SystemOneChoiceAnswer, global::Ollama.SystemOneNoulAnswer, global::Ollama.SystemOneScoreAnswer>? Type89 { get; set; }
+        public global::Ollama.SystemOneScoreAnswerType? Type89 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.SystemOneResponseUsage? Type90 { get; set; }
+        public global::Ollama.SystemOneResponse? Type90 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.ErrorResponse? Type91 { get; set; }
+        public global::Ollama.OneOf<global::Ollama.SystemOneChoiceAnswer, global::Ollama.SystemOneNoulAnswer, global::Ollama.SystemOneScoreAnswer>? Type91 { get; set; }
         /// <summary>
         ///
         /// </summary>
-        public byte[]? Type92 { get; set; }
+        public global::Ollama.SystemOneResponseUsage? Type92 { get; set; }
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Ollama.ErrorResponse? Type93 { get; set; }
 
         /// <summary>
         ///
@@ -463,5 +467,9 @@ namespace Ollama
         ///
         /// </summary>
         public global::System.Collections.Generic.List<object>? ListType14 { get; set; }
+        /// <summary>
+        ///
+        /// </summary>
+        public global::System.Collections.Generic.List<byte[]>? ListType15 { get; set; }
     }
 }

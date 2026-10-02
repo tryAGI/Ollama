@@ -4,7 +4,7 @@
 namespace Ollama
 {
     /// <summary>
-    /// Option keys mapped to descriptions. A null description uses the key itself. Keys must not be blank; ties select the first option in request order.
+    /// Option keys mapped to descriptions. A null description uses the key itself. Keys must not be blank; ties follow the model's option order.
     /// </summary>
     public sealed partial class SystemOneChoiceQuestionCriteria
     {

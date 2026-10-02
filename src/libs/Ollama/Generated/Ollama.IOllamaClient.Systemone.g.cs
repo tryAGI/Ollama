@@ -78,8 +78,11 @@ namespace Ollama
         /// <param name="state">
         /// A nonempty string, or an object or array serialized as JSON text. Not interpreted as chat messages or multimodal input.
         /// </param>
+        /// <param name="images">
+        /// Base64-encoded images shared by all questions, in request order. Requires Clef or Clef Flash with vision weights. URLs and data URLs are not supported.
+        /// </param>
         /// <param name="questions">
-        /// Named questions about the shared state. Each is scored separately against the full state and question schema; answers are not passed to later questions.
+        /// Named questions about the shared state. Answers are not passed to later questions.
         /// </param>
         /// <param name="keepAlive">
         /// How long to keep the model loaded after the request, as a duration string (such as 5m) or seconds. Zero unloads after the request; a negative value keeps it loaded. Defaults to the server's keep-alive setting (5m unless configured otherwise).
@@ -91,6 +94,7 @@ namespace Ollama
             string model,
             global::Ollama.SystemOneContent state,
             object questions,
+            global::System.Collections.Generic.IList<byte[]>? images = default,
             global::Ollama.OneOf<string, double?>? keepAlive = default,
             global::Ollama.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);

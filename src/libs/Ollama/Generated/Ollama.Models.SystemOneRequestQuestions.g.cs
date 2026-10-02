@@ -4,7 +4,7 @@
 namespace Ollama
 {
     /// <summary>
-    /// Named questions about the shared state. Each is scored separately against the full state and question schema; answers are not passed to later questions.
+    /// Named questions about the shared state. Answers are not passed to later questions.
     /// </summary>
     public sealed partial class SystemOneRequestQuestions
     {

@@ -9,7 +9,7 @@ namespace Ollama
     public sealed partial class SystemOneResponseUsage
     {
         /// <summary>
-        /// Sum of full rendered prompt lengths across all questions, including repeated shared context even when cached.
+        /// Total evaluated input tokens, including image positions. Shared context is counted again when the model scores questions separately.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("input_tokens")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -32,7 +32,7 @@ namespace Ollama
         /// Initializes a new instance of the <see cref="SystemOneResponseUsage" /> class.
         /// </summary>
         /// <param name="inputTokens">
-        /// Sum of full rendered prompt lengths across all questions, including repeated shared context even when cached.
+        /// Total evaluated input tokens, including image positions. Shared context is counted again when the model scores questions separately.
         /// </param>
         /// <param name="outputTokens">
         /// Tokens generated internally for scoring, including prefix preparation and retries. May exceed the question count; not the length of the JSON response.

@@ -166,6 +166,8 @@ namespace Ollama
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.SystemOneScoreQuestion))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.SystemOneScoreQuestionType), TypeInfoPropertyName = "SystemOneScoreQuestionType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.SystemOneRequest))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<byte[]>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(byte[]))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.OneOf<global::Ollama.SystemOneChoiceQuestion, global::Ollama.SystemOneNoulQuestion, global::Ollama.SystemOneScoreQuestion>), TypeInfoPropertyName = "OneOfSystemOneChoiceQuestionSystemOneNoulQuestionSystemOneScoreQuestion2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.Dictionary<string, double>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.SystemOneChoiceAnswer))]
@@ -178,7 +180,6 @@ namespace Ollama
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.OneOf<global::Ollama.SystemOneChoiceAnswer, global::Ollama.SystemOneNoulAnswer, global::Ollama.SystemOneScoreAnswer>), TypeInfoPropertyName = "OneOfSystemOneChoiceAnswerSystemOneNoulAnswerSystemOneScoreAnswer2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.SystemOneResponseUsage))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.ErrorResponse))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(byte[]))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.OneOf<string, global::System.Collections.Generic.List<string>>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<string>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Ollama.Logprob>))]
@@ -193,6 +194,7 @@ namespace Ollama
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Ollama.WebSearchResult>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<long>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Ollama.TokenLogprob>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<byte[]>))]
     public sealed partial class SourceGenerationContext : global::System.Text.Json.Serialization.JsonSerializerContext
     {
     }
