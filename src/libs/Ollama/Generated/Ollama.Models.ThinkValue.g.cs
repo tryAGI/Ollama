@@ -82,43 +82,6 @@ namespace Ollama
         public string PickThinkValueVariant2() => ThinkValueVariant2 is { } value
             ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'ThinkValueVariant2' but the value was {ToString()}.");
-
-        /// <summary>
-        ///
-        /// </summary>
-#if NET6_0_OR_GREATER
-        public object? ThinkValueVariant3 { get; init; }
-#else
-        public object? ThinkValueVariant3 { get; }
-#endif
-
-        /// <summary>
-        ///
-        /// </summary>
-#if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ThinkValueVariant3))]
-#endif
-        public bool IsThinkValueVariant3 => ThinkValueVariant3 != null;
-
-        /// <summary>
-        ///
-        /// </summary>
-        public bool TryPickThinkValueVariant3(
-#if NET6_0_OR_GREATER
-            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
-#endif
-            out object? value)
-        {
-            value = ThinkValueVariant3;
-            return IsThinkValueVariant3;
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        public object PickThinkValueVariant3() => ThinkValueVariant3 is { } value
-            ? value
-            : throw new global::System.InvalidOperationException($"Expected union variant 'ThinkValueVariant3' but the value was {ToString()}.");
         /// <summary>
         ///
         /// </summary>
@@ -170,20 +133,17 @@ namespace Ollama
         /// </summary>
         public ThinkValue(
             bool? thinkValueVariant1,
-            string? thinkValueVariant2,
-            object? thinkValueVariant3
+            string? thinkValueVariant2
             )
         {
             ThinkValueVariant1 = thinkValueVariant1;
             ThinkValueVariant2 = thinkValueVariant2;
-            ThinkValueVariant3 = thinkValueVariant3;
         }
 
         /// <summary>
         ///
         /// </summary>
         public object? Object =>
-            ThinkValueVariant3 as object ??
             ThinkValueVariant2 as object ??
             ThinkValueVariant1 as object
             ;
@@ -193,8 +153,7 @@ namespace Ollama
         /// </summary>
         public override string? ToString() =>
             ThinkValueVariant1?.ToString().ToLowerInvariant() ??
-            ThinkValueVariant2?.ToString() ??
-            ThinkValueVariant3?.ToString()
+            ThinkValueVariant2?.ToString()
             ;
 
         /// <summary>
@@ -202,7 +161,7 @@ namespace Ollama
         /// </summary>
         public bool Validate()
         {
-            return IsThinkValueVariant1 && !IsThinkValueVariant2 && !IsThinkValueVariant3 || !IsThinkValueVariant1 && IsThinkValueVariant2 && !IsThinkValueVariant3 || !IsThinkValueVariant1 && !IsThinkValueVariant2 && IsThinkValueVariant3;
+            return IsThinkValueVariant1 && !IsThinkValueVariant2 || !IsThinkValueVariant1 && IsThinkValueVariant2;
         }
 
         /// <summary>
@@ -211,7 +170,6 @@ namespace Ollama
         public TResult? Match<TResult>(
             global::System.Func<bool?, TResult>? thinkValueVariant1 = null,
             global::System.Func<string, TResult>? thinkValueVariant2 = null,
-            global::System.Func<object, TResult>? thinkValueVariant3 = null,
             bool validate = true)
         {
             if (validate)
@@ -227,10 +185,6 @@ namespace Ollama
             {
                 return thinkValueVariant2(__value1);
             }
-            else if (ThinkValueVariant3 is { } __value2 && thinkValueVariant3 != null)
-            {
-                return thinkValueVariant3(__value2);
-            }
 
             return default(TResult);
         }
@@ -242,8 +196,6 @@ namespace Ollama
             global::System.Action<bool?>? thinkValueVariant1 = null,
 
             global::System.Action<string>? thinkValueVariant2 = null,
-
-            global::System.Action<object>? thinkValueVariant3 = null,
             bool validate = true)
         {
             if (validate)
@@ -258,10 +210,6 @@ namespace Ollama
             else if (ThinkValueVariant2 is { } __value1)
             {
                 thinkValueVariant2?.Invoke(__value1);
-            }
-            else if (ThinkValueVariant3 is { } __value2)
-            {
-                thinkValueVariant3?.Invoke(__value2);
             }
         }
 
@@ -271,7 +219,6 @@ namespace Ollama
         public void Switch(
             global::System.Action<bool?>? thinkValueVariant1 = null,
             global::System.Action<string>? thinkValueVariant2 = null,
-            global::System.Action<object>? thinkValueVariant3 = null,
             bool validate = true)
         {
             if (validate)
@@ -286,10 +233,6 @@ namespace Ollama
             else if (ThinkValueVariant2 is { } __value1)
             {
                 thinkValueVariant2?.Invoke(__value1);
-            }
-            else if (ThinkValueVariant3 is { } __value2)
-            {
-                thinkValueVariant3?.Invoke(__value2);
             }
         }
 
@@ -304,8 +247,6 @@ namespace Ollama
                 typeof(bool),
                 ThinkValueVariant2,
                 typeof(string),
-                ThinkValueVariant3,
-                typeof(object),
             };
             const int offset = unchecked((int)2166136261);
             const int prime = 16777619;
@@ -323,8 +264,7 @@ namespace Ollama
         {
             return
                 global::System.Collections.Generic.EqualityComparer<bool?>.Default.Equals(ThinkValueVariant1, other.ThinkValueVariant1) &&
-                global::System.Collections.Generic.EqualityComparer<string?>.Default.Equals(ThinkValueVariant2, other.ThinkValueVariant2) &&
-                global::System.Collections.Generic.EqualityComparer<object?>.Default.Equals(ThinkValueVariant3, other.ThinkValueVariant3)
+                global::System.Collections.Generic.EqualityComparer<string?>.Default.Equals(ThinkValueVariant2, other.ThinkValueVariant2)
                 ;
         }
 
