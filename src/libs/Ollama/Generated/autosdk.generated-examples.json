@@ -17,7 +17,7 @@
       "Slug": "copy",
       "Description": "Generated from OpenAPI examples.",
       "Language": "csharp",
-      "Code": "using var client = new OllamaClient();\n\nvar request = global::System.Text.Json.JsonSerializer.Deserialize\u003Cglobal::Ollama.CopyRequest\u003E(\n    @\u0022{\n  \u0022\u0022source\u0022\u0022: \u0022\u0022gemma4\u0022\u0022,\n  \u0022\u0022destination\u0022\u0022: \u0022\u0022gemma4-backup\u0022\u0022\n}\u0022)!;\n\nawait client.CopyAsync(\n    request: request\n);",
+      "Code": "using var client = new OllamaClient();\n\nvar request = global::System.Text.Json.JsonSerializer.Deserialize\u003Cglobal::Ollama.CopyRequest\u003E(\n    @\u0022{\n  \u0022\u0022source\u0022\u0022: \u0022\u0022gemma4\u0022\u0022,\n  \u0022\u0022destination\u0022\u0022: \u0022\u0022gemma4-backup\u0022\u0022\n}\u0022)!;\n\nvar response = await client.CopyAsync(\n    request: request\n);\n\n// Example response:\n// {\n//   \u0022status\u0022: \u0022success\u0022\n// }",
       "Format": "sdk",
       "OperationId": "copy",
       "Setup": "This example assumes \u0060using Ollama;\u0060 is in scope."

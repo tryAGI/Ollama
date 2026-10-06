@@ -24,7 +24,7 @@ namespace Ollama
         public required global::Ollama.SystemOneContent Instructions { get; set; }
 
         /// <summary>
-        /// Optional descriptions for the two outcomes. Omitted entries use No and Yes.
+        /// Optional descriptions for the two outcomes. Omitted entries use model-specific defaults.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("criteria")]
         public global::Ollama.SystemOneNoulQuestionCriteria? Criteria { get; set; }
@@ -43,7 +43,7 @@ namespace Ollama
         /// </param>
         /// <param name="type"></param>
         /// <param name="criteria">
-        /// Optional descriptions for the two outcomes. Omitted entries use No and Yes.
+        /// Optional descriptions for the two outcomes. Omitted entries use model-specific defaults.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
