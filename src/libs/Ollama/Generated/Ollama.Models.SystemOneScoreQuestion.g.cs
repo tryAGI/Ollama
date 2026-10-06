@@ -24,7 +24,7 @@ namespace Ollama
         public required global::Ollama.SystemOneContent Instructions { get; set; }
 
         /// <summary>
-        /// Descriptions ordered from the lowest score (index 0) to the highest. Defines a scale from 0 to the number of criteria minus 1.
+        /// Descriptions ordered from the lowest score (index 0) to the highest. Defines a scale from 0 to the number of criteria minus 1. The maximum number of levels depends on the model.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("criteria")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -43,7 +43,7 @@ namespace Ollama
         /// A nonempty string, or an object or array serialized as JSON text. Not interpreted as chat messages or multimodal input.
         /// </param>
         /// <param name="criteria">
-        /// Descriptions ordered from the lowest score (index 0) to the highest. Defines a scale from 0 to the number of criteria minus 1.
+        /// Descriptions ordered from the lowest score (index 0) to the highest. Defines a scale from 0 to the number of criteria minus 1. The maximum number of levels depends on the model.
         /// </param>
         /// <param name="type"></param>
 #if NET7_0_OR_GREATER

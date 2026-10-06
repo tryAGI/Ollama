@@ -4,7 +4,7 @@
 namespace Ollama
 {
     /// <summary>
-    /// Optional descriptions for the two outcomes. Omitted entries use No and Yes.
+    /// Optional descriptions for the two outcomes. Omitted entries use model-specific defaults.
     /// </summary>
     public sealed partial class SystemOneNoulQuestionCriteria
     {

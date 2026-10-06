@@ -17,7 +17,7 @@ namespace Ollama
         ///   "destination": "gemma4-backup"<br/>
         /// }'
         /// </remarks>
-        global::System.Threading.Tasks.Task CopyAsync(
+        global::System.Threading.Tasks.Task<global::Ollama.StatusResponse> CopyAsync(
 
             global::Ollama.CopyRequest request,
             global::Ollama.AutoSDKRequestOptions? requestOptions = default,
@@ -35,7 +35,7 @@ namespace Ollama
         ///   "destination": "gemma4-backup"<br/>
         /// }'
         /// </remarks>
-        global::System.Threading.Tasks.Task<global::Ollama.AutoSDKHttpResponse> CopyAsResponseAsync(
+        global::System.Threading.Tasks.Task<global::Ollama.AutoSDKHttpResponse<global::Ollama.StatusResponse>> CopyAsResponseAsync(
 
             global::Ollama.CopyRequest request,
             global::Ollama.AutoSDKRequestOptions? requestOptions = default,
@@ -52,7 +52,7 @@ namespace Ollama
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
-        global::System.Threading.Tasks.Task CopyAsync(
+        global::System.Threading.Tasks.Task<global::Ollama.StatusResponse> CopyAsync(
             string source,
             string destination,
             global::Ollama.AutoSDKRequestOptions? requestOptions = default,

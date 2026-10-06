@@ -24,7 +24,7 @@ namespace Ollama
         public required global::Ollama.SystemOneContent Instructions { get; set; }
 
         /// <summary>
-        /// Option keys mapped to descriptions. A null description uses the key itself. Keys must not be blank; ties follow the model's option order.
+        /// Option keys mapped to descriptions, or null for a bare label. Keys must not be blank; ties follow the model's option order. The option limit depends on the model.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("criteria")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -43,7 +43,7 @@ namespace Ollama
         /// A nonempty string, or an object or array serialized as JSON text. Not interpreted as chat messages or multimodal input.
         /// </param>
         /// <param name="criteria">
-        /// Option keys mapped to descriptions. A null description uses the key itself. Keys must not be blank; ties follow the model's option order.
+        /// Option keys mapped to descriptions, or null for a bare label. Keys must not be blank; ties follow the model's option order. The option limit depends on the model.
         /// </param>
         /// <param name="type"></param>
 #if NET7_0_OR_GREATER
