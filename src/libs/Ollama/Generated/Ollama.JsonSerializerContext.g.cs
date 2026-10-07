@@ -51,9 +51,31 @@ namespace Ollama
 
             typeof(global::Ollama.JsonConverters.SystemOneScoreAnswerTypeNullableJsonConverter),
 
+            typeof(global::Ollama.JsonConverters.UsageResponseRangeJsonConverter),
+
+            typeof(global::Ollama.JsonConverters.UsageResponseRangeNullableJsonConverter),
+
+            typeof(global::Ollama.JsonConverters.UsageResponseScopeJsonConverter),
+
+            typeof(global::Ollama.JsonConverters.UsageResponseScopeNullableJsonConverter),
+
+            typeof(global::Ollama.JsonConverters.UsageResponseGranularityJsonConverter),
+
+            typeof(global::Ollama.JsonConverters.UsageResponseGranularityNullableJsonConverter),
+
+            typeof(global::Ollama.JsonConverters.UsageRangeJsonConverter),
+
+            typeof(global::Ollama.JsonConverters.UsageRangeNullableJsonConverter),
+
+            typeof(global::Ollama.JsonConverters.UsageScopeJsonConverter),
+
+            typeof(global::Ollama.JsonConverters.UsageScopeNullableJsonConverter),
+
             typeof(global::Ollama.JsonConverters.ThinkValueJsonConverter),
 
             typeof(global::Ollama.JsonConverters.SystemOneContentJsonConverter),
+
+            typeof(global::Ollama.JsonConverters.UsageBucketJsonConverter),
 
             typeof(global::Ollama.JsonConverters.OneOfJsonConverter<string, global::System.Collections.Generic.IList<string>>),
 
@@ -78,6 +100,8 @@ namespace Ollama
             typeof(global::Ollama.JsonConverters.OneOfJsonConverter<string, double?>),
 
             typeof(global::Ollama.JsonConverters.OneOfJsonConverter<global::Ollama.SystemOneChoiceAnswer, global::Ollama.SystemOneNoulAnswer, global::Ollama.SystemOneScoreAnswer>),
+
+            typeof(global::Ollama.JsonConverters.OneOfJsonConverter<global::Ollama.IncludedBalance, global::Ollama.LegacyIncludedBalance>),
 
             typeof(global::Ollama.JsonConverters.UnixTimestampJsonConverter),
         })]
@@ -179,7 +203,24 @@ namespace Ollama
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.SystemOneResponse))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.OneOf<global::Ollama.SystemOneChoiceAnswer, global::Ollama.SystemOneNoulAnswer, global::Ollama.SystemOneScoreAnswer>), TypeInfoPropertyName = "OneOfSystemOneChoiceAnswerSystemOneNoulAnswerSystemOneScoreAnswer2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.SystemOneResponseUsage))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.UsageMetrics))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.UsageBucket), TypeInfoPropertyName = "UsageBucket2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.UsageBucketVariant2))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.UsageResponse))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.UsageResponseRange), TypeInfoPropertyName = "UsageResponseRange2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.UsageResponseScope), TypeInfoPropertyName = "UsageResponseScope2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.UsageResponseGranularity), TypeInfoPropertyName = "UsageResponseGranularity2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Ollama.UsageBucket>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.IncludedBalance))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.IncludedBalancePeriod))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.LegacyBalanceLimit))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.LegacyIncludedBalance))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.BalanceResponse))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.OneOf<global::Ollama.IncludedBalance, global::Ollama.LegacyIncludedBalance>), TypeInfoPropertyName = "OneOfIncludedBalanceLegacyIncludedBalance2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.BalanceResponsePurchased))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.ErrorResponse))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.UsageRange), TypeInfoPropertyName = "UsageRange2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.UsageScope), TypeInfoPropertyName = "UsageScope2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Ollama.OneOf<string, global::System.Collections.Generic.List<string>>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<string>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Ollama.Logprob>))]
@@ -195,6 +236,7 @@ namespace Ollama
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<long>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Ollama.TokenLogprob>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<byte[]>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Ollama.UsageBucket>))]
     public sealed partial class SourceGenerationContext : global::System.Text.Json.Serialization.JsonSerializerContext
     {
     }

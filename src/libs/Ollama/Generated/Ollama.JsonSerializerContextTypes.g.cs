@@ -405,7 +405,75 @@ namespace Ollama
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.ErrorResponse? Type93 { get; set; }
+        public global::Ollama.UsageMetrics? Type93 { get; set; }
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Ollama.UsageBucket? Type94 { get; set; }
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Ollama.UsageBucketVariant2? Type95 { get; set; }
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Ollama.UsageResponse? Type96 { get; set; }
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Ollama.UsageResponseRange? Type97 { get; set; }
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Ollama.UsageResponseScope? Type98 { get; set; }
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Ollama.UsageResponseGranularity? Type99 { get; set; }
+        /// <summary>
+        ///
+        /// </summary>
+        public global::System.Collections.Generic.IList<global::Ollama.UsageBucket>? Type100 { get; set; }
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Ollama.IncludedBalance? Type101 { get; set; }
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Ollama.IncludedBalancePeriod? Type102 { get; set; }
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Ollama.LegacyBalanceLimit? Type103 { get; set; }
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Ollama.LegacyIncludedBalance? Type104 { get; set; }
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Ollama.BalanceResponse? Type105 { get; set; }
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Ollama.OneOf<global::Ollama.IncludedBalance, global::Ollama.LegacyIncludedBalance>? Type106 { get; set; }
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Ollama.BalanceResponsePurchased? Type107 { get; set; }
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Ollama.ErrorResponse? Type108 { get; set; }
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Ollama.UsageRange? Type109 { get; set; }
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Ollama.UsageScope? Type110 { get; set; }
 
         /// <summary>
         ///
@@ -471,5 +539,9 @@ namespace Ollama
         ///
         /// </summary>
         public global::System.Collections.Generic.List<byte[]>? ListType15 { get; set; }
+        /// <summary>
+        ///
+        /// </summary>
+        public global::System.Collections.Generic.List<global::Ollama.UsageBucket>? ListType16 { get; set; }
     }
 }

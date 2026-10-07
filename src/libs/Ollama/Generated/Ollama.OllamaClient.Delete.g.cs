@@ -5,6 +5,14 @@ namespace Ollama
 {
     public partial class OllamaClient
     {
+
+        private static readonly global::Ollama.AutoSDKServer[] s_DeleteServers = new global::Ollama.AutoSDKServer[]
+        {            new global::Ollama.AutoSDKServer(
+                id: "http-localhost",
+                name: "Ollama",
+                url: "http://localhost:11434/",
+                description: "Ollama"),
+        };
         partial void PrepareDeleteArguments(
             global::System.Net.Http.HttpClient httpClient,
             global::Ollama.DeleteRequest request);
@@ -86,7 +94,9 @@ namespace Ollama
 
                             var __pathBuilder = new global::Ollama.PathBuilder(
                                 path: "/api/delete",
-                                baseUri: HttpClient.BaseAddress);
+                                baseUri: ResolveBaseUri(
+                                servers: s_DeleteServers,
+                                defaultBaseUrl: "http://localhost:11434/"));
                             var __path = __pathBuilder.ToString();
                 __path = global::Ollama.AutoSDKRequestOptionsSupport.AppendQueryParameters(
                     path: __path,
