@@ -73,13 +73,13 @@ namespace Ollama
         /// Answer choice, yes/no, and scoring questions with a local System One model. Requires Ollama v0.35.0 or later. See the [decision guide](/capabilities/decision) for examples.
         /// </summary>
         /// <param name="model">
-        /// Local model trained for System One, such as nimble. Requires compatible GGUF weights and a scoring-capable runner; cloud and MLX/Safetensors models are not supported.
+        /// Local model trained for System One, such as nimble.
         /// </param>
         /// <param name="state">
         /// A nonempty string, or an object or array serialized as JSON text. Not interpreted as chat messages or multimodal input.
         /// </param>
         /// <param name="images">
-        /// Base64-encoded images shared by all questions, in request order. Requires Clef or Clef Flash with vision weights. URLs and data URLs are not supported.
+        /// Base64-encoded images shared by all questions, in request order. Requires a model with vision, such as Clef. URLs and data URLs are not supported.
         /// </param>
         /// <param name="questions">
         /// Named questions about the shared state. Answers are not passed to later questions.

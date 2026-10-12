@@ -9,13 +9,13 @@ namespace Ollama
     public sealed partial class SystemOneNoulQuestionCriteria
     {
         /// <summary>
-        /// Default Value: No
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("false")]
         public string? False { get; set; }
 
         /// <summary>
-        /// Default Value: Yes
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("true")]
         public string? True { get; set; }
@@ -29,12 +29,8 @@ namespace Ollama
         /// <summary>
         /// Initializes a new instance of the <see cref="SystemOneNoulQuestionCriteria" /> class.
         /// </summary>
-        /// <param name="false">
-        /// Default Value: No
-        /// </param>
-        /// <param name="true">
-        /// Default Value: Yes
-        /// </param>
+        /// <param name="false"></param>
+        /// <param name="true"></param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
