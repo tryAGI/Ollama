@@ -872,10 +872,8 @@ components:
           properties:
             "false":
               type: string
-              default: "No"
             "true":
               type: string
-              default: "Yes"
           additionalProperties: false
     SystemOneScoreQuestion:
       title: Score
@@ -889,9 +887,9 @@ components:
           $ref: "#/components/schemas/SystemOneContent"
         criteria:
           type: array
-          description: Descriptions ordered from the lowest score (index 0) to the highest. Defines a scale from 0 to the number of criteria minus 1. The maximum number of levels depends on the model.
+          description: Descriptions ordered from the lowest score (index 0) to the highest. Defines a scale from 0 to the number of criteria minus 1.
           minItems: 2
-          maxItems: 26
+          maxItems: 10
           items:
             type: string
     SystemOneRequest:
@@ -901,12 +899,12 @@ components:
         model:
           type: string
           pattern: '\S'
-          description: Local model trained for System One, such as nimble. Requires compatible GGUF weights and a scoring-capable runner; cloud and MLX/Safetensors models are not supported.
+          description: Local model trained for System One, such as nimble.
         state:
           $ref: "#/components/schemas/SystemOneContent"
         images:
           type: array
-          description: Base64-encoded images shared by all questions, in request order. Requires Clef or Clef Flash with vision weights. URLs and data URLs are not supported.
+          description: Base64-encoded images shared by all questions, in request order. Requires a model with vision, such as Clef. URLs and data URLs are not supported.
           items:
             type: string
             format: byte
@@ -978,7 +976,7 @@ components:
         score:
           type: number
           minimum: 0
-          maximum: 25
+          maximum: 9
           description: Probability-weighted average of the zero-based criterion indices, from 0 to the number of criteria minus 1. Not rounded to a level or normalized to 0–1.
         legend:
           type: object
