@@ -9,9 +9,9 @@ namespace Ollama
         private static readonly global::Ollama.AutoSDKServer[] s_UsageServers = new global::Ollama.AutoSDKServer[]
         {            new global::Ollama.AutoSDKServer(
                 id: "https-ollama-com",
-                name: "Ollama Cloud",
+                name: "Ollama's cloud",
                 url: "https://ollama.com/",
-                description: "Ollama Cloud"),
+                description: "Ollama's cloud"),
         };
 
 

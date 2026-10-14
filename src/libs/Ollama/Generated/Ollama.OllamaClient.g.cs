@@ -59,9 +59,9 @@ namespace Ollama
                 description: "Ollama"),
             new global::Ollama.AutoSDKServer(
                 id: "https-ollama-com",
-                name: "Ollama Cloud",
+                name: "Ollama's cloud",
                 url: "https://ollama.com/",
-                description: "Ollama Cloud"),
+                description: "Ollama's cloud"),
         };
 
         /// <summary>
