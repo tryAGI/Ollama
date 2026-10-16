@@ -344,9 +344,18 @@ namespace Ollama
 
                             using var __reader = new global::System.IO.StreamReader(__stream);
 
-                            while (!__reader.EndOfStream && !__effectiveCancellationToken.IsCancellationRequested)
+                            while (true)
                             {
-                                var __content = await __reader.ReadLineAsync().ConfigureAwait(false) ?? string.Empty;
+                                __effectiveCancellationToken.ThrowIfCancellationRequested();
+                #if NET8_0_OR_GREATER
+                                var __content = await __reader.ReadLineAsync(__effectiveCancellationToken).ConfigureAwait(false);
+                #else
+                                var __content = await __reader.ReadLineAsync().ConfigureAwait(false);
+                #endif
+                                if (__content is null)
+                                {
+                                    break;
+                                }
                                 if (global::System.String.IsNullOrWhiteSpace(__content))
                                 {
                                     continue;
