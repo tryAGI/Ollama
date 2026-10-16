@@ -13,38 +13,38 @@ namespace Ollama
         ///
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::Ollama.UsageMetrics? Metrics { get; init; }
+        public global::Ollama.UsageSummary? Summary { get; init; }
 #else
-        public global::Ollama.UsageMetrics? Metrics { get; }
+        public global::Ollama.UsageSummary? Summary { get; }
 #endif
 
         /// <summary>
         ///
         /// </summary>
 #if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Metrics))]
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Summary))]
 #endif
-        public bool IsMetrics => Metrics != null;
+        public bool IsSummary => Summary != null;
 
         /// <summary>
         ///
         /// </summary>
-        public bool TryPickMetrics(
+        public bool TryPickSummary(
 #if NET6_0_OR_GREATER
             [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
 #endif
-            out global::Ollama.UsageMetrics? value)
+            out global::Ollama.UsageSummary? value)
         {
-            value = Metrics;
-            return IsMetrics;
+            value = Summary;
+            return IsSummary;
         }
 
         /// <summary>
         ///
         /// </summary>
-        public global::Ollama.UsageMetrics PickMetrics() => Metrics is { } value
+        public global::Ollama.UsageSummary PickSummary() => Summary is { } value
             ? value
-            : throw new global::System.InvalidOperationException($"Expected union variant 'Metrics' but the value was {ToString()}.");
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Summary' but the value was {ToString()}.");
 
         /// <summary>
         ///
@@ -85,25 +85,25 @@ namespace Ollama
         /// <summary>
         ///
         /// </summary>
-        public static implicit operator UsageBucket(global::Ollama.UsageMetrics value) => new UsageBucket((global::Ollama.UsageMetrics?)value);
+        public static implicit operator UsageBucket(global::Ollama.UsageSummary value) => new UsageBucket((global::Ollama.UsageSummary?)value);
 
         /// <summary>
         ///
         /// </summary>
-        public static implicit operator global::Ollama.UsageMetrics?(UsageBucket @this) => @this.Metrics;
+        public static implicit operator global::Ollama.UsageSummary?(UsageBucket @this) => @this.Summary;
 
         /// <summary>
         ///
         /// </summary>
-        public UsageBucket(global::Ollama.UsageMetrics? value)
+        public UsageBucket(global::Ollama.UsageSummary? value)
         {
-            Metrics = value;
+            Summary = value;
         }
 
         /// <summary>
         ///
         /// </summary>
-        public static UsageBucket FromMetrics(global::Ollama.UsageMetrics? value) => new UsageBucket(value);
+        public static UsageBucket FromSummary(global::Ollama.UsageSummary? value) => new UsageBucket(value);
 
         /// <summary>
         ///
@@ -132,11 +132,11 @@ namespace Ollama
         ///
         /// </summary>
         public UsageBucket(
-            global::Ollama.UsageMetrics? metrics,
+            global::Ollama.UsageSummary? summary,
             global::Ollama.UsageBucketVariant2? usageBucketVariant2
             )
         {
-            Metrics = metrics;
+            Summary = summary;
             UsageBucketVariant2 = usageBucketVariant2;
         }
 
@@ -145,14 +145,14 @@ namespace Ollama
         /// </summary>
         public object? Object =>
             UsageBucketVariant2 as object ??
-            Metrics as object
+            Summary as object
             ;
 
         /// <summary>
         ///
         /// </summary>
         public override string? ToString() =>
-            Metrics?.ToString() ??
+            Summary?.ToString() ??
             UsageBucketVariant2?.ToString()
             ;
 
@@ -161,14 +161,14 @@ namespace Ollama
         /// </summary>
         public bool Validate()
         {
-            return IsMetrics && IsUsageBucketVariant2;
+            return IsSummary && IsUsageBucketVariant2;
         }
 
         /// <summary>
         ///
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Ollama.UsageMetrics, TResult>? metrics = null,
+            global::System.Func<global::Ollama.UsageSummary?, TResult>? summary = null,
             global::System.Func<global::Ollama.UsageBucketVariant2, TResult>? usageBucketVariant2 = null,
             bool validate = true)
         {
@@ -177,9 +177,9 @@ namespace Ollama
                 Validate();
             }
 
-            if (Metrics is { } __value0 && metrics != null)
+            if (Summary is { } __value0 && summary != null)
             {
-                return metrics(__value0);
+                return summary(__value0);
             }
             else if (UsageBucketVariant2 is { } __value1 && usageBucketVariant2 != null)
             {
@@ -193,7 +193,7 @@ namespace Ollama
         ///
         /// </summary>
         public void Match(
-            global::System.Action<global::Ollama.UsageMetrics>? metrics = null,
+            global::System.Action<global::Ollama.UsageSummary?>? summary = null,
 
             global::System.Action<global::Ollama.UsageBucketVariant2>? usageBucketVariant2 = null,
             bool validate = true)
@@ -203,9 +203,9 @@ namespace Ollama
                 Validate();
             }
 
-            if (Metrics is { } __value0)
+            if (Summary is { } __value0)
             {
-                metrics?.Invoke(__value0);
+                summary?.Invoke(__value0);
             }
             else if (UsageBucketVariant2 is { } __value1)
             {
@@ -217,7 +217,7 @@ namespace Ollama
         ///
         /// </summary>
         public void Switch(
-            global::System.Action<global::Ollama.UsageMetrics>? metrics = null,
+            global::System.Action<global::Ollama.UsageSummary?>? summary = null,
             global::System.Action<global::Ollama.UsageBucketVariant2>? usageBucketVariant2 = null,
             bool validate = true)
         {
@@ -226,9 +226,9 @@ namespace Ollama
                 Validate();
             }
 
-            if (Metrics is { } __value0)
+            if (Summary is { } __value0)
             {
-                metrics?.Invoke(__value0);
+                summary?.Invoke(__value0);
             }
             else if (UsageBucketVariant2 is { } __value1)
             {
@@ -243,8 +243,8 @@ namespace Ollama
         {
             var fields = new object?[]
             {
-                Metrics,
-                typeof(global::Ollama.UsageMetrics),
+                Summary,
+                typeof(global::Ollama.UsageSummary),
                 UsageBucketVariant2,
                 typeof(global::Ollama.UsageBucketVariant2),
             };
@@ -263,7 +263,7 @@ namespace Ollama
         public bool Equals(UsageBucket other)
         {
             return
-                global::System.Collections.Generic.EqualityComparer<global::Ollama.UsageMetrics?>.Default.Equals(Metrics, other.Metrics) &&
+                global::System.Collections.Generic.EqualityComparer<global::Ollama.UsageSummary?>.Default.Equals(Summary, other.Summary) &&
                 global::System.Collections.Generic.EqualityComparer<global::Ollama.UsageBucketVariant2?>.Default.Equals(UsageBucketVariant2, other.UsageBucketVariant2)
                 ;
         }

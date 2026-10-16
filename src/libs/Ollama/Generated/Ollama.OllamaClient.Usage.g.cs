@@ -36,12 +36,14 @@ namespace Ollama
         partial void PrepareUsageArguments(
             global::System.Net.Http.HttpClient httpClient,
             ref global::Ollama.UsageRange? range,
-            ref global::Ollama.UsageScope? scope);
+            ref global::Ollama.UsageScope? scope,
+            ref global::Ollama.UsageGroupBy? groupBy);
         partial void PrepareUsageRequest(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpRequestMessage httpRequestMessage,
             global::Ollama.UsageRange? range,
-            global::Ollama.UsageScope? scope);
+            global::Ollama.UsageScope? scope,
+            global::Ollama.UsageGroupBy? groupBy);
         partial void ProcessUsageResponse(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage);
@@ -61,18 +63,21 @@ namespace Ollama
         /// <param name="scope">
         /// Default Value: self
         /// </param>
+        /// <param name="groupBy"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Ollama.ApiException"></exception>
         public async global::System.Threading.Tasks.Task<global::Ollama.UsageResponse> UsageAsync(
             global::Ollama.UsageRange? range = default,
             global::Ollama.UsageScope? scope = default,
+            global::Ollama.UsageGroupBy? groupBy = default,
             global::Ollama.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
             var __response = await UsageAsResponseAsync(
                 range: range,
                 scope: scope,
+                groupBy: groupBy,
                 requestOptions: requestOptions,
                 cancellationToken: cancellationToken
             ).ConfigureAwait(false);
@@ -89,12 +94,14 @@ namespace Ollama
         /// <param name="scope">
         /// Default Value: self
         /// </param>
+        /// <param name="groupBy"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Ollama.ApiException"></exception>
         public async global::System.Threading.Tasks.Task<global::Ollama.AutoSDKHttpResponse<global::Ollama.UsageResponse>> UsageAsResponseAsync(
             global::Ollama.UsageRange? range = default,
             global::Ollama.UsageScope? scope = default,
+            global::Ollama.UsageGroupBy? groupBy = default,
             global::Ollama.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
@@ -103,7 +110,8 @@ namespace Ollama
             PrepareUsageArguments(
                 httpClient: HttpClient,
                 range: ref range,
-                scope: ref scope);
+                scope: ref scope,
+                groupBy: ref groupBy);
 
 
             var __authorizations = global::Ollama.EndPointSecurityResolver.ResolveAuthorizations(
@@ -136,6 +144,7 @@ namespace Ollama
                             __pathBuilder
                                 .AddOptionalParameter("range", range?.ToValueString())
                                 .AddOptionalParameter("scope", scope?.ToValueString())
+                                .AddOptionalParameter("group_by", groupBy?.ToValueString())
                                 ;
                             var __path = __pathBuilder.ToString();
                 __path = global::Ollama.AutoSDKRequestOptionsSupport.AppendQueryParameters(
@@ -178,7 +187,8 @@ namespace Ollama
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
                     range: range,
-                    scope: scope);
+                    scope: scope,
+                    groupBy: groupBy);
 
                 global::Ollama.AutoSDKHttpRequestOptions.StampAuthorizationOverride(__httpRequest);
 
