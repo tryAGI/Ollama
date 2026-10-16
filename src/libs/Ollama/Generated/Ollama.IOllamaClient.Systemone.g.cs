@@ -6,7 +6,7 @@ namespace Ollama
     {
         /// <summary>
         /// Answer typed questions<br/>
-        /// Answer choice, yes/no, and scoring questions with a local System One model. Requires Ollama v0.35.0 or later. See the [decision guide](/capabilities/decision) for examples.
+        /// Answer choice, yes/no, and scoring questions with a System One model, locally or in Ollama's cloud. Requires Ollama v0.35.0 or later, or v0.40.5 or later for cloud models. See the [decision guide](/capabilities/decision) for examples.
         /// </summary>
         /// <param name="request"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
@@ -38,7 +38,7 @@ namespace Ollama
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Answer typed questions<br/>
-        /// Answer choice, yes/no, and scoring questions with a local System One model. Requires Ollama v0.35.0 or later. See the [decision guide](/capabilities/decision) for examples.
+        /// Answer choice, yes/no, and scoring questions with a System One model, locally or in Ollama's cloud. Requires Ollama v0.35.0 or later, or v0.40.5 or later for cloud models. See the [decision guide](/capabilities/decision) for examples.
         /// </summary>
         /// <param name="request"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
@@ -70,10 +70,10 @@ namespace Ollama
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Answer typed questions<br/>
-        /// Answer choice, yes/no, and scoring questions with a local System One model. Requires Ollama v0.35.0 or later. See the [decision guide](/capabilities/decision) for examples.
+        /// Answer choice, yes/no, and scoring questions with a System One model, locally or in Ollama's cloud. Requires Ollama v0.35.0 or later, or v0.40.5 or later for cloud models. See the [decision guide](/capabilities/decision) for examples.
         /// </summary>
         /// <param name="model">
-        /// Local model trained for System One, such as nimble.
+        /// Model trained for System One, such as nimble, or clef:cloud for Ollama's cloud.
         /// </param>
         /// <param name="state">
         /// A nonempty string, or an object or array serialized as JSON text. Not interpreted as chat messages or multimodal input.
@@ -82,7 +82,7 @@ namespace Ollama
         /// Base64-encoded images shared by all questions, in request order. Requires a model with vision, such as Clef. URLs and data URLs are not supported.
         /// </param>
         /// <param name="questions">
-        /// Named questions about the shared state. Answers are not passed to later questions.
+        /// Named questions about the shared state. Answers are not passed to later questions. Cloud models accept names of up to 100 ASCII letters, digits, `_`, `.`, or `-`.
         /// </param>
         /// <param name="keepAlive">
         /// How long to keep the model loaded after the request, as a duration string (such as 5m) or seconds. Zero unloads after the request; a negative value keeps it loaded. Defaults to the server's keep-alive setting (5m unless configured otherwise).

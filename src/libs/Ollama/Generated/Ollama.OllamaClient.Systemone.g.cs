@@ -12,7 +12,41 @@ namespace Ollama
                 name: "Ollama",
                 url: "http://localhost:11434/",
                 description: "Ollama"),
+            new global::Ollama.AutoSDKServer(
+                id: "https-ollama-com",
+                name: "Ollama's cloud",
+                url: "https://ollama.com/",
+                description: "Ollama's cloud"),
         };
+
+
+        private static readonly global::Ollama.EndPointSecurityRequirement s_SystemoneSecurityRequirement0 =
+            new global::Ollama.EndPointSecurityRequirement
+            {
+                Authorizations = new global::Ollama.EndPointAuthorizationRequirement[]
+                {
+                },
+            };
+
+        private static readonly global::Ollama.EndPointSecurityRequirement s_SystemoneSecurityRequirement1 =
+            new global::Ollama.EndPointSecurityRequirement
+            {
+                Authorizations = new global::Ollama.EndPointAuthorizationRequirement[]
+                {                    new global::Ollama.EndPointAuthorizationRequirement
+                    {
+                        Type = "Http",
+                        SchemeId = "BearerAuth",
+                        Location = "Header",
+                        Name = "Bearer",
+                        FriendlyName = "Bearer",
+                    },
+                },
+            };
+        private static readonly global::Ollama.EndPointSecurityRequirement[] s_SystemoneSecurityRequirements =
+            new global::Ollama.EndPointSecurityRequirement[]
+            {                s_SystemoneSecurityRequirement0,
+                s_SystemoneSecurityRequirement1,
+            };
         partial void PrepareSystemoneArguments(
             global::System.Net.Http.HttpClient httpClient,
             global::Ollama.SystemOneRequest request);
@@ -31,7 +65,7 @@ namespace Ollama
 
         /// <summary>
         /// Answer typed questions<br/>
-        /// Answer choice, yes/no, and scoring questions with a local System One model. Requires Ollama v0.35.0 or later. See the [decision guide](/capabilities/decision) for examples.
+        /// Answer choice, yes/no, and scoring questions with a System One model, locally or in Ollama's cloud. Requires Ollama v0.35.0 or later, or v0.40.5 or later for cloud models. See the [decision guide](/capabilities/decision) for examples.
         /// </summary>
         /// <param name="request"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
@@ -73,7 +107,7 @@ namespace Ollama
         }
         /// <summary>
         /// Answer typed questions<br/>
-        /// Answer choice, yes/no, and scoring questions with a local System One model. Requires Ollama v0.35.0 or later. See the [decision guide](/capabilities/decision) for examples.
+        /// Answer choice, yes/no, and scoring questions with a System One model, locally or in Ollama's cloud. Requires Ollama v0.35.0 or later, or v0.40.5 or later for cloud models. See the [decision guide](/capabilities/decision) for examples.
         /// </summary>
         /// <param name="request"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
@@ -112,6 +146,12 @@ namespace Ollama
                 httpClient: HttpClient,
                 request: request);
 
+
+            var __authorizations = global::Ollama.EndPointSecurityResolver.ResolveAuthorizations(
+                availableAuthorizations: Authorizations,
+                securityRequirements: s_SystemoneSecurityRequirements,
+                operationName: "SystemoneAsync");
+
             using var __timeoutCancellationTokenSource = global::Ollama.AutoSDKRequestOptionsSupport.CreateTimeoutCancellationTokenSource(
                 clientOptions: Options,
                 requestOptions: requestOptions,
@@ -146,6 +186,23 @@ namespace Ollama
                 __httpRequest.Version = global::System.Net.HttpVersion.Version11;
                 __httpRequest.VersionPolicy = global::System.Net.Http.HttpVersionPolicy.RequestVersionOrHigher;
 #endif
+
+            foreach (var __authorization in __authorizations)
+            {
+                if (__authorization.Type == "Http" ||
+                    __authorization.Type == "OAuth2" ||
+                    __authorization.Type == "OpenIdConnect")
+                {
+                    __httpRequest.Headers.Authorization = new global::System.Net.Http.Headers.AuthenticationHeaderValue(
+                        scheme: __authorization.Name,
+                        parameter: __authorization.Value);
+                }
+                else if (__authorization.Type == "ApiKey" &&
+                         __authorization.Location == "Header")
+                {
+                    __httpRequest.Headers.Add(__authorization.Name, __authorization.Value);
+                }
+            }
                             var __httpRequestContentBody = request.ToJson(JsonSerializerContext);
                             var __httpRequestContent = new global::System.Net.Http.StringContent(
                                 content: __httpRequestContentBody,
@@ -164,6 +221,8 @@ namespace Ollama
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
                     request: request);
+
+                global::Ollama.AutoSDKHttpRequestOptions.StampAuthorizationOverride(__httpRequest);
 
                 return __httpRequest;
             }
@@ -342,7 +401,7 @@ namespace Ollama
                                 retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
-                            // Invalid request, unsupported model or runner, or a rendered prompt that exceeds the loaded context. Cloud models are rejected.
+                            // Invalid request, unsupported model or runner, or a rendered prompt that exceeds the loaded context or a cloud model's token limit.
                             if ((int)__response.StatusCode == 400)
                             {
                                 string? __content_400 = null;
@@ -379,7 +438,81 @@ namespace Ollama
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // Local model not found. Download the model before making a request.
+                            // A cloud model was requested without signing in, or with an invalid API key. Through a local server, the response includes a `signin_url`.
+                            if ((int)__response.StatusCode == 401)
+                            {
+                                string? __content_401 = null;
+                                global::System.Exception? __exception_401 = null;
+                                global::Ollama.ErrorResponse? __value_401 = null;
+                                try
+                                {
+                                    if (__effectiveReadResponseAsString)
+                                    {
+                                        __content_401 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+                                        __value_401 = global::Ollama.ErrorResponse.FromJson(__content_401, JsonSerializerContext);
+                                    }
+                                    else
+                                    {
+                                        __content_401 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+
+                                        __value_401 = global::Ollama.ErrorResponse.FromJson(__content_401, JsonSerializerContext);
+                                    }
+                                }
+                                catch (global::System.Exception __ex)
+                                {
+                                    __exception_401 = __ex;
+                                }
+
+
+                                throw global::Ollama.ApiException<global::Ollama.ErrorResponse>.Create(
+                                    statusCode: __response.StatusCode,
+                                    message: __content_401 ?? __response.ReasonPhrase ?? string.Empty,
+                                    innerException: __exception_401,
+                                    responseBody: __content_401,
+                                    responseObject: __value_401,
+                                    responseHeaders: global::System.Linq.Enumerable.ToDictionary(
+                                        __response.Headers,
+                                        h => h.Key,
+                                        h => h.Value));
+                            }
+                            // The cloud model isn't included in the Free plan. Add usage credits or upgrade. Also returned when a payment fails.
+                            if ((int)__response.StatusCode == 402)
+                            {
+                                string? __content_402 = null;
+                                global::System.Exception? __exception_402 = null;
+                                global::Ollama.ErrorResponse? __value_402 = null;
+                                try
+                                {
+                                    if (__effectiveReadResponseAsString)
+                                    {
+                                        __content_402 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+                                        __value_402 = global::Ollama.ErrorResponse.FromJson(__content_402, JsonSerializerContext);
+                                    }
+                                    else
+                                    {
+                                        __content_402 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+
+                                        __value_402 = global::Ollama.ErrorResponse.FromJson(__content_402, JsonSerializerContext);
+                                    }
+                                }
+                                catch (global::System.Exception __ex)
+                                {
+                                    __exception_402 = __ex;
+                                }
+
+
+                                throw global::Ollama.ApiException<global::Ollama.ErrorResponse>.Create(
+                                    statusCode: __response.StatusCode,
+                                    message: __content_402 ?? __response.ReasonPhrase ?? string.Empty,
+                                    innerException: __exception_402,
+                                    responseBody: __content_402,
+                                    responseObject: __value_402,
+                                    responseHeaders: global::System.Linq.Enumerable.ToDictionary(
+                                        __response.Headers,
+                                        h => h.Key,
+                                        h => h.Value));
+                            }
+                            // Model not found. Download a local model before making a request.
                             if ((int)__response.StatusCode == 404)
                             {
                                 string? __content_404 = null;
@@ -416,7 +549,7 @@ namespace Ollama
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // Request body exceeds 64 KiB without images or 32 MiB with images.
+                            // Local text and schema exceed 64 KiB or the request exceeds 32 MiB, or a cloud request exceeds 13 MiB or the model's context window.
                             if ((int)__response.StatusCode == 413)
                             {
                                 string? __content_413 = null;
@@ -588,10 +721,10 @@ namespace Ollama
         }
         /// <summary>
         /// Answer typed questions<br/>
-        /// Answer choice, yes/no, and scoring questions with a local System One model. Requires Ollama v0.35.0 or later. See the [decision guide](/capabilities/decision) for examples.
+        /// Answer choice, yes/no, and scoring questions with a System One model, locally or in Ollama's cloud. Requires Ollama v0.35.0 or later, or v0.40.5 or later for cloud models. See the [decision guide](/capabilities/decision) for examples.
         /// </summary>
         /// <param name="model">
-        /// Local model trained for System One, such as nimble.
+        /// Model trained for System One, such as nimble, or clef:cloud for Ollama's cloud.
         /// </param>
         /// <param name="state">
         /// A nonempty string, or an object or array serialized as JSON text. Not interpreted as chat messages or multimodal input.
@@ -600,7 +733,7 @@ namespace Ollama
         /// Base64-encoded images shared by all questions, in request order. Requires a model with vision, such as Clef. URLs and data URLs are not supported.
         /// </param>
         /// <param name="questions">
-        /// Named questions about the shared state. Answers are not passed to later questions.
+        /// Named questions about the shared state. Answers are not passed to later questions. Cloud models accept names of up to 100 ASCII letters, digits, `_`, `.`, or `-`.
         /// </param>
         /// <param name="keepAlive">
         /// How long to keep the model loaded after the request, as a duration string (such as 5m) or seconds. Zero unloads after the request; a negative value keeps it loaded. Defaults to the server's keep-alive setting (5m unless configured otherwise).
