@@ -18,12 +18,12 @@ namespace Ollama.JsonConverters
             using var __jsonDocument = global::System.Text.Json.JsonDocument.ParseValue(ref reader);
             var __rawJson = __jsonDocument.RootElement.GetRawText();
 
-            global::Ollama.UsageMetrics? metrics = default;
+            global::Ollama.UsageSummary? summary = default;
             try
             {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Ollama.UsageMetrics), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Ollama.UsageMetrics> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Ollama.UsageMetrics).Name}");
-                metrics = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Ollama.UsageSummary), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Ollama.UsageSummary> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Ollama.UsageSummary).Name}");
+                summary = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
             }
             catch (global::System.Text.Json.JsonException)
             {
@@ -46,7 +46,7 @@ namespace Ollama.JsonConverters
             {
             }
             var __value = new global::Ollama.UsageBucket(
-                metrics,
+                summary,
 
                 usageBucketVariant2
                 );
@@ -66,11 +66,11 @@ namespace Ollama.JsonConverters
 
             writer.WriteStartObject();
             var __writtenPropertyNames = new global::System.Collections.Generic.HashSet<string>(global::System.StringComparer.Ordinal);
-            if (value.IsMetrics)
+            if (value.IsSummary)
             {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Ollama.UsageMetrics), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Ollama.UsageMetrics?> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Ollama.UsageMetrics).Name}");
-                var __element0 = global::System.Text.Json.JsonSerializer.SerializeToElement(value.PickMetrics(), typeInfo);
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Ollama.UsageSummary), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Ollama.UsageSummary> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Ollama.UsageSummary).Name}");
+                var __element0 = global::System.Text.Json.JsonSerializer.SerializeToElement(value.PickSummary(), typeInfo);
                 if (__element0.ValueKind != global::System.Text.Json.JsonValueKind.Object)
                 {
                     throw new global::System.Text.Json.JsonException("AllOf values must serialize as JSON objects.");

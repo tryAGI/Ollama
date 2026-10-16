@@ -33,6 +33,13 @@ namespace Ollama
         public required global::Ollama.UsageResponseGranularity Granularity { get; set; }
 
         /// <summary>
+        /// Selected grouping. Present when group_by is requested.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("group_by")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Ollama.JsonConverters.UsageResponseGroupByJsonConverter))]
+        public global::Ollama.UsageResponseGroupBy? GroupBy { get; set; }
+
+        /// <summary>
         /// Start of the range in UTC, inclusive.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("from")]
@@ -47,11 +54,12 @@ namespace Ollama
         public required global::System.DateTime Until { get; set; }
 
         /// <summary>
-        /// Usage across the entire range.
+        /// Usage across the entire range, including groups in the remainder.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("totals")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Ollama.JsonConverters.UsageSummaryJsonConverter))]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required global::Ollama.UsageMetrics Totals { get; set; }
+        public required global::Ollama.UsageSummary Totals { get; set; }
 
         /// <summary>
         /// Usage in chronological order, including buckets with no recorded requests.
@@ -85,10 +93,13 @@ namespace Ollama
         /// End of the range in UTC, exclusive.
         /// </param>
         /// <param name="totals">
-        /// Usage across the entire range.
+        /// Usage across the entire range, including groups in the remainder.
         /// </param>
         /// <param name="buckets">
         /// Usage in chronological order, including buckets with no recorded requests.
+        /// </param>
+        /// <param name="groupBy">
+        /// Selected grouping. Present when group_by is requested.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -99,15 +110,17 @@ namespace Ollama
             global::Ollama.UsageResponseGranularity granularity,
             global::System.DateTime from,
             global::System.DateTime until,
-            global::Ollama.UsageMetrics totals,
-            global::System.Collections.Generic.IList<global::Ollama.UsageBucket> buckets)
+            global::Ollama.UsageSummary totals,
+            global::System.Collections.Generic.IList<global::Ollama.UsageBucket> buckets,
+            global::Ollama.UsageResponseGroupBy? groupBy)
         {
             this.Range = range;
             this.Scope = scope;
             this.Granularity = granularity;
+            this.GroupBy = groupBy;
             this.From = from;
             this.Until = until;
-            this.Totals = totals ?? throw new global::System.ArgumentNullException(nameof(totals));
+            this.Totals = totals;
             this.Buckets = buckets ?? throw new global::System.ArgumentNullException(nameof(buckets));
         }
 

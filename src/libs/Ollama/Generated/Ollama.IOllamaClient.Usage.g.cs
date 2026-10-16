@@ -14,12 +14,14 @@ namespace Ollama
         /// <param name="scope">
         /// Default Value: self
         /// </param>
+        /// <param name="groupBy"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Ollama.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::Ollama.UsageResponse> UsageAsync(
             global::Ollama.UsageRange? range = default,
             global::Ollama.UsageScope? scope = default,
+            global::Ollama.UsageGroupBy? groupBy = default,
             global::Ollama.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
@@ -32,12 +34,14 @@ namespace Ollama
         /// <param name="scope">
         /// Default Value: self
         /// </param>
+        /// <param name="groupBy"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Ollama.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::Ollama.AutoSDKHttpResponse<global::Ollama.UsageResponse>> UsageAsResponseAsync(
             global::Ollama.UsageRange? range = default,
             global::Ollama.UsageScope? scope = default,
+            global::Ollama.UsageGroupBy? groupBy = default,
             global::Ollama.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
