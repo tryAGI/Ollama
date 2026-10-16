@@ -9,7 +9,7 @@ namespace Ollama
     public sealed partial class SystemOneRequest
     {
         /// <summary>
-        /// Local model trained for System One, such as nimble.
+        /// Model trained for System One, such as nimble, or clef:cloud for Ollama's cloud.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("model")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -30,7 +30,7 @@ namespace Ollama
         public global::System.Collections.Generic.IList<byte[]>? Images { get; set; }
 
         /// <summary>
-        /// Named questions about the shared state. Answers are not passed to later questions.
+        /// Named questions about the shared state. Answers are not passed to later questions. Cloud models accept names of up to 100 ASCII letters, digits, `_`, `.`, or `-`.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("questions")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -53,13 +53,13 @@ namespace Ollama
         /// Initializes a new instance of the <see cref="SystemOneRequest" /> class.
         /// </summary>
         /// <param name="model">
-        /// Local model trained for System One, such as nimble.
+        /// Model trained for System One, such as nimble, or clef:cloud for Ollama's cloud.
         /// </param>
         /// <param name="state">
         /// A nonempty string, or an object or array serialized as JSON text. Not interpreted as chat messages or multimodal input.
         /// </param>
         /// <param name="questions">
-        /// Named questions about the shared state. Answers are not passed to later questions.
+        /// Named questions about the shared state. Answers are not passed to later questions. Cloud models accept names of up to 100 ASCII letters, digits, `_`, `.`, or `-`.
         /// </param>
         /// <param name="images">
         /// Base64-encoded images shared by all questions, in request order. Requires a model with vision, such as Clef. URLs and data URLs are not supported.

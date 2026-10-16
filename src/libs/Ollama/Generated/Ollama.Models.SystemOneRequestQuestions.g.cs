@@ -4,7 +4,7 @@
 namespace Ollama
 {
     /// <summary>
-    /// Named questions about the shared state. Answers are not passed to later questions.
+    /// Named questions about the shared state. Answers are not passed to later questions. Cloud models accept names of up to 100 ASCII letters, digits, `_`, `.`, or `-`.
     /// </summary>
     public sealed partial class SystemOneRequestQuestions
     {
