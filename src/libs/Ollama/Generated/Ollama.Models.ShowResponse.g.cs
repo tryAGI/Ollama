@@ -45,6 +45,24 @@ namespace Ollama
         public string? Template { get; set; }
 
         /// <summary>
+        /// The effective chat renderer of the model (aliases resolved), when one is set
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("renderer")]
+        public string? Renderer { get; set; }
+
+        /// <summary>
+        /// The output parser configured on the model, when one is set
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("parser")]
+        public string? Parser { get; set; }
+
+        /// <summary>
+        /// Where the chat prompt actually comes from; one of `renderer_parser`, `renderer`, `parser` (a Go renderer runs and any packaged template is inert), `harmony`, `go_template`, `gguf_chat_template` (the runner renders the GGUF's embedded jinja), or `none`
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("template_source")]
+        public string? TemplateSource { get; set; }
+
+        /// <summary>
         /// List of supported features
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("capabilities")]
@@ -83,6 +101,15 @@ namespace Ollama
         /// <param name="template">
         /// The template used by the model to render prompts
         /// </param>
+        /// <param name="renderer">
+        /// The effective chat renderer of the model (aliases resolved), when one is set
+        /// </param>
+        /// <param name="parser">
+        /// The output parser configured on the model, when one is set
+        /// </param>
+        /// <param name="templateSource">
+        /// Where the chat prompt actually comes from; one of `renderer_parser`, `renderer`, `parser` (a Go renderer runs and any packaged template is inert), `harmony`, `go_template`, `gguf_chat_template` (the runner renders the GGUF's embedded jinja), or `none`
+        /// </param>
         /// <param name="capabilities">
         /// List of supported features
         /// </param>
@@ -99,6 +126,9 @@ namespace Ollama
             string? modifiedAt,
             object? details,
             string? template,
+            string? renderer,
+            string? parser,
+            string? templateSource,
             global::System.Collections.Generic.IList<string>? capabilities,
             object? modelInfo)
         {
@@ -108,6 +138,9 @@ namespace Ollama
             this.ModifiedAt = modifiedAt;
             this.Details = details;
             this.Template = template;
+            this.Renderer = renderer;
+            this.Parser = parser;
+            this.TemplateSource = templateSource;
             this.Capabilities = capabilities;
             this.ModelInfo = modelInfo;
         }
