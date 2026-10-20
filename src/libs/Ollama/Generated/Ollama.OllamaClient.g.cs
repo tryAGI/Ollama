@@ -38,14 +38,14 @@ namespace Ollama
 
         internal global::Ollama.AutoSDKServerConfiguration AutoSDKServerConfiguration { get; set; } = new global::Ollama.AutoSDKServerConfiguration();
 
-        internal global::System.Lazy<global::System.Text.Json.Serialization.JsonSerializerContext> JsonSerializerContextProvider { get; set; } = new(() => global::Ollama.SourceGenerationContext.Default);
+        internal global::System.Lazy<global::System.Text.Json.Serialization.JsonSerializerContext>? JsonSerializerContextProvider { get; set; }
 
         /// <summary>
         ///
         /// </summary>
         public global::System.Text.Json.Serialization.JsonSerializerContext JsonSerializerContext
         {
-            get => JsonSerializerContextProvider.Value;
+            get => JsonSerializerContextProvider?.Value ?? global::Ollama.SourceGenerationContext.Default;
             set => JsonSerializerContextProvider = new(() => value);
         }
 
