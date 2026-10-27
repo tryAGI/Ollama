@@ -79,7 +79,7 @@ namespace Ollama
         /// A nonempty string, or an object or array serialized as JSON text. Not interpreted as chat messages or multimodal input.
         /// </param>
         /// <param name="images">
-        /// Base64-encoded images shared by all questions, in request order. Requires a model with vision, such as Clef. URLs and data URLs are not supported.
+        /// Base64-encoded images shared by all questions, in request order. Requires a model with vision, such as Clef. Models with audio input also accept WAV clips here. URLs and data URLs are not supported.
         /// </param>
         /// <param name="questions">
         /// Named questions about the shared state. Answers are not passed to later questions. Cloud models accept names of up to 100 ASCII letters, digits, `_`, `.`, or `-`.
