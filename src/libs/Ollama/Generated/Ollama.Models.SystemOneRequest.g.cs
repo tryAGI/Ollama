@@ -24,7 +24,7 @@ namespace Ollama
         public required global::Ollama.SystemOneContent State { get; set; }
 
         /// <summary>
-        /// Base64-encoded images shared by all questions, in request order. Requires a model with vision, such as Clef. URLs and data URLs are not supported.
+        /// Base64-encoded images shared by all questions, in request order. Requires a model with vision, such as Clef. Models with audio input also accept WAV clips here. URLs and data URLs are not supported.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("images")]
         public global::System.Collections.Generic.IList<byte[]>? Images { get; set; }
@@ -62,7 +62,7 @@ namespace Ollama
         /// Named questions about the shared state. Answers are not passed to later questions. Cloud models accept names of up to 100 ASCII letters, digits, `_`, `.`, or `-`.
         /// </param>
         /// <param name="images">
-        /// Base64-encoded images shared by all questions, in request order. Requires a model with vision, such as Clef. URLs and data URLs are not supported.
+        /// Base64-encoded images shared by all questions, in request order. Requires a model with vision, such as Clef. Models with audio input also accept WAV clips here. URLs and data URLs are not supported.
         /// </param>
         /// <param name="keepAlive">
         /// How long to keep the model loaded after the request, as a duration string (such as 5m) or seconds. Zero unloads after the request; a negative value keeps it loaded. Defaults to the server's keep-alive setting (5m unless configured otherwise).
