@@ -20,5 +20,16 @@ jobs:
       dotnet-version: 10.0.x
       enable-caching: false
       additional-test-arguments: '--logger GitHubActions'
-    secrets:
-      nuget-key: ${{ secrets.NUGET_KEY }}
+
+  nuget-trusted-publish:
+    name: NuGet trusted publishing
+    needs: publish
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: tryAGI/workflows/.github/actions/nuget-publish@main
+        with:
+          user: havendv
